@@ -2,7 +2,7 @@
 
 ## Project Structure
 
-This project is written in Angular version 8.3.23.
+This project is written in Angular version 9.0.0.
 
 ```text
 eta-company-calendar-frontend/ - Project root
