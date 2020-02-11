@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
+import { AuthService } from '~/app/shared/services/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   
-  constructor(private readonly api: ApiCommunicationService) { }
+  constructor(private readonly auth: AuthService, private readonly router: Router) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -32,11 +33,14 @@ export class LoginComponent implements OnInit {
     }
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
-    console.log(email, password)
-    this.api.auth().requestToken(email, password).subscribe( token => {
-      console.log(token.access_token);
-    })
+    this.auth.login(email, password).subscribe(
+      _ => { console.log('successfully logged in'); this.router.navigate(['welcome'])},
+      error => console.log(error)
+    );
+  }
 
+  onLogout() {
+    this.auth.logout();
   }
 
 }
