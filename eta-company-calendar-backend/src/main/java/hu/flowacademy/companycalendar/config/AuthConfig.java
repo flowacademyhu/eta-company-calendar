@@ -32,7 +32,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
 
   @Override
   public void configure(final ClientDetailsServiceConfigurer clients)
-      throws Exception {// @formatter:off
+      throws Exception {
         clients.inMemory()
           .withClient("fooClientIdPassword")
           .secret(passwordEncoder().encode("secret"))
@@ -40,7 +40,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
           .scopes("foo", "read", "write")
           .accessTokenValiditySeconds(3600) // 1 hour
           .refreshTokenValiditySeconds(2592000); // 30 days
-	} // @formatter:on
+	}
 
   @Bean
   @Primary
