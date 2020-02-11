@@ -20,7 +20,7 @@ public class Profile {
     @OneToOne
     private User user;
 
-    @Column
+   @Column
     private String firstName;
 
     @Column
@@ -39,6 +39,6 @@ public class Profile {
     private String position;
 
     @Column
-    private String group;
+    private String team;
 
 }
