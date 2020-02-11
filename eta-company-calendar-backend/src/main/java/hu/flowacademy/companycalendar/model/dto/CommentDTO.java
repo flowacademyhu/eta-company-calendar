@@ -3,10 +3,19 @@ package hu.flowacademy.companycalendar.model.dto;
 import hu.flowacademy.companycalendar.model.Comment;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.stream.Collectors;
 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CommentDTO {
 
     private Long id;
