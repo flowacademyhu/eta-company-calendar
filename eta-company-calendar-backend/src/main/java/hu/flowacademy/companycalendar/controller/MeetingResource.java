@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/meetings")
 @AllArgsConstructor
 public class MeetingResource {
 
@@ -19,10 +19,14 @@ public class MeetingResource {
         return meetingService.findAll();
     }
 
-    @GetMapping("/meeting/{id}")
+    @GetMapping("/{id}")
     public Meeting getOne(@PathVariable Long id) {
         return meetingService.findOne(id);
     }
 
-
+    @PostMapping("")
+    public Meeting createMeeting(@RequestBody Meeting meeting) {
+    return meetingService.create(meeting);
+    }
+    
 }
