@@ -35,14 +35,73 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"type": "text",
-						"value": "Basic {{auth_head}}"
+						"value": "Basic {{auth_head}}",
+						"type": "text"
 					},
 					{
 						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/x-www-form-urlencoded"
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "Host",
+						"value": " localhost:8080",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": " keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "Access-Control-Request-Method",
+						"value": " POST",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": " http://localhost:4200",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": " Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Access-Control-Request-Headers",
+						"value": " authorization",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": " */*",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": " same-site",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": " cors",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": " http://localhost:4200/login",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": " gzip, deflate, br",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": " hu-HU,hu;q=0.9,en-US;q=0.8,en;q=0.7",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -110,14 +169,73 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"type": "text",
-						"value": "Basic {{auth_head}}"
+						"value": "Basic {{auth_head}}",
+						"type": "text"
 					},
 					{
 						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/x-www-form-urlencoded"
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "Host",
+						"value": " localhost:8080",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": " keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "Access-Control-Request-Method",
+						"value": " POST",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": " http://localhost:4200",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": " Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Access-Control-Request-Headers",
+						"value": " authorization",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": " */*",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": " same-site",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": " cors",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": " http://localhost:4200/login",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": " gzip, deflate, br",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": " hu-HU,hu;q=0.9,en-US;q=0.8,en;q=0.7",
+						"type": "text"
 					}
 				],
 				"body": {
