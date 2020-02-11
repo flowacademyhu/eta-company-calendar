@@ -10,13 +10,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@Table(name="_profile")
 public class Profile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Long id;
+    private long id;
 
     @OneToOne
     private User user;
@@ -39,8 +38,7 @@ public class Profile {
     @Column
     private String position;
 
-    @ManyToOne
-    private Group group;
-
+    @Column
+    private String group;
 
 }

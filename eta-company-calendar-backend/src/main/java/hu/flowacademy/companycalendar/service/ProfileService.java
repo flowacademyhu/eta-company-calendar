@@ -34,10 +34,7 @@ public class ProfileService {
         profileRepository.save(profile);
     }
 
-    public ResponseEntity<Void> deleteProfile(Long id) {
-        if(profileRepository.findById(id).isPresent()){
-            profileRepository.deleteById(id);
-            return ResponseEntity.ok().build();
-        } else{ return ResponseEntity.notFound().build();}
-    }
+    public void deleteProfile(Long id) {
+            profileRepository.deleteById(id);}
+
 }

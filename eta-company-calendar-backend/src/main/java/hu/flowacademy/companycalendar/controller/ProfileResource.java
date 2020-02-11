@@ -36,7 +36,5 @@ public class ProfileResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProfile(@PathVariable Long id){
-        return profileService.deleteProfile(id);
-    }
+    public void deleteProfile(@PathVariable Long id){profileService.deleteProfile(id);}
 }
