@@ -8,3 +8,20 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
       ddl-auto: create-drop
+
+      #
+      # MailGun API key
+      #
+      #mailgun.api.base.url = https://api.mailgun.net/v3/sandbox328746234ashdsad3287ajahdgsj234234.mailgun.org
+      #mailgun.api.messages.url = https://api.mailgun.net/v3/sandbox328746234ashdsad3287ajahdgsj234234.mailgun.org/messages
+      #mailgun.api.username = api
+      #mailgun.api.password = key-gfd234be65dasd1e46b57sd25bd9a122
+mailgun:
+    api:
+      base:
+        url: https://api.mailgun.net/v3/sandbox2b4aedba15744847a5e9bbf5f3343ad3.mailgun.org
+      messages:
+        url: https://api.mailgun.net/v3/sandbox2b4aedba15744847a5e9bbf5f3343ad3.mailgun.org/messages
+      username: api
+      password: key-153921d9876a2b20a5a4a250f457fc0f-52b6835e-1ccab418
+
