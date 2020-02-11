@@ -23,7 +23,7 @@ public class ReminderDTO {
     private LocalDateTime endingTime;
     private Recurring recurring;
 
-    public ReminderDTO(Reminder reminder) {
+    public void reminderDTOFromReminder(Reminder reminder) {
         this.id = reminder.getId();
         this.title = reminder.getTitle();
         this.description = reminder.getDescription();

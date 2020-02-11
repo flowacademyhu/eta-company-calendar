@@ -1,6 +1,7 @@
 package hu.flowacademy.companycalendar.service;
 
 import hu.flowacademy.companycalendar.model.Reminder;
+import hu.flowacademy.companycalendar.model.dto.ReminderDTO;
 import hu.flowacademy.companycalendar.repository.ReminderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,5 +24,9 @@ public class ReminderService {
 
     public Reminder findOne(Long id) {
         return reminderRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    public Reminder create(Long id, ReminderDTO reminderDTO) {
+
     }
 }
