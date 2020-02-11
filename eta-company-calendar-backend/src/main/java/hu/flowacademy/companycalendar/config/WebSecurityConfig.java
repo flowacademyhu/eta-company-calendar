@@ -1,6 +1,7 @@
 package hu.flowacademy.companycalendar.config;
 
 
+import hu.flowacademy.companycalendar.model.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,20 +43,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements R
 
     @Override
     public void configure(final HttpSecurity http) throws Exception {
-        // @formatter:off
         http.authorizeRequests()
                 .antMatchers("/", "/oauth/**", "/oauth/token/revokeById/**", "/tokens/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/users").permitAll()
-                .antMatchers(HttpMethod.GET, "/users/checkUsername/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/users/checkImage/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/users/**").authenticated()
-                .antMatchers("/users", "/users/**").authenticated()
-                .antMatchers("/users/{username}").access("#username == authentication.name")
-                .antMatchers("/users/{username}/**").access("#username == authentication.name")
+                .antMatchers(HttpMethod.GET, "/users").authenticated()
+                .antMatchers("/users").hasAnyAuthority(Roles.ADMIN.toString())
                 .anyRequest().authenticated()
                 .and().formLogin().permitAll()
                 .and().csrf().disable();
-        // @formatter:on
     }
 
 }

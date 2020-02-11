@@ -1,10 +1,6 @@
 package hu.flowacademy.companycalendar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,10 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,17 +23,9 @@ import java.util.List;
 public class User implements UserDetails {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column
   private Long id;
-
-  @NotBlank
-  @Column
-  private String firstName;
-
-  @NotBlank
-  @Column
-  private String lastName;
 
   @NotBlank
   @Column(unique = true)
@@ -51,40 +35,8 @@ public class User implements UserDetails {
   private String password;
 
   @Column
-  @Past
-  @NotNull
-  @JsonDeserialize(using = LocalDateDeserializer.class)
-  private LocalDate dateOfBirth;
-
-  @Column
-  @NotNull
-  @JsonDeserialize(using = LocalDateDeserializer.class)
-  private LocalDate dateOfEntry;
-
-  @Column
-  @NotNull
-  @JsonDeserialize(using = LocalDateDeserializer.class)
-  private LocalDate dateOfEndTrial;
-
-  @ManyToOne
-  @JsonSerialize
-  private Group group;
-
-  @Column
-  @NotBlank
-  private String position;
-
-  @Column
+  @Enumerated(EnumType.STRING)
   private Roles role;
-
-  @Column
-  private LocalDateTime createdAt;
-
-  @Column
-  private LocalDateTime updatedAt;
-
-  @Column
-  private LocalDateTime deletedAt;
 
   @JsonIgnore
   @Override
@@ -121,13 +73,4 @@ public class User implements UserDetails {
     return true;
   }
 
-  @JsonIgnore
-  public String getPassword() {
-    return password;
-  }
-
-  @JsonProperty
-  public void setPassword(String password) {
-    this.password = password;
-  }
 }
