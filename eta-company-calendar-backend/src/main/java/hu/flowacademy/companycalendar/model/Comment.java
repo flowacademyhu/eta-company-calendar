@@ -31,4 +31,7 @@ public class Comment{
     @ManyToOne
     @JsonIgnore
     private Meeting meeting;
+
+
+
 }
