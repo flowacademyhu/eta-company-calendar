@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,12 +24,14 @@ public class Meeting {
     private Long id;
 
     @Column
+    @NotNull
     private String title;
 
     @Column
     private String description;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private Location location;
 
     @Column
@@ -42,6 +45,7 @@ public class Meeting {
     private User createdBy;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private Recurring recurring;
 
     @Column
@@ -49,6 +53,7 @@ public class Meeting {
     private List<User> requiredAttendants;
 
     @Column
+    @ManyToMany
     private List<User> optionalAttendants;
 
 }
