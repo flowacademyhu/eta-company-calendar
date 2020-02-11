@@ -1,5 +1,6 @@
 package hu.flowacademy.companycalendar.controller;
 
+import hu.flowacademy.companycalendar.model.Comment;
 import hu.flowacademy.companycalendar.model.dto.CommentDTO;
 import hu.flowacademy.companycalendar.service.CommentService;
 import lombok.AllArgsConstructor;
@@ -28,12 +29,14 @@ public class CommentResource {
 
     @PostMapping
     public ResponseEntity<CommentDTO> saveComment(@RequestBody CommentDTO commentDTO) {
-        return ResponseEntity.ok(new CommentDTO(commentService.saveComment(commentDTO)));
+        Comment comment = commentService.fromDTOToComment(commentDTO);
+        return ResponseEntity.ok(new CommentDTO(commentService.saveComment(comment)));
     }
 
     @PutMapping
     public ResponseEntity<CommentDTO> updateComment(@RequestBody CommentDTO commentDTO) {
-        return ResponseEntity.ok(new CommentDTO(commentService.updateComment(commentDTO)));
+        Comment comment = commentService.fromDTOToComment(commentDTO);
+        return ResponseEntity.ok(new CommentDTO(commentService.updateComment(comment)));
     }
 
     @DeleteMapping("/{id}")

@@ -19,11 +19,11 @@ public class CommentDTO {
 
     private String content;
 
-    private User user;
+    private Long userId;
 
-    private Meeting meeting;
+    private Long meetingId;
 
-    public Comment toEntity() {
+    public Comment toEntity(User user, Meeting meeting ) {
         return new Comment(
                 id,
                 content,
@@ -36,8 +36,8 @@ public class CommentDTO {
     public CommentDTO(Comment comment) {
         this.id = comment.getId();
         this.content = comment.getContent();
-        this.user = comment.getUser();
-        this.meeting = comment.getMeeting();
+        this.userId = comment.getUser().getId();
+        this.meetingId = comment.getMeeting().getId();
     }
 
 }

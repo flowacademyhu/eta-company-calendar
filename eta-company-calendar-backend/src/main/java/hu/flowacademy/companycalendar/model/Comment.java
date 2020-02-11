@@ -1,6 +1,7 @@
 package hu.flowacademy.companycalendar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import hu.flowacademy.companycalendar.model.dto.CommentDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,10 @@ public class Comment{
     @JsonIgnore
     private Meeting meeting;
 
+    public void commentFromCommentDTO(CommentDTO commentDTO) {
+        this.id = commentDTO.getId();
+        this.content = commentDTO.getContent();
+    }
 
 
 }
