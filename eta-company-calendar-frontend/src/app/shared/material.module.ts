@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [],
@@ -9,11 +10,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatToolbarModule,
     MatButtonModule,
     MatCardModule,
+    MatFormFieldModule
   ],
   imports: [
     MatToolbarModule,
     MatButtonModule,
     MatCardModule,
+    MatFormFieldModule
   ],
 })
 export class MaterialModule { }
