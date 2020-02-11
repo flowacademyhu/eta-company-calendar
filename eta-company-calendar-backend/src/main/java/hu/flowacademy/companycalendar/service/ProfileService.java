@@ -35,9 +35,9 @@ public class ProfileService {
     }
 
     public ResponseEntity<Void> deleteProfile(Long id) {
-        profileRepository.deleteById(id);
         if(profileRepository.findById(id).isPresent()){
+            profileRepository.deleteById(id);
             return ResponseEntity.ok().build();
-        } else{ return ResponseEntity.badRequest().build();}
+        } else{ return ResponseEntity.notFound().build();}
     }
 }
