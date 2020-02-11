@@ -3,9 +3,7 @@ package hu.flowacademy.companycalendar.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Data
@@ -19,6 +17,9 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
+
+    @OneToOne
+    private User user;
 
     @Column
     private String firstName;
