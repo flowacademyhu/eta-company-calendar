@@ -6,6 +6,7 @@ import hu.flowacademy.companycalendar.repository.ReminderRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -33,5 +34,16 @@ public class ReminderService {
         reminder.reminderFromReminderDTO(reminderDTO);
         reminder.setUser(userRepository.findById(id).get());
         return reminderRepository.save(reminder);
+    }
+
+    public ResponseEntity<Void> updateReminder(ReminderDTO reminderDTO) {
+        Reminder existingReminder = findOne(reminderDTO.getId());
+        existingReminder.setTitle(reminderDTO.getTitle());
+        existingReminder.setDescription(reminderDTO.getDescription());
+        existingReminder.setStartingTime(reminderDTO.getStartingTime());
+        existingReminder.setEndingTime(reminderDTO.getEndingTime());
+        existingReminder.setRecurring(reminderDTO.getRecurring());
+        reminderRepository.save(existingReminder);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 }

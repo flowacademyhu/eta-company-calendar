@@ -33,5 +33,9 @@ public class ReminderResource {
         return ResponseEntity.ok(reminderDTO);
     }
 
+    @PutMapping
+    public ResponseEntity update(@RequestBody ReminderDTO reminderDTO) {
+        return reminderService.updateReminder(reminderDTO);
+    }
 
 }
