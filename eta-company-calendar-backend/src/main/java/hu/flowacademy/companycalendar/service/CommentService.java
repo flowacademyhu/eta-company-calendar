@@ -51,16 +51,4 @@ public class CommentService {
         commentRepository.deleteById(id);
     }
 
-
-    public Comment fromDTOToComment(CommentDTO commentDTO) {
-        User user = userRepository.findById(commentDTO.getUserId()).orElseThrow();
-        Meeting meeting = meetingRepository.findById(commentDTO.getMeetingId()).orElseThrow();
-        return new Comment(
-                commentDTO.getId(),
-                commentDTO.getContent(),
-                user,
-                meeting
-        );
-    }
-
 }

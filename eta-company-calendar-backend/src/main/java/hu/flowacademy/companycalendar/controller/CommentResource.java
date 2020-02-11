@@ -29,13 +29,13 @@ public class CommentResource {
 
     @PostMapping
     public ResponseEntity<CommentDTO> saveComment(@RequestBody CommentDTO commentDTO) {
-        Comment comment = commentService.fromDTOToComment(commentDTO);
+        Comment comment = commentDTO.toEntity();
         return ResponseEntity.ok(new CommentDTO(commentService.saveComment(comment)));
     }
 
     @PutMapping
     public ResponseEntity<CommentDTO> updateComment(@RequestBody CommentDTO commentDTO) {
-        Comment comment = commentService.fromDTOToComment(commentDTO);
+        Comment comment = commentDTO.toEntity();
         return ResponseEntity.ok(new CommentDTO(commentService.updateComment(comment)));
     }
 

@@ -38,5 +38,4 @@ public class Comment{
         this.content = commentDTO.getContent();
     }
 
-
 }
