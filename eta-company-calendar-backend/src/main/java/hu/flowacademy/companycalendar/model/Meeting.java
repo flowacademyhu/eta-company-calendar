@@ -45,6 +45,20 @@ public class Meeting {
     private User createdBy;
 
     @Column
+    @OneToMany
+    private User updatedBy;
+
+    @Column
+    @OneToOne
+    private User deletedBy;
+
+    @Column
+    private LocalDateTime createdAt;
+
+    @Column
+    private LocalDateTime updatedAt;
+
+    @Column
     @Enumerated(EnumType.STRING)
     private Recurring recurring;
 
