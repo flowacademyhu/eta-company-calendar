@@ -37,9 +37,17 @@ public class MeetingService {
         meeting.setStartingTime(meeting.getStartingTime());
         meeting.setEndingTime(meeting.getEndingTime());
         meeting.setCreatedBy(meeting.getCreatedBy());
+        meeting.setUpdatedBy(meeting.getUpdatedBy());
+        meeting.setDeletedBy(meeting.getDeletedBy());
+        meeting.setCreatedAt(meeting.getCreatedAt());
+        meeting.setUpdatedAt(meeting.getUpdatedAt());
+        meeting.setDeletedAt(meeting.getDeletedAt());
         meeting.setRequiredAttendants(meeting.getRequiredAttendants());
         meeting.setOptionalAttendants(meeting.getOptionalAttendants());
         meeting.setRecurring(meeting.getRecurring());
         return meetingRepository.save(meeting);
     }
+
+    
+
 }

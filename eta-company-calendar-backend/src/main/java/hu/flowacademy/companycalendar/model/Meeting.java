@@ -40,23 +40,24 @@ public class Meeting {
     @Column
     private LocalDateTime endingTime;
 
-    @Column
-    @OneToOne
+    @ManyToOne
     private User createdBy;
 
-    @Column
-    @OneToMany
+    @ManyToOne
     private User updatedBy;
 
-    @Column
-    @OneToOne
+    @ManyToOne
     private User deletedBy;
+
 
     @Column
     private LocalDateTime createdAt;
 
     @Column
     private LocalDateTime updatedAt;
+
+    @Column
+    private LocalDateTime deletedAt;
 
     @Column
     @Enumerated(EnumType.STRING)

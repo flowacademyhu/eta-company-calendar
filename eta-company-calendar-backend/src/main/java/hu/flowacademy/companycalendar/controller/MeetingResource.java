@@ -28,5 +28,7 @@ public class MeetingResource {
     public Meeting createMeeting(@RequestBody Meeting meeting) {
     return meetingService.create(meeting);
     }
-    
+
+
+
 }
