@@ -26,8 +26,17 @@ export class AuthService {
     this.config.clearToken();
   }
 
-  private handleError(error: HttpErrorResponse) {
-    return throwError('some login error');
+  private handleError(errorRes: HttpErrorResponse) {
+    console.log(errorRes)
+    let errorMessage = 'The server is currently unavailable.';
+    if (!errorRes.error || ! errorRes.error.error) {
+      return throwError(errorMessage);
+    }
+    switch (errorRes.error.error) {
+      case 'invalid_grant':
+        errorMessage = 'Incorrect username or password!';
+    }
+    return throwError(errorMessage);
   }
 
 }
