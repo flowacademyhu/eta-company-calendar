@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
     this.auth.login(email, password).subscribe(
-      _ => { console.log('successfully logged in'); this.router.navigate(['welcome'])},
+      _ => { console.log('successfully logged in'); this.router.navigate([''])},
       error => console.log(error)
     );
   }
