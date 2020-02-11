@@ -1,8 +1,10 @@
 package hu.flowacademy.companycalendar.controller;
 
 import hu.flowacademy.companycalendar.model.Meeting;
+import hu.flowacademy.companycalendar.model.dto.MeetingDTO;
 import hu.flowacademy.companycalendar.service.MeetingService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,9 +27,23 @@ public class MeetingResource {
     }
 
     @PostMapping("")
-    public Meeting createMeeting(@RequestBody Meeting meeting) {
-    return meetingService.create(meeting);
+    public ResponseEntity<MeetingDTO> createMeeting(@RequestBody MeetingDTO meetingDTO) {
+        Meeting meeting = meetingService.create(meetingDTO);
+        meetingDTO.meetingDTOFromMeeting(meeting);
+        return ResponseEntity.ok(meetingDTO);
     }
+
+    @PutMapping
+    public ResponseEntity updateMeeting(@RequestBody MeetingDTO meetingDTO) {
+        return meetingService.updateMeeting(meetingDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMeeting(@PathVariable Long id) {
+        meetingService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
 
 
 

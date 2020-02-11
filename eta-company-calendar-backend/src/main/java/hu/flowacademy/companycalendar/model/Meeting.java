@@ -1,12 +1,12 @@
 package hu.flowacademy.companycalendar.model;
 
+import hu.flowacademy.companycalendar.model.dto.MeetingDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,21 +24,24 @@ public class Meeting {
     private Long id;
 
     @Column
-    @NotNull
     private String title;
 
     @Column
     private String description;
 
     @Column
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     private Location location;
+
+    @Column
+    @Enumerated(value = EnumType.STRING)
+    private Recurring recurring;
 
     @Column
     private LocalDateTime startingTime;
 
     @Column
-    private LocalDateTime endingTime;
+    private LocalDateTime finishTime;
 
     @ManyToOne
     private User createdBy;
@@ -48,7 +51,6 @@ public class Meeting {
 
     @ManyToOne
     private User deletedBy;
-
 
     @Column
     private LocalDateTime createdAt;
@@ -60,15 +62,20 @@ public class Meeting {
     private LocalDateTime deletedAt;
 
     @Column
-    @Enumerated(EnumType.STRING)
-    private Recurring recurring;
-
-    @Column
     @ManyToMany
     private List<User> requiredAttendants;
 
     @Column
     @ManyToMany
     private List<User> optionalAttendants;
+
+    public void meetingFromMeetingDTO(MeetingDTO meetingDTO) {
+        this.id = meetingDTO.getId();
+        this.title = meetingDTO.getTitle();
+        this.description = meetingDTO.getDescription();
+        this.startingTime = meetingDTO.getStartingTime();
+        this.finishTime = meetingDTO.getFinishTime();
+        this.recurring = meetingDTO.getRecurring();
+    }
 
 }
