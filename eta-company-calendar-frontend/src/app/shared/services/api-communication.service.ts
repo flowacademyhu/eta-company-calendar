@@ -3,9 +3,11 @@ import { Injectable } from '@angular/core';
 import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiConnector';
 import { WelcomeApiConnector } from '~/app/shared/api-connectors/WelcomeApiConnector';
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
+import { AuthApiConnector } from '../api-connectors/AuthApiConnector';
 
 export enum Connector {
   WELCOME = '[Welcome]',
+  AUTH = '[Auth]'
 }
 
 @Injectable()
@@ -25,6 +27,10 @@ export class ApiCommunicationService {
     this.registerConnector(
       Connector.WELCOME,
       new WelcomeApiConnector(this.http, this.apiBaseUrl)
+    );
+    this.registerConnector(
+      Connector.AUTH,
+      new AuthApiConnector(this.http, this.apiBaseUrl)
     );
   }
 
@@ -60,5 +66,9 @@ export class ApiCommunicationService {
   // API connector getters
   public welcome(): WelcomeApiConnector {
     return this.getConnector(Connector.WELCOME) as WelcomeApiConnector;
+  }
+
+  public auth(): AuthApiConnector {
+    return this.getConnector(Connector.AUTH) as AuthApiConnector;
   }
 }

@@ -7,6 +7,7 @@ import { MaterialModule } from '~/app/shared/material.module';
 import { MainLayoutComponent } from '~/app/shared/pages/main-layout.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
   providers: [
     ApiCommunicationService,
     ConfigurationService,
+    AuthService
   ],
 })
 export class SharedModule { }
