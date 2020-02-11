@@ -46,4 +46,8 @@ public class ReminderService {
         reminderRepository.save(existingReminder);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
+
+    public void deleteById(Long id) {
+        reminderRepository.deleteById(id);
+    }
 }

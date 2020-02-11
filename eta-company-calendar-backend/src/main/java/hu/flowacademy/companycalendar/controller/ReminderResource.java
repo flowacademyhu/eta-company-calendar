@@ -26,7 +26,7 @@ public class ReminderResource {
         return reminderService.findOne(id);
     }
 
-    @PostMapping
+    @PostMapping("/users/{id}")
     public ResponseEntity<ReminderDTO> createReminder(@PathVariable Long id, @RequestBody ReminderDTO reminderDTO) {
         Reminder reminder = reminderService.create(id, reminderDTO);
         reminderDTO.reminderDTOFromReminder(reminder);
@@ -36,6 +36,12 @@ public class ReminderResource {
     @PutMapping
     public ResponseEntity update(@RequestBody ReminderDTO reminderDTO) {
         return reminderService.updateReminder(reminderDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteReminder(@PathVariable Long id) {
+        reminderService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
 }
