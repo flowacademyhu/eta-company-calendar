@@ -3,6 +3,7 @@ package hu.flowacademy.companycalendar.service;
 import hu.flowacademy.companycalendar.model.Reminder;
 import hu.flowacademy.companycalendar.model.dto.ReminderDTO;
 import hu.flowacademy.companycalendar.repository.ReminderRepository;
+import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.List;
 public class ReminderService {
 
     private final ReminderRepository reminderRepository;
+    private final UserRepository userRepository;
 
     public List<Reminder> findAll() {
         return reminderRepository.findAll();
@@ -27,6 +29,9 @@ public class ReminderService {
     }
 
     public Reminder create(Long id, ReminderDTO reminderDTO) {
-
+        Reminder reminder = new Reminder();
+        reminder.reminderFromReminderDTO(reminderDTO);
+        reminder.setUser(userRepository.findById(id).get());
+        return reminderRepository.save(reminder);
     }
 }
