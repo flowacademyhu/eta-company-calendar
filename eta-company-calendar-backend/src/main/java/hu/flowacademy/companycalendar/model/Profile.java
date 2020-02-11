@@ -20,7 +20,7 @@ public class Profile {
     @OneToOne
     private User user;
 
-   @Column
+    @Column
     private String firstName;
 
     @Column

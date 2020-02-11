@@ -1,10 +1,10 @@
 package hu.flowacademy.companycalendar.service;
 
+import hu.flowacademy.companycalendar.model.DTO.ProfileDTO;
 import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import javax.transaction.Transactional;
@@ -34,7 +34,19 @@ public class ProfileService {
         profileRepository.save(profile);
     }
 
-    public void deleteProfile(Long id) {
-            profileRepository.deleteById(id);}
+    public void deleteProfile(Long id) { profileRepository.deleteById(id);}
+
+    public Profile profileDTOtoEntity(ProfileDTO profileDTO){
+        Profile profile = new Profile();
+        // profile.setUser(userRepository.getUser(profileDTO.getUserId()).get());
+        profile.setFirstName(profileDTO.getFirstName());
+        profile.setLastName(profileDTO.getLastName());
+        profile.setDateOfBirth(profileDTO.getDateOfBirth());
+        profile.setDateOfEntry(profileDTO.getDateOfEntry());
+        profile.setDepartment(profileDTO.getDepartment());
+        profile.setPosition(profileDTO.getPosition());
+        profile.setTeam(profileDTO.getTeam());
+        return profile;
+    }
 
 }
