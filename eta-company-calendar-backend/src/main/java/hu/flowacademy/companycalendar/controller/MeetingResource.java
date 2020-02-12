@@ -17,7 +17,7 @@ public class MeetingResource {
 
     private final MeetingService meetingService;
 
-    @GetMapping("")
+    @GetMapping
     public List<MeetingDTO> getAll() {
         return meetingService.findAll();
     }
