@@ -9,7 +9,23 @@ import { AuthService } from '~/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-welcome-description',
-  templateUrl: './login.component.html'
+  template: `
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>{{ 'login.email' | translate }}</mat-label>
+      <input matInput formControlName="email" type="text">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>{{ 'login.password' | translate }}</mat-label>
+      <input matInput formControlName="password" type="password">
+    </mat-form-field>
+    <br>
+    <p *ngIf="errorMessage">{{ errorMessage }}</p>
+    <button mat-raised-button type="submit">{{ 'login.login' | translate }}</button>
+    <button mat-raised-button (click)="onLogout()">{{ 'login.logout' | translate }}</button>
+  </form>
+  `
 })
 
 export class LoginComponent implements OnInit, OnDestroy {
