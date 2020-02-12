@@ -2,7 +2,13 @@ package hu.flowacademy.companycalendar.model.dto;
 
 import hu.flowacademy.companycalendar.model.Roles;
 import hu.flowacademy.companycalendar.model.User;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
+@Data
+@NoArgsConstructor
 public class UserResponseDTO {
 
     private Long id;
