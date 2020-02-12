@@ -1,5 +1,6 @@
 package hu.flowacademy.companycalendar.service;
 
+import com.sun.xml.bind.v2.TODO;
 import hu.flowacademy.companycalendar.model.Reminder;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.ReminderDTO;
@@ -21,7 +22,7 @@ import java.util.Optional;
 public class ReminderService {
 
     private final ReminderRepository reminderRepository;
-    private final UserRepository userRepository;
+    private final UserRepository userRepository; //TODO: userService
 
     public List<Reminder> findAll() {
         return reminderRepository.findAll();
