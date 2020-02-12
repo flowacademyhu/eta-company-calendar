@@ -8,7 +8,9 @@ import hu.flowacademy.companycalendar.repository.CommentRepository;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -31,7 +33,10 @@ public class CommentService {
     }
 
     public Comment saveComment(CommentDTO commentDTO) {
-        Comment comment = commentDTO.toEntity(userRepository.findById(commentDTO.getUserId()).orElseThrow(), meetingRepository.findById(commentDTO.getMeetingId()).orElseThrow());
+        Comment comment = commentDTO.toEntity(
+                userRepository.findById(commentDTO.getUserId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)),
+                meetingRepository.findById(commentDTO.getMeetingId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))
+        );
         return commentRepository.save(comment);
     }
 
