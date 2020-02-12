@@ -6,10 +6,10 @@ import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
+
 
 @Component
 @Transactional
