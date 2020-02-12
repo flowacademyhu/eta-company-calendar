@@ -4,6 +4,7 @@ import hu.flowacademy.companycalendar.model.Reminder;
 import hu.flowacademy.companycalendar.model.dto.ReminderDTO;
 import hu.flowacademy.companycalendar.service.ReminderService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,15 +27,14 @@ public class ReminderResource {
         return reminderService.findOne(id);
     }
 
-    @PostMapping("/users/{id}")
-    public ResponseEntity<ReminderDTO> createReminder(@PathVariable Long id, @RequestBody ReminderDTO reminderDTO) {
-        Reminder reminder = reminderService.create(id, reminderDTO);
-        reminderDTO.reminderDTOFromReminder(reminder);
-        return ResponseEntity.ok(reminderDTO);
+    @PostMapping
+    public ResponseEntity<Void> createReminder(@RequestBody ReminderDTO reminderDTO) {
+        reminderService.createReminder(reminderDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping
-    public ResponseEntity update(@RequestBody ReminderDTO reminderDTO) {
+    public ResponseEntity<Void> update(@RequestBody ReminderDTO reminderDTO) {
         return reminderService.updateReminder(reminderDTO);
     }
 

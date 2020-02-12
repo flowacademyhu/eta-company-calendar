@@ -38,13 +38,4 @@ public class Reminder {
     @ManyToOne
     @JoinColumn
     private User user;
-
-    public void reminderFromReminderDTO(ReminderDTO reminderDTO) {
-        this.id = reminderDTO.getId();
-        this.title = reminderDTO.getTitle();
-        this.description = reminderDTO.getDescription();
-        this.startingTime = reminderDTO.getStartingTime();
-        this.endingTime = reminderDTO.getEndingTime();
-        this.recurring = reminderDTO.getRecurring();
-    }
 }

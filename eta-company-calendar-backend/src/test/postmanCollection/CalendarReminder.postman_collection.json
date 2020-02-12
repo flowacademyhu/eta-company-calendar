@@ -39,7 +39,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"title\": \"próba\",\n\t\"descrription\": \"próba komment\",\n\t\"startingTime\": \"2020-02-12T12:00:00\",\n\t\"endingTime\": \"2020-02-12T13:00:00\",\n\t\"recurring\": \"DAILY\"\n}",
+					"raw": "{\n\t\"userId\": 1,\n\t\"title\": \"új teszt2\",\n\t\"description\": \"tesztelek2\",\n\t\"startingTime\": \"2020-02-11T15:00:00\",\n\t\"endingTime\": \"2020-02-11T16:00:00\",\n\t\"recurring\": \"DAILY\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -47,7 +47,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/reminders/users/1",
+					"raw": "http://localhost:8080/api/reminders",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -55,9 +55,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"reminders",
-						"users",
-						"1"
+						"reminders"
 					]
 				}
 			},
@@ -69,7 +67,17 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/api/reminders/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"reminders",
+						"1"
+					]
 				}
 			},
 			"response": []
@@ -78,7 +86,23 @@
 			"name": "updateReminder",
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"userId\": 1,\n\t\"title\": \"módosított teszt\",\n\t\"description\": \"tesztelek\",\n\t\"startingTime\": \"2020-02-11T15:00:00\",\n\t\"endingTime\": \"2020-02-11T16:00:00\",\n\t\"recurring\": \"DAILY\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://localhost:8080/api/reminders",
 					"protocol": "http",
@@ -97,10 +121,20 @@
 		{
 			"name": "deleteReminder",
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/api/reminders/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"reminders",
+						"1"
+					]
 				}
 			},
 			"response": []

@@ -1,6 +1,7 @@
 package hu.flowacademy.companycalendar.service;
 
 import hu.flowacademy.companycalendar.model.Reminder;
+import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.ReminderDTO;
 import hu.flowacademy.companycalendar.repository.ReminderRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
@@ -12,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -29,11 +31,15 @@ public class ReminderService {
         return reminderRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public Reminder create(Long id, ReminderDTO reminderDTO) {
-        Reminder reminder = new Reminder();
-        reminder.reminderFromReminderDTO(reminderDTO);
-        reminder.setUser(userRepository.findById(id).get());
-        return reminderRepository.save(reminder);
+    public void createReminder(ReminderDTO reminderDTO) {
+        Reminder reminder = reminderDTO.toEntity();
+        Optional<User> u = userRepository.findById(reminderDTO.getUserId());
+        if (u.isPresent()) {
+            reminder.setUser(u.get());
+            reminderRepository.save(reminder);
+        } else {
+            throw new RuntimeException("User cannot be found!");
+        }
     }
 
     public ResponseEntity<Void> updateReminder(ReminderDTO reminderDTO) {
@@ -50,4 +56,15 @@ public class ReminderService {
     public void deleteById(Long id) {
         reminderRepository.deleteById(id);
     }
+
+    /*public Reminder reminderDTOtoEntity(ReminderDTO reminderDTO) {
+        Reminder reminder = new Reminder();
+        reminder.setUser(userRepository.findById(reminderDTO.getUserId()).get());
+        reminder.setTitle(reminderDTO.getTitle());
+        reminder.setDescription(reminderDTO.getDescription());
+        reminder.setStartingTime(reminderDTO.getStartingTime());
+        reminder.setEndingTime(reminderDTO.getEndingTime());
+        reminder.setRecurring(reminderDTO.getRecurring());
+        return reminder;
+    }*/
 }
