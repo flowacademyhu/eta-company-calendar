@@ -1,6 +1,6 @@
 package hu.flowacademy.companycalendar.service;
 
-import hu.flowacademy.companycalendar.model.DTO.ProfileDTO;
+import hu.flowacademy.companycalendar.model.dto.ProfileDTO;
 import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.repository.ProfileRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;

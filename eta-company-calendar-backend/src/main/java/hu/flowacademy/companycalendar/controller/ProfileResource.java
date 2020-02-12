@@ -1,6 +1,6 @@
 package hu.flowacademy.companycalendar.controller;
 
-import hu.flowacademy.companycalendar.model.DTO.ProfileDTO;
+import hu.flowacademy.companycalendar.model.dto.ProfileDTO;
 import hu.flowacademy.companycalendar.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

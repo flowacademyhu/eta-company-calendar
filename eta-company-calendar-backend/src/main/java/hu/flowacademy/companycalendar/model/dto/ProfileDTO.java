@@ -1,4 +1,4 @@
-package hu.flowacademy.companycalendar.model.DTO;
+package hu.flowacademy.companycalendar.model.dto;
 
 import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.model.User;
