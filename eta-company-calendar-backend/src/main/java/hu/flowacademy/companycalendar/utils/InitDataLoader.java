@@ -3,7 +3,9 @@ package hu.flowacademy.companycalendar.utils;
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.Recurring;
+import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
+import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,11 +19,15 @@ import java.time.LocalDateTime;
 public class InitDataLoader {
 
     private final MeetingRepository meetingRepository;
+    private final UserRepository userRepository; // TODO - UserService is not ready yet
 
     @PostConstruct
     public void init() {
-        
-        meetingRepository.save(Meeting.builder().title("Első_testMeeting").description("TestDescription").location(Location.TARGYALO).recurring(Recurring.DAILY).startingTime(LocalDateTime.now()).finishTime(LocalDateTime.of(2020,3,14,14,23)).build());
-        meetingRepository.save(Meeting.builder().title("Második_testMeeting").description("ValamiValamikor").location(Location.TARGYALO).recurring(Recurring.DAILY).startingTime(LocalDateTime.of(2020, 2,8,12,20)).finishTime(LocalDateTime.of(2020,3,14,14,23)).build());
+
+        userRepository.save(User.builder().build());
+        userRepository.save(User.builder().build());
+
+        meetingRepository.save(Meeting.builder().title("First_testMeeting").description("TestDescription").location(Location.MEETINGROOM).recurring(Recurring.DAILY).startingTime(LocalDateTime.now()).finishTime(LocalDateTime.of(2020,3,14,14,23)).createdAt(LocalDateTime.now()).build());
+        meetingRepository.save(Meeting.builder().title("Second_testMeeting").description("ValamiValamikor").location(Location.MEETINGROOM).recurring(Recurring.WEEKLY).startingTime(LocalDateTime.of(2020, 2,8,12,20)).finishTime(LocalDateTime.of(2020,3,14,14,23)).createdAt(LocalDateTime.of(2019,12,10,9,32)).build());
     }
 }
