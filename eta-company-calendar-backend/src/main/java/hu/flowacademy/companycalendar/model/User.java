@@ -20,9 +20,4 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
-
-
-
-
-
 }
