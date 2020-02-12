@@ -1,15 +1,12 @@
 package hu.flowacademy.companycalendar.controller;
 
 import hu.flowacademy.companycalendar.model.DTO.ProfileDTO;
-import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/api/profiles")
