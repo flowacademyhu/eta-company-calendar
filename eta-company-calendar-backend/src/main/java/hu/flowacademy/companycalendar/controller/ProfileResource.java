@@ -33,13 +33,13 @@ public class ProfileResource {
 
     @PostMapping
     public ResponseEntity<Void> createProfile(@RequestBody ProfileDTO profileDTO){
-        profileService.createProfile(profileService.profileDTOtoEntity(profileDTO));
+        profileService.createProfile(profileDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping
     public ResponseEntity<Void> updateProfile(@RequestBody ProfileDTO profileDTO){
-        profileService.updateProfile(profileService.profileDTOtoEntity(profileDTO));
+        profileService.updateProfile(profileDTO);
         return ResponseEntity.ok().build();
     }
 

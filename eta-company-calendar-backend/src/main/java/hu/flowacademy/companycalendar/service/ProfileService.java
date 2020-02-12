@@ -3,6 +3,7 @@ package hu.flowacademy.companycalendar.service;
 import hu.flowacademy.companycalendar.model.DTO.ProfileDTO;
 import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.repository.ProfileRepository;
+import hu.flowacademy.companycalendar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ public class ProfileService {
 
     @Autowired
     private ProfileRepository profileRepository;
+    private UserRepository userRepository;
 
     public List<Profile> getAllProfile() {
         return profileRepository.findAll();
@@ -26,27 +28,20 @@ public class ProfileService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public void createProfile(Profile profile) {
+    public void createProfile(ProfileDTO profileDTO) {
+        Profile profile = profileDTO.toEntity();
+        profile.setUser(userRepository.findById(profileDTO.getUserId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
         profileRepository.save(profile);
     }
 
-    public void updateProfile(Profile profile) {
+    public void updateProfile(ProfileDTO profileDTO) {
+        Profile profile = profileDTO.toEntity();
+        profile.setUser(userRepository.findById(profileDTO.getUserId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
         profileRepository.save(profile);
     }
 
     public void deleteProfile(Long id) { profileRepository.deleteById(id);}
-
-    public Profile profileDTOtoEntity(ProfileDTO profileDTO){
-        Profile profile = new Profile();
-        // profile.setUser(userRepository.getUser(profileDTO.getUserId()).get());
-        profile.setFirstName(profileDTO.getFirstName());
-        profile.setLastName(profileDTO.getLastName());
-        profile.setDateOfBirth(profileDTO.getDateOfBirth());
-        profile.setDateOfEntry(profileDTO.getDateOfEntry());
-        profile.setDepartment(profileDTO.getDepartment());
-        profile.setPosition(profileDTO.getPosition());
-        profile.setTeam(profileDTO.getTeam());
-        return profile;
-    }
-
+    
 }

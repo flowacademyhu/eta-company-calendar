@@ -1,13 +1,10 @@
 package hu.flowacademy.companycalendar.model.DTO;
 
 import hu.flowacademy.companycalendar.model.Profile;
-import hu.flowacademy.companycalendar.model.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.persistence.OneToOne;
 import java.time.LocalDate;
 
 @Component
@@ -37,4 +34,19 @@ public class ProfileDTO {
         this.position = profile.getPosition();
         this.team = profile.getTeam();
     }
+
+    public Profile toEntity(){
+        Profile profile = new Profile();
+        // profile.setUser(userRepository.getUser(profileDTO.getUserId()).get());
+        profile.setFirstName(this.firstName);
+        profile.setLastName(this.lastName);
+        profile.setDateOfBirth(this.dateOfBirth);
+        profile.setDateOfEntry(this.dateOfEntry);
+        profile.setDepartment(this.department);
+        profile.setPosition(this.position);
+        profile.setTeam(this.team);
+        return profile;
+    }
+
+
 }
