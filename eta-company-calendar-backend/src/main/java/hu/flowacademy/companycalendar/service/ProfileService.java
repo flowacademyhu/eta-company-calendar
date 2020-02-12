@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -17,28 +18,31 @@ public class ProfileService {
 
     @Autowired
     private ProfileRepository profileRepository;
+    @Autowired
     private UserRepository userRepository;
 
-    public List<Profile> getAllProfile() {
-        return profileRepository.findAll();
+    public List<ProfileDTO> getAllProfile() {
+        return profileRepository.findAll()
+                                .stream()
+                                .map(ProfileDTO::new)
+                                .collect(Collectors.toList());
     }
 
-    public Profile getProfile(Long id) {
-        return profileRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public ProfileDTO getProfile(Long id) {
+        return new ProfileDTO(profileRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
 
-    public void createProfile(ProfileDTO profileDTO) {
+    public ProfileDTO createProfile(ProfileDTO profileDTO) {
         Profile profile = profileDTO.toEntity(userRepository.findById(profileDTO.getUserId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
-        profileRepository.save(profile);
+        return new ProfileDTO(profileRepository.save(profile));
     }
 
-    public void updateProfile(ProfileDTO profileDTO) {
-        Profile profile = profileDTO.toEntity();
-        profile.setUser(userRepository.findById(profileDTO.getUserId())
+    public ProfileDTO updateProfile(ProfileDTO profileDTO) {
+        Profile profile = profileDTO.toEntity(userRepository.findById(profileDTO.getUserId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
-        profileRepository.save(profile);
+        return new ProfileDTO(profileRepository.save(profile));
     }
 
     public void deleteProfile(Long id) { profileRepository.deleteById(id);}

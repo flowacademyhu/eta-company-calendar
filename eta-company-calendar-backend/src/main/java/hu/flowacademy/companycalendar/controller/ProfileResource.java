@@ -20,27 +20,22 @@ public class ProfileResource {
 
     @GetMapping
     public List<ProfileDTO> getAllProfile(){
-        return profileService.getAllProfile()
-                             .stream()
-                             .map(ProfileDTO::new)
-                             .collect(Collectors.toList());
+        return profileService.getAllProfile();
     }
 
     @GetMapping("/{id}")
     public ProfileDTO getProfile(@PathVariable Long id){
-        return new ProfileDTO(profileService.getProfile(id));
+        return profileService.getProfile(id);
     }
 
     @PostMapping
-    public ResponseEntity<Void> createProfile(@RequestBody ProfileDTO profileDTO){
-        profileService.createProfile(profileDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<ProfileDTO> createProfile(@RequestBody ProfileDTO profileDTO){
+        return ResponseEntity.ok(profileService.createProfile(profileDTO));
     }
 
     @PutMapping
-    public ResponseEntity<Void> updateProfile(@RequestBody ProfileDTO profileDTO){
-        profileService.updateProfile(profileDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ProfileDTO> updateProfile(@RequestBody ProfileDTO profileDTO){
+        return ResponseEntity.ok(profileService.updateProfile(profileDTO));
     }
 
     @DeleteMapping("/{id}")
