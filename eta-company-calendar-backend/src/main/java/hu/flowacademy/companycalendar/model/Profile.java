@@ -18,6 +18,7 @@ public class Profile {
     private Long id;
 
     @OneToOne
+    @MapsId
     private User user;
 
     private String firstName;
