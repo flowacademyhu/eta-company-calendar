@@ -18,24 +18,23 @@ public class MeetingResource {
     private final MeetingService meetingService;
 
     @GetMapping("")
-    public List<Meeting> getAll() {
+    public List<MeetingDTO> getAll() {
         return meetingService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Meeting getOne(@PathVariable Long id) {
+    public MeetingDTO getOne(@PathVariable Long id) {
         return meetingService.findOne(id);
     }
 
-    @PostMapping("/users/{id}")
-    public ResponseEntity<Void> createMeeting(@RequestBody MeetingDTO meetingDTO) {
-        meetingService.create(meetingDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    @PostMapping("/{id}")
+    public MeetingDTO createMeeting(@PathVariable Long id, @RequestBody MeetingDTO meetingDTO) {
+        return meetingService.create(id, meetingDTO);
     }
 
-    @PutMapping("/users/{id}")
-    public ResponseEntity<Void> updateMeeting(@PathVariable Long id, @RequestBody MeetingDTO meetingDTO) {
-        return meetingService.updateMeeting(id, meetingDTO.toEntity());
+    @PutMapping("/{id}")
+    public MeetingDTO updateMeeting(@PathVariable Long id, @RequestBody MeetingDTO meetingDTO) {
+        return meetingService.updateMeeting(id, meetingDTO);
     }
 
     @DeleteMapping("/{id}")

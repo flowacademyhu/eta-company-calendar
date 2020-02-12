@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -51,20 +52,8 @@ public class MeetingDTO {
     }
 
     public Meeting toEntity() {
-        return Meeting.builder()
-                .id(this.id)
-                .title(this.title)
-                .description(this.description)
-                .location(this.location)
-                .recurring(this.recurring)
-                .startingTime(this.startingTime)
-                .finishTime(this.finishTime)
-                .createdBy(this.createdBy)
-                .updatedBy(this.updatedBy)
-                .createdAt(this.createdAt)
-                .updatedAt(this.updatedAt)
-                .requiredAttendants(this.requiredAttendants)
-                .optionalAttendants(this.optionalAttendants)
-                .build();
+        Meeting meeting = new Meeting();
+        BeanUtils.copyProperties(this, meeting);
+        return meeting;
     }
 }

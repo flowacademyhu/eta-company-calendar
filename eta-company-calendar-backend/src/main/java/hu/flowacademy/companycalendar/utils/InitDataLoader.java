@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class InitDataLoader {
 
     private final MeetingRepository meetingRepository;
-    private final UserRepository userRepository; // TODO - UserService is not ready yet
+    private final UserRepository userRepository;
 
     @PostConstruct
     public void init() {
