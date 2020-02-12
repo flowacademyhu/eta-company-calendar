@@ -30,21 +30,15 @@ public class CommentService {
         return commentRepository.findById(id).orElseThrow();
     }
 
-    public Comment saveComment(Comment comment) {
-        Comment newComment = new Comment();
-        newComment.setContent(comment.getContent());
-        newComment.setUser(comment.getUser());
-        newComment.setMeeting(comment.getMeeting());
-        return commentRepository.save(newComment);
+    public Comment saveComment(CommentDTO commentDTO) {
+        Comment comment = commentDTO.toEntity(userRepository.findById(commentDTO.getUserId()).orElseThrow(), meetingRepository.findById(commentDTO.getMeetingId()).orElseThrow());
+        return commentRepository.save(comment);
     }
 
-    public Comment updateComment(Comment comment) {
-        Comment newComment = new Comment();
-        newComment.setId(comment.getId());
-        newComment.setContent(comment.getContent());
-        newComment.setUser(comment.getUser());
-        newComment.setMeeting(comment.getMeeting());
-        return commentRepository.save(newComment);
+    public Comment updateComment(CommentDTO commentDTO) {
+        Comment comment = findOne(commentDTO.getId());
+        comment.setContent(commentDTO.getContent());
+        return commentRepository.save(comment);
     }
 
     public void deleteComment(Long id) {

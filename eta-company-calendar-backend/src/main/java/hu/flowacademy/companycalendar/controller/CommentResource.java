@@ -29,14 +29,12 @@ public class CommentResource {
 
     @PostMapping
     public ResponseEntity<CommentDTO> saveComment(@RequestBody CommentDTO commentDTO) {
-        Comment comment = commentDTO.toEntity();
-        return ResponseEntity.ok(new CommentDTO(commentService.saveComment(comment)));
+        return ResponseEntity.ok(new CommentDTO(commentService.saveComment(commentDTO)));
     }
 
     @PutMapping
     public ResponseEntity<CommentDTO> updateComment(@RequestBody CommentDTO commentDTO) {
-        Comment comment = commentDTO.toEntity();
-        return ResponseEntity.ok(new CommentDTO(commentService.updateComment(comment)));
+        return ResponseEntity.ok(new CommentDTO(commentService.updateComment(commentDTO)));
     }
 
     @DeleteMapping("/{id}")

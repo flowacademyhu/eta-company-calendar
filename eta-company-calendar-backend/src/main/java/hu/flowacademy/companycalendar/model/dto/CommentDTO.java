@@ -18,12 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Builder
 public class CommentDTO {
 
-    @Autowired
-    private UserRepository userRepository;
-    private MeetingRepository meetingRepository;
-
-
-
     private Long id;
 
     private String content;
@@ -45,9 +39,7 @@ public class CommentDTO {
     }
 
 
-    public Comment toEntity() {
-        User user = userRepository.findById(id).orElseThrow();
-        Meeting meeting = meetingRepository.findById(id).orElseThrow();
+    public Comment toEntity(User user, Meeting meeting) {
         return  new Comment(
                 id,
                 content,
