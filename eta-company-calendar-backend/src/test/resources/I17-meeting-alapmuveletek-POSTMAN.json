@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "ffc07c9a-7b29-4a29-88a0-f9d6b3185ca7",
+		"name": "FinalProject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get ALL meetings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/meetings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"meetings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create NEW meeting",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": null,\n\t\"title\": \"Ismét egy meeting\",\n\t\"description\": \"Ez egy új meeting\",\n\t\"location\": \"MEETINGROOM\",\n\t\"recurring\": \"DAILY\",\n\t\"startingTime\": \"2020-01-30T08:10:05\",\n\t\"finishTime\": \"2030-10-21T12:03:04\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/meetings/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"meetings",
+						"users",
+						"1"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update EXISTING meeting",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 3,\n\t\"title\": \"Postman meeting again\",\n\t\"description\": \"Megváltozott meeting\",\n\t\"location\": \"MEETINGROOM\",\n\t\"recurring\": \"DAILY\",\n\t\"startingTime\": \"2020-01-30T08:10:05\",\n\t\"finishTime\": \"2030-10-21T12:03:04\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/meetings/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"meetings",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete MEETING",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/meetings/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"meetings",
+						"3"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
