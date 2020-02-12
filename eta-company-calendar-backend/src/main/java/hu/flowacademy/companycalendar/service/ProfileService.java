@@ -4,7 +4,7 @@ import hu.flowacademy.companycalendar.model.dto.ProfileDTO;
 import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.repository.ProfileRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,12 +14,11 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class ProfileService {
 
-    @Autowired
-    private ProfileRepository profileRepository;
-    @Autowired
-    private UserRepository userRepository;
+    private final ProfileRepository profileRepository;
+    private final UserRepository userRepository;
 
     public List<ProfileDTO> getAllProfile() {
         return profileRepository.findAll()
@@ -45,6 +44,8 @@ public class ProfileService {
         return new ProfileDTO(profileRepository.save(profile));
     }
 
-    public void deleteProfile(Long id) { profileRepository.deleteById(id);}
+    public void deleteProfile(Long id) {
+        profileRepository.deleteById(id);
+    }
     
 }

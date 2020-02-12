@@ -4,8 +4,8 @@ import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.model.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
 
 @Component
@@ -38,16 +38,8 @@ public class ProfileDTO {
 
     public Profile toEntity(User user){
         Profile profile = new Profile();
+        BeanUtils.copyProperties(this, profile);
         profile.setUser(user);
-        profile.setFirstName(this.firstName);
-        profile.setLastName(this.lastName);
-        profile.setDateOfBirth(this.dateOfBirth);
-        profile.setDateOfEntry(this.dateOfEntry);
-        profile.setDepartment(this.department);
-        profile.setPosition(this.position);
-        profile.setTeam(this.team);
         return profile;
     }
-
-
 }

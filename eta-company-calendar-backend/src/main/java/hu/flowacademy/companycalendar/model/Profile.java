@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="_profile")
+@Table
 public class Profile {
 
     @Id
@@ -20,25 +20,11 @@ public class Profile {
     @OneToOne
     private User user;
 
-    @Column
     private String firstName;
-
-    @Column
     private String lastName;
-
-    @Column
     private LocalDate dateOfBirth;
-
-    @Column
     private LocalDate dateOfEntry;
-
-    @Column
     private String department;
-
-    @Column
     private String position;
-
-    @Column
     private String team;
-
 }
