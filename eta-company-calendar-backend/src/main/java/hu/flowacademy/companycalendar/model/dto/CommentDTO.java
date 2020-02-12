@@ -22,6 +22,8 @@ public class CommentDTO {
     private UserRepository userRepository;
     private MeetingRepository meetingRepository;
 
+
+
     private Long id;
 
     private String content;
@@ -36,11 +38,12 @@ public class CommentDTO {
         this.content = comment.getContent();
         if (comment.getUser() != null) {
             this.userId = comment.getUser().getId();
-        }
+        } else
         if (comment.getMeeting() != null) {
             this.meetingId = comment.getMeeting().getId();
         }
     }
+
 
     public Comment toEntity() {
         User user = userRepository.findById(id).orElseThrow();
@@ -52,5 +55,7 @@ public class CommentDTO {
                 meeting
         );
     }
+
+
 
 }
