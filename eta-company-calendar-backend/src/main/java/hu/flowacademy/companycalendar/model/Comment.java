@@ -22,7 +22,6 @@ public class Comment{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     private String content;
 
     @ManyToOne
@@ -32,10 +31,5 @@ public class Comment{
     @ManyToOne
     @JsonIgnore
     private Meeting meeting;
-
-    public void commentFromCommentDTO(CommentDTO commentDTO) {
-        this.id = commentDTO.getId();
-        this.content = commentDTO.getContent();
-    }
 
 }
