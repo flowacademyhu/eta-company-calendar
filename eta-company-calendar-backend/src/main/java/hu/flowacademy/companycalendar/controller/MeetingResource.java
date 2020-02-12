@@ -28,8 +28,8 @@ public class MeetingResource {
     }
 
     @PostMapping("/users/{id}")
-    public ResponseEntity<Void> createMeeting(@PathVariable Long id, @RequestBody MeetingDTO meetingDTO) {
-        meetingService.create(id, meetingDTO.toEntity());
+    public ResponseEntity<Void> createMeeting(@RequestBody MeetingDTO meetingDTO) {
+        meetingService.create(meetingDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

@@ -1,6 +1,7 @@
 package hu.flowacademy.companycalendar.service;
 
 import hu.flowacademy.companycalendar.model.Meeting;
+import hu.flowacademy.companycalendar.model.dto.MeetingDTO;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -31,24 +32,24 @@ public class MeetingService {
         return meetingRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Meeting not found"));
     }
 
-    public Meeting create(Long id, Meeting meeting) {
-        meeting.setCreatedBy(userRepository.findById(id).get());
-        meeting.setCreatedAt(LocalDateTime.now());
-        return meetingRepository.save(meeting);
+    public Meeting create(MeetingDTO meetingDTO) {
+        meetingDTO.setCreatedBy(userRepository.findById(id).get());
+        meetingDTO.setCreatedAt(LocalDateTime.now());
+        return meetingRepository.save(meetingDTO.toEntity());
     }
 
-    public ResponseEntity updateMeeting(Long id, Meeting meeting) {
-        Meeting existingMeeting = findOne(meeting.getId());
-        existingMeeting.setTitle(meeting.getTitle());
-        existingMeeting.setDescription(meeting.getDescription());
-        existingMeeting.setLocation(meeting.getLocation());
-        existingMeeting.setRecurring(meeting.getRecurring());
-        existingMeeting.setStartingTime(meeting.getStartingTime());
-        existingMeeting.setFinishTime(meeting.getFinishTime());
+    public ResponseEntity updateMeeting(Long id, Meeting meetingDTO) {
+        Meeting existingMeeting = findOne(meetingDTO.getId());
+        existingMeeting.setTitle(meetingDTO.getTitle());
+        existingMeeting.setDescription(meetingDTO.getDescription());
+        existingMeeting.setLocation(meetingDTO.getLocation());
+        existingMeeting.setRecurring(meetingDTO.getRecurring());
+        existingMeeting.setStartingTime(meetingDTO.getStartingTime());
+        existingMeeting.setFinishTime(meetingDTO.getFinishTime());
         existingMeeting.setUpdatedBy(userRepository.findById(id).get());
         existingMeeting.setUpdatedAt(LocalDateTime.now());
-        existingMeeting.setRequiredAttendants(meeting.getRequiredAttendants());
-        existingMeeting.setOptionalAttendants(meeting.getOptionalAttendants());
+        existingMeeting.setRequiredAttendants(meetingDTO.getRequiredAttendants());
+        existingMeeting.setOptionalAttendants(meetingDTO.getOptionalAttendants());
         meetingRepository.save(existingMeeting);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
