@@ -58,14 +58,4 @@ public class ReminderService {
         reminderRepository.deleteById(id);
     }
 
-    /*public Reminder reminderDTOtoEntity(ReminderDTO reminderDTO) {
-        Reminder reminder = new Reminder();
-        reminder.setUser(userRepository.findById(reminderDTO.getUserId()).get());
-        reminder.setTitle(reminderDTO.getTitle());
-        reminder.setDescription(reminderDTO.getDescription());
-        reminder.setStartingTime(reminderDTO.getStartingTime());
-        reminder.setEndingTime(reminderDTO.getEndingTime());
-        reminder.setRecurring(reminderDTO.getRecurring());
-        return reminder;
-    }*/
 }
