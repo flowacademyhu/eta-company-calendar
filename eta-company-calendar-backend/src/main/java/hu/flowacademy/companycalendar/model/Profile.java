@@ -1,6 +1,7 @@
 package hu.flowacademy.companycalendar.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table
 public class Profile {
@@ -17,6 +19,7 @@ public class Profile {
     private Long id;
 
     @OneToOne
+    @JoinColumn
     @MapsId
     private User user;
 
