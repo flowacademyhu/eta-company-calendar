@@ -37,7 +37,6 @@ public class ProfileDTO {
 
     public Profile toEntity(){
         Profile profile = new Profile();
-        // profile.setUser(userRepository.getUser(profileDTO.getUserId()).get());
         profile.setFirstName(this.firstName);
         profile.setLastName(this.lastName);
         profile.setDateOfBirth(this.dateOfBirth);
