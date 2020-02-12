@@ -43,4 +43,8 @@ public class CommentResource {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/findAllByMeetingId/{id}")
+    public ResponseEntity<List<CommentDTO>> findAllByMeetingId(@PathVariable Long meetingId) {
+        return ResponseEntity.ok(commentService.findAllByMeetingId(meetingId).stream().map(CommentDTO::new).collect(Collectors.toList()));
+    }
 }

@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -50,4 +51,7 @@ public class CommentService {
         commentRepository.deleteById(id);
     }
 
+    public List<Comment> findAllByMeetingId(Long meetingId) {
+        return commentRepository.findAll().stream().filter(m -> m.getId() == meetingId).collect(Collectors.toList());
+    }
 }
