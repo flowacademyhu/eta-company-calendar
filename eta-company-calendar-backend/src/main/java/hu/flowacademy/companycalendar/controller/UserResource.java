@@ -27,13 +27,13 @@ public class UserResource {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody UserRequestDTO userRequestDTO){
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequestDTO){
         return ResponseEntity.ok(userService.createUser(userRequestDTO));
     }
 
-    @PutMapping
-    public ResponseEntity<User> updateUser(@RequestBody User user){
-        return ResponseEntity.ok(userService.updateUser(user));
+    @PutMapping("/{id}")
+    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable Long id, @RequestBody UserRequestDTO userRequestDTO){
+        return ResponseEntity.ok(userService.updateUser(id, userRequestDTO));
     }
 
     @DeleteMapping("/{id}")
@@ -41,5 +41,4 @@ public class UserResource {
         userService.deleteUser(id);
         return ResponseEntity.ok().build();
     }
-
 }
