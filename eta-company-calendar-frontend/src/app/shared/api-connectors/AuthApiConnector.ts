@@ -1,21 +1,21 @@
-import { AbstractApiConnector } from './AbstractApiConnector'
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthResponse } from '../models/auth-response.model';
-import { HttpHeaders, HttpParams } from '@angular/common/http';
+import { AbstractApiConnector } from './AbstractApiConnector';
 
 export class AuthApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}/oauth/token`;
 
   public requestToken(email: string, password: string): Observable<AuthResponse> {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic ' + btoa('fooClientIdPassword:secret')
+      'Authorization': 'Basic ' + btoa('fooClientIdPassword:secret'),
+      'Content-Type': 'application/x-www-form-urlencoded'
     });
     const body = new HttpParams()
       .set('grant_type', 'password')
       .set('username', email)
       .set('password', password);
-      
+
     return this.http.post<AuthResponse>(this.apiRoute, body, { headers });
   }
 

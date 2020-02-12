@@ -1,10 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from '~/app/shared/services/auth.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
+import { AuthService } from '~/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-welcome-description',
@@ -12,15 +11,16 @@ import { takeUntil } from 'rxjs/operators';
 })
 
 export class LoginComponent implements OnInit, OnDestroy {
-  destroy$: Subject<boolean> = new Subject<boolean>();
-  loginForm: FormGroup;
-  
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+  private loginForm: FormGroup;
+  protected errorMessage: string;
+
   constructor(private readonly auth: AuthService, private readonly router: Router) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.loginForm = new FormGroup({
-      'email': new FormControl(null, [Validators.email, Validators.required]),
-      'password': new FormControl(null, [Validators.required])
+      email: new FormControl(undefined, [Validators.email, Validators.required]),
+      password: new FormControl(undefined, [Validators.required])
     });
 
     // this.loginForm.setValue({
@@ -29,9 +29,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     // });
   }
 
-  onSubmit() {
-    if (this.loginForm.invalid || this.loginForm == null) {
-      console.log('form is invalid');
+  protected onSubmit() {
+    if (this.loginForm.invalid || this.loginForm === undefined) {
+      this.errorMessage = 'form invalid';
       return;
     }
     const email = this.loginForm.get('email')?.value;
@@ -39,16 +39,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.auth.login(email, password)
     .pipe(takeUntil(this.destroy$))
     .subscribe(
-      _ => { console.log('successfully logged in'); this.router.navigate([''])},
-      error => console.log(error)
-    )
+      (_) => { this.router.navigate(['']); },
+      (error) => this.errorMessage = error
+    );
   }
 
-  onLogout() {
+  protected onLogout() {
     this.auth.logout();
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.destroy$.next(true);
   }
 

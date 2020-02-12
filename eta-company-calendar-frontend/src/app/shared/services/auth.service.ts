@@ -1,22 +1,23 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { AuthResponse } from '../models/auth-response.model';
 import { ApiCommunicationService } from './api-communication.service';
 import { ConfigurationService } from './configuration.service';
-import { catchError, tap } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
-import { throwError, Observable } from 'rxjs';
-import { AuthResponse } from '../models/auth-response.model';
 
 @Injectable()
 export class AuthService {
 
   constructor(private readonly app: ApiCommunicationService,
               private readonly config: ConfigurationService) { }
-  
+
   public login(email: string, password: string): Observable<AuthResponse> {
-    return this.app.auth().requestToken(email, password)
+    return this.app.auth()
+    .requestToken(email, password)
     .pipe(
       catchError(this.handleError),
-      tap(token => {
+      tap((token) => {
         this.config.setToken(token);
       })
     );
@@ -27,7 +28,6 @@ export class AuthService {
   }
 
   private handleError(errorRes: HttpErrorResponse) {
-    console.log(errorRes)
     let errorMessage = 'The server is currently unavailable.';
     if (!errorRes.error || ! errorRes.error.error) {
       return throwError(errorMessage);

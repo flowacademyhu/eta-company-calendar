@@ -1,4 +1,4 @@
-<p>login works</p>
+<p *ngIf="errorMessage">{{ errorMessage }}</p>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
     <mat-label>email</mat-label>

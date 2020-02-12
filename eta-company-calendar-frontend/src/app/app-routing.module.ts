@@ -12,12 +12,12 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    canActivate: [AuthGuard],
     component: MainLayoutComponent,
     loadChildren: () => import('./welcome/welcome.module')
       .then((m) => m.WelcomeModule),
     path: '',
     pathMatch: 'full',
-    canActivate: [AuthGuard]
   },
 ];
 
