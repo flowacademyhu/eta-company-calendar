@@ -1,6 +1,7 @@
 package hu.flowacademy.companycalendar.model.DTO;
 
 import hu.flowacademy.companycalendar.model.Profile;
+import hu.flowacademy.companycalendar.model.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -35,8 +36,9 @@ public class ProfileDTO {
         this.team = profile.getTeam();
     }
 
-    public Profile toEntity(){
+    public Profile toEntity(User user){
         Profile profile = new Profile();
+        profile.setUser(user);
         profile.setFirstName(this.firstName);
         profile.setLastName(this.lastName);
         profile.setDateOfBirth(this.dateOfBirth);

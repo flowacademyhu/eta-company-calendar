@@ -29,8 +29,7 @@ public class ProfileService {
     }
 
     public void createProfile(ProfileDTO profileDTO) {
-        Profile profile = profileDTO.toEntity();
-        profile.setUser(userRepository.findById(profileDTO.getUserId())
+        Profile profile = profileDTO.toEntity(userRepository.findById(profileDTO.getUserId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
         profileRepository.save(profile);
     }
