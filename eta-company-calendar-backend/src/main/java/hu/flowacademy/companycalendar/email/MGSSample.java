@@ -18,7 +18,7 @@ public class MGSSample {
          HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + DOMAIN_NAME + "/messages")
 			.basicAuth("api", API_KEY)
                 .queryString("from", "ccalendar30@gmail.com")
-                .queryString("to", "ccalendar30@gmail.com")
+                .queryString("to", "csanyi@tancsicsoh.hu")
                 .queryString("subject", "hello")
                 .queryString("text", "testing")
                 .asJson();
