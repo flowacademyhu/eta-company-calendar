@@ -19,4 +19,15 @@ export class AuthApiConnector extends AbstractApiConnector {
     return this.http.post<AuthResponse>(this.apiRoute, body, { headers });
   }
 
+  public refreshToken(token: string): Observable<AuthResponse> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa('fooClientIdPassword:secret'),
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'refresh_token': token
+    });
+    const body = new HttpParams()
+      .set('grant_type', 'refresh_token');
+    return this.http.post<AuthResponse>(this.apiRoute, body, { headers });
+  }
+
 }

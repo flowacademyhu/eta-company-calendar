@@ -10,8 +10,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptorService } from './interceptors/auth-interceptor.service';
-import { AuthService } from './services/auth.service';
-
 @NgModule({
   declarations: [
     MainLayoutComponent,
@@ -33,7 +31,6 @@ import { AuthService } from './services/auth.service';
   providers: [
     ApiCommunicationService,
     ConfigurationService,
-    AuthService,
     AuthGuard,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
   ],
