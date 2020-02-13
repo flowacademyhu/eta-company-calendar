@@ -30,8 +30,7 @@ import { AuthService } from '~/app/shared/services/auth.service';
   `
 })
 
-export class LoginComponent implements OnInit, OnDestroy {
-  private destroy$: Subject<boolean> = new Subject<boolean>();
+export class LoginComponent implements OnInit {
   private loginForm: FormGroup;
   protected errorMessage: string;
 
@@ -63,10 +62,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.auth.logout();
   }
 
-  public ngOnDestroy() {
-    this.destroy$.next(true);
-  }
-
   private handleError(errorRes: HttpErrorResponse) {
     let errorMessage;
     if (!errorRes.error || ! errorRes.error.error) {
@@ -80,9 +75,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private setErrorMessage(messagePath: string) {
-    this.translate.get(messagePath)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((text) => this.errorMessage = text);
+    this.errorMessage = this.translate.instant(messagePath);
   }
 
 }
