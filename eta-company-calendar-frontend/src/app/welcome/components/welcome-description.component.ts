@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { User } from '~/app/models/placeholder-user.model';
+import { NewUserComponent } from '~/app/shared/modals/new-user.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
 @Component({
@@ -20,6 +22,8 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
       {{user.phone}}<br>
       {{user.website}}<br>
     </mat-card>
+
+    <button mat-raised-button (click)="openDialog()" class="my-5">New user</button>
   `
 })
 
@@ -29,7 +33,8 @@ export class WelcomeDescriptionComponent {
   public users$: Observable<User[]>;
 
   constructor(private readonly translate: TranslateService,
-              private readonly api: ApiCommunicationService) {
+              private readonly api: ApiCommunicationService,
+              private readonly dialog: MatDialog) {
     this.language = this.translate.currentLang;
     this.users$ = this.api.welcome()
                           .testGet();
@@ -38,5 +43,12 @@ export class WelcomeDescriptionComponent {
   public onLanguageChange() {
     this.translate.use(this.language === 'en' ? 'hu' : 'en');
     this.language = this.translate.currentLang;
+  }
+
+  public openDialog(): void {
+    this.dialog.open(NewUserComponent, {
+      width: '250px',
+    });
+
   }
 }

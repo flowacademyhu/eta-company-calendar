@@ -7,10 +7,15 @@ import { MaterialModule } from '~/app/shared/material.module';
 import { MainLayoutComponent } from '~/app/shared/pages/main-layout.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
+import { NewUserComponent } from './modals/new-user.component';
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
+    NewUserComponent,
+  ],
+  entryComponents: [
+    NewUserComponent,
   ],
   exports: [
     CommonModule,
