@@ -10,7 +10,9 @@
     "login": "login",
     "invalid_grant": "Invalid email address or password.",
     "no_response": "The server is currently unavailable.",
-    "logout": "logout"
+    "logout": "logout",
+    "email_error": "Invalid email address.",
+    "password_error": "A password is required."
   }
 
 }

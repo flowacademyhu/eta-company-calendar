@@ -14,11 +14,13 @@ import { AuthService } from '~/app/shared/services/auth.service';
     <mat-form-field>
       <mat-label>{{ 'login.email' | translate }}</mat-label>
       <input matInput formControlName="email" type="text">
+      <mat-error> {{'login.email_error' | translate}} </mat-error>
     </mat-form-field>
     <br>
     <mat-form-field>
       <mat-label>{{ 'login.password' | translate }}</mat-label>
       <input matInput formControlName="password" type="password">
+      <mat-error> {{'login.password_error' | translate}} </mat-error>
     </mat-form-field>
     <br>
     <p *ngIf="errorMessage">{{ errorMessage }}</p>
@@ -45,6 +47,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   protected onSubmit() {
+    if (this.loginForm.invalid) {
+      return;
+    }
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
     this.auth.login(email, password)

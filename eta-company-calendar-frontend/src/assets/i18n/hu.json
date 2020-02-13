@@ -10,7 +10,9 @@
     "login": "bejelentkezés",
     "invalid_grant": "Hibás email cím vagy jelszó.",
     "no_response": "A szerver nem elérhető.",
-    "logout": "kijelentkezés"
+    "logout": "kijelentkezés",
+    "email_error": "Az email cím formátuma hibás.",
+    "password_error": "A jelszó kitöltése kötelező."
   }
 
 }
