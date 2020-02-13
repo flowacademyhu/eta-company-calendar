@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-@Service("springRestClient")
+@Service
 public class SpringRestClient implements RESTClient {
 
     private RestTemplate restTemplate;

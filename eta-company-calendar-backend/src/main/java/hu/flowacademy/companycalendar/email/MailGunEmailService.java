@@ -33,7 +33,7 @@ public class MailGunEmailService implements EmailService {
     }
 
     private void sendEmail(MultiValueMap<String, String> map) {
-        this.springRestClient.post(this.messagesUrl, map, this.username, this.password);
+            this.springRestClient.post(this.messagesUrl, map, this.username, this.password);
     }
 
     private MultiValueMap<String, String> getPostRequestObject(String from, String to, String subject) {
