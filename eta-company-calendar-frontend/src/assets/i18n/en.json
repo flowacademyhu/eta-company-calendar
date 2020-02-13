@@ -2,5 +2,16 @@
   "welcome": {
     "text": "Welcome Team Company Calendar! Read the dev-docs!",
     "button": "Switch to Hungarian"
+  },
+  "profile": {
+    "name": "Name",
+    "button": "Switch to Hungarian",
+    "close": "Close",
+    "modify": "Modify",
+    "position": "Position",
+    "department": "Department",
+    "team": "Team",
+    "leader": "Leader"
   }
+
 }

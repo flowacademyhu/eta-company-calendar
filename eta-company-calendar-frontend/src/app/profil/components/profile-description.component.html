@@ -1,0 +1,22 @@
+<div class="container profil-view" fxLayout="row">
+  <div class="row justify-content-cente">
+      <mat-card class="profile-card">
+        <mat-card-content>{{ "profile.name" | translate }}:</mat-card-content>
+        <mat-card-content>{{ "profile.position" | translate }}:</mat-card-content>
+        <mat-card-content>{{ "profile.department" | translate }}:</mat-card-content >
+        <mat-card-content>{{ "profile.team" | translate }}:</mat-card-content>
+        <mat-card-content>{{ "profile.leader" | translate }}:</mat-card-content>
+        <mat-card-actions>
+          <button mat-button color="primary">
+            {{ "profile.close" | translate }}
+          </button>
+          <button c mat-button color="warn">
+            {{ "profile.modify" | translate }}
+          </button>
+          <button mat-button color="primary" (click)="onLanguageChange()">
+            {{ "welcome.button" | translate }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+</div>

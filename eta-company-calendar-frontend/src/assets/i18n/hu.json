@@ -2,5 +2,16 @@
   "welcome": {
     "text": "Üdvözöllek Céges Kalendárium csapat! Olvassátok el a fejlesztői dokumentációt!",
     "button": "Váltás angol nyelvre"
+  },
+  "profile": {
+    "name": "Név",
+    "button": "Váltás angol nyelvre",
+    "close": "Bezárás",
+    "modify": "Módosítás",
+    "position": "Pozíció",
+    "department": "Részleg",
+    "team": "Csapat",
+    "leader": "Vezető"
   }
+
 }

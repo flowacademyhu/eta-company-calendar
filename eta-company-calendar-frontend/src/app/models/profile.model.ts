@@ -7,4 +7,5 @@ export interface Profile {
   department: string;
   position: string;
   team: string;
+  leader: string;
 }
