@@ -10,6 +10,13 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
   },
+  {
+    component: MainLayoutComponent,
+    loadChildren: () => import('./profil/profile.module')
+      .then((m) => m.ProfileModule),
+    path: 'profiles',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({

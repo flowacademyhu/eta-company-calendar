@@ -3,13 +3,16 @@ import { Injectable } from '@angular/core';
 import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiConnector';
 import { WelcomeApiConnector } from '~/app/shared/api-connectors/WelcomeApiConnector';
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
+import { ProfileApiConnector } from '../api-connectors/ProfileApiConnector';
 
 export enum Connector {
   WELCOME = '[Welcome]',
+  PROFILE = '[Profile]'
 }
 
 @Injectable()
 export class ApiCommunicationService {
+
   private readonly apiBaseUrl: string;
   private connectors: Map<Connector, AbstractApiConnector>;
 
@@ -25,6 +28,10 @@ export class ApiCommunicationService {
     this.registerConnector(
       Connector.WELCOME,
       new WelcomeApiConnector(this.http, this.apiBaseUrl)
+    );
+    this.registerConnector(
+      Connector.PROFILE,
+      new ProfileApiConnector(this.http, this.apiBaseUrl)
     );
   }
 
@@ -60,5 +67,9 @@ export class ApiCommunicationService {
   // API connector getters
   public welcome(): WelcomeApiConnector {
     return this.getConnector(Connector.WELCOME) as WelcomeApiConnector;
+  }
+  // tslint:disable-next-line:adjacent-overload-signatures
+  public profile(): ProfileApiConnector {
+    return this.getConnector(Connector.PROFILE) as ProfileApiConnector;
   }
 }
