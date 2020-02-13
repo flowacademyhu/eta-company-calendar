@@ -42,14 +42,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       email: new FormControl(undefined, [Validators.email, Validators.required]),
       password: new FormControl(undefined, [Validators.required])
     });
-    console.log(this.translate.instant('welcome.text'));
   }
 
   protected onSubmit() {
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
     this.auth.login(email, password)
-    .pipe(takeUntil(this.destroy$))
     .subscribe(
       (_) => { this.router.navigate(['']); },
       (error) => this.handleError(error)
