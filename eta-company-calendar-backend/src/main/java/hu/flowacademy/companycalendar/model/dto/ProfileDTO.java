@@ -13,33 +13,35 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ProfileDTO {
 
-    private long userId;
-    private String firstName;
-    private String lastName;
-    private LocalDate dateOfBirth;
-    private LocalDate dateOfEntry;
-    private String department;
-    private String position;
-    private String team;
+  private long userId;
+  private String firstName;
+  private String lastName;
+  private LocalDate dateOfBirth;
+  private LocalDate dateOfEntry;
+  private String department;
+  private String position;
+  private String team;
 
 
-    public ProfileDTO(Profile profile){
-        if(profile.getUser() != null){
-        this.userId = profile.getUser().getId();
-        } else { throw new IllegalArgumentException("User cannot be null!");}
-        this.firstName = profile.getFirstName();
-        this.lastName = profile.getLastName();
-        this.dateOfBirth = profile.getDateOfBirth();
-        this.dateOfEntry = profile.getDateOfEntry();
-        this.department = profile.getDepartment();
-        this.position = profile.getPosition();
-        this.team = profile.getTeam();
+  public ProfileDTO(Profile profile) {
+    if (profile.getUser() != null) {
+      this.userId = profile.getUser().getId();
+    } else {
+      throw new IllegalArgumentException("User cannot be null!");
     }
+    this.firstName = profile.getFirstName();
+    this.lastName = profile.getLastName();
+    this.dateOfBirth = profile.getDateOfBirth();
+    this.dateOfEntry = profile.getDateOfEntry();
+    this.department = profile.getDepartment();
+    this.position = profile.getPosition();
+    this.team = profile.getTeam();
+  }
 
-    public Profile toEntity(User user){
-        Profile profile = new Profile();
-        BeanUtils.copyProperties(this, profile);
-        profile.setUser(user);
-        return profile;
-    }
+  public Profile toEntity(User user) {
+    Profile profile = new Profile();
+    BeanUtils.copyProperties(this, profile);
+    profile.setUser(user);
+    return profile;
+  }
 }

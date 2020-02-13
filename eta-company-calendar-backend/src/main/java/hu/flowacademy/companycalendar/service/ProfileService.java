@@ -17,35 +17,35 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ProfileService {
 
-    private final ProfileRepository profileRepository;
-    private final UserRepository userRepository;
+  private final ProfileRepository profileRepository;
+  private final UserRepository userRepository;
 
-    public List<ProfileDTO> getAllProfile() {
-        return profileRepository.findAll()
-                                .stream()
-                                .map(ProfileDTO::new)
-                                .collect(Collectors.toList());
-    }
+  public List<ProfileDTO> getAllProfile() {
+    return profileRepository.findAll()
+        .stream()
+        .map(ProfileDTO::new)
+        .collect(Collectors.toList());
+  }
 
-    public ProfileDTO getProfile(Long id) {
-        return new ProfileDTO(profileRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
-    }
+  public ProfileDTO getProfile(Long id) {
+    return new ProfileDTO(profileRepository.findById(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+  }
 
-    public ProfileDTO createProfile(ProfileDTO profileDTO) {
-        Profile profile = profileDTO.toEntity(userRepository.findById(profileDTO.getUserId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
-        return new ProfileDTO(profileRepository.save(profile));
-    }
+  public ProfileDTO createProfile(ProfileDTO profileDTO) {
+    Profile profile = profileDTO.toEntity(userRepository.findById(profileDTO.getUserId())
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    return new ProfileDTO(profileRepository.save(profile));
+  }
 
-    public ProfileDTO updateProfile(ProfileDTO profileDTO) {
-        Profile profile = profileDTO.toEntity(userRepository.findById(profileDTO.getUserId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
-        return new ProfileDTO(profileRepository.save(profile));
-    }
+  public ProfileDTO updateProfile(ProfileDTO profileDTO) {
+    Profile profile = profileDTO.toEntity(userRepository.findById(profileDTO.getUserId())
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    return new ProfileDTO(profileRepository.save(profile));
+  }
 
-    public void deleteProfile(Long id) {
-        profileRepository.deleteById(id);
-    }
-    
+  public void deleteProfile(Long id) {
+    profileRepository.deleteById(id);
+  }
+
 }
