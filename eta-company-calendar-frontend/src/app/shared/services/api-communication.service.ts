@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiConnector';
 import { WelcomeApiConnector } from '~/app/shared/api-connectors/WelcomeApiConnector';
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
+import { AuthApiConnector } from '../api-connectors/AuthApiConnector';
 import { ProfileApiConnector } from '../api-connectors/ProfileApiConnector';
 
 export enum Connector {
   WELCOME = '[Welcome]',
-  PROFILE = '[Profile]'
+  PROFILE = '[Profile]',
+  AUTH = '[Auth]'
 }
-
 @Injectable()
 export class ApiCommunicationService {
 
@@ -26,21 +27,21 @@ export class ApiCommunicationService {
 
     // register connectors
     this.registerConnector(
-      Connector.WELCOME,
-      new WelcomeApiConnector(this.http, this.apiBaseUrl)
-    );
-    this.registerConnector(
-      Connector.PROFILE,
-      new ProfileApiConnector(this.http, this.apiBaseUrl)
-    );
-  }
+      { id: Connector.WELCOME, connector: new WelcomeApiConnector(this.http, this.apiBaseUrl) });
 
+    this.registerConnector(
+      { id: Connector.PROFILE, connector: new ProfileApiConnector(this.http, this.apiBaseUrl) });
+
+    this.registerConnector(
+      { id: Connector.AUTH, connector: new AuthApiConnector(this.http, this.apiBaseUrl) });
+  }
   /**
    * Registers a connector to the connector pool.
    * @param id: Connector - The unique identifier for a connector.
    * @param connector:AbstractApiConnector} - The connector to register.
    */
-  private registerConnector(id: Connector, connector: AbstractApiConnector) {
+
+  private registerConnector({ id, connector }: { id: Connector; connector: AbstractApiConnector; }) {
     if (this.connectors.has(id)) {
       throw new Error('A connector with ID \'' + id + '\' has already been registered.');
     }
@@ -71,5 +72,9 @@ export class ApiCommunicationService {
   // tslint:disable-next-line:adjacent-overload-signatures
   public profile(): ProfileApiConnector {
     return this.getConnector(Connector.PROFILE) as ProfileApiConnector;
+  }
+
+  public auth(): AuthApiConnector {
+    return this.getConnector(Connector.AUTH) as AuthApiConnector;
   }
 }

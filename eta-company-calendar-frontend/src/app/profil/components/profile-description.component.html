@@ -1,5 +1,5 @@
 <div class="profile-wrapper">
-  <mat-card class="box">
+  <mat-card class="box" color = "primary">
     <mat-card-header>
       <mat-card-title class="title">Profil</mat-card-title>
     </mat-card-header>
@@ -7,31 +7,37 @@
     <mat-card-content>
       <mat-form-field class="profile-full-width">
         {{ "profile.name" | translate }}:
+        <hr>
         <mat-divider></mat-divider>
         <div class="pc">Kovács Lajos</div>
       </mat-form-field>
       <br />
       <mat-form-field class="profile-full-width">
         {{ "profile.department" | translate }}:
+        <hr>
         <mat-divider></mat-divider>
         <div class="pc">Pénzügy</div>
       </mat-form-field>
       <mat-form-field class="profile-full-width">
         {{ "profile.team" | translate }}:
+        <hr>
         <mat-divider></mat-divider>
         <div class="pc">Könyvelés</div>
       </mat-form-field>
       <br />
       <mat-form-field class="profile-full-width">
         {{ "profile.position" | translate }}:
+        <hr>
         <mat-divider></mat-divider>
         <div class="pc">Csoportvezető</div>
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
+      <a routerLink = ''>
       <button mat-button color="primary">
         {{ "profile.close" | translate }}
       </button>
+    </a>
       <button mat-button color="warn">
         {{ "profile.modify" | translate }}
       </button>
