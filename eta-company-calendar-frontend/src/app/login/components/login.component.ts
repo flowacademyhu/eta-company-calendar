@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       email: new FormControl(undefined, [Validators.email, Validators.required]),
       password: new FormControl(undefined, [Validators.required])
     });
+    console.log(this.translate.instant('welcome.text'));
   }
 
   protected onSubmit() {
@@ -67,16 +68,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     let errorMessage;
     if (!errorRes.error || ! errorRes.error.error) {
       errorMessage = 'no_response';
+    } else if (errorRes.error.error === 'invalid_grant') {
+      errorMessage = 'invalid_grant';
     } else {
-      switch (errorRes.error.error) {
-        case 'invalid_grant':
-          errorMessage = 'invalid_grant';
-          break;
-        default:
-          errorMessage = 'no_response';
-      }
-      this.setErrorMessage(`login.${errorMessage}`);
+      errorMessage = 'no_response';
     }
+    this.setErrorMessage(`login.${errorMessage}`);
   }
 
   private setErrorMessage(messagePath: string) {
