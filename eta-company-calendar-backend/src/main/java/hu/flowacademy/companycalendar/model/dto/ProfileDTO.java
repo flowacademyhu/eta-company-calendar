@@ -24,9 +24,7 @@ public class ProfileDTO {
 
 
   public ProfileDTO(Profile profile) {
-    if (profile.getUser() != null) {
-      this.userId = profile.getUser().getId();
-    } else {
+    if (profile.getUser() == null) {
       throw new IllegalArgumentException("User cannot be null!");
     }
     this.firstName = profile.getFirstName();
