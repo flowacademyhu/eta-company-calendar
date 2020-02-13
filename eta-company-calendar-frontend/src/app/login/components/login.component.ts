@@ -23,7 +23,7 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
     </mat-form-field>
     <br>
     <p *ngIf="errorMessage">{{ errorMessage }}</p>
-    <button mat-raised-button type="submit">{{ 'login.login' | translate }}</button>
+    <button mat-raised-button type="submit" [disabled]="loginForm.invalid">{{ 'login.login' | translate }}</button>
     <button mat-raised-button (click)="onLogout()">{{ 'login.logout' | translate }}</button>
   </form>
   `
@@ -46,9 +46,6 @@ export class LoginComponent implements OnInit {
   }
 
   protected onSubmit() {
-    if (this.loginForm.invalid) {
-      return;
-    }
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
     this.api.auth()
