@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ProfileDTO {
 
+<<<<<<< HEAD
     private long userId;
     private String firstName;
     private String lastName;
@@ -42,4 +43,35 @@ public class ProfileDTO {
         profile.setUser(user);
         return profile;
     }
+=======
+  private long userId;
+  private String firstName;
+  private String lastName;
+  private LocalDate dateOfBirth;
+  private LocalDate dateOfEntry;
+  private String department;
+  private String position;
+  private String team;
+
+
+  public ProfileDTO(Profile profile) {
+    if (profile.getUser() == null) {
+      throw new IllegalArgumentException("User cannot be null!");
+    }
+    this.firstName = profile.getFirstName();
+    this.lastName = profile.getLastName();
+    this.dateOfBirth = profile.getDateOfBirth();
+    this.dateOfEntry = profile.getDateOfEntry();
+    this.department = profile.getDepartment();
+    this.position = profile.getPosition();
+    this.team = profile.getTeam();
+  }
+
+  public Profile toEntity(User user) {
+    Profile profile = new Profile();
+    BeanUtils.copyProperties(this, profile);
+    profile.setUser(user);
+    return profile;
+  }
+>>>>>>> 18352f10d9c57d0f864cfc977c8b07581fc98b10
 }

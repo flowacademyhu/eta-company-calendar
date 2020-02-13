@@ -2,5 +2,17 @@
   "welcome": {
     "text": "Üdvözöllek Céges Kalendárium csapat! Olvassátok el a fejlesztői dokumentációt!",
     "button": "Váltás angol nyelvre"
+  },
+
+  "login": {
+    "email": "email cím",
+    "password": "jelszó",
+    "login": "bejelentkezés",
+    "invalid_grant": "Hibás email cím vagy jelszó.",
+    "no_response": "A szerver nem elérhető.",
+    "logout": "kijelentkezés",
+    "email_error": "Az email cím formátuma hibás.",
+    "password_error": "A jelszó kitöltése kötelező."
   }
+
 }
