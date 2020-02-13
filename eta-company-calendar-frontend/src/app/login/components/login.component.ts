@@ -27,7 +27,7 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
             <input matInput formControlName="password" type="password">
             <mat-error> {{'login.password_error' | translate}} </mat-error>
           </mat-form-field>
-          <button mat-stroked-button color="primary" class="btn-block" type="submit"
+          <button mat-stroked-button color="primary" class="btn-block" type="submit" [disabled]="loginForm.invalid"
           >{{ 'login.login' | translate }}</button>
           <div class="button-separator"></div>
           <button mat-stroked-button color="primary" class="btn-block" (click)="onLogout()"
@@ -57,9 +57,6 @@ export class LoginComponent implements OnInit {
   }
 
   protected onSubmit() {
-    if (this.loginForm.invalid) {
-      return;
-    }
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
     this.api.auth()
