@@ -7,10 +7,12 @@ import { MaterialModule } from '~/app/shared/material.module';
 import { MainLayoutComponent } from '~/app/shared/pages/main-layout.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
+import { HeaderComponent } from '../header/components/header.component';
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
+    HeaderComponent,
   ],
   exports: [
     CommonModule,
