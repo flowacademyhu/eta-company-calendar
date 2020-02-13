@@ -1,3 +1,24 @@
-.profile-card {
-  margin: 0 auto;
+.profile-wrapper {
+  width: 300px;
+  position: absolute;
+  top: 35%;
+  left: 65%;
+  margin-top: -150px;
+  margin-left: -150px;
+}
+
+.profile-full-width{
+  width: 100%; color: black;
+}
+.profile-wrapper mat-card-header {
+  text-align:center;
+  width:100%;
+  display:block;
+  font-weight:700;
+}
+
+.pc {
+  border: 1px;
+  font-size: large;
+  font-weight: 100;
 }

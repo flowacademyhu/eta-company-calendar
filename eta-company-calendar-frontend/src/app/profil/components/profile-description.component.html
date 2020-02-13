@@ -1,22 +1,43 @@
-<div class="container profil-view" fxLayout="row">
-  <div class="row justify-content-cente">
-      <mat-card class="profile-card">
-        <mat-card-content>{{ "profile.name" | translate }}:</mat-card-content>
-        <mat-card-content>{{ "profile.position" | translate }}:</mat-card-content>
-        <mat-card-content>{{ "profile.department" | translate }}:</mat-card-content >
-        <mat-card-content>{{ "profile.team" | translate }}:</mat-card-content>
-        <mat-card-content>{{ "profile.leader" | translate }}:</mat-card-content>
-        <mat-card-actions>
-          <button mat-button color="primary">
-            {{ "profile.close" | translate }}
-          </button>
-          <button c mat-button color="warn">
-            {{ "profile.modify" | translate }}
-          </button>
-          <button mat-button color="primary" (click)="onLanguageChange()">
-            {{ "welcome.button" | translate }}
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
+<div class="profile-wrapper">
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title class="title">Profil</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-form-field class="profile-full-width">
+        {{ "profile.name" | translate }}:
+        <mat-divider></mat-divider>
+        <div class="pc">Kovács Lajos</div>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="profile-full-width">
+        {{ "profile.department" | translate }}:
+        <mat-divider></mat-divider>
+        <div class="pc">Pénzügy</div>
+      </mat-form-field>
+      <mat-form-field class="profile-full-width">
+        {{ "profile.team" | translate }}:
+        <mat-divider></mat-divider>
+        <div class="pc">Könyvelés</div>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="profile-full-width">
+        {{ "profile.position" | translate }}:
+        <mat-divider></mat-divider>
+        <div class="pc">Csoportvezető</div>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary">
+        {{ "profile.close" | translate }}
+      </button>
+      <button mat-button color="warn">
+        {{ "profile.modify" | translate }}
+      </button>
+      <button mat-button color="primary" (click)="onLanguageChange()">
+        {{ "welcome.button" | translate }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </div>

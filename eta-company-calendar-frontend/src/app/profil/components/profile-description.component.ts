@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { Profile } from '../../models/profile.model';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile-description',
-
+  styleUrls: ['profile-description.component.scss'],
   templateUrl: 'profile-description.component.html'
 })
 
