@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { ProfileDescriptionComponent } from '~/app/profil/components/profile-description.component';
-import { ProfileRoutingModule } from '~/app/profil/profile-routing.module';
 import { SharedModule } from '~/app/shared/shared.module';
+import { ProfileRoutingModule } from '../profil-wiew/profile-routing.module';
+import { ProfileDescriptionComponent } from './components/profile-description.component';
 
 @NgModule({
   declarations: [

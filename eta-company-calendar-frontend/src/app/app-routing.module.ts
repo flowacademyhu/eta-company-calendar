@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     component: MainLayoutComponent,
-    loadChildren: () => import('./profil/profile.module')
+    loadChildren: () => import('./profil/profil-wiew/profile.module')
       .then((m) => m.ProfileModule),
     path: 'profiles',
     pathMatch: 'full',
