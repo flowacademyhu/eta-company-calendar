@@ -18,40 +18,40 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
 
-    public List<UserResponseDTO> getAllUsers() {
-        return userRepository.findAll()
-                             .stream()
-                             .map(UserResponseDTO::new)
-                             .collect(Collectors.toList());
-    }
+  public List<UserResponseDTO> getAllUsers() {
+    return userRepository.findAll()
+        .stream()
+        .map(UserResponseDTO::new)
+        .collect(Collectors.toList());
+  }
 
-    public UserResponseDTO getUser(Long id) {
-        return new UserResponseDTO(userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
-    }
+  public UserResponseDTO getUser(Long id) {
+    return new UserResponseDTO(userRepository.findById(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+  }
 
-    public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
-        String psw = BCrypt.hashpw(userRequestDTO.getPassword(), BCrypt.gensalt());
-        User user = new User();
-        user.setPassword(psw);
-        return new UserResponseDTO(userRepository.save(user));
-    }
+  public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
+    String psw = BCrypt.hashpw(userRequestDTO.getPassword(), BCrypt.gensalt());
+    User user = new User();
+    user.setPassword(psw);
+    return new UserResponseDTO(userRepository.save(user));
+  }
 
-    public UserResponseDTO updateUser(Long id, UserRequestDTO userRequestDTO) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        if (!BCrypt.checkpw(userRequestDTO.getPassword(), user.getPassword())) {
-            String psw = BCrypt.hashpw(userRequestDTO.getPassword(), BCrypt.gensalt());
-            user.setPassword(psw);
-        }
-        user.setEmail(userRequestDTO.getEmail());
-        user.setRole(userRequestDTO.getRole());
-        return new UserResponseDTO(userRepository.save(user));
+  public UserResponseDTO updateUser(Long id, UserRequestDTO userRequestDTO) {
+    User user = userRepository.findById(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    if (!BCrypt.checkpw(userRequestDTO.getPassword(), user.getPassword())) {
+      String psw = BCrypt.hashpw(userRequestDTO.getPassword(), BCrypt.gensalt());
+      user.setPassword(psw);
     }
+    user.setEmail(userRequestDTO.getEmail());
+    user.setRole(userRequestDTO.getRole());
+    return new UserResponseDTO(userRepository.save(user));
+  }
 
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
-    }
+  public void deleteUser(Long id) {
+    userRepository.deleteById(id);
+  }
 }

@@ -15,19 +15,19 @@ import java.time.LocalDate;
 @Table
 public class Profile {
 
-    @Id
-    private Long id;
+  @Id
+  private Long id;
 
-    @OneToOne
-    @JoinColumn
-    @MapsId
-    private User user;
+  @OneToOne
+  @JoinColumn
+  @MapsId
+  private User user;
 
-    private String firstName;
-    private String lastName;
-    private LocalDate dateOfBirth;
-    private LocalDate dateOfEntry;
-    private String department;
-    private String position;
-    private String team;
+  private String firstName;
+  private String lastName;
+  private LocalDate dateOfBirth;
+  private LocalDate dateOfEntry;
+  private String department;
+  private String position;
+  private String team;
 }

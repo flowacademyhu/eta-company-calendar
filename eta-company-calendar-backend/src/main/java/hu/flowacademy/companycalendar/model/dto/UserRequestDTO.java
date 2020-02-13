@@ -12,13 +12,13 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class UserRequestDTO {
 
-    private String email;
-    private String password;
-    private Roles role;
+  private String email;
+  private String password;
+  private Roles role;
 
-    public User toEntity(){
-        User user = new User();
-        BeanUtils.copyProperties(this, user);
-        return user;
-    }
+  public User toEntity() {
+    User user = new User();
+    BeanUtils.copyProperties(this, user);
+    return user;
+  }
 }
