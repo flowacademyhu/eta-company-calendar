@@ -5,8 +5,8 @@ import { MainLayoutComponent } from '~/app/shared/pages/main-layout.component';
 const routes: Routes = [
   {
     component: MainLayoutComponent,
-    /*loadChildren: () => import('./welcome/welcome.module')
-      .then((m) => m.WelcomeModule),*/
+    loadChildren: () => import('./welcome/welcome.module')
+      .then((m) => m.WelcomeModule),
     path: '',
     pathMatch: 'full',
   },
