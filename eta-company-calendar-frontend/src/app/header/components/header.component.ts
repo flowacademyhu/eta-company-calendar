@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfigurationService } from '../../shared/services/configuration.service';
 
@@ -14,14 +14,9 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
   </mat-toolbar>`
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   constructor(private router: Router, private configService: ConfigurationService) { }
-
-  // todo: implement AuthService
-  public ngOnInit() {
-    throw new Error('Method not implemented.');
-  }
 
   public onLogout() {
     this.configService.clearToken();
