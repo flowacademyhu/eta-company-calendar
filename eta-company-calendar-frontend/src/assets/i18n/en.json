@@ -4,6 +4,15 @@
     "button": "Switch to Hungarian"
   },
 
+  "header": {
+    "button": "HU",
+    "profile": "Profile",
+    "calendar": "Calendar",
+    "meetings": "Meetings",
+    "reminders": "Reminders",
+    "logout": "Logout"
+  },
+  
   "login": {
     "email": "email address",
     "password": "password",
