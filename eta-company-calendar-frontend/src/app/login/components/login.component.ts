@@ -30,8 +30,6 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
           <button mat-stroked-button color="primary" class="btn-block" type="submit" [disabled]="loginForm.invalid"
           >{{ 'login.login' | translate }}</button>
           <div class="button-separator"></div>
-          <button mat-stroked-button color="primary" class="btn-block" (click)="onLogout()"
-          >{{ 'login.logout' | translate }}</button>
           <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
         </mat-card-content>
       </form>
@@ -68,10 +66,6 @@ export class LoginComponent implements OnInit {
       },
       (error) => this.handleError(error)
     );
-  }
-
-  protected onLogout() {
-    this.config.clearToken();
   }
 
   private handleError(errorRes: HttpErrorResponse) {
