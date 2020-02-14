@@ -34,13 +34,9 @@ public class CommentService {
   }
 
   public Comment saveComment(CommentDTO commentDTO) {
-    Comment comment = commentDTO.toEntity(
-        userRepository.findById(commentDTO.getUserId())
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)),
-        meetingRepository.findById(commentDTO.getMeetingId())
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))
-    );
-    return commentRepository.save(comment);
+    User user = userRepository.findById(commentDTO.getUserId()).orElseThrow();
+    Meeting meeting = meetingRepository.findById(commentDTO.getMeetingId()).orElseThrow();
+    return commentRepository.save(commentDTO.toEntity(user, meeting));
   }
 
   public Comment updateComment(CommentDTO commentDTO) {
@@ -54,7 +50,7 @@ public class CommentService {
   }
 
   public List<Comment> findAllByMeetingId(Long meetingId) {
-    return commentRepository.findAll().stream().filter(m -> m.getId() == meetingId)
+    return commentRepository.findAll().stream().filter(m -> m.getId().equals(meetingId))
         .collect(Collectors.toList());
   }
 }
