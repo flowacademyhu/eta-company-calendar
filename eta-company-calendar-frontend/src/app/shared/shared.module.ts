@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -10,6 +11,8 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
 import { FooterComponent} from '../footer/components/footer.component';
 import { HeaderComponent } from '../header/components/header.component';
 
+import { AuthGuard } from './guards/auth.guard';
+import { AuthInterceptorService } from './interceptors/auth-interceptor.service';
 @NgModule({
   declarations: [
     MainLayoutComponent,
@@ -33,6 +36,8 @@ import { HeaderComponent } from '../header/components/header.component';
   providers: [
     ApiCommunicationService,
     ConfigurationService,
+    AuthGuard,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
   ],
 })
 export class SharedModule { }

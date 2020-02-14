@@ -31,7 +31,7 @@ export class HeaderComponent {
 
   public onLogout() {
     this.configService.clearToken();
-    this.router.navigate(['/login']);
+    this.router.navigate(['login']);
   }
 
 }
