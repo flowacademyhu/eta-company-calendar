@@ -39,7 +39,7 @@ public class MeetingService {
                 .orElseThrow(() -> new RuntimeException("User not found in DB"));
         Meeting meeting = meetingDTO.toEntity();
         meeting.setCreatedBy(user);
-        meeting.setCreatedAt(LocalDateTime.now());
+        meeting.setCreatedAt(System.currentTimeMillis());
         return new MeetingDTO(meetingRepository.save(meeting));
     }
 
@@ -48,7 +48,7 @@ public class MeetingService {
                 .orElseThrow(() -> new RuntimeException("User not found in DB"));
         Meeting meeting = meetingDTO.toEntity();
         meeting.setUpdatedBy(user);
-        meeting.setUpdatedAt(LocalDateTime.now());
+        meeting.setUpdatedAt(System.currentTimeMillis());
         return new MeetingDTO(meetingRepository.save(meeting));
     }
 
