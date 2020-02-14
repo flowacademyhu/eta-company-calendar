@@ -41,12 +41,12 @@ import { Profile } from '../../../models/profile.model';
       <br />
       <mat-form-field class="profile-full-width">
         {{ "profile.dateOfBirth" | translate }}
-        <div class="pc">{{dateOfBirth}}</div>
+        <div class="pc">{{dateOfBirth | date: 'yyyy-MM-dd'}}</div>
       </mat-form-field>
       <br />
       <mat-form-field class="profile-full-width">
         {{ "profile.dateOfEntry" | translate }}
-        <div class="pc">{{dateOfEntry}}</div>
+        <div class="pc">{{dateOfEntry | date: 'yyyy-MM-dd'}}</div>
       </mat-form-field>
 
     </mat-card-content>
@@ -73,8 +73,8 @@ export class ProfileDescriptionComponent implements OnInit {
   public userId: number;
   public firstName: string = 'Lajos';
   public lastName: string = 'Kovács';
-  public dateOfBirth: Date;
-  public dateOfEntry: Date;
+  public dateOfBirth: Date = new Date('1992-01-23');
+  public dateOfEntry: Date = new Date('2010-01-23');
   public department: string = 'Pénzügy';
   public position: string = 'Csoportvezető';
   public team: string = 'Könyvelés';
