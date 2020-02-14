@@ -47,5 +47,4 @@ public class ProfileService {
   public void deleteProfile(Long id) {
     profileRepository.deleteById(id);
   }
-
 }
