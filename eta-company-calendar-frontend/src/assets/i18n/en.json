@@ -2,5 +2,17 @@
   "welcome": {
     "text": "Welcome Team Company Calendar! Read the dev-docs!",
     "button": "Switch to Hungarian"
+  },
+
+  "login": {
+    "email": "email address",
+    "password": "password",
+    "login": "login",
+    "invalid_grant": "Invalid email address or password.",
+    "no_response": "The server is currently unavailable.",
+    "logout": "logout",
+    "email_error": "Invalid email address.",
+    "password_error": "A password is required."
   }
+
 }

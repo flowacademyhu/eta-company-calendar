@@ -41,12 +41,8 @@ public class Meeting {
     @Enumerated(value = EnumType.STRING)
     private Recurring recurring;
 
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime startingTime;
 
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime finishTime;
 
     @ManyToOne
