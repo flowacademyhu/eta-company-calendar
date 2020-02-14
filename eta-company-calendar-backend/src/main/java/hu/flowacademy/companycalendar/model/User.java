@@ -8,32 +8,36 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Column;
+import javax.persistence.GenerationType;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
 import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.List;
 
+@Entity
+@Table(name = "_users")
 @Data
 @Builder
-@Entity
-@Table
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column
   private Long id;
 
   @NotBlank
   @Column(unique = true)
   private String email;
 
-  @Column
   private String password;
 
-  @Column
   @Enumerated(EnumType.STRING)
   private Roles role;
 
@@ -73,4 +77,3 @@ public class User implements UserDetails {
   }
 
 }
-
