@@ -38,6 +38,8 @@ public class Meeting {
     @Enumerated(value = EnumType.STRING)
     private Location location;
 
+    private String otherLocation;
+
     @Enumerated(value = EnumType.STRING)
     private Recurring recurring;
 
