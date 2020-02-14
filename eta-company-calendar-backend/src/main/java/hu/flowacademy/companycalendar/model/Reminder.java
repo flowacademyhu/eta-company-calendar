@@ -1,6 +1,5 @@
 package hu.flowacademy.companycalendar.model;
 
-import hu.flowacademy.companycalendar.model.dto.ReminderDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
