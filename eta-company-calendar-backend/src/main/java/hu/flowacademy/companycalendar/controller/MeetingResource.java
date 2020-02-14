@@ -1,13 +1,17 @@
 package hu.flowacademy.companycalendar.controller;
 
-import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.dto.MeetingDTO;
 import hu.flowacademy.companycalendar.service.MeetingService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 @RestController
@@ -27,14 +31,14 @@ public class MeetingResource {
         return meetingService.findOne(id);
     }
 
-    @PostMapping("/{id}")
-    public MeetingDTO createMeeting(@PathVariable Long id, @RequestBody MeetingDTO meetingDTO) {
-        return meetingService.create(id, meetingDTO);
+    @PostMapping("/{userId}")
+    public MeetingDTO createMeeting(@PathVariable Long userId, @RequestBody MeetingDTO meetingDTO) {
+        return meetingService.create(userId, meetingDTO);
     }
 
-    @PutMapping("/{id}")
-    public MeetingDTO updateMeeting(@PathVariable Long id, @RequestBody MeetingDTO meetingDTO) {
-        return meetingService.updateMeeting(id, meetingDTO);
+    @PutMapping("/{userId}")
+    public MeetingDTO updateMeeting(@PathVariable Long userId, @RequestBody MeetingDTO meetingDTO) {
+        return meetingService.updateMeeting(userId, meetingDTO);
     }
 
     @DeleteMapping("/{id}")

@@ -34,32 +34,23 @@ public class MeetingService {
 
     public MeetingDTO findOne(Long id) {
         return new MeetingDTO(meetingRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Meeting not found")));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Meeting not found in DB")));
     }
 
-    public MeetingDTO create(Long id, MeetingDTO meetingDTO) {
+    public MeetingDTO create(Long userId, MeetingDTO meetingDTO) {
         Meeting meeting = meetingDTO.toEntity();
-        meeting.setCreatedBy(userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")));
+        meeting.setCreatedBy(userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found in DB")));
         meeting.setCreatedAt(LocalDateTime.now());
         return new MeetingDTO(meetingRepository.save(meeting));
     }
 
-    public MeetingDTO updateMeeting(Long id, MeetingDTO meetingDTO) {
-        Meeting existingMeeting = meetingRepository.findById(meetingDTO.getId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Meeting not found"));
-        existingMeeting.setTitle(meetingDTO.getTitle());
-        existingMeeting.setDescription(meetingDTO.getDescription());
-        existingMeeting.setLocation(meetingDTO.getLocation());
-        existingMeeting.setRecurring(meetingDTO.getRecurring());
-        existingMeeting.setStartingTime(meetingDTO.getStartingTime());
-        existingMeeting.setFinishTime(meetingDTO.getFinishTime());
-        existingMeeting.setUpdatedBy(userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")));
-        existingMeeting.setUpdatedAt(LocalDateTime.now());
-        existingMeeting.setRequiredAttendants(meetingDTO.getRequiredAttendants());
-        existingMeeting.setOptionalAttendants(meetingDTO.getOptionalAttendants());
-        return new MeetingDTO(meetingRepository.save(existingMeeting));
+    public MeetingDTO updateMeeting(Long userId, MeetingDTO meetingDTO) {
+        Meeting meeting = meetingDTO.toEntity();
+        meeting.setUpdatedBy(userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found in DB")));
+        meeting.setUpdatedAt(LocalDateTime.now());
+        return new MeetingDTO(meetingRepository.save(meeting));
     }
 
     public void deleteById(Long id) {
