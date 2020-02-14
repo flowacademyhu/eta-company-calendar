@@ -4,6 +4,7 @@ import hu.flowacademy.companycalendar.model.dto.UserRequestDTO;
 import hu.flowacademy.companycalendar.model.dto.UserResponseDTO;
 import hu.flowacademy.companycalendar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ public class UserResource {
 
   @PostMapping
   public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequestDTO) {
-    return ResponseEntity.ok(userService.createUser(userRequestDTO));
+    return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(userRequestDTO));
   }
 
   @PutMapping("/{id}")

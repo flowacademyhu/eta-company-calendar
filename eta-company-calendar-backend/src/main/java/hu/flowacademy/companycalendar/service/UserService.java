@@ -33,8 +33,11 @@ public class UserService {
   }
 
   public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
+    if (userRepository.findFirstByEmail(userRequestDTO.getEmail()).isPresent()) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+    }
     String psw = BCrypt.hashpw(userRequestDTO.getPassword(), BCrypt.gensalt());
-    User user = new User();
+    User user = userRequestDTO.toEntity();
     user.setPassword(psw);
     return new UserResponseDTO(userRepository.save(user));
   }
@@ -42,12 +45,17 @@ public class UserService {
   public UserResponseDTO updateUser(Long id, UserRequestDTO userRequestDTO) {
     User user = userRepository.findById(id)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    if (!BCrypt.checkpw(userRequestDTO.getPassword(), user.getPassword())) {
+    if (userRequestDTO.getPassword() != null
+        && !BCrypt.checkpw(userRequestDTO.getPassword(), user.getPassword())) {
       String psw = BCrypt.hashpw(userRequestDTO.getPassword(), BCrypt.gensalt());
       user.setPassword(psw);
     }
-    user.setEmail(userRequestDTO.getEmail());
-    user.setRole(userRequestDTO.getRole());
+    if (userRequestDTO.getEmail() != null) {
+      user.setEmail(userRequestDTO.getEmail());
+    }
+    if (userRequestDTO.getRole() != null) {
+      user.setRole(userRequestDTO.getRole());
+    }
     return new UserResponseDTO(userRepository.save(user));
   }
 
