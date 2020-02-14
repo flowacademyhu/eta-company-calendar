@@ -26,6 +26,7 @@
 
   "newuserform":{
     "create_new_user": "Új felhasználó létrehozása",
+    "new_user": "Új felhasználó",
     "role": "Szerepkör",
     "admin": "Admin",
     "user": "Felhasználó",
@@ -33,7 +34,10 @@
     "password": "Jelszó",
     "confirm_password": "Jelszó megerősítés",
     "create":"Létrehoz",
-    "cancel":"Mégse"
+    "cancel":"Mégse",
+    "email_error": "Az email cím formátuma hibás.",
+    "password_error": "A jelszó kitöltése kötelező.",
+    "role_error": "A szerepkör megadása kötelező"
   }
 
 }

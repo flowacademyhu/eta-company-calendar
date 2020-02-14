@@ -23,7 +23,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
       {{user.website}}<br>
     </mat-card>
 
-    <button mat-raised-button (click)="openDialog()" class="my-5">New user</button>
+    <button mat-raised-button (click)="openDialog()" class="my-5">{{'newuserform.new_user' | translate}}</button>
   `
 })
 
