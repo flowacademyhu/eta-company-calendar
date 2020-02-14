@@ -12,7 +12,7 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
     <a class="mr-3" mat-raised-button routerLink=".">{{'header.meetings' | translate}}</a>
     <a class="mr-5"mat-raised-button routerLink=".">{{'header.reminders' | translate}}</a>
     <p class="ml-auto" (click)="onLanguageChange()">{{'header.button' | translate}}</p>
-    <button mat-raised-button class="ml-3">{{'header.logout' | translate}}</button>
+    <button mat-raised-button (click)="onLogout()" class="ml-3">{{'header.logout' | translate}}</button>
   </mat-toolbar>`
 })
 
