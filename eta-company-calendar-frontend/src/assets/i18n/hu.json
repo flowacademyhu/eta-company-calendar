@@ -22,6 +22,18 @@
     "logout": "kijelentkezés",
     "email_error": "Az email cím formátuma hibás.",
     "password_error": "A jelszó kitöltése kötelező."
+  },
+
+  "newuserform":{
+    "create_new_user": "Új felhasználó létrehozása",
+    "role": "Szerepkör",
+    "admin": "Admin",
+    "user": "Felhasználó",
+    "email": "Email cím",
+    "password": "Jelszó",
+    "confirm_password": "Jelszó megerősítés",
+    "create":"Létrehoz",
+    "cancel":"Mégse"
   }
 
 }

@@ -2,34 +2,34 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-    selector: 'dialog-overview-example-dialog',
+    selector: 'new-user-dialog',
     template: `
     <div class="example-container width:600px ">
-    <h1 mat-dialog-title>Create new user</h1>
+    <h1 mat-dialog-title>{{'newuserform.create_new_user' | translate}}</h1>
     <mat-form-field appearance="fill">
-    <mat-label>Role</mat-label>
+    <mat-label>{{'newuserform.role' | translate}}</mat-label>
     <mat-select>
-      <mat-option value="option">User</mat-option>
-      <mat-option value="option">Admin</mat-option>
+      <mat-option value="option">{{'newuserform.user' | translate}}</mat-option>
+      <mat-option value="option">{{'newuserform.admin' | translate}}</mat-option>
     </mat-select>
     </mat-form-field>
     <br>
     <mat-form-field appearance="fill">
-    <mat-label>E-mail</mat-label>
+    <mat-label>{{'newuserform.email' | translate}}</mat-label>
     <input matInput>
     </mat-form-field>
     <br>
     <mat-form-field appearance="fill">
-    <mat-label>Password</mat-label>
+    <mat-label>{{'newuserform.password' | translate}}</mat-label>
     <input matInput>
     </mat-form-field>
     <br>
     <mat-form-field appearance="fill">
-    <mat-label>Confirm Password</mat-label>
+    <mat-label>{{'newuserform.confirm_password' | translate}}</mat-label>
     <input matInput>
     </mat-form-field>
-    <button mat-button>Create</button>
-    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button>{{'newuserform.create' | translate}}</button>
+    <button mat-button (click)="onNoClick()">{{'newuserform.cancel' | translate}}</button>
     </div>`,
   })
   export class NewUserComponent {
