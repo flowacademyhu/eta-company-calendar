@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { Profile } from '../../../models/profile.model';
@@ -62,7 +62,7 @@ import { Profile } from '../../../models/profile.model';
   `
 })
 
-export class ProfileDescriptionComponent implements OnInit {
+export class ProfileDescriptionComponent {
 
   constructor(private readonly api: ApiCommunicationService) {
     this.profile$ = this.api.profile()
@@ -80,8 +80,5 @@ export class ProfileDescriptionComponent implements OnInit {
   public team: string = 'Könyvelés';
   public leader: string = 'Szabó Ferenc';
 
-  public ngOnInit(): void {
-  }
   public profile$: Observable<Profile>;
-
 }

@@ -8,8 +8,4 @@ export class ProfileApiConnector extends AbstractApiConnector {
   public getProfile(id: number): Observable<Profile> {
     return this.http.get<Profile>(`${this.apiRoute}/profiles/${id}`);
   }
-  public test() {
-    // tslint:disable-next-line:no-console
-    console.log('mukodik a profile api');
-  }
 }
