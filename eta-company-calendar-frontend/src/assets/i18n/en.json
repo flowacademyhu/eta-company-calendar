@@ -3,6 +3,18 @@
     "text": "Welcome Team Company Calendar! Read the dev-docs!",
     "button": "Switch to Hungarian"
   },
+  "profile": {
+    "name": "Name",
+    "button": "Switch to Hungarian",
+    "close": "Close",
+    "modify": "Modify",
+    "position": "Position",
+    "department": "Department",
+    "team": "Team",
+    "leader": "Leader",
+    "dateOfBirth": "Date of Birth",
+    "dateOfEntry": "Date of Entry"
+  },
 
   "header": {
     "button": "HU",
@@ -12,7 +24,7 @@
     "reminders": "Reminders",
     "logout": "Logout"
   },
-  
+
   "login": {
     "email": "email address",
     "password": "password",
