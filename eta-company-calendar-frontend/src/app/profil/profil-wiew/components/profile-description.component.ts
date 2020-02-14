@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { Profile } from '../../../models/profile.model';
@@ -17,26 +16,39 @@ import { Profile } from '../../../models/profile.model';
     <mat-card-content>
       <mat-form-field class="profile-full-width">
         {{ "profile.name" | translate }}
-        <hr>
-        <div class="pc">Kovács Lajos</div>
+        <div class="pc">{{lastName}} {{firstName}}</div>
       </mat-form-field>
       <br />
       <mat-form-field class="profile-full-width">
         {{ "profile.department" | translate }}
-        <hr>
-        <div class="pc">Pénzügy</div>
+        <div class="pc">{{department}}</div>
       </mat-form-field>
       <mat-form-field class="profile-full-width">
         {{ "profile.team" | translate }}
-        <hr>
-        <div class="pc">Könyvelés</div>
+        <div class="pc">{{team}}</div>
       </mat-form-field>
       <br />
       <mat-form-field class="profile-full-width">
         {{ "profile.position" | translate }}
-        <hr>
-        <div class="pc">Csoportvezető</div>
+
+        <div class="pc">{{position}}</div>
       </mat-form-field>
+      <br />
+      <mat-form-field class="profile-full-width">
+        {{ "profile.leader" | translate }}
+        <div class="pc">{{leader}}</div>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="profile-full-width">
+        {{ "profile.dateOfBirth" | translate }}
+        <div class="pc">{{dateOfBirth}}</div>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="profile-full-width">
+        {{ "profile.dateOfEntry" | translate }}
+        <div class="pc">{{dateOfEntry}}</div>
+      </mat-form-field>
+
     </mat-card-content>
     <mat-card-actions>
       <a routerLink = ''>
@@ -44,10 +56,6 @@ import { Profile } from '../../../models/profile.model';
         {{ "profile.close" | translate }}
       </button>
     </a>
-    <div class= "button-separator"></div>
-      <button mat-stroked-button>
-        {{ "profile.modify" | translate }}
-      </button>
     </mat-card-actions>
   </mat-card>
 </div>
@@ -56,26 +64,24 @@ import { Profile } from '../../../models/profile.model';
 
 export class ProfileDescriptionComponent implements OnInit {
 
-  public ngOnInit(): void {
-    // tslint:disable-next-line:no-console
-    console.log('ok');
-    this.api.profile()
-      .test();
+  constructor(private readonly api: ApiCommunicationService) {
+    this.profile$ = this.api.profile()
+    .getProfile(this.userId);
   }
 
-  public language: string;
   public profile: Profile;
-  public profile$: Observable<Profile>;
-  // tslint:disable-next-line: typedef
-  public id = 2;
+  public userId: number;
+  public firstName: string = 'Lajos';
+  public lastName: string = 'Kovács';
+  public dateOfBirth: Date;
+  public dateOfEntry: Date;
+  public department: string = 'Pénzügy';
+  public position: string = 'Csoportvezető';
+  public team: string = 'Könyvelés';
+  public leader: string = 'Szabó Ferenc';
 
-  constructor(private readonly api: ApiCommunicationService,
-              private readonly translate: TranslateService) {
-    // tslint:disable-next-line:newline-per-chained-call
-    this.profile$ = this.api.profile().getProfile(this.id);
+  public ngOnInit(): void {
   }
-  public onLanguageChange() {
-    this.translate.use(this.language === 'en' ? 'hu' : 'en');
-    this.language = this.translate.currentLang;
-  }
+  public profile$: Observable<Profile>;
+
 }

@@ -11,7 +11,9 @@
     "position": "Pozíció",
     "department": "Részleg",
     "team": "Csoport",
-    "leader": "Vezető"
+    "leader": "Vezető",
+    "dateOfBirth": "Születési dátum",
+    "dateOfEntry": "Munkaviszony kezdete"
   },
 
   "header": {
