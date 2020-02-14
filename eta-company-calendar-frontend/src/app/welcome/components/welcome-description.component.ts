@@ -47,7 +47,7 @@ export class WelcomeDescriptionComponent {
 
   public openDialog(): void {
     this.dialog.open(NewUserComponent, {
-      width: '250px',
+      width: '300px',
     });
 
   }
