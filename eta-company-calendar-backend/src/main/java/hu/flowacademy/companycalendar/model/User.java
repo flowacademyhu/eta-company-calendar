@@ -22,27 +22,24 @@ import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.List;
 
+@Entity
+@Table(name = "_users")
 @Data
 @Builder
-@Entity
-@Table
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column
   private Long id;
 
   @NotBlank
   @Column(unique = true)
   private String email;
 
-  @Column
   private String password;
 
-  @Column
   @Enumerated(EnumType.STRING)
   private Roles role;
 
@@ -85,4 +82,3 @@ public class User implements UserDetails {
   }
 
 }
-
