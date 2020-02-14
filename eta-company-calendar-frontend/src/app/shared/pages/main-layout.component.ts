@@ -17,7 +17,7 @@ import { ConfigurationService } from './../services/configuration.service';
 
 export class MainLayoutComponent {
 
-  constructor(private readonly config: ConfigurationService, public dialog: MatDialog) { }
+  constructor(private readonly config: ConfigurationService, private readonly dialog: MatDialog) { }
 
   protected checkToken() {
     return !!this.config.fetchToken('access_token');
