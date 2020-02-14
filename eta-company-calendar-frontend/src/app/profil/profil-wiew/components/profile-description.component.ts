@@ -16,39 +16,37 @@ import { Profile } from '../../../models/profile.model';
 
     <mat-card-content>
       <mat-form-field class="profile-full-width">
-        {{ "profile.name" | translate }}:
+        {{ "profile.name" | translate }}
         <hr>
         <div class="pc">Kovács Lajos</div>
       </mat-form-field>
       <br />
       <mat-form-field class="profile-full-width">
-        {{ "profile.department" | translate }}:
+        {{ "profile.department" | translate }}
         <hr>
         <div class="pc">Pénzügy</div>
       </mat-form-field>
       <mat-form-field class="profile-full-width">
-        {{ "profile.team" | translate }}:
+        {{ "profile.team" | translate }}
         <hr>
         <div class="pc">Könyvelés</div>
       </mat-form-field>
       <br />
       <mat-form-field class="profile-full-width">
-        {{ "profile.position" | translate }}:
+        {{ "profile.position" | translate }}
         <hr>
         <div class="pc">Csoportvezető</div>
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
       <a routerLink = ''>
-      <button mat-button color="primary">
+      <button mat-stroked-button>
         {{ "profile.close" | translate }}
       </button>
     </a>
-      <button mat-button color="warn">
+    <div class= "button-separator"></div>
+      <button mat-stroked-button>
         {{ "profile.modify" | translate }}
-      </button>
-      <button mat-button color="primary" (click)="onLanguageChange()">
-        {{ "welcome.button" | translate }}
       </button>
     </mat-card-actions>
   </mat-card>

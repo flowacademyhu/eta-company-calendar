@@ -10,8 +10,6 @@
 
 .profile-full-width{
   width: 100%;
- /*  color: whitesmoke; */
-
 }
 .profile-wrapper mat-card-header {
   text-align:center;
@@ -19,14 +17,19 @@
   display:block;
   font-weight:700;
 }
-/* .box {
-  background-color: black;
-  color: whitesmoke;
-} */
+.mat-stroked-button {
+  border:2px solid;
+  width: 250px;
+  color: black;
+}
+
+.button-separator {
+  height: 10px;
+}
+
 .pc {
   border: 1px;
   font-size: large;
   font-weight: 100;
- /*  color: whitesmoke; */
 }
 
