@@ -13,16 +13,16 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
   <div class="login-wrapper">
     <mat-card class="box">
       <mat-card-header>
-        <mat-card-title class="title">Log in</mat-card-title>
+        <mat-card-title class="title">{{ 'login.login' | translate }}</mat-card-title>
       </mat-card-header>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-card-content>
-          <mat-form-field class="login-full-width">
+          <mat-form-field class="login-full-width mb-2">
             <mat-label>{{ 'login.email' | translate }}</mat-label>
             <input matInput formControlName="email" type="text">
             <mat-error> {{'login.email_error' | translate}} </mat-error>
           </mat-form-field>
-          <mat-form-field class="login-full-width">
+          <mat-form-field class="login-full-width mb-3">
             <mat-label>{{ 'login.password' | translate }}</mat-label>
             <input matInput formControlName="password" type="password">
             <mat-error> {{'login.password_error' | translate}} </mat-error>

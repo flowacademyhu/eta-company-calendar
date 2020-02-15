@@ -28,10 +28,10 @@
   "login": {
     "email": "email address",
     "password": "password",
-    "login": "login",
+    "login": "Login",
     "invalid_grant": "Invalid email address or password.",
     "no_response": "The server is currently unavailable.",
-    "logout": "logout",
+    "logout": "Logout",
     "email_error": "Invalid email address.",
     "password_error": "A password is required."
   }
