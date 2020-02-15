@@ -26,12 +26,12 @@
   },
 
   "login": {
-    "email": "email cím",
-    "password": "jelszó",
-    "login": "bejelentkezés",
+    "email": "E-mail cím",
+    "password": "Jelszó",
+    "login": "Bejelentkezés",
     "invalid_grant": "Hibás email cím vagy jelszó.",
     "no_response": "A szerver nem elérhető.",
-    "logout": "kijelentkezés",
+    "logout": "Kijelentkezés",
     "email_error": "Az email cím formátuma hibás.",
     "password_error": "A jelszó kitöltése kötelező."
   }
