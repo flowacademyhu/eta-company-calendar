@@ -26,7 +26,7 @@
   },
 
   "login": {
-    "email": "email address",
+    "email": "E-mail address",
     "password": "password",
     "login": "Login",
     "invalid_grant": "Invalid email address or password.",
