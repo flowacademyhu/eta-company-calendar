@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { ConfigurationService } from '../../shared/services/configuration.service';
-import { MatDialog } from '@angular/material/dialog';
 import { NewUserComponent } from '~/app/shared/modals/new-user.component';
+import { ConfigurationService } from '../../shared/services/configuration.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +13,7 @@ import { NewUserComponent } from '~/app/shared/modals/new-user.component';
   'button {border: 2px solid; border-color: black !important'],
   template:
   `<mat-toolbar class="my-0">
-    <a class="mr-3" mat-stroked-button routerLink=".">{{'header.profile' | translate}}</a>
+    <a class="mr-3" mat-stroked-button routerLink="profiles">{{'header.profile' | translate}}</a>
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.calendar' | translate}}</a>
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.meetings' | translate}}</a>
     <a class="mr-5"mat-stroked-button routerLink=".">{{'header.reminders' | translate}}</a>

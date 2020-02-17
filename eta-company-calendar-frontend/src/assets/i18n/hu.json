@@ -3,6 +3,18 @@
     "text": "Üdvözöllek Céges Kalendárium csapat! Olvassátok el a fejlesztői dokumentációt!",
     "button": "Váltás angol nyelvre"
   },
+  "profile": {
+    "name": "Név",
+    "button": "Váltás angol nyelvre",
+    "close": "Bezárás",
+    "modify": "Módosítás",
+    "position": "Pozíció",
+    "department": "Részleg",
+    "team": "Csoport",
+    "leader": "Vezető",
+    "dateOfBirth": "Születési dátum",
+    "dateOfEntry": "Munkaviszony kezdete"
+  },
 
   "header": {
     "button": "EN",
@@ -12,14 +24,14 @@
     "reminders": "Emlékeztetők",
     "logout": "Kijelentkezés"
   },
-  
+
   "login": {
-    "email": "email cím",
-    "password": "jelszó",
-    "login": "bejelentkezés",
+    "email": "E-mail cím",
+    "password": "Jelszó",
+    "login": "Bejelentkezés",
     "invalid_grant": "Hibás email cím vagy jelszó.",
     "no_response": "A szerver nem elérhető.",
-    "logout": "kijelentkezés",
+    "logout": "Kijelentkezés",
     "email_error": "Az email cím formátuma hibás.",
     "password_error": "A jelszó kitöltése kötelező."
   },
@@ -40,5 +52,4 @@
     "password_error": "A jelszó kitöltése kötelező.",
     "role_error": "A szerepkör megadása kötelező"
   }
-
 }
