@@ -2,13 +2,11 @@ package hu.flowacademy.companycalendar.model.dto;
 
 import hu.flowacademy.companycalendar.model.Recurring;
 import hu.flowacademy.companycalendar.model.Reminder;
-import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -20,8 +18,8 @@ public class ReminderDTO {
     private Long userId;
     private String title;
     private String description;
-    private LocalDateTime startingTime;
-    private LocalDateTime endingTime;
+    private Long startingTime;
+    private Long endingTime;
     private Recurring recurring;
 
     public ReminderDTO(Reminder reminder) {
