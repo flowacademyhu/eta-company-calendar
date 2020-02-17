@@ -21,37 +21,39 @@ import java.util.List;
 @NoArgsConstructor
 public class Meeting {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private String title;
+  private String title;
 
-    private String description;
+  private String description;
 
-    @Enumerated(value = EnumType.STRING)
-    private Location location;
+  @Enumerated(value = EnumType.STRING)
+  private Location location;
 
-    @Enumerated(value = EnumType.STRING)
-    private Recurring recurring;
+  private String otherLocation;
 
-    private Long startingTime;
+  @Enumerated(value = EnumType.STRING)
+  private Recurring recurring;
 
-    private Long finishTime;
+  private Long startingTime;
 
-    @ManyToOne
-    private User createdBy;
+  private Long finishTime;
 
-    @ManyToOne
-    private User updatedBy;
+  @ManyToOne
+  private User createdBy;
 
-    private Long createdAt;
+  @ManyToOne
+  private User updatedBy;
 
-    private Long updatedAt;
+  private Long createdAt;
 
-    @ManyToMany
-    private List<User> requiredAttendants;
+  private Long updatedAt;
 
-    @ManyToMany
-    private List<User> optionalAttendants;
+  @ManyToMany
+  private List<User> requiredAttendants;
+
+  @ManyToMany
+  private List<User> optionalAttendants;
 }
