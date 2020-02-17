@@ -6,8 +6,8 @@ export interface MeetingDetail {
   location: Location;
   otherLocation: string;
   recurring: Recurring;
-  startingTime: Date;
-  finishTime: Date;
+  startingTime: number;
+  finishTime: number;
   createdBy: string;
   requiredAttendants: string[];
   optionalAttendants: string[];
