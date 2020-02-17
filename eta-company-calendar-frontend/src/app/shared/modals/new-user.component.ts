@@ -5,10 +5,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
     selector: 'new-user-dialog',
     template: `
-    <div class="example-container width:600px ">
-    <h1 mat-dialog-title>{{'newuserform.create_new_user' | translate}}</h1>
+    <div>
+    <h1 align="center" mat-dialog-title>{{'newuserform.create_new_user' | translate}}</h1>
     <form [formGroup]="newUserForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" [style.width.%]=100>
           <mat-label>{{'newuserform.role' | translate}}</mat-label>
         <mat-select formControlName="role">
           <mat-option value="option">{{'newuserform.user' | translate}}</mat-option>
@@ -17,27 +17,28 @@ import { MatDialogRef } from '@angular/material/dialog';
         <mat-error> {{'newuserform.role_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" [style.width.%]=100>
         <mat-label>{{'newuserform.email' | translate}}</mat-label>
         <input matInput formControlName="email" type="text">
         <mat-error> {{'newuserform.email_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" [style.width.%]=100>
         <mat-label>{{'newuserform.password' | translate}}</mat-label>
         <input matInput formControlName="password" type="password">
         <mat-error> {{'newuserform.password_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" [style.width.%]=100>
         <mat-label>{{'newuserform.confirm_password' | translate}}</mat-label>
         <input matInput formControlName="password" type="password">
         <mat-error> {{'newuserform.password_error' | translate}} </mat-error>
       </mat-form-field>
+      <br>
       <button mat-raised-button type="submit"
       [disabled]="newUserForm.invalid">{{'newuserform.create' | translate}}</button>
+      <button mat-raised-button (click)="onNoClick()" class="ml-3">{{'newuserform.cancel' | translate}}</button>
     </form>
-    <button mat-raised-button (click)="onNoClick()">{{'newuserform.cancel' | translate}}</button>
     </div>`,
   })
   export class NewUserComponent implements OnInit {

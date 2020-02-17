@@ -25,6 +25,7 @@
   },
 
   "newuserform":{
+    "button": "Új felhasználó hozzáadása",
     "create_new_user": "Új felhasználó létrehozása",
     "new_user": "Új felhasználó",
     "role": "Szerepkör",

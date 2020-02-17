@@ -25,6 +25,7 @@
   },
 
   "newuserform":{
+    "button": "Add New User",
     "create_new_user": "Create new user",
     "new_user": "New User",
     "role": "Role",
