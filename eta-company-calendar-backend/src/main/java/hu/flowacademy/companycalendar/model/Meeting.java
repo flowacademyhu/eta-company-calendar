@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,39 +21,41 @@ import java.util.List;
 @NoArgsConstructor
 public class Meeting {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private String title;
+  private String title;
 
-    private String description;
+  private String description;
 
-    @Enumerated(value = EnumType.STRING)
-    private Location location;
+  @Enumerated(value = EnumType.STRING)
+  private Location location;
 
-    private String otherLocation;
+  private String otherLocation;
 
-    @Enumerated(value = EnumType.STRING)
-    private Recurring recurring;
+  @Enumerated(value = EnumType.STRING)
+  private Recurring recurring;
 
-    private Long startingTime;
+  private Long startingTime;
 
-    private Long finishTime;
+  private Long finishTime;
 
-    @ManyToOne
-    private User createdBy;
 
-    @ManyToOne
-    private User updatedBy;
-    
-    private Long createdAt;
-    
-    private Long updatedAt;
+  @ManyToOne
+  private User createdBy;
 
-    @ManyToMany
-    private List<User> requiredAttendants;
+  @ManyToOne
+  private User updatedBy;
 
-    @ManyToMany
-    private List<User> optionalAttendants;
+  private Long createdAt;
+
+  private Long updatedAt;
+
+
+  @ManyToMany
+  private List<User> requiredAttendants;
+
+  @ManyToMany
+  private List<User> optionalAttendants;
 }
