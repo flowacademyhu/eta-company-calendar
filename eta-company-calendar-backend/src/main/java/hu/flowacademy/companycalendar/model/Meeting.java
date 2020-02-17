@@ -32,6 +32,8 @@ public class Meeting {
   @Enumerated(value = EnumType.STRING)
   private Location location;
 
+  private String otherLocation;
+
   @Enumerated(value = EnumType.STRING)
   private Recurring recurring;
 
@@ -39,10 +41,8 @@ public class Meeting {
 
   private Long finishTime;
 
-
   @ManyToOne
   private User createdBy;
-
 
   @ManyToOne
   private User updatedBy;
@@ -50,7 +50,6 @@ public class Meeting {
   private Long createdAt;
 
   private Long updatedAt;
-
 
   @ManyToMany
   private List<User> requiredAttendants;
