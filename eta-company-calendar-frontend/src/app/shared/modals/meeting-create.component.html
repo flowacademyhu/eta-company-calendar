@@ -11,12 +11,19 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Font size</mat-label>
+      <mat-label>{{ 'meeting.location' | translate }}</mat-label>
       <mat-select formControlName="location">
-        <mat-option value="10px">10px</mat-option>
-        <mat-option value="10px">11px</mat-option>
+        <mat-option *ngFor="let loc of locations" [value]="loc">{{ loc | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
+
+    <mat-form-field *ngIf="isOtherLocation()">
+      <mat-label >{{ 'meeting.otherLocation' | translate }}</mat-label>
+      <input matInput formControlName="otherLocation" type="text">
+    </mat-form-field>
+
+    <button mat-stroked-button color="primary" type="submit" [disabled]="meetingForm.invalid"
+    >{{ 'login.login' | translate }}</button>
 
   </form>
 </div>

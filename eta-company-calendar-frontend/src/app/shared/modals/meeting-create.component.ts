@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Location } from '../models/location.model';
 
 @Component({
   selector: 'app-meeting-create',
@@ -9,6 +10,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 export class MeetingCreateComponent implements OnInit {
   private meetingForm: FormGroup;
+  protected locations: string[] = Object.values(Location);
 
   constructor(private readonly dialogRef: MatDialogRef<MeetingCreateComponent>) {}
 
@@ -38,6 +40,10 @@ export class MeetingCreateComponent implements OnInit {
     } else {
       alert('form not valid');
     }
+  }
+
+  protected isOtherLocation(): boolean {
+    return this.meetingForm.get('location')?.value === Location.OTHER;
   }
 
 }

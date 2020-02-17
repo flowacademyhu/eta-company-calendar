@@ -1,3 +1,4 @@
+import { Location } from './location.model';
 import { Recurring } from './recurring.model';
 
 export interface MeetingDetail {
@@ -11,11 +12,4 @@ export interface MeetingDetail {
   createdBy: string;
   requiredAttendants: string[];
   optionalAttendants: string[];
-}
-
-enum Location {
-  MEETING_ROOM,
-  MARKS_OFFICE,
-  ARONS_OFFICE,
-  OTHER
 }

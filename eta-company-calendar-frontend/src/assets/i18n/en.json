@@ -34,6 +34,25 @@
     "logout": "Logout",
     "email_error": "Invalid email address.",
     "password_error": "A password is required."
+  },
+
+  "meeting": {
+    "title": "title",
+    "description": "description",
+    "location": "location",
+    "otherLocation": "other",
+    "startingTime": "from",
+    "finishTime": "to",
+    "createdBy": "organizer",
+    "requiredAttendants": "required",
+    "optionalAttendants": "optional"
+  },
+
+  "location": {
+    "MEETING_ROOM": "meeting room",
+    "MARKS_OFFICE": "Mark's office",
+    "ARONS_OFFICE": "Aron's office",
+    "OTHER": "other"
   }
 
 }

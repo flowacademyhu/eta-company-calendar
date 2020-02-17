@@ -34,5 +34,24 @@
     "logout": "Kijelentkezés",
     "email_error": "Az email cím formátuma hibás.",
     "password_error": "A jelszó kitöltése kötelező."
+  },
+
+  "meeting": {
+    "title": "cím",
+    "description": "leírás",
+    "location": "helyszín",
+    "otherLocation": "egyéb",
+    "startingTime": "kezdés",
+    "finishTime": "vége",
+    "createdBy": "szervező",
+    "requiredAttendants": "kötelező",
+    "optionalAttendants": "opcionális"
+  },
+
+  "location": {
+    "MEETING_ROOM": "tárgyaló",
+    "MARKS_OFFICE": "Márk irodája",
+    "ARONS_OFFICE": "Áron irodája",
+    "OTHER": "egyéb"
   }
 }
