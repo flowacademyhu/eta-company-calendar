@@ -6,7 +6,9 @@ import { ConfigurationService } from './../services/configuration.service';
   template: `
     <div class="container">
       <app-header *ngIf="checkToken()"></app-header>
-      <router-outlet></router-outlet>
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
       <app-footer *ngIf="checkToken()"></app-footer>
     </div>
   `

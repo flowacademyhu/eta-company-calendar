@@ -6,7 +6,9 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 
 @Component({
   selector: 'app-welcome-description',
-  template: ``
+  template: ``,
+  // tslint:disable-next-line: object-literal-sort-keys
+  styleUrls: ['welcome.component.scss']
 })
 
 export class WelcomeDescriptionComponent {

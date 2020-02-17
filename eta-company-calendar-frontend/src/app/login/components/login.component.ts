@@ -34,6 +34,9 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
         </mat-card-content>
       </form>
     </mat-card>
+    <div>
+      <img src="./assets/images/csihalogo.jpg">
+    </div>
   </div>
   `
 })

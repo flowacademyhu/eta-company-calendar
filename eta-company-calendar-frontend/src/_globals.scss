@@ -6,3 +6,8 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
 }
+
+.content {
+  min-height: calc(100vh - 114px);
+  margin-top: 64px;
+}

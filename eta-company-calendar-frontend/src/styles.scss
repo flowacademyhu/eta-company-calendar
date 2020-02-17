@@ -4,10 +4,8 @@
 @import "overrides";
 @import "variables";
 
-html {
-    background-image: url('/assets/images/bgp.jpg');
+html, body {
+    background: url(/assets/images/bgpplain.jpg) no-repeat fixed;
     -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     background-size: cover;
 }
