@@ -1,0 +1,20 @@
+matrix:
+  include:
+    - language: java
+      jdk: openjdk11
+      #services:
+      - postgresql
+      before_script:
+      - createuser companycalendar
+      - psql -c "alter user companycalendar with encrypted password 'KkN7{/uvw}?CKi).hDY8YSM0}YMC3QT';" -U postgres
+      - psql -c "create database companycalendar;" -U postgres
+      - psql -c "grant all privileges on database companycalendar to companycalendar;" -U postgres
+      script:
+      - "cd eta-company-calendar-backend"
+      - "./mvnw clean test -Dspring.profiles.active=travis"
+    - language: node_js
+      node_js: "8.15"
+      script:
+      - "cd eta-company-calendar-frontend"
+      - "npm install -g @angular/cli && npm install"
+      - "ng build --aot"
