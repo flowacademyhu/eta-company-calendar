@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '~/app/shared/shared.module';
 import { ProfileRoutingModule } from '../profil-wiew/profile-routing.module';
-import { ProfileDescriptionComponent } from './components/profile-description.component';
+import { ProfilViewDialog } from './components/profil-view-dialog.component';
 
 @NgModule({
   declarations: [
-    ProfileDescriptionComponent,
+    ProfilViewDialog,
   ],
   imports: [
     SharedModule,

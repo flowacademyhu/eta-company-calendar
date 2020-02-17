@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from '../../shared/pages/main-layout.component';
-import { ProfileDescriptionComponent } from './components/profile-description.component';
+import { ProfilViewDialog } from './components/profil-view-dialog.component';
 
 const routes: Routes = [
   {
-    component: ProfileDescriptionComponent,
+    component: ProfilViewDialog,
     path: ''},
   {
     component: MainLayoutComponent,
