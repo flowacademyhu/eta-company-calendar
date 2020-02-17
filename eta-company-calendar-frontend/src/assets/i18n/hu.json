@@ -4,6 +4,15 @@
     "button": "Váltás angol nyelvre"
   },
 
+  "header": {
+    "button": "EN",
+    "profile": "Profil",
+    "calendar": "Naptár",
+    "meetings": "Értekezletek",
+    "reminders": "Emlékeztetők",
+    "logout": "Kijelentkezés"
+  },
+  
   "login": {
     "email": "email cím",
     "password": "jelszó",

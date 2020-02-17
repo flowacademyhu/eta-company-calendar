@@ -1,6 +1,7 @@
 package hu.flowacademy.companycalendar.email;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class SpringRestClient implements RESTClient {
         return new HttpHeaders() {
             {
                 String auth = username + ":" + password;
-                byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(Charset.forName("UTF-8")));
+                byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.UTF_8));
                 String authHeader = "Basic " + new String(encodedAuth);
                 set("Accept", MediaType.APPLICATION_JSON.toString());
                 set("Content-Type", MediaType.APPLICATION_FORM_URLENCODED.toString());
