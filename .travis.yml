@@ -2,7 +2,7 @@ jobs:
   include:
     - language: java
       jdk: openjdk11
-      #services:
+      services:
       - postgresql
       before_script:
       - createuser companycalendar
