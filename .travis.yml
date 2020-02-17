@@ -10,11 +10,11 @@ matrix:
       - psql -c "create database companycalendar;" -U postgres
       - psql -c "grant all privileges on database companycalendar to companycalendar;" -U postgres
       script:
-      - "cd eta-meeting-organizer-backend"
+      - "cd eta-company-calendar-backend"
       - "./mvnw clean test -Dspring.profiles.active=travis"
     - language: node_js
       node_js: "8.15"
       script:
-      - "cd eta-meeting-organizer-frontend"
+      - "cd eta-company-calendar-frontend"
       - "npm install -g @angular/cli && npm install"
       - "ng build --aot"
