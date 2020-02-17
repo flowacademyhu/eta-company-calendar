@@ -46,7 +46,23 @@ public class InitDataLoader {
     }
 
     private void createMeetings() {
-        meetingRepository.save(Meeting.builder().title("First_testMeeting").description("TestDescription").location(Location.MEETING_ROOM).recurring(Recurring.DAILY).startingTime(LocalDateTime.now()).finishTime(LocalDateTime.of(2020,3,14,14,23)).createdAt(LocalDateTime.now()).build());
-        meetingRepository.save(Meeting.builder().title("Second_testMeeting").description("ValamiValamikor").location(Location.MEETING_ROOM).recurring(Recurring.DAILY).startingTime(LocalDateTime.of(2020, 2,8,12,20)).finishTime(LocalDateTime.of(2020,3,14,14,23)).createdAt(LocalDateTime.of(2019,12,10,9,32)).build());
+        meetingRepository.save(Meeting.builder()
+            .title("First_testMeeting")
+            .description("TestDescription")
+            .location(Location.MEETING_ROOM)
+            .recurring(Recurring.DAILY)
+            .startingTime(System.currentTimeMillis())
+            .finishTime(System.currentTimeMillis() + 3600000)
+            .createdAt(System.currentTimeMillis())
+            .build());
+        meetingRepository.save(Meeting.builder()
+            .title("Second_testMeeting")
+            .description("ValamiValamikor")
+            .location(Location.MEETING_ROOM)
+            .recurring(Recurring.DAILY)
+            .startingTime(System.currentTimeMillis() + 3600000)
+            .finishTime(System.currentTimeMillis() + 3600000 * 2)
+            .createdAt(System.currentTimeMillis())
+            .build());
     }
 }
