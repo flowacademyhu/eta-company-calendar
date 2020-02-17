@@ -1,9 +1,5 @@
 package hu.flowacademy.companycalendar.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +12,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
 import javax.persistence.ManyToOne;
 import javax.persistence.ManyToMany;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -40,23 +35,22 @@ public class Meeting {
   @Enumerated(value = EnumType.STRING)
   private Recurring recurring;
 
-  private LocalDateTime startingTime;
+  private Long startingTime;
 
-  private LocalDateTime finishTime;
+  private Long finishTime;
+
 
   @ManyToOne
   private User createdBy;
 
+
   @ManyToOne
   private User updatedBy;
 
-  @JsonSerialize(using = LocalDateTimeSerializer.class)
-  @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-  private LocalDateTime createdAt;
+  private Long createdAt;
 
-  @JsonSerialize(using = LocalDateTimeSerializer.class)
-  @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-  private LocalDateTime updatedAt;
+  private Long updatedAt;
+
 
   @ManyToMany
   private List<User> requiredAttendants;
