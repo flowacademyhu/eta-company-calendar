@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -33,7 +34,7 @@ import { ApiCommunicationService } from '../services/api-communication.service';
       <br>
       <mat-form-field appearance="fill" [style.width.%]=100>
         <mat-label>{{'newuserform.confirm_password' | translate}}</mat-label>
-        <input matInput formControlName="password" type="password">
+        <input matInput formControlName="confirmpassword" type="password">
         <mat-error> {{'newuserform.password_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
@@ -50,6 +51,7 @@ import { ApiCommunicationService } from '../services/api-communication.service';
 
     public ngOnInit() {
       this.newUserForm = new FormGroup({
+        confirmpassword: new FormControl(undefined, [Validators.required]),
         email: new FormControl(undefined, [Validators.email, Validators.required]),
         password: new FormControl(undefined, [Validators.required]),
         role: new FormControl(undefined, [Validators.required])
@@ -64,13 +66,19 @@ import { ApiCommunicationService } from '../services/api-communication.service';
       this.dialogRef.close();
     }
 
+    public handleError(error: HttpErrorResponse) {
+      if (error.status === 400) { alert('Email address already exists'); }
+    }
+
     protected onSubmit() {
+      if (this.newUserForm.get('password')?.value === this.newUserForm.get('confirmpassword')?.value ) {
       this.user.role = this.newUserForm.get('role')?.value;
       this.user.email = this.newUserForm.get('email')?.value;
       this.user.password = this.newUserForm.get('password')?.value;
       this.api.user()
               .postUser(this.user)
-              .subscribe();
-    }
-
+              .subscribe((data) => alert(data), (error) => this.handleError(error));
+    } else { alert('Password mismatch'); }
   }
+
+}
