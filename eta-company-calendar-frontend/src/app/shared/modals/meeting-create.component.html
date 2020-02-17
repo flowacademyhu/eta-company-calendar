@@ -1,1 +1,22 @@
-<p>create meeting works</p>
+<div class="container">
+  <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label >title</mat-label>
+      <input matInput formControlName="title" type="text">
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Font size</mat-label>
+      <mat-select formControlName="location">
+        <mat-option value="10px">10px</mat-option>
+        <mat-option value="10px">11px</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </form>
+</div>
