@@ -13,16 +13,16 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
   <div class="login-wrapper">
     <mat-card class="box">
       <mat-card-header>
-        <mat-card-title class="title">Log in</mat-card-title>
+        <mat-card-title class="title">{{ 'login.login' | translate }}</mat-card-title>
       </mat-card-header>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-card-content>
-          <mat-form-field class="login-full-width">
+          <mat-form-field class="login-full-width mb-2">
             <mat-label>{{ 'login.email' | translate }}</mat-label>
             <input matInput formControlName="email" type="text">
             <mat-error> {{'login.email_error' | translate}} </mat-error>
           </mat-form-field>
-          <mat-form-field class="login-full-width">
+          <mat-form-field class="login-full-width mb-3">
             <mat-label>{{ 'login.password' | translate }}</mat-label>
             <input matInput formControlName="password" type="password">
             <mat-error> {{'login.password_error' | translate}} </mat-error>
@@ -30,8 +30,6 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
           <button mat-stroked-button color="primary" class="btn-block" type="submit" [disabled]="loginForm.invalid"
           >{{ 'login.login' | translate }}</button>
           <div class="button-separator"></div>
-          <button mat-stroked-button color="primary" class="btn-block" (click)="onLogout()"
-          >{{ 'login.logout' | translate }}</button>
           <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
         </mat-card-content>
       </form>
@@ -68,10 +66,6 @@ export class LoginComponent implements OnInit {
       },
       (error) => this.handleError(error)
     );
-  }
-
-  protected onLogout() {
-    this.config.clearToken();
   }
 
   private handleError(errorRes: HttpErrorResponse) {
