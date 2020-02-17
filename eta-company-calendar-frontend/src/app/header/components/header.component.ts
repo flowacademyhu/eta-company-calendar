@@ -8,7 +8,7 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
   styles: [
     // tslint:disable-next-line: max-line-length
     'mat-toolbar { position: fixed; left: 0; top: 0; width: 100%; background-color: white; color: black; text-align: center}', 'p {cursor: pointer;}', 'a {border: 2px solid; border-color: black !important',
-  'button {border: 2px solid; border-color: black !important'],
+  'button {border: 2px solid; border-color: black !important; width: 120px;' , 'a {width: 120px;'],
   template:
   `<mat-toolbar class="my-0">
     <a class="mr-3" mat-stroked-button routerLink="profiles">{{'header.profile' | translate}}</a>
