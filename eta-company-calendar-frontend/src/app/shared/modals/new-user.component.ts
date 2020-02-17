@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { User } from 'src/app/models/user.model';
+import { ApiCommunicationService } from '../services/api-communication.service';
 
 @Component({
     selector: 'new-user-dialog',
@@ -11,8 +13,8 @@ import { MatDialogRef } from '@angular/material/dialog';
         <mat-form-field appearance="fill" [style.width.%]=100>
           <mat-label>{{'newuserform.role' | translate}}</mat-label>
         <mat-select formControlName="role">
-          <mat-option value="option">{{'newuserform.user' | translate}}</mat-option>
-          <mat-option value="option">{{'newuserform.admin' | translate}}</mat-option>
+          <mat-option value="USER">{{'newuserform.user' | translate}}</mat-option>
+          <mat-option value="ADMIN">{{'newuserform.admin' | translate}}</mat-option>
         </mat-select>
         <mat-error> {{'newuserform.role_error' | translate}} </mat-error>
       </mat-form-field>
@@ -41,8 +43,10 @@ import { MatDialogRef } from '@angular/material/dialog';
     </form>
     </div>`,
   })
+
   export class NewUserComponent implements OnInit {
     private newUserForm: FormGroup;
+    private user: User = {role: '', email: '', password: ''};
 
     public ngOnInit() {
       this.newUserForm = new FormGroup({
@@ -53,14 +57,20 @@ import { MatDialogRef } from '@angular/material/dialog';
     }
 
     constructor(
-      public dialogRef: MatDialogRef<NewUserComponent>) {}
+      public dialogRef: MatDialogRef<NewUserComponent>,
+      public readonly api: ApiCommunicationService) {}
 
     public onNoClick(): void {
       this.dialogRef.close();
     }
 
     protected onSubmit() {
-      if (this.newUserForm.valid) {
-      alert('Form works!'); }
+      this.user.role = this.newUserForm.get('role')?.value;
+      this.user.email = this.newUserForm.get('email')?.value;
+      this.user.password = this.newUserForm.get('password')?.value;
+      this.api.user()
+              .postUser(this.user)
+              .subscribe();
     }
+
   }
