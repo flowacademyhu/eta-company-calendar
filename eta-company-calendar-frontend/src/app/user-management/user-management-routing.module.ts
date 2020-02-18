@@ -6,7 +6,8 @@ import { UserManagementDescriptionComponent } from './components/user-management
 const routes: Routes = [
   {
     component: UserManagementDescriptionComponent,
-    path: ''},
+    path: ''
+  },
   {
     component: MainLayoutComponent,
     path: '/',
