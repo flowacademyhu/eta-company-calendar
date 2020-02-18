@@ -22,7 +22,8 @@
     "calendar": "Calendar",
     "meetings": "Meetings",
     "reminders": "Reminders",
-    "logout": "Logout"
+    "logout": "Logout",
+    "usermanagement" : "User Management"
   },
 
   "login": {

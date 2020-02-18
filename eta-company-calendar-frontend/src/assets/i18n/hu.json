@@ -22,7 +22,8 @@
     "calendar": "Naptár",
     "meetings": "Értekezletek",
     "reminders": "Emlékeztetők",
-    "logout": "Kijelentkezés"
+    "logout": "Kijelentkezés",
+    "usermanagement": "Felhasználó kezelés"
   },
 
   "login": {

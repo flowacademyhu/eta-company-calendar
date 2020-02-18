@@ -26,6 +26,13 @@ const routes: Routes = [
     path: 'profiles',
     pathMatch: 'full',
   },
+  {
+    component: MainLayoutComponent,
+    loadChildren: () => import('./user-management/user-management.module')
+      .then((m) => m.UserManagementModule),
+    path: 'usermanagement',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
