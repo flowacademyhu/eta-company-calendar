@@ -14,10 +14,14 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
       text-align: center;}`,
     `a {
       border: 2px solid;
-      border-color: black !important}`,
+      border-color: black !important;
+      width: 160px;}`,
+    `p {
+      cursor: pointer;}`,
     `button {
       border: 2px solid;
-      border-color: black !important`],
+      border-color: black !important;
+      width: 120px;}`],
   template:
   `<mat-toolbar class="my-0 mat-elevation-z6">
     <a class="mr-3" mat-stroked-button routerLink="profiles">{{'header.profile' | translate}}</a>
