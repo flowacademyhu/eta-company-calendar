@@ -5,6 +5,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction'; // for dateClick
 import timeGrigPlugin from '@fullcalendar/timegrid';
 
+import enGbLocale from '@fullcalendar/core/locales/en-gb';
 import huLocale from '@fullcalendar/core/locales/hu';
 
 @Component({
@@ -33,10 +34,10 @@ export class CalendarComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit() {
-    this.calendarComponent.locales = [huLocale];
-    this.calendarComponent.locale = 'hu';
     this.calendarComponent.getApi()
-    .setOption('locale', 'hu');
+    .setOption('locales', [huLocale, enGbLocale]);
+    this.calendarComponent.getApi()
+    .setOption('locale', 'en-gb');
   }
 
 }
