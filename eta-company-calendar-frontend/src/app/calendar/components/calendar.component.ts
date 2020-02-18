@@ -12,8 +12,32 @@ import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-calendar',
-  styleUrls: ['calendar.component.css'],
-  templateUrl: 'calendar.component.html'
+  styles: [`
+    .white-background {
+      background-color: white;
+    }
+    .app-calendar {
+      margin: 0 auto;
+      max-width: 1000px;
+    }
+  `],
+  template: `
+  <div class='app-calendar white-background'>
+    <full-calendar
+      #calendar
+      defaultView="dayGridMonth"
+      [header]="{
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      }"
+      [locales]="locales"
+      [plugins]="calendarPlugins"
+      [events]="calendarEvents"
+      (dateClick)="handleDateClick($event)"
+    ></full-calendar>
+  </div>
+  `
 })
 
 export class CalendarComponent implements AfterViewInit, OnDestroy {
