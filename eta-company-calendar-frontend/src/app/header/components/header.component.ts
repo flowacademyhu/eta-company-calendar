@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { NewUserComponent } from '~/app/shared/modals/new-user.component';
 import { ConfigurationService } from '../../shared/services/configuration.service';
 
 @Component({
@@ -19,7 +17,6 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.reminders' | translate}}</a>
     <a class="mr-3" mat-stroked-button (click)="toUserManagement()">{{'header.usermanagement' | translate}}</a>
     <p class="ml-auto" (click)="onLanguageChange()">{{'header.button' | translate}}</p>
-    <button mat-raised-button (click)="openDialog()">{{'newuserform.button' | translate }}</button>
     <button mat-stroked-button (click)="onLogout()" class="ml-3">{{'header.logout' | translate}}</button>
   </mat-toolbar>`
 })
@@ -30,8 +27,7 @@ export class HeaderComponent {
 
   constructor(private readonly router: Router,
               private readonly configService: ConfigurationService,
-              private readonly translate: TranslateService,
-              private readonly dialog: MatDialog) { }
+              private readonly translate: TranslateService, ) { }
 
   public onLanguageChange() {
     this.translate.use(this.language === 'en' ? 'hu' : 'en');
@@ -41,12 +37,6 @@ export class HeaderComponent {
   public onLogout() {
     this.configService.clearToken();
     this.router.navigate(['login']);
-  }
-
-  public openDialog(): void {
-    this.dialog.open(NewUserComponent, {
-      width: '400px',
-    });
   }
 
   public toProfile() {

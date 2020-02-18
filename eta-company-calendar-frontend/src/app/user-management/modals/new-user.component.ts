@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { User } from 'src/app/models/user.model';
-import { ApiCommunicationService } from '../services/api-communication.service';
+import { ApiCommunicationService } from 'src/app/shared/services/api-communication.service';
 
 @Component({
     selector: 'new-user-dialog',
@@ -37,9 +37,10 @@ import { ApiCommunicationService } from '../services/api-communication.service';
         <mat-error> {{'newuserform.password_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
-      <button mat-raised-button type="submit"
+      <button mat-raised-button type="submit" name="submit"
       [disabled]="newUserForm.invalid">{{'newuserform.create' | translate}}</button>
-      <button mat-raised-button (click)="onNoClick()" class="ml-3">{{'newuserform.cancel' | translate}}</button>
+      <button mat-raised-button type="button" name="cancel" (click)="onNoClick()"
+      class="ml-3">{{'newuserform.cancel' | translate}}</button>
     </form>
     </div>`,
   })
@@ -71,6 +72,7 @@ import { ApiCommunicationService } from '../services/api-communication.service';
       this.api.user()
               .postUser(this.user)
               .subscribe();
+      this.dialogRef.close();
     }
 
   }

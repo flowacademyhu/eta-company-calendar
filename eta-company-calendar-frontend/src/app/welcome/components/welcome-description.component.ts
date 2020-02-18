@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { User } from '~/app/models/placeholder-user.model';
-import { NewUserComponent } from '~/app/shared/modals/new-user.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
 @Component({
@@ -17,8 +15,7 @@ export class WelcomeDescriptionComponent {
   public users$: Observable<User[]>;
 
   constructor(private readonly translate: TranslateService,
-              private readonly api: ApiCommunicationService,
-              private readonly dialog: MatDialog) {
+              private readonly api: ApiCommunicationService, ) {
     this.language = this.translate.currentLang;
     this.users$ = this.api.welcome()
                           .testGet();
@@ -29,10 +26,4 @@ export class WelcomeDescriptionComponent {
     this.language = this.translate.currentLang;
   }
 
-  public openDialog(): void {
-    this.dialog.open(NewUserComponent, {
-      width: '300px',
-    });
-
-  }
 }
