@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from '~/app/shared/pages/main-layout.component';
-import { AuthGuard } from './shared/guards/auth.guard';
+// import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -12,10 +12,10 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     component: MainLayoutComponent,
-    loadChildren: () => import('./welcome/welcome.module')
-      .then((m) => m.WelcomeModule),
+    loadChildren: () => import('./calendar/calendar.module')
+      .then((m) => m.CalendarModule),
     path: '',
     pathMatch: 'full',
   },
