@@ -13,7 +13,7 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
     'button {border: 2px solid; border-color: black !important'],
   template:
     `<mat-toolbar class="my-0">
-    <a class="mr-3" mat-stroked-button (click) = "openProfilDialog()">{{'header.profile' | translate}}</a>
+    <button class="mr-3" mat-stroked-button (click) = "openProfilDialog()">{{'header.profile' | translate}}</button>
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.calendar' | translate}}</a>
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.meetings' | translate}}</a>
     <a class="mr-5"mat-stroked-button routerLink=".">{{'header.reminders' | translate}}</a>

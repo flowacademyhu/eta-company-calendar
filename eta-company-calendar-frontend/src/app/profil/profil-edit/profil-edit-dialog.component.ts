@@ -1,52 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, RequiredValidator, FormControl } from '@angular/forms';
-import { MatDialogRef } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
+import { Profile } from '~/app/models/profile.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
 @Component({
   selector: 'app-profil-edit-dialog',
   styleUrls: ['profil-edit-dialog.component.scss'],
   template: `
-<div class="login-wrapper">
-    <mat-card class="box">
-      <mat-card-header>
-        <mat-card-title class="title">Profil adatok módosítása</mat-card-title>
-      </mat-card-header>
-      <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
-      <mat-form-field appearance="fill" [style.width.%]=100>
-          <mat-label>Vezetékvév</mat-label>
-          <input matInput formControlName="lastname" type="text">
-      </mat-form-field>
-      <br>
-      <mat-form-field appearance="fill" [style.width.%]=100>
-        <mat-label>Keresztnév</mat-label>
-        <input matInput formControlName="firstname" type="text">
-      </mat-form-field>
-      <br>
-      <mat-form-field appearance="fill" [style.width.%]=100>
-        <mat-label>Születési év</mat-label>
-        <input matInput formControlName="dateOfBirth" type="date">
-      </mat-form-field>
-      <br>
-      <mat-form-field appearance="fill" [style.width.%]=100>
-        <mat-label>Beosztás</mat-label>
-        <input matInput formControlName="position" type="text">
-      </mat-form-field>
-      <br>
-      <button mat-raised-button type="submit">Mentés</button>
-      <button mat-raised-button (click)="onNoClick()" class="ml-3">Mégsem</button>
-      </form>
-    </mat-card>
+  <h1 mat-dialog-title>Profil adatok</h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Név</mat-label>
+      <input matInput [(ngModel)]="data.lastName">
+    </mat-form-field>
   </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button >Ok</button>
+  </div>
+
   `
 
 })
 
 export class ProfilEditDialog implements OnInit {
-  private editProfileForm: FormGroup;
+  public  editProfileForm: FormGroup;
 
 constructor(public dialogRef: MatDialogRef<ProfilEditDialog>,
-            public readonly api: ApiCommunicationService) {}
+            public readonly api: ApiCommunicationService,
+            public dialog: MatDialog,
+            @Inject(MAT_DIALOG_DATA) public data: Profile) {}
 
 public ngOnInit() {
   this.editProfileForm = new FormGroup(
