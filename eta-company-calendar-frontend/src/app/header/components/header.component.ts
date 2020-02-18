@@ -7,10 +7,10 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
   selector: 'app-header',
   styles: [
     // tslint:disable-next-line: max-line-length
-    'mat-toolbar { position: fixed; z-index: 3; left: 0; top: 0; width: 100%; background-color: white; color: black; text-align: center;}', 'a {border: 2px solid; border-color: black !important',
-  'button {border: 2px solid; border-color: black !important'],
+    `mat-toolbar { position: fixed; z-index: 3; width: 100%; background-color: white; color: black; text-align: center;}`, `a {border: 2px solid; border-color: black !important`,
+  `button {border: 2px solid; border-color: black !important`],
   template:
-  `<mat-toolbar class="my-0">
+  `<mat-toolbar class="my-0 mat-elevation-z6">
     <a class="mr-3" mat-stroked-button routerLink="profiles">{{'header.profile' | translate}}</a>
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.calendar' | translate}}</a>
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.meetings' | translate}}</a>

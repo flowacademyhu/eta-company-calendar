@@ -4,9 +4,9 @@ import { Component } from '@angular/core';
   selector: 'app-footer',
   styles: [
     // tslint:disable-next-line: max-line-length
-    'footer { position: fixed; left: 0; bottom: 0; width: 100%; background-color: white; color: black; text-align: center}'],
+    `footer { width: 100%; background-color: white; color: black; text-align: center}`],
   template:
-  `<footer>
+  `<footer class="mat-elevation-z6">
     <div class="footer-copyright text-center py-3">© 2020 Copyright: csihakft.hu</div>
   </footer>`
 })
