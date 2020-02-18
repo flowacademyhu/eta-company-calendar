@@ -8,7 +8,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
   selector: 'app-welcome-description',
   template: ``,
   // tslint:disable-next-line: object-literal-sort-keys
-  styleUrls: ['welcome.component.scss']
+  //styleUrls: ['welcome.component.scss']
 })
 
 export class WelcomeDescriptionComponent {
