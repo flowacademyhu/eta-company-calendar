@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { ProfilViewDialog } from '~/app/profil/profil-wiew/components/profil-view-dialog.component';
+import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.component';
 import { ConfigurationService } from '../../shared/services/configuration.service';
 
 @Component({

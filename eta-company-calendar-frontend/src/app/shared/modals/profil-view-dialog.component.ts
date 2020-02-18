@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
-// import { TranslateService } from '@ngx-translate/core';
+import { MatDialog,MatDialogRef } from '@angular/material';
 import { Observable } from 'rxjs';
 import { Profile } from '~/app/models/profile.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
-import { ProfilEditDialog } from '../../profil-edit/profil-edit-dialog.component';
+import { ProfilEditDialog } from './profil-edit-dialog.component';
 
 @Component({
   selector: 'app-profil-view-dialog',
@@ -14,7 +13,7 @@ import { ProfilEditDialog } from '../../profil-edit/profil-edit-dialog.component
     <mat-dialog-content>
 
           <mat-form-field>
-            {{'profile.name' }}
+            {{'profile.name' | translate }}
           <div class="pc">
             {{profileData.lastName}} {{profileData.firstName}}
           </div>
@@ -36,6 +35,7 @@ import { ProfilEditDialog } from '../../profil-edit/profil-edit-dialog.component
             Csoport
           <div class="pc">
             {{profileData.team}}
+
           </div>
 </mat-form-field>
 
@@ -48,7 +48,7 @@ import { ProfilEditDialog } from '../../profil-edit/profil-edit-dialog.component
         <mat-form-field>
           Születési idő
         <div class="pc">
-          {{profileData.dateOfBirth }}
+          {{profileData.dateOfBirth | date }}
         </div>
         </mat-form-field>
 
@@ -69,8 +69,8 @@ export class ProfilViewDialog {
 
   constructor(private readonly api: ApiCommunicationService,
               // private readonly translate: TranslateService,
-              public dialogRef: MatDialogRef<ProfilViewDialog>,
-              private dialog: MatDialog) {
+              public dialog: MatDialog,
+              public dialogRef: MatDialogRef<ProfilViewDialog>) {
     this.profile$ = this.api.profile()
       .getProfile(this.profileData.userId);
   }
@@ -91,20 +91,20 @@ export class ProfilViewDialog {
   public Close(): void {
     this.dialogRef.close();
   }
-  public Modify(): void {
-    this.dialog.open(ProfilEditDialog,
-      {
-        data: {
-          dateOfBirth: this.profileData.dateOfBirth,
-          dateOfEntry: this.profileData.dateOfEntry,
-          department: this.profileData.department,
-          firstname: this.profileData.firstName,
-          lastname: this.profileData.lastName,
-          leader: this.profileData.leader,
-          position: this.profileData.position,
-          team: this.profileData.team
-        }
-      });
-  }
+   public Modify(): void {
+     this.dialog.open(ProfilEditDialog,
+       {
+         data: {
+           dateOfBirth: this.profileData.dateOfBirth,
+           dateOfEntry: this.profileData.dateOfEntry,
+           department: this.profileData.department,
+           firstname: this.profileData.firstName,
+           lastname: this.profileData.lastName,
+           leader: this.profileData.leader,
+           position: this.profileData.position,
+           team: this.profileData.team
+         }
+       });
+   }
 
 }
