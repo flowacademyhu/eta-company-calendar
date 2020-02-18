@@ -7,6 +7,7 @@
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     }"
+    [locales]="locales"
     [plugins]="calendarPlugins"
     [events]="calendarEvents"
     (dateClick)="handleDateClick($event)"
