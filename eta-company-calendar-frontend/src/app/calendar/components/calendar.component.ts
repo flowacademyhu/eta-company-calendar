@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { EventInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -17,15 +17,10 @@ export class CalendarComponent implements AfterViewInit {
 
   @ViewChild('calendar') public calendarComponent: FullCalendarComponent; // the #calendar in the template
 
-  calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
+  public calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
   private calendarEvents: EventInput[] = [
     { title: 'Event Now', start: new Date() },
   ];
-
-  gotoPast() {
-    let calendarApi = this.calendarComponent.getApi();
-    calendarApi.gotoDate('2000-01-01'); // call a method on the Calendar object
-  }
 
   protected handleDateClick(arg) {
     if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
