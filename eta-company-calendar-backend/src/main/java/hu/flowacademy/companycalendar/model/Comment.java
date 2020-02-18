@@ -1,35 +1,36 @@
 package hu.flowacademy.companycalendar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import hu.flowacademy.companycalendar.model.dto.CommentDTO;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
-
 @Data
 @Entity
-@Table
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Comment{
+public class Comment {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private String content;
+  private String content;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User user;
 
-    @ManyToOne
-    @JsonIgnore
-    private Meeting meeting;
+  @ManyToOne
+  @JsonIgnore
+  private Meeting meeting;
 
 }
