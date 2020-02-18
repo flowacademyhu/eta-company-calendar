@@ -7,8 +7,8 @@
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     }"
+    [locale]="es"
     [plugins]="calendarPlugins"
-    [weekends]="calendarWeekends"
     [events]="calendarEvents"
     (dateClick)="handleDateClick($event)"
   ></full-calendar>
