@@ -1,0 +1,15 @@
+<div class='app-calendar white-background'>
+  <full-calendar
+    #calendar
+    defaultView="dayGridMonth"
+    [header]="{
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    }"
+    [plugins]="calendarPlugins"
+    [weekends]="calendarWeekends"
+    [events]="calendarEvents"
+    (dateClick)="handleDateClick($event)"
+  ></full-calendar>
+</div>
