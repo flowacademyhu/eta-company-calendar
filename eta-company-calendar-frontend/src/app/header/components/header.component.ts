@@ -17,7 +17,6 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.reminders' | translate}}</a>
     <a class="mr-3" mat-stroked-button (click)="toUserManagement()">{{'header.usermanagement' | translate}}</a>
     <!-- TODO: add admin role (*ngIf) to User Management button -->
-    <a class="mr-5" mat-stroked-button routerLink=".">{{'header.userManagement' | translate}}</a>
     <p class="ml-auto" (click)="onLanguageChange()">{{'header.button' | translate}}</p>
     <button mat-stroked-button (click)="onLogout()" class="ml-3">{{'header.logout' | translate}}</button>
   </mat-toolbar>`
