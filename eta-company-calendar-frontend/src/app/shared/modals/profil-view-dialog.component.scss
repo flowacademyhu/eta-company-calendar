@@ -8,7 +8,7 @@
   width: 500px;
 }
 mat-dialog-actions {
-  justify-content: center;
+  justify-content: space-between;
 }
 .personal {
   flex: 1;
@@ -34,3 +34,4 @@ mat-dialog-content {
  .input {
    color: grey !important;
  }
+

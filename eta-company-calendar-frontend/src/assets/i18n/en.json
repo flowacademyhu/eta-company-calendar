@@ -17,7 +17,9 @@
     "dateOfBirth": "Date of Birth",
     "dateOfEntry": "Date of Entry",
     "view": "PROFILE DETAILS",
-    "enter_lastename": "Enter lastname"
+    "enter_lastename": "Enter lastname",
+    "save": "Save",
+    "cancel": "Cancel"
   },
 
   "header": {
@@ -26,6 +28,7 @@
     "calendar": "Calendar",
     "meetings": "Meetings",
     "reminders": "Reminders",
+    "userManagement": "User management",
     "logout": "Logout"
   },
 

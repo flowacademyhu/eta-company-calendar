@@ -17,9 +17,9 @@
     "dateOfBirth": "Születési dátum",
     "dateOfEntry": "Munkaviszony kezdete",
     "view": "PROFIL ADATOK",
-    "enter_lastename": "Vezetéknév módosítása"
-
-
+    "enter_lastename": "Vezetéknév módosítása",
+    "save": "Mentés",
+    "cancel": "Mégsem"
   },
 
   "header": {
@@ -28,6 +28,7 @@
     "calendar": "Naptár",
     "meetings": "Értekezletek",
     "reminders": "Emlékeztetők",
+    "userManagement": "Felhasználó kezelés",
     "logout": "Kijelentkezés"
   },
 
