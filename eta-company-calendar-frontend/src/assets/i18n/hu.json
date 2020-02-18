@@ -16,7 +16,9 @@
     "leader": "Vezető",
     "dateOfBirth": "Születési dátum",
     "dateOfEntry": "Munkaviszony kezdete",
-    "view": "PROFIL ADATOK"
+    "view": "PROFIL ADATOK",
+    "enter_lastename": "Vezetéknév módosítása"
+
 
   },
 
