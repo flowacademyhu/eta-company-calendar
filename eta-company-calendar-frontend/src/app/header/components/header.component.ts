@@ -42,7 +42,7 @@ export class HeaderComponent {
   }
 
   public openProfilDialog() {
-    this.dialog.open(ProfilViewDialog);
+    this.dialog.open(ProfilViewDialog, {disableClose: true});
   }
 
 }
