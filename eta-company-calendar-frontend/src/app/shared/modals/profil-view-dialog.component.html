@@ -1,14 +1,3 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup} from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { Observable } from 'rxjs';
-import { Profile } from '~/app/models/profile.model';
-import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
-
-@Component({
-  selector: 'app-profil-view-dialog',
-  styleUrls: ['profil-view-dialog.component.scss'],
-  template: `
 <form [formGroup]="editForm" (ngSubmit)= "onSubmit()" >
   <h1 style="text-align:center;">{{'profile.view' | translate}}</h1>
     <mat-dialog-content class="dialogview mb-5">
@@ -34,7 +23,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
         <span *ngIf = "!mod">
           {{'profile.firstname' | translate }}
           <div class="pc">
-             {{profileData.firstName}}
+             {{profileData.firstname}}
           </div>
         </span>
         <span *ngIf = "mod">
@@ -42,39 +31,35 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
             <mat-label>{{'profile.firstname' | translate }}</mat-label>
               <div class="pc">
              <input matInput
-                [(ngModel)] = "profileData.firstName"
+                [(ngModel)] = "profileData.firstname"
                 class="input"
                 formControlName = "firstname">
               </div>
             </mat-form-field>
         </span>
-
+      </div>
         <br>
         <span *ngIf = "!mod">
           {{'profile.dateOfBirth' | translate }}
           <div class="pc">
-             {{profileData.dateOfBirth | date: 'yyyy-MM-dd'}}
+             {{profileData.dateOfBirth}}
           </div>
         </span>
-        <br>
         <span *ngIf = "mod">
           <mat-form-field>
             <mat-label>{{'profile.dateOfBirth' | translate }}</mat-label>
               <div class="pc">
              <input matInput
-                [ngModel] = "profileData.dateOfBirth | date:'yyyy-MM-dd'"
+                [(ngModel)] = "profileData.dateOfBirth"
                 class="input"
-                type = "date"
                 formControlName = "dateOfBirth">
               </div>
             </mat-form-field>
         </span>
         <br>
-        </div>
       <div class="divider"> </div>
-    <div class="workdata">
-
-      <span *ngIf = "!mod">
+      <div class="workdata">
+        <span *ngIf = "!mod">
           {{'profile.department' | translate }}
           <div class="pc">
              {{profileData.department}}
@@ -127,6 +112,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               </div>
             </mat-form-field>
         </span>
+        <br>
         <span *ngIf = "!mod">
           {{'profile.position' | translate }}
           <div class="pc">
@@ -148,24 +134,22 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
         <span *ngIf = "!mod">
           {{'profile.dateOfEntry' | translate }}
           <div class="pc">
-             {{profileData.dateOfEntry  | date: 'yyyy-MM-dd'}}
+             {{profileData.dateOfEntry}}
           </div>
         </span>
         <span *ngIf = "mod">
           <mat-form-field>
             <mat-label>{{'profile.dateOfEntry' | translate }}</mat-label>
               <div class="pc">
-              <input matInput
-              [(ngModel)] = "profileData.dateOfEntry"
+             <input matInput
+                [(ngModel)] = "profileData.dateOfEntry"
                 class="input"
-                type = "date"
-                formControlName = "dateOfEntry"
-                >
-
+                formControlName = "dateOfEntry">
               </div>
             </mat-form-field>
         </span>
-    </div>
+        <br>
+        </div>
     </mat-dialog-content>
     <mat-dialog-actions>
       <button *ngIf = "!mod" mat-stroked-button (click) = Modify()
@@ -178,60 +162,3 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
           align="center">{{'profile.cancel' | translate}}</button>
     </mat-dialog-actions>
 </form>
-
-    `
-})
-
-export class ProfilViewDialog {
-  public editForm: FormGroup;
-  public mod: boolean = false;
-
-  constructor(private readonly api: ApiCommunicationService,
-              public dialog: MatDialog,
-              public dialogRef: MatDialogRef<ProfilViewDialog>) {
-    this.profile$ = this.api.profile()
-      .getProfile(this.profileData.userId);
-  }
-
-  public debug() {
-    console.log(this.editForm.getRawValue());
-  }
-  public ngOnInit() {
-    this.editForm = new FormGroup({
-      dateOfBirth: new FormControl(),
-      dateOfEntry: new FormControl(),
-      department: new FormControl(),
-      firstname: new FormControl(),
-      lastname: new FormControl(),
-      leader: new FormControl(),
-      position: new FormControl(),
-      team: new FormControl()
-    });
-  }
-
-  public profileData: Profile = {
-    dateOfBirth: new Date('1992-03-13'),
-    dateOfEntry: new Date('2010-01-23'),
-    department: 'Pénzügy',
-    firstName: 'Lajos',
-    lastName: 'Kovács',
-    leader: 'Szabó Ferenc',
-    position: 'Csoportvezető',
-    team: 'Könyvelés',
-    userId: 1
-  };
-  public profile$: Observable<Profile>;
-
-  public Close(): void {
-    this.dialogRef.close();
-  }
-  public Modify(): void {
-    this.mod = true;
-  }
-  protected onSubmit() {
-    // post
-    console.log(this.editForm);
-    console.log(this.profileData);
-    this.Close();
-  }
-}

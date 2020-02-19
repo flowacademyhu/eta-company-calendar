@@ -10,9 +10,14 @@
 mat-dialog-actions {
   justify-content: space-between;
 }
+
+mat-label{
+  color: black;
+}
 .personal {
   flex: 1;
-  text-align: center;
+  text-align: left;
+  margin-left: 10px;
 }
 
 .divider{
@@ -23,7 +28,8 @@ mat-dialog-actions {
 
 .workdata {
   flex: 1;
-  text-align: right;
+  text-align: left;
+  margin-left: 30px;
 }
 mat-dialog-content {
    display: flex;
