@@ -13,40 +13,48 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
       background-color: white;
       color: black;
       text-align: center;
-      display:flex;
-      justify-content: space-between;
       }`,
     `a {
       border: 2px solid;
       border-color: black !important;
-      width: 160px;}`,
-    `p {
-      cursor: pointer;}`,
-    `button {
+      width: 160px;
+      margin-right: 15px;}`,
+    `.header2 {
+        margin-left: auto;}`,
+    `.translate-button {
+        cursor: pointer;
+        margin-left: auto;
+        margin-right: 10px;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        outline: none;
+        }`,
+    `.logout-button {
       border: 2px solid;
       border-color: black !important;
-      width: 160px;}`],
+      width: 160px;}`,
+    ],
   template:
-  `<mat-toolbar class="tool-container mat-elevation-z6">
-      <mat-toolbar-row>
+  `
+  <mat-toolbar class="tool-container mat-elevation-z6">
       <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
         <mat-icon>menu</mat-icon>
       </button>
-      <div fxShow="true" fxHide.lt-md>
         <span class="header1">
-          <a mat-stroked-button routerLink="profiles">{{'header.profile' | translate}}</a>
-          <a mat-stroked-button routerLink=".">{{'header.calendar' | translate}}</a>
-          <a mat-stroked-button routerLink=".">{{'header.meetings' | translate}}</a>
-          <a mat-stroked-button routerLink=".">{{'header.reminders' | translate}}</a>
+          <a mat-stroked-button routerLink="profiles" fxShow="true" fxHide.lt-md>{{'header.profile' | translate}}</a>
+          <a mat-stroked-button routerLink="." fxShow="true" fxHide.lt-md>{{'header.calendar' | translate}}</a>
+          <a mat-stroked-button routerLink="." fxShow="true" fxHide.lt-md>{{'header.meetings' | translate}}</a>
+          <a mat-stroked-button routerLink="." fxShow="true" fxHide.lt-md>{{'header.reminders' | translate}}</a>
+          <a mat-stroked-button routerLink="." fxShow="true" fxHide.lt-md>{{'header.userManagement' | translate}}</a>
+
           <!-- TODO: add admin role (*ngIf) to User Management button -->
         </span>
-          <a mat-stroked-button routerLink=".">{{'header.userManagement' | translate}}</a>
-        <span class="header2">
-          <a (click)="onLanguageChange()">{{'header.button' | translate}}</a>
-          <button mat-stroked-button (click)="onLogout()">{{'header.logout' | translate}}</button>
-        </span>
-      </div>
-      </mat-toolbar-row>
+        <div class="header2">
+        <button class="translate-button" (click)="onLanguageChange()">{{'header.button' | translate}}</button>
+          <button class="logout-button" mat-stroked-button (click)="onLogout()" fxShow="true" fxHide.lt-md
+          >{{'header.logout' | translate}}</button>
+        </div>
   </mat-toolbar>`
 })
 
