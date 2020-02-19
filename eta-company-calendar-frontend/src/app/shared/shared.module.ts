@@ -13,18 +13,13 @@ import { HeaderComponent } from '../header/components/header.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptorService } from './interceptors/auth-interceptor.service';
-import { MeetingCreateComponent } from './modals/meeting-create.component';
 @NgModule({
   declarations: [
     MainLayoutComponent,
     HeaderComponent,
     FooterComponent,
-    MeetingCreateComponent,
   ],
 
-  entryComponents: [
-    MeetingCreateComponent,
-  ],
   exports: [
     CommonModule,
     FormsModule,

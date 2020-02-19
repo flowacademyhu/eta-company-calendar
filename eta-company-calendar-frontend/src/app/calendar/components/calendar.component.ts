@@ -10,6 +10,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { MatDialog } from '@angular/material/dialog';
+import { MeetingCreateComponent } from '../modals/meeting-create.component';
+
 @Component({
   selector: 'app-calendar',
   styles: [`
@@ -23,6 +26,7 @@ import { takeUntil } from 'rxjs/operators';
   `],
   template: `
   <div class='app-calendar white-background'>
+    <button (click)="testMeetingCreate()"> test meeting create</button>
     <full-calendar
       #calendar
       defaultView="dayGridMonth"
@@ -54,7 +58,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     { title: 'Event Now', start: new Date() },
   ];
 
-  constructor(private readonly translate: TranslateService) {}
+  constructor(private readonly translate: TranslateService, private readonly dialog: MatDialog) {}
 
   protected handleDateClick(arg: EventInput) {
     if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
@@ -84,6 +88,12 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   public ngOnDestroy() {
     this.destroy$.next(true);
+  }
+
+  protected testMeetingCreate() {
+    this.dialog.open(MeetingCreateComponent, {
+      width: '250px',
+    });
   }
 
 }

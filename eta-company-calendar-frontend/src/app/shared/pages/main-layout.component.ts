@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MeetingCreateComponent } from '../modals/meeting-create.component';
 import { ConfigurationService } from './../services/configuration.service';
 
 @Component({
@@ -15,7 +13,6 @@ import { ConfigurationService } from './../services/configuration.service';
     <div class="d-flex flex-column">
       <app-header *ngIf="checkToken()"></app-header>
       <div class="content">
-        <button (click)="testMeetingCreate()"> test meeting create</button>
         <router-outlet></router-outlet>
       </div>
       <app-footer *ngIf="checkToken()"></app-footer>
@@ -25,16 +22,10 @@ import { ConfigurationService } from './../services/configuration.service';
 
 export class MainLayoutComponent {
 
-  constructor(private readonly config: ConfigurationService, private readonly dialog: MatDialog) { }
+  constructor(private readonly config: ConfigurationService) { }
 
   protected checkToken() {
     return !!this.config.fetchToken('access_token');
-  }
-
-  protected testMeetingCreate() {
-    this.dialog.open(MeetingCreateComponent, {
-      width: '250px',
-    });
   }
 
 }

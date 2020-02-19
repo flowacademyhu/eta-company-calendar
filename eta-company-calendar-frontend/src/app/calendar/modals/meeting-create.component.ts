@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Location } from '../models/location.model';
+import { Location } from '~/app/models/location.model';
 
 @Component({
   selector: 'app-meeting-create',
