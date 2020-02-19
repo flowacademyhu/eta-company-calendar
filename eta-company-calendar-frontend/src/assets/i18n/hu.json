@@ -23,12 +23,17 @@
     "meetings": "Értekezletek",
     "reminders": "Emlékeztetők",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "logout": "Kijelentkezés",
     "usermanagement": "Felhasználó kezelés"
 =======
     "userManagement": "Felhasználó kezelés",
     "logout": "Kijelentkezés"
 >>>>>>> 0c8b28998b9844f9f4932cb4bcf69ad557903f7d
+=======
+    "usermanagement": "Felhasználó kezelés",
+    "logout": "Kijelentkezés"
+>>>>>>> fcb8246103ccc04cd917bfeb809d9242635c1e88
   },
 
   "login": {

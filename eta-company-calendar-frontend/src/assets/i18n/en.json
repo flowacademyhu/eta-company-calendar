@@ -23,12 +23,17 @@
     "meetings": "Meetings",
     "reminders": "Reminders",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "logout": "Logout",
     "usermanagement" : "User Management"
 =======
     "userManagement": "User management",
     "logout": "Logout"
 >>>>>>> 0c8b28998b9844f9f4932cb4bcf69ad557903f7d
+=======
+    "usermanagement": "User management",
+    "logout": "Logout"
+>>>>>>> fcb8246103ccc04cd917bfeb809d9242635c1e88
   },
 
   "login": {
