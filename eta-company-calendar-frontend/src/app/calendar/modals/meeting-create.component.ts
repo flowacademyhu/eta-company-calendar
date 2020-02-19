@@ -3,6 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Location } from '~/app/models/location.model';
 
+import { DateTimeAdapter } from 'ng-pick-datetime';
+
 @Component({
   selector: 'app-meeting-create',
   templateUrl: './meeting-create.component.html'
@@ -12,7 +14,10 @@ export class MeetingCreateComponent implements OnInit {
   private meetingForm: FormGroup;
   protected locations: string[] = Object.values(Location);
 
-  constructor(private readonly dialogRef: MatDialogRef<MeetingCreateComponent>) {}
+  constructor(private readonly dialogRef: MatDialogRef<MeetingCreateComponent>,
+              private readonly dateTimeAdapter: DateTimeAdapter<any>) {
+                dateTimeAdapter.setLocale('hu');
+              }
 
   public ngOnInit() {
     this.meetingForm = new FormGroup({
@@ -21,10 +26,8 @@ export class MeetingCreateComponent implements OnInit {
       location: new FormControl(undefined),
       otherLocation: new FormControl(undefined),
       recurring: new FormControl(undefined),
-      timeFrame: new FormGroup({
-        startingTime: new FormControl(undefined),
-        finishTime: new FormControl(undefined),
-      }),
+      startingTime: new FormControl(undefined),
+      finishTime: new FormControl(undefined),
       requiredAttendants: new FormControl(undefined),
       optionalAttendants: new FormControl(undefined),
     });

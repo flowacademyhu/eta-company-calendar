@@ -7,6 +7,8 @@ import { CalendarComponent } from './components/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
 import { MeetingCreateComponent } from './modals/meeting-create.component';
 
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
 @NgModule({
   declarations: [
     CalendarComponent,
@@ -20,6 +22,8 @@ import { MeetingCreateComponent } from './modals/meeting-create.component';
     CalendarRoutingModule,
     TranslateModule.forChild(),
     FullCalendarModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ]
 })
 export class CalendarModule { }
