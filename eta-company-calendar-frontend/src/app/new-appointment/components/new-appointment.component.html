@@ -1,0 +1,32 @@
+<div>
+	<mat-card class="box" color="primary">
+		<mat-card-header>
+			<mat-card-title>{{
+				"newAppointment.dialogTitle" | translate }}</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+				<form [formGroup]="newAppointmentForm">						
+					<mat-form-field appearance="fill" [style.width.%]=100>
+					<div>	
+						<mat-label>{{ 'newAppointment.type' | translate }}</mat-label>
+							<mat-select [(value)]="defaultAppointment">
+								<mat-option value="MEETING">{{ 'newAppointment.meeting' | translate }}</mat-option>
+								<mat-option value="REMINDER">{{ 'newAppointment.reminder' | translate }}</mat-option>
+							</mat-select>
+						</div>
+						<div>
+							<mat-label>{{ 'newAppointment.subject' | translate }}</mat-label>
+							<input matInput type="text">
+						</div>
+					</mat-form-field>
+				</form>
+		</mat-card-content>
+		<mat-card-actions>
+			<a routerLink="">
+				<button mat-stroked-button>
+					{{ "newAppointment.close" | translate }}
+				</button>
+			</a>
+		</mat-card-actions>
+	</mat-card>
+</div>
