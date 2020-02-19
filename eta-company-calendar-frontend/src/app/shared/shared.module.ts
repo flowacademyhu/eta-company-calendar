@@ -19,6 +19,10 @@ import { AuthInterceptorService } from './interceptors/auth-interceptor.service'
     HeaderComponent,
     FooterComponent,
   ],
+  entryComponents: [
+    HeaderComponent,
+    FooterComponent,
+  ],
   exports: [
     CommonModule,
     FormsModule,

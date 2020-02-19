@@ -31,5 +31,4 @@ public class CommentDTO {
   public Comment toEntity(User user, Meeting meeting) {
     return new Comment(id, content, user, meeting);
   }
-
 }

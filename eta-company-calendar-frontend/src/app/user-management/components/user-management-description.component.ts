@@ -5,6 +5,7 @@ import { NewUserComponent } from '~/app/user-management/modals/new-user.componen
 @Component({
   selector: 'app-user-management-description',
   template: `
+  <h1>user management works</h1>
   <button mat-raised-button (click)="openDialog()">{{'newuserform.button' | translate }}</button>
   `,
 })

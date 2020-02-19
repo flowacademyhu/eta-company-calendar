@@ -6,12 +6,11 @@ import { ApiCommunicationService } from 'src/app/shared/services/api-communicati
 
 @Component({
     selector: 'new-user-dialog',
-    styles: ['mat-form-field {width: 100%;}'],
     template: `
     <div>
     <h1 align="center" mat-dialog-title>{{'newuserform.create_new_user' | translate}}</h1>
     <form [formGroup]="newUserForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" [style.width.%]=100>
           <mat-label>{{'newuserform.role' | translate}}</mat-label>
         <mat-select formControlName="role">
           <mat-option value="USER">{{'newuserform.user' | translate}}</mat-option>
@@ -20,19 +19,19 @@ import { ApiCommunicationService } from 'src/app/shared/services/api-communicati
         <mat-error> {{'newuserform.role_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" [style.width.%]=100>
         <mat-label>{{'newuserform.email' | translate}}</mat-label>
         <input matInput formControlName="email" type="text">
         <mat-error> {{'newuserform.email_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" [style.width.%]=100>
         <mat-label>{{'newuserform.password' | translate}}</mat-label>
         <input matInput formControlName="password" type="password">
         <mat-error> {{'newuserform.password_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" [style.width.%]=100>
         <mat-label>{{'newuserform.confirm_password' | translate}}</mat-label>
         <input matInput formControlName="password" type="password">
         <mat-error> {{'newuserform.password_error' | translate}} </mat-error>
@@ -67,7 +66,9 @@ import { ApiCommunicationService } from 'src/app/shared/services/api-communicati
     }
 
     protected onSubmit() {
-      this.user = this.newUserForm.getRawValue();
+      this.user.role = this.newUserForm.get('role')?.value;
+      this.user.email = this.newUserForm.get('email')?.value;
+      this.user.password = this.newUserForm.get('password')?.value;
       this.api.user()
               .postUser(this.user)
               .subscribe();

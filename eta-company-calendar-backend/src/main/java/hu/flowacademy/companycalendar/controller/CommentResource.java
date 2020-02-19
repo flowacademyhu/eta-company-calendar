@@ -55,5 +55,4 @@ public class CommentResource {
         .ok(commentService.findAllByMeetingId(meetingId).stream().map(CommentDTO::new)
             .collect(Collectors.toList()));
   }
-
 }
