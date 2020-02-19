@@ -48,7 +48,7 @@ import { ApiCommunicationService } from 'src/app/shared/services/api-communicati
 
   export class NewUserComponent implements OnInit {
     private newUserForm: FormGroup;
-    private user: User = {role: '', email: '', password: ''};
+    private user: User = {} as User;
 
     public ngOnInit() {
       this.newUserForm = new FormGroup({

@@ -30,7 +30,7 @@ const routes: Routes = [
     component: MainLayoutComponent,
     loadChildren: () => import('./user-management/user-management.module')
       .then((m) => m.UserManagementModule),
-    path: 'usermanagement',
+    path: 'user-management',
     pathMatch: 'full',
   },
 ];
