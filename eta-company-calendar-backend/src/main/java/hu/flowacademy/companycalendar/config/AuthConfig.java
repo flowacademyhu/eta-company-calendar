@@ -25,9 +25,6 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
   @Qualifier("authenticationManagerBean")
   private AuthenticationManager authenticationManager;
 
-  @Autowired
-  private CustomUserDetailsService userDetailsService;
-
   @Override
   public void configure(final AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
     oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
@@ -58,8 +55,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
   public void configure(final AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
     endpoints.tokenStore(tokenStore())
         .accessTokenConverter(accessTokenConverter())
-        .authenticationManager(authenticationManager)
-        .userDetailsService(userDetailsService);
+        .authenticationManager(authenticationManager);
   }
 
   @Bean

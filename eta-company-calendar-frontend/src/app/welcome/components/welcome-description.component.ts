@@ -6,7 +6,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 
 @Component({
   selector: 'app-welcome-description',
-  template: ``,
+  template: ``
 })
 
 export class WelcomeDescriptionComponent {

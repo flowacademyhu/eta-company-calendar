@@ -24,7 +24,6 @@ public class MeetingDTO {
     private String title;
     private String description;
     private Location location;
-    private String otherLocation;
     private Recurring recurring;
     private Long startingTime;
     private Long finishTime;
@@ -40,7 +39,6 @@ public class MeetingDTO {
         this.title = meeting.getTitle();
         this.description = meeting.getDescription();
         this.location = meeting.getLocation();
-        this.otherLocation = meeting.getOtherLocation();
         this.recurring = meeting.getRecurring();
         this.startingTime = meeting.getStartingTime();
         this.finishTime = meeting.getFinishTime();

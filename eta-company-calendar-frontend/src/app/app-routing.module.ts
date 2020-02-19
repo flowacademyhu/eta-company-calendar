@@ -14,8 +14,8 @@ const routes: Routes = [
   {
     canActivate: [AuthGuard],
     component: MainLayoutComponent,
-    loadChildren: () => import('./calendar/calendar.module')
-      .then((m) => m.CalendarModule),
+    loadChildren: () => import('./welcome/welcome.module')
+      .then((m) => m.WelcomeModule),
     path: '',
     pathMatch: 'full',
   },

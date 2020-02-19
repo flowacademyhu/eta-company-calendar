@@ -18,13 +18,13 @@ export class AuthInterceptorService implements HttpInterceptor {
   public intercept(req: HttpRequest<object>, next: HttpHandler): Observable<HttpEvent<object>> {
     const accessToken = this.config.fetchToken('access_token');
   ​
-    const authReq = (!!accessToken && !req.headers.has('Authorization')) ? this.addToken(req, accessToken) : req;
+    const authReq = !!accessToken ? this.addToken(req, accessToken) : req;
   ​
     return next.handle(authReq)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === 401) {
-            if (!this.containsRefreshToken(req)) {
+            if (!req.headers.has('refresh')) {
               const refreshToken = this.config.fetchToken('refresh_token');
   ​
               if (!refreshToken) {
@@ -39,15 +39,14 @@ export class AuthInterceptorService implements HttpInterceptor {
   ​
                     this.config.setToken(resp);
   ​
-                    const newToken = this.config.fetchToken('access_token');
+                    const token = this.config.fetchToken('access_token');
   ​
                     return next
-                      .handle(newToken ? this.addToken(req, newToken) : req);
+                      .handle(token ? this.addToken(req, accessToken) : req);
                   })
                 );
             } else {
               this.router.navigate(['login']);
-              this.config.clearToken();
             }
   ​
             return observableThrowError(error);
@@ -61,13 +60,5 @@ export class AuthInterceptorService implements HttpInterceptor {
     return request.clone({
       headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
     });
-  }
-
-  private containsRefreshToken(req: HttpRequest<object>): boolean {
-    const body = req.serializeBody();
-    if (typeof body === 'string') {
-      return body.indexOf('refresh_token') !== -1;
-    }
-    return false;
   }
 }
