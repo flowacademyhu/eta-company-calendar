@@ -31,7 +31,6 @@ public class MailGunEmailService implements EmailService {
         map.add("html", body);
     }
 
-    // csak a funkciót valósítsuk meg, ne legyen benne semmilyen egyéb logika (templating)
     //@PostConstruct
     private void sendEmail(String to, String subject, String body) {
         String user = "Feri";
