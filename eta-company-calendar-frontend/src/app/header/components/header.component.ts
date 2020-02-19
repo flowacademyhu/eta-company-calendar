@@ -6,16 +6,39 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
 @Component({
   selector: 'app-header',
   styles: [
-    // tslint:disable-next-line: max-line-length
-    'mat-toolbar { position: fixed; left: 0; top: 0; width: 100%; background-color: white; color: black; text-align: center;}', 'a {border: 2px solid; border-color: black !important',
-  'button {border: 2px solid; border-color: black !important'],
+    `mat-toolbar {
+      position: fixed;
+      z-index: 3; width: 100%;
+      background-color: white;
+      color: black;
+      text-align: center;}`,
+    `a {
+      border: 2px solid;
+      border-color: black !important;
+      width: 160px;}`,
+    `p {
+      cursor: pointer;}`,
+    `button {
+      border: 2px solid;
+      border-color: black !important;
+      width: 120px;}`],
   template:
+<<<<<<< HEAD
   `<mat-toolbar class="my-0">
     <a class="mr-3" mat-stroked-button (click)="toProfile()">{{'header.profile' | translate}}</a>
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.calendar' | translate}}</a>
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.meetings' | translate}}</a>
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.reminders' | translate}}</a>
     <a class="mr-3" mat-stroked-button (click)="toUserManagement()">{{'header.usermanagement' | translate}}</a>
+=======
+  `<mat-toolbar class="my-0 mat-elevation-z6">
+    <a class="mr-3" mat-stroked-button routerLink="profiles">{{'header.profile' | translate}}</a>
+    <a class="mr-3" mat-stroked-button routerLink=".">{{'header.calendar' | translate}}</a>
+    <a class="mr-3" mat-stroked-button routerLink=".">{{'header.meetings' | translate}}</a>
+    <a class="mr-3" mat-stroked-button routerLink=".">{{'header.reminders' | translate}}</a>
+    <!-- TODO: add admin role (*ngIf) to User Management button -->
+    <a class="mr-5" mat-stroked-button routerLink=".">{{'header.userManagement' | translate}}</a>
+>>>>>>> 0c8b28998b9844f9f4932cb4bcf69ad557903f7d
     <p class="ml-auto" (click)="onLanguageChange()">{{'header.button' | translate}}</p>
     <button mat-stroked-button (click)="onLogout()" class="ml-3">{{'header.logout' | translate}}</button>
   </mat-toolbar>`

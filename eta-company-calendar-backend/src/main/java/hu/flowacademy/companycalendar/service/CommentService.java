@@ -14,40 +14,43 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @AllArgsConstructor
 public class CommentService {
 
-    private final CommentRepository commentRepository;
-    private final UserRepository userRepository;
-    private final MeetingRepository meetingRepository;
+  private final CommentRepository commentRepository;
+  private final UserRepository userRepository;
+  private final MeetingRepository meetingRepository;
 
-    public List<Comment> findAll() {
-        return commentRepository.findAll();
-    }
+  public List<Comment> findAll() {
+    return commentRepository.findAll();
+  }
 
-    public Comment findOne(Long id) {
-        return commentRepository.findById(id).orElseThrow();
-    }
+  public Comment findOne(Long id) {
+    return commentRepository.findById(id).orElseThrow();
+  }
 
-    public Comment saveComment(CommentDTO commentDTO) {
-        Comment comment = commentDTO.toEntity(
-                userRepository.findById(commentDTO.getUserId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)),
-                meetingRepository.findById(commentDTO.getMeetingId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))
-        );
-        return commentRepository.save(comment);
-    }
+  public Comment saveComment(CommentDTO commentDTO) {
+    User user = userRepository.findById(commentDTO.getUserId()).orElseThrow();
+    Meeting meeting = meetingRepository.findById(commentDTO.getMeetingId()).orElseThrow();
+    return commentRepository.save(commentDTO.toEntity(user, meeting));
+  }
 
-    public Comment updateComment(CommentDTO commentDTO) {
-        Comment comment = findOne(commentDTO.getId());
-        comment.setContent(commentDTO.getContent());
-        return commentRepository.save(comment);
-    }
+  public Comment updateComment(CommentDTO commentDTO) {
+    Comment comment = findOne(commentDTO.getId());
+    comment.setContent(commentDTO.getContent());
+    return commentRepository.save(comment);
+  }
 
-    public void deleteComment(Long id) {
-        commentRepository.deleteById(id);
-    }
+  public void deleteComment(Long id) {
+    commentRepository.deleteById(id);
+  }
 
+  public List<Comment> findAllByMeetingId(Long meetingId) {
+    return commentRepository.findAll().stream().filter(m -> m.getId().equals(meetingId))
+        .collect(Collectors.toList());
+  }
 }
