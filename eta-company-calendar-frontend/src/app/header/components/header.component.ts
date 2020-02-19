@@ -6,12 +6,16 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
 @Component({
   selector: 'app-header',
   styles: [
-    `mat-toolbar {
+    `.tool-container {
       position: fixed;
-      z-index: 3; width: 100%;
+      z-index: 3;
+      width: 100%;
       background-color: white;
       color: black;
-      text-align: center;}`,
+      text-align: center;
+      display:flex;
+      justify-content: space-between;
+      }`,
     `a {
       border: 2px solid;
       border-color: black !important;
@@ -21,17 +25,28 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
     `button {
       border: 2px solid;
       border-color: black !important;
-      width: 120px;}`],
+      width: 160px;}`],
   template:
-  `<mat-toolbar class="my-0 mat-elevation-z6">
-    <a class="mr-3" mat-stroked-button routerLink="profiles">{{'header.profile' | translate}}</a>
-    <a class="mr-3" mat-stroked-button routerLink=".">{{'header.calendar' | translate}}</a>
-    <a class="mr-3" mat-stroked-button routerLink=".">{{'header.meetings' | translate}}</a>
-    <a class="mr-3" mat-stroked-button routerLink=".">{{'header.reminders' | translate}}</a>
-    <!-- TODO: add admin role (*ngIf) to User Management button -->
-    <a class="mr-5" mat-stroked-button routerLink=".">{{'header.userManagement' | translate}}</a>
-    <p class="ml-auto" (click)="onLanguageChange()">{{'header.button' | translate}}</p>
-    <button mat-stroked-button (click)="onLogout()" class="ml-3">{{'header.logout' | translate}}</button>
+  `<mat-toolbar class="tool-container mat-elevation-z6">
+      <mat-toolbar-row>
+      <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <div fxShow="true" fxHide.lt-md>
+        <span class="header1">
+          <a mat-stroked-button routerLink="profiles">{{'header.profile' | translate}}</a>
+          <a mat-stroked-button routerLink=".">{{'header.calendar' | translate}}</a>
+          <a mat-stroked-button routerLink=".">{{'header.meetings' | translate}}</a>
+          <a mat-stroked-button routerLink=".">{{'header.reminders' | translate}}</a>
+          <!-- TODO: add admin role (*ngIf) to User Management button -->
+        </span>
+          <a mat-stroked-button routerLink=".">{{'header.userManagement' | translate}}</a>
+        <span class="header2">
+          <a (click)="onLanguageChange()">{{'header.button' | translate}}</a>
+          <button mat-stroked-button (click)="onLogout()">{{'header.logout' | translate}}</button>
+        </span>
+      </div>
+      </mat-toolbar-row>
   </mat-toolbar>`
 })
 
