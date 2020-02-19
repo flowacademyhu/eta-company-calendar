@@ -15,9 +15,9 @@ spring:
 
 mailing:
   mailgun:
-    apiKey: "e8a3dc9116e2125fe4a60343949cd8cb-52b6835e-6956cbed"
-    mailSenderUrl: "https://api.mailgun.net/v3/sandbox5f1b6d9b5e9e4eaa90068f472ead00db.mailgun.org/messages"
-  mailFrom: "Mailgun Sandbox <postmaster@sandbox5f1b6d9b5e9e4eaa90068f472ead00db.mailgun.org>"
+    apiKey: "key-2d5a8931915c81640f655ba3b11bc3b8"
+    mailSenderUrl: "https://api.mailgun.net/v3/sandbox2b4aedba15744847a5e9bbf5f3343ad3.mailgun.org"
+  mailFrom: "Mailgun Sandbox <postmaster@sandbox2b4aedba15744847a5e9bbf5f3343ad3.mailgun.org>"
   messageTemplate: "Hello %s, értekezleted van %s - %s a %s teremben."
 
 # mailgun: apiKey, mailSenderUrl, mailFrom
@@ -43,3 +43,10 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+
+mailing:
+  mailgun:
+    apiKey: "key-2d5a8931915c81640f655ba3b11bc3b8"
+    mailSenderUrl: "https://api.mailgun.net/v3/sandbox2b4aedba15744847a5e9bbf5f3343ad3.mailgun.org"
+  mailFrom: "Mailgun Sandbox <postmaster@sandbox2b4aedba15744847a5e9bbf5f3343ad3.mailgun.org>"
+  messageTemplate: "Hello %s, értekezleted van %s - %s a %s teremben."
