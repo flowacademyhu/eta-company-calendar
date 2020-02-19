@@ -29,6 +29,7 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
         font-size: 16px;
         font-weight: bold;
         outline: none;
+        background:none;
         }`,
     `.logout-button {
       border: 2px solid;
