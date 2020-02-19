@@ -70,8 +70,8 @@ import { ApiCommunicationService } from 'src/app/shared/services/api-communicati
       this.user = this.newUserForm.getRawValue();
       this.api.user()
               .postUser(this.user)
-              .subscribe();
-      this.dialogRef.close();
+              .subscribe(() => {alert('New user created');
+                                this.dialogRef.close(); },
+               (error) => alert('Error occured: ' + error.status));
     }
-
   }
