@@ -92,7 +92,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   protected testMeetingCreate() {
     this.dialog.open(MeetingCreateComponent, {
-      width: '250px',
+      width: '500px',
     });
   }
 
