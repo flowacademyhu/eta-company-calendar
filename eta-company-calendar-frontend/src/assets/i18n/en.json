@@ -55,7 +55,7 @@
   },
 
   "usermanagement": {
-    "new_user": "Add new User",
-    "list_users": "List Users"
+    "new_user": "Add new user",
+    "list_users": "List users"
   }
 }

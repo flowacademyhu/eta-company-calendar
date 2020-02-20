@@ -7,6 +7,9 @@ import { NewUserComponent } from '~/app/user-management/modals/new-user.componen
   styles: [`.sidenav-container {
     height: 500px;
   }
+    mat-sidenav {
+      width: 220px
+    }
   `,
   ],
   template: `
