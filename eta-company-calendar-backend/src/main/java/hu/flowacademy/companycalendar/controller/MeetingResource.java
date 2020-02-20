@@ -3,7 +3,9 @@ package hu.flowacademy.companycalendar.controller;
 import hu.flowacademy.companycalendar.model.dto.MeetingDTO;
 import hu.flowacademy.companycalendar.model.dto.MeetingListItemDTO;
 import hu.flowacademy.companycalendar.model.dto.MeetingQueryDTO;
+import hu.flowacademy.companycalendar.repository.MeetingRepository;
 import hu.flowacademy.companycalendar.service.MeetingService;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ import java.util.List;
 public class MeetingResource {
 
     private final MeetingService meetingService;
+    private final MeetingRepository meetingRepository;
 
     @GetMapping
     public List<MeetingDTO> getAll() {
@@ -32,12 +35,13 @@ public class MeetingResource {
 
     @GetMapping("query")
     public List<MeetingListItemDTO> getFromQuery(@Valid MeetingQueryDTO queryParams) {
-        System.out.println(queryParams);
-        return List.of(MeetingListItemDTO.builder()
-                        .title("it works")
-                        .startingTime(System.currentTimeMillis())
-                        .finishTime(System.currentTimeMillis() + 100000)
-                        .build());
+        return meetingRepository.findByQuery(queryParams.getUserId()).stream()
+            .map(MeetingListItemDTO::FromEntity).collect(Collectors.toList());
+//        return List.of(MeetingListItemDTO.builder()
+//                        .title("it works")
+//                        .startingTime(System.currentTimeMillis())
+//                        .finishTime(System.currentTimeMillis() + 100000)
+//                        .build());
     }
 
     @GetMapping("/{id}")
