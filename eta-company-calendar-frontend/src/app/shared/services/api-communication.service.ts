@@ -6,12 +6,14 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
 import { AuthApiConnector } from '../api-connectors/AuthApiConnector';
 import { ProfileApiConnector } from '../api-connectors/ProfileApiConnector';
 import { UserApiConnector } from '../api-connectors/UserApiConnector';
+import { MyMeetingsApiConnector } from '../api-connectors/MyMeetingsApiConnector';
 
 export enum Connector {
   WELCOME = '[Welcome]',
   PROFILE = '[Profile]',
   AUTH = '[Auth]',
-  USER = '[User]'
+  USER = '[User]',
+  MEETING = '[Meeting]'
 }
 @Injectable()
 export class ApiCommunicationService {
@@ -39,6 +41,9 @@ export class ApiCommunicationService {
 
     this.registerConnector(
       {id: Connector.USER, connector: new UserApiConnector(this.http, this.apiBaseUrl)});
+
+    this.registerConnector(
+      {id: Connector.MEETING, connector: new MyMeetingsApiConnector(this.http, this.apiBaseUrl)});
   }
   /**
    * Registers a connector to the connector pool.
@@ -85,6 +90,10 @@ export class ApiCommunicationService {
 
   public user(): UserApiConnector {
     return this.getConnector(Connector.USER) as UserApiConnector;
+  }
+
+  public meeting(): MyMeetingsApiConnector {
+    return this.getConnector(Connector.MEETING) as MyMeetingsApiConnector;
   }
 
 }
