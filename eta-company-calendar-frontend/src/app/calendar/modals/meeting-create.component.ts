@@ -89,7 +89,7 @@ export class MeetingCreateComponent implements OnInit {
     const timeRange = this.meetingForm.get('timeRange');
     let startTime;
     if (timeRange) {
-      startTime = timeRange.get('startTime')?.value;
+      startTime = timeRange.get('startingTime')?.value;
     }
     return startTime ? startTime : new Date(Number.MIN_VALUE);
   }
