@@ -49,9 +49,10 @@
     "createdBy": "szervező",
     "requiredAttendants": "kötelező",
     "optionalAttendants": "opcionális",
-    "submitButton": "létrehozás",
     "attendantsTitle": "Meghívottak",
-    "attendantError": "email cím nem valid"
+    "attendantError": "email cím nem valid",
+    "submitButton": "létrehozás",
+    "cancelButton": "mégse"
   },
 
   "location": {

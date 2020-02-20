@@ -89,8 +89,12 @@
           <mat-error>{{ 'meeting.attendantError' | translate }}</mat-error>
       </mat-form-field>
       
-      <button mat-stroked-button color="primary" type="submit" [disabled]="meetingForm.invalid"
-      >{{ 'meeting.submitButton' | translate }}</button>
+      <div class="d-flex justify-content-between">
+        <button mat-stroked-button color="primary" type="submit" [disabled]="meetingForm.invalid"
+        >{{ 'meeting.submitButton' | translate }}</button>
+        <button mat-stroked-button (click)="closeDialog()"
+        >{{ 'meeting.cancelButton' | translate }}</button>
+      </div>
     </div>
   </form>
 </div>

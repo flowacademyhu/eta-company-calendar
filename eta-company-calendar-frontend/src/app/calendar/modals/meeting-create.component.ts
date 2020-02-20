@@ -36,10 +36,7 @@ export class MeetingCreateComponent implements OnInit {
       optionalAttendant: new FormControl(undefined, [Validators.email])
     });
     this.dateTimeAdapter.setLocale(this.translate.currentLang);
-  }
-
-  public onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.disableClose = true;
   }
 
   protected onSubmit() {
@@ -48,6 +45,7 @@ export class MeetingCreateComponent implements OnInit {
     } else {
       alert('form not valid');
     }
+    this.dialogRef.close();
   }
 
   protected isOtherLocation(): boolean {
@@ -94,6 +92,11 @@ export class MeetingCreateComponent implements OnInit {
       startTime = timeRange.get('startTime')?.value;
     }
     return startTime ? startTime : new Date(Number.MIN_VALUE);
+  }
+
+  protected closeDialog() {
+    this.meetingForm.reset();
+    this.dialogRef.close();
   }
 
     // private timeRangeValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
