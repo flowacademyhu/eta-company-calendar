@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Location } from '~/app/models/location.model';
-
 
 @Component({
   selector: 'app-meeting-create',
@@ -15,8 +13,8 @@ import { Location } from '~/app/models/location.model';
 export class MeetingCreateComponent implements OnInit {
   private meetingForm: FormGroup;
   protected locations: string[] = Object.values(Location);
-  public requiredAttendants: string[] = [];
-  protected optionalAttendands: string[];
+  protected requiredAttendantsList: string[] = [];
+  protected optionalAttendantsList: string[] = [];
 
   constructor(private readonly dialogRef: MatDialogRef<MeetingCreateComponent>,
               protected readonly dateTimeAdapter: DateTimeAdapter<object>) {
@@ -25,14 +23,17 @@ export class MeetingCreateComponent implements OnInit {
 
   public ngOnInit() {
     this.meetingForm = new FormGroup({
-      title: new FormControl(undefined),
+      title: new FormControl(undefined, [Validators.required]),
       description: new FormControl(undefined),
       location: new FormControl(undefined),
       otherLocation: new FormControl(undefined),
       recurring: new FormControl(undefined),
-      startingTime: new FormControl(undefined),
-      finishTime: new FormControl(undefined),
-      attendant: new FormControl(undefined, [Validators.email]),
+      timeRange: new FormGroup({
+        startingTime: new FormControl(undefined, [Validators.required]),
+        finishTime: new FormControl(undefined, [Validators.required]),
+      }),
+      requiredAttendant: new FormControl(undefined, [Validators.email]),
+      optionalAttendant: new FormControl(undefined, [Validators.email])
     });
   }
 
@@ -52,24 +53,17 @@ export class MeetingCreateComponent implements OnInit {
     return this.meetingForm.get('location')?.value === Location.OTHER;
   }
 
-  protected addAttendant(event: MatChipInputEvent, arr: string[]): void {
-    const attendant = this.meetingForm.get('atendant');
+  protected addAttendant(arr: string[]): void {
+    const attendantType: string = arr === this.requiredAttendantsList ? 'requiredAttendant' : 'optionalAttendant';
+    const attendant = this.meetingForm.get(attendantType);
     if (attendant?.valid) {
-      console.log(attendant.value);
+      arr.push(attendant.value);
+      attendant.reset();
     } else {
-      console.log('not valid');
-    }
-    const input = event.input;
-    const value = event.value;
-
-    if ((value || '').trim()) {
-      arr.push(value);
-    }
-
-    if (input) {
-      input.value = '';
+      attendant?.markAsTouched();
     }
   }
+
   protected removeAttendant(attendant: string, arr: string[]) {
     const index = arr.indexOf(attendant);
 
@@ -77,5 +71,35 @@ export class MeetingCreateComponent implements OnInit {
       arr.splice(index, 1);
     }
   }
+
+  protected checkTimeRangeError() {
+    const timeRange = this.meetingForm.get('timeRange');
+    return timeRange && timeRange.hasError('invalidRange');
+  }
+
+  protected getMaxStartTime() {
+    const timeRange = this.meetingForm.get('timeRange');
+    let finishtime;
+    if (timeRange) {
+      finishtime = timeRange.get('finishTime')?.value;
+    }
+    return finishtime ? finishtime : new Date(Number.MAX_VALUE);
+  }
+
+  protected getMinFinishTime() {
+    const timeRange = this.meetingForm.get('timeRange');
+    let startTime;
+    if (timeRange) {
+      startTime = timeRange.get('startTime')?.value;
+    }
+    return startTime ? startTime : new Date(Number.MIN_VALUE);
+  }
+
+    // private timeRangeValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+    //   const start = control.get('startingTime');
+    //   const end = control.get('finishTime');
+
+    //   return start && end && start.value > end.value ? { invalidRange: true } : null;
+    // }
 
 }

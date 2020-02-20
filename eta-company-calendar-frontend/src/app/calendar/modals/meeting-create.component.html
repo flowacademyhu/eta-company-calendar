@@ -5,6 +5,7 @@
       <mat-form-field>
         <mat-label >{{ 'meeting.title' | translate }}</mat-label>
         <input matInput formControlName="title" type="text">
+        <mat-error> TITLE ERROR </mat-error>
       </mat-form-field>
     
       <mat-form-field>
@@ -25,39 +26,66 @@
       </mat-form-field>
   
 
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center" formGroupName="timeRange">
         <mat-form-field>
           <mat-label >{{ 'meeting.startingTime' | translate }}</mat-label>
-          <input matInput formControlName="startingTime"
+          <input matInput formControlName="startingTime" [max]="getMaxStartTime()"
             [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" type="datetime-local" autocomplete="off">
           <owl-date-time #dt1 [firstDayOfWeek]="1"></owl-date-time>
+          <mat-error> FROM - TO ERROR </mat-error>
         </mat-form-field>
         <mat-icon [owlDateTimeTrigger]="dt1">event</mat-icon>
 
         <mat-form-field>
           <mat-label >{{ 'meeting.finishTime' | translate }}</mat-label>
-          <input matInput formControlName="finishTime"
+          <input matInput formControlName="finishTime" [min]="getMinFinishTime()"
             [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" type="datetime-local" autocomplete="off">
           <owl-date-time #dt2 [firstDayOfWeek]="1"></owl-date-time>
+          <mat-error> FROM - TO ERROR </mat-error>
         </mat-form-field>
         <mat-icon [owlDateTimeTrigger]="dt2">event</mat-icon>
       </div>
-  
+
+      <mat-error *ngIf="checkTimeRangeError()">a kurva anyádat!!!4!44!!!!!4!!</mat-error>
+      
+      <p>Meghívottak</p>
+      <hr>
+      
+      <mat-chip-list #chipRequiredAttendants>
+        <mat-label >{{ 'meeting.requiredAttendants' | translate }}: </mat-label>
+        <mat-chip color="accent" *ngFor="let a of requiredAttendantsList"
+        [removable]="true" (removed)="removeAttendant(a, requiredAttendantsList)">
+          {{ a }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
       <mat-form-field>
-        <mat-label >{{ 'meeting.requiredAttendants' | translate }}</mat-label>
-        <mat-chip-list #chipRequiredAttendants>
-          <mat-chip color="accent" *ngFor="let a of requiredAttendants"
-          [removable]="true" (removed)="removeAttendant(a, requiredAttendants)">
-            {{ a }}
-            <mat-icon matChipRemove>cancel</mat-icon>
-          </mat-chip>
-          <input
-            formControlName="attendant"
-            type="email"
-            [matChipInputFor]="chipRequiredAttendants"
-            (matChipInputTokenEnd)="addAttendant($event, requiredAttendants)">
-            <mat-error> error van </mat-error>
-        </mat-chip-list>
+        <input
+          matInput
+          formControlName="requiredAttendant"
+          type="email"
+          [matChipInputFor]="chipRequiredAttendants"
+          (matChipInputTokenEnd)="addAttendant(requiredAttendantsList)">
+          <mat-error> ATTENDANT ERROR </mat-error>
+      </mat-form-field>
+      <hr>
+      <mat-chip-list #chipOptionalAttendants>
+        <mat-label >{{ 'meeting.optionalAttendants' | translate }}: </mat-label>
+        <mat-chip color="accent" *ngFor="let a of optionalAttendantsList"
+        [removable]="true" (removed)="removeAttendant(a, optionalAttendantsList)">
+          {{ a }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+      <mat-form-field>
+        <!-- <mat-label >{{ 'meeting.optionalAttendants' | translate }}</mat-label> -->
+        <input
+          matInput
+          formControlName="optionalAttendant"
+          type="email"
+          [matChipInputFor]="chipOptionalAttendants"
+          (matChipInputTokenEnd)="addAttendant(optionalAttendantsList)">
+          <mat-error> ATTENDANT ERROR </mat-error>
       </mat-form-field>
       
       
