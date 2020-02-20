@@ -12,22 +12,22 @@ import { UserService } from '../service/user-service';
   <table mat-table [dataSource]="users$ | async" class="mat-elevation-z8">
 
   <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <th mat-header-cell *matHeaderCellDef> {{'userlist.id' | translate}} </th>
     <td mat-cell *matCellDef="let user"> {{user.id}} </td>
   </ng-container>
 
   <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef> Email </th>
+    <th mat-header-cell *matHeaderCellDef> {{'userlist.email' | translate}} </th>
     <td mat-cell *matCellDef="let user"> {{user.email}} </td>
   </ng-container>
 
   <ng-container matColumnDef="role">
-    <th mat-header-cell *matHeaderCellDef> Role </th>
+    <th mat-header-cell *matHeaderCellDef> {{'userlist.role' | translate}} </th>
     <td mat-cell *matCellDef="let user"> {{user.role}} </td>
   </ng-container>
 
   <ng-container matColumnDef="action" >
-          <th mat-header-cell *matHeaderCellDef class="text-center">Action</th>
+          <th mat-header-cell *matHeaderCellDef class="text-center">{{'userlist.action' | translate}}</th>
           <td mat-cell *matCellDef="let user">
           <button mat-icon-button>
           <mat-icon aria-label="User">
@@ -78,8 +78,7 @@ export class UserListComponent implements OnInit {
   public openSnackBar(message: string) {
     this.snackBar.open(`${message}`, undefined, {
     duration: 2000
-  });
-
+    });
   }
 
 }

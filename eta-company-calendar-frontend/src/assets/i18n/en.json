@@ -56,6 +56,10 @@
 
   "userlist": {
     "button": "List Users",
+    "id": "ID",
+    "email": "E-mail",
+    "role": "Role",
+    "action": "Action",
     "snack_delete": "User deleted",
     "snack_delete_error": "Unsuccessful"
   }
