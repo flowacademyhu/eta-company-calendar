@@ -78,10 +78,25 @@ public class InitDataLoader {
             .recurring(Recurring.DAILY)
             .user(userRepository.getOne(1L))
             .build());
-        System.out.println("first reminder done");
         reminderRepository.save(Reminder.builder()
             .title("second testReminder")
             .description("Bee happy!")
+            .startingTime(System.currentTimeMillis() + 3600000)
+            .endingTime(System.currentTimeMillis() + 3600000 * 2)
+            .recurring(Recurring.DAILY)
+            .user(userRepository.getOne(2L))
+            .build());
+        reminderRepository.save(Reminder.builder()
+            .title("3nd testReminder")
+            .description("Meeting always")
+            .startingTime(System.currentTimeMillis() + 3600000)
+            .endingTime(System.currentTimeMillis() + 3600000 * 2)
+            .recurring(Recurring.DAILY)
+            .user(userRepository.getOne(2L))
+            .build());
+        reminderRepository.save(Reminder.builder()
+            .title("4nd testReminder")
+            .description("OMG")
             .startingTime(System.currentTimeMillis() + 3600000)
             .endingTime(System.currentTimeMillis() + 3600000 * 2)
             .recurring(Recurring.DAILY)

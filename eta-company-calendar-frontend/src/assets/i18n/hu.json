@@ -52,6 +52,15 @@
     "email_error": "Az email cím formátuma hibás.",
     "password_error": "A jelszó kitöltése kötelező.",
     "role_error": "A szerepkör megadása kötelező"
+  },
+  "reminderlist": {
+    "id": "Id",
+    "title": "Tárgy",
+    "description": "Leírás",
+    "startingTime": "Kezdés",
+    "endingTime": "Vége",
+    "recurring": "Ismétlődés",
+    "date": "Dátum"
   }
 
 }

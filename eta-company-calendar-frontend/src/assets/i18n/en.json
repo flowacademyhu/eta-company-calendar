@@ -52,5 +52,14 @@
     "email_error": "Invalid email address.",
     "password_error": "A password is required.",
     "role_error": "Role is required"
+  },
+  "reminderlist": {
+    "id": "Id",
+    "title": "Title",
+    "description": "Description",
+    "startingTime": "Starting Time",
+    "endingTime": "Ending Time",
+    "recurring": "Recurring",
+    "date": "Date"
   }
 }
