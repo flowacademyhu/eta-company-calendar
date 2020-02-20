@@ -25,7 +25,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               <div class="pc">
              <input matInput
                 [(ngModel)] = "profileData.lastName"
-                class="input"
+                class="form-control"
                 formControlName = "lastname">
               </div>
             </mat-form-field>
@@ -43,12 +43,11 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               <div class="pc">
              <input matInput
                 [(ngModel)] = "profileData.firstName"
-                class="input"
+                class="form-control"
                 formControlName = "firstname">
               </div>
             </mat-form-field>
         </span>
-
         <br>
         <span *ngIf = "!mod">
           {{'profile.dateOfBirth' | translate }}
@@ -62,8 +61,8 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
             <mat-label>{{'profile.dateOfBirth' | translate }}</mat-label>
               <div class="pc">
              <input matInput
-                [ngModel] = "profileData.dateOfBirth | date:'yyyy-MM-dd'"
-                class="input"
+                [(ngModel)] = "profileData.dateOfBirth "
+                class="form-control"
                 type = "date"
                 formControlName = "dateOfBirth">
               </div>
@@ -73,7 +72,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
         </div>
       <div class="divider"> </div>
     <div class="workdata">
-
       <span *ngIf = "!mod">
           {{'profile.department' | translate }}
           <div class="pc">
@@ -86,7 +84,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               <div class="pc">
              <input matInput
                 [(ngModel)] = "profileData.department"
-                class="input"
+                class="form-control"
                 formControlName = "department">
               </div>
             </mat-form-field>
@@ -104,7 +102,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               <div class="pc">
              <input matInput
                 [(ngModel)] = "profileData.team"
-                class="input"
+                class="form-control"
                 formControlName = "team">
               </div>
             </mat-form-field>
@@ -122,7 +120,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               <div class="pc">
              <input matInput
                 [(ngModel)] = "profileData.leader"
-                class="input"
+                class="form-control"
                 formControlName = "leader">
               </div>
             </mat-form-field>
@@ -139,7 +137,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               <div class="pc">
              <input matInput
                 [(ngModel)] = "profileData.position"
-                class="input"
+                class="form-control"
                 formControlName = "position">
               </div>
             </mat-form-field>
@@ -157,11 +155,10 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               <div class="pc">
               <input matInput
               [(ngModel)] = "profileData.dateOfEntry"
-                class="input"
-                type = "date"
+                class="form-control"
+                type= "date"
                 formControlName = "dateOfEntry"
                 >
-
               </div>
             </mat-form-field>
         </span>
@@ -178,7 +175,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
           align="center">{{'profile.cancel' | translate}}</button>
     </mat-dialog-actions>
 </form>
-
     `
 })
 
@@ -193,9 +189,6 @@ export class ProfilViewDialog {
       .getProfile(this.profileData.userId);
   }
 
-  public debug() {
-    console.log(this.editForm.getRawValue());
-  }
   public ngOnInit() {
     this.editForm = new FormGroup({
       dateOfBirth: new FormControl(),
@@ -208,7 +201,7 @@ export class ProfilViewDialog {
       team: new FormControl()
     });
   }
-
+  // test data
   public profileData: Profile = {
     dateOfBirth: new Date('1992-03-13'),
     dateOfEntry: new Date('2010-01-23'),
@@ -230,8 +223,6 @@ export class ProfilViewDialog {
   }
   protected onSubmit() {
     // post
-    console.log(this.editForm);
-    console.log(this.profileData);
     this.Close();
   }
 }
