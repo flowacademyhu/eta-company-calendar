@@ -19,6 +19,12 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
       border-color: black !important;
       width: 160px;
       margin-right: 15px;}`,
+      `.menu-button {
+          margin-right: 24px;
+          min-width: 0;
+          padding: 0;
+          line-height: normal;
+        }`,
     `.header2 {
         margin-left: auto;}`,
     `.translate-button {
@@ -39,10 +45,18 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
   template:
   `
   <mat-toolbar class="tool-container mat-elevation-z6">
-      <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
-        <mat-icon>menu</mat-icon>
-      </button>
         <span class="header1">
+      <button mat-icon-button [matMenuTriggerFor] = "menu" fxShow="true" fxHide.gt-sm>
+      <mat-icon>menu</mat-icon>
+      </button>
+<mat-menu #menu = "matMenu">
+   <button mat-menu-item routerLink="profiles">{{'header.profile' | translate}}</button>
+   <button mat-menu-item routerLink="">{{'header.calendar' | translate}}</button>
+   <button mat-menu-item routerLink=".">{{'header.meetings' | translate}}</button>
+   <button mat-menu-item routerLink=".">{{'header.reminders' | translate}}</button>
+   <button mat-menu-item routerLink=".">{{'header.userManagement' | translate}}</button>
+   <button mat-menu-item (click)="onLogout()">{{'header.logout' | translate}}</button>
+</mat-menu>
           <a mat-stroked-button routerLink="profiles" fxShow="true" fxHide.lt-md>{{'header.profile' | translate}}</a>
           <a mat-stroked-button routerLink="." fxShow="true" fxHide.lt-md>{{'header.calendar' | translate}}</a>
           <a mat-stroked-button routerLink="." fxShow="true" fxHide.lt-md>{{'header.meetings' | translate}}</a>
@@ -56,7 +70,7 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
           <button class="logout-button" mat-stroked-button (click)="onLogout()" fxShow="true" fxHide.lt-md
           >{{'header.logout' | translate}}</button>
         </div>
-  </mat-toolbar>`
+  `
 })
 
 export class HeaderComponent {
