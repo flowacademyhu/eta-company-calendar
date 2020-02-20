@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Location } from '~/app/models/location.model';
 
@@ -17,9 +18,8 @@ export class MeetingCreateComponent implements OnInit {
   protected optionalAttendantsList: string[] = [];
 
   constructor(private readonly dialogRef: MatDialogRef<MeetingCreateComponent>,
-              protected readonly dateTimeAdapter: DateTimeAdapter<object>) {
-    dateTimeAdapter.setLocale('hu');
-  }
+              protected readonly dateTimeAdapter: DateTimeAdapter<object>,
+              private translate: TranslateService) { }
 
   public ngOnInit() {
     this.meetingForm = new FormGroup({
@@ -35,6 +35,7 @@ export class MeetingCreateComponent implements OnInit {
       requiredAttendant: new FormControl(undefined, [Validators.email]),
       optionalAttendant: new FormControl(undefined, [Validators.email])
     });
+    this.dateTimeAdapter.setLocale(this.translate.currentLang);
   }
 
   public onNoClick(): void {
