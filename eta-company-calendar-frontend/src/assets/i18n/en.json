@@ -52,5 +52,11 @@
     "email_error": "Invalid email address.",
     "password_error": "A password is required.",
     "role_error": "Role is required"
+  },
+
+  "userlist": {
+    "button": "List Users",
+    "snack_delete": "User deleted",
+    "snack_delete_error": "Unsuccessful"
   }
 }

@@ -52,6 +52,11 @@
     "email_error": "Az email cím formátuma hibás.",
     "password_error": "A jelszó kitöltése kötelező.",
     "role_error": "A szerepkör megadása kötelező"
-  }
+  },
 
+  "userlist": {
+    "button": "Felhasználó lista",
+    "snack_delete": "Felhasználó törölve",
+    "snack_delete_error": "Sikertelen törlés"
+  }
 }
