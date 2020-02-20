@@ -26,7 +26,6 @@ import java.util.List;
 public class MeetingResource {
 
     private final MeetingService meetingService;
-    private final MeetingRepository meetingRepository;
 
     @GetMapping
     public List<MeetingDTO> getAll() {
@@ -35,15 +34,7 @@ public class MeetingResource {
 
     @GetMapping("query")
     public List<MeetingListItemDTO> getFromQuery(@Valid MeetingQueryDTO queryParams) {
-        return meetingRepository.findByUserIdAndTimeRange(queryParams.getUserId(),
-                                             queryParams.getStartingTimeFrom(),
-                                             queryParams.getStartingTimeTo()).stream()
-            .map(MeetingListItemDTO::FromEntity).collect(Collectors.toList());
-//        return List.of(MeetingListItemDTO.builder()
-//                        .title("it works")
-//                        .startingTime(System.currentTimeMillis())
-//                        .finishTime(System.currentTimeMillis() + 100000)
-//                        .build());
+        return meetingService.findByUserIdAndTimeRange(queryParams);
     }
 
     @GetMapping("/{id}")
