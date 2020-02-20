@@ -9,6 +9,7 @@ import { UserService } from '../service/user-service';
   selector: 'app-user-list',
   styles: ['table { width: 65%; }', 'th.mat-header-cell {text-align: center;}', 'td.mat-cell {text-align: center;}' ],
   template: `
+  <div class="row justify-content-center">
   <table mat-table [dataSource]="users$ | async" class="mat-elevation-z8">
 
   <ng-container matColumnDef="id">
@@ -50,6 +51,7 @@ import { UserService } from '../service/user-service';
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+</div>
   `,
 })
 export class UserListComponent implements OnInit {
