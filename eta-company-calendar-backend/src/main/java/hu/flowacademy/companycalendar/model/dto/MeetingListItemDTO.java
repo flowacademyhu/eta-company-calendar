@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 @Data
 @AllArgsConstructor
@@ -16,11 +17,9 @@ public class MeetingListItemDTO {
   private Long finishTime;
 
   public static MeetingListItemDTO FromEntity(Meeting meeting) {
-    return MeetingListItemDTO.builder()
-        .title(meeting.getTitle())
-        .startingTime(meeting.getStartingTime())
-        .finishTime(meeting.getFinishTime())
-        .build();
+    var dto = new MeetingListItemDTO();
+    BeanUtils.copyProperties(meeting, dto);
+    return dto;
   }
 
 }
