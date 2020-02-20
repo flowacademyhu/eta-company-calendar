@@ -1,8 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Location } from '~/app/models/location.model';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
 
@@ -17,11 +19,14 @@ export interface DialogData {
   templateUrl: './meeting-create.component.html'
 })
 
-export class MeetingCreateComponent implements OnInit {
+export class MeetingCreateComponent implements OnInit, OnDestroy {
+  private destroy$: Subject<boolean> = new Subject<boolean>();
   private meetingForm: FormGroup;
   protected locations: string[] = Object.values(Location);
   protected requiredAttendantsList: string[] = [];
   protected optionalAttendantsList: string[] = [];
+  protected formMaxStartTime: Date = new Date(Number.MAX_VALUE);
+  protected formMinFinishTime: Date = new Date(Number.MIN_VALUE);
 
   constructor(private readonly dialogRef: MatDialogRef<MeetingCreateComponent>,
               @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
@@ -41,8 +46,10 @@ export class MeetingCreateComponent implements OnInit {
       optionalAttendant: new FormControl(undefined, [Validators.email])
     });
     this.dateTimeAdapter.setLocale(this.translate.currentLang);
-    this.setStartingTimeFromDialogData();
     this.dialogRef.disableClose = true;
+    this.subscribeToStartingTimeChange();
+    this.subscribeToFinishTimeChange();
+    this.setStartingTimeFromDialogData();
   }
 
   private setStartingTimeFromDialogData() {
@@ -79,14 +86,22 @@ export class MeetingCreateComponent implements OnInit {
     return timeRange && timeRange.hasError('invalidRange');
   }
 
-  protected getMaxStartTime() {
-    const finishtime = this.meetingForm.get('finishTime')?.value;
-    return finishtime ? finishtime : new Date(Number.MAX_VALUE);
+  private subscribeToStartingTimeChange() {
+    const startingTime = this.meetingForm.get('startingTime');
+    if (startingTime) {
+      startingTime.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((newDate) => this.formMinFinishTime = newDate);
+    }
   }
 
-  protected getMinFinishTime() {
-    const startTime = this.meetingForm.get('startingTime')?.value;
-    return startTime ? startTime : new Date(Number.MIN_VALUE);
+  private subscribeToFinishTimeChange() {
+    const startingTime = this.meetingForm.get('finishTime');
+    if (startingTime) {
+      startingTime.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((newDate) => this.formMaxStartTime = newDate);
+    }
   }
 
   protected onSubmit() {
@@ -109,6 +124,10 @@ export class MeetingCreateComponent implements OnInit {
     meetingDetail.optionalAttendants = this.optionalAttendantsList;
     meetingDetail.createdBy = 'admin1@test.com';
     alert('created event: ' + meetingDetail.title);
+  }
+
+  public ngOnDestroy() {
+    this.destroy$.next(true);
   }
 
 }

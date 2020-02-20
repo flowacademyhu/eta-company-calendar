@@ -36,7 +36,7 @@
             matInput
             type="datetime-local" autocomplete="off"
             formControlName="startingTime" 
-            [max]="getMaxStartTime()"
+            [max]="formMaxStartTime"
             [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" >
           <owl-date-time #dt1 [firstDayOfWeek]="1"></owl-date-time>
         </mat-form-field>
@@ -47,7 +47,7 @@
           <input matInput
             type="datetime-local" autocomplete="off"
             formControlName="finishTime"
-            [min]="getMinFinishTime()"
+            [min]="formMinFinishTime"
             [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2">
           <owl-date-time #dt2 [firstDayOfWeek]="1"></owl-date-time>
         </mat-form-field>
