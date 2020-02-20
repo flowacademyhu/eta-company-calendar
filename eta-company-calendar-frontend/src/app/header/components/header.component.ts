@@ -26,11 +26,7 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
       width: 120px;}`],
   template:
   `<mat-toolbar class="my-0 mat-elevation-z6">
-<<<<<<< HEAD
     <a class="mr-3" mat-stroked-button (click) = "openProfilDialog()">{{'header.profile' | translate}}</a>
-=======
-    <a class="mr-3" mat-stroked-button routerLink="/profiles">{{'header.profile' | translate}}</a>
->>>>>>> 158ce51a10eecf0a67d05ac33cb0261271b00deb
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.calendar' | translate}}</a>
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.meetings' | translate}}</a>
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.reminders' | translate}}</a>
