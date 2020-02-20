@@ -24,7 +24,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
             <mat-label>{{'profile.lastname' | translate }}</mat-label>
               <div class="pc">
              <input matInput
-                [(ngModel)] = "profileData.lastName"
                 class="form-control"
                 formControlName = "lastname">
               </div>
@@ -42,7 +41,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
             <mat-label>{{'profile.firstname' | translate }}</mat-label>
               <div class="pc">
              <input matInput
-                [(ngModel)] = "profileData.firstName"
                 class="form-control"
                 formControlName = "firstname">
               </div>
@@ -56,12 +54,13 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
           </div>
         </span>
         <br>
+
         <span *ngIf = "mod">
           <mat-form-field>
             <mat-label>{{'profile.dateOfBirth' | translate }}</mat-label>
               <div class="pc">
              <input matInput
-                [(ngModel)] = "profileData.dateOfBirth"
+                type = "date"
                 class="form-control"
                 formControlName = "dateOfBirth">
               </div>
@@ -82,7 +81,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
             <mat-label>{{'profile.department' | translate }}</mat-label>
               <div class="pc">
              <input matInput
-                [(ngModel)] = "profileData.department"
                 class="form-control"
                 formControlName = "department">
               </div>
@@ -100,7 +98,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
             <mat-label>{{'profile.team' | translate }}</mat-label>
               <div class="pc">
              <input matInput
-                [(ngModel)] = "profileData.team"
                 class="form-control"
                 formControlName = "team">
               </div>
@@ -118,7 +115,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
             <mat-label>{{'profile.leader' | translate }}</mat-label>
               <div class="pc">
              <input matInput
-                [(ngModel)] = "profileData.leader"
                 class="form-control"
                 formControlName = "leader">
               </div>
@@ -135,7 +131,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
             <mat-label>{{'profile.position' | translate }}</mat-label>
               <div class="pc">
              <input matInput
-                [(ngModel)] = "profileData.position"
                 class="form-control"
                 formControlName = "position">
               </div>
@@ -153,8 +148,8 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
             <mat-label>{{'profile.dateOfEntry' | translate }}</mat-label>
               <div class="pc">
               <input matInput
-              [(ngModel)] = "profileData.dateOfEntry"
                 class="form-control"
+                type = "date"
                 formControlName = "dateOfEntry"
                 >
               </div>
@@ -189,20 +184,20 @@ export class ProfilViewDialog {
 
   public ngOnInit() {
     this.editForm = new FormGroup({
-      dateOfBirth: new FormControl(),
-      dateOfEntry: new FormControl(),
-      department: new FormControl(),
-      firstname: new FormControl(),
-      lastname: new FormControl(),
-      leader: new FormControl(),
-      position: new FormControl(),
-      team: new FormControl()
+      dateOfBirth: new FormControl(this.profileData.dateOfBirth),
+      dateOfEntry: new FormControl(this.profileData.dateOfEntry),
+      department: new FormControl(this.profileData.department),
+      firstname: new FormControl(this.profileData.firstName),
+      lastname: new FormControl(this.profileData.lastName),
+      leader: new FormControl(this.profileData.leader),
+      position: new FormControl(this.profileData.position),
+      team: new FormControl(this.profileData.team)
     });
   }
   // test data
   public profileData: Profile = {
-    dateOfBirth: new Date('1992-03-13'),
-    dateOfEntry: new Date('2010-01-23'),
+    dateOfBirth: '1992-03-13',
+    dateOfEntry: '2010-01-23',
     department: 'Pénzügy',
     firstName: 'Lajos',
     lastName: 'Kovács',
@@ -221,6 +216,9 @@ export class ProfilViewDialog {
   }
   protected onSubmit() {
     // post
+    this.profileData.lastName = this.editForm.get('lastName')?.setValue;
+    console.log(this.editForm.value);
+    console.log(this.profileData);
     this.Close();
   }
 }
