@@ -54,6 +54,11 @@
     "role_error": "Role is required"
   },
 
+  "usermanagement": {
+    "new_user": "Add new user",
+    "list_users": "List users"
+  },
+
   "userlist": {
     "button": "List Users",
     "id": "ID",
@@ -63,4 +68,5 @@
     "snack_delete": "User deleted",
     "snack_delete_error": "Unsuccessful"
   }
+  
 }

@@ -54,6 +54,11 @@
     "role_error": "A szerepkör megadása kötelező"
   },
 
+  "usermanagement": {
+    "new_user": "Új felhasználó létrehozása",
+    "list_users": "Felhasználók listázása"
+  },
+
   "userlist": {
     "button": "Felhasználó lista",
     "id": "ID",

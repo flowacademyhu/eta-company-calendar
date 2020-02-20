@@ -7,9 +7,9 @@ import { UserService } from '../service/user-service';
 
 @Component({
   selector: 'app-user-list',
-  styles: ['table { width: 65%; }', 'th.mat-header-cell {text-align: center;}', 'td.mat-cell {text-align: center;}' ],
+  styles: ['table { width: 85%; }', 'th.mat-header-cell {text-align: center;}', 'td.mat-cell {text-align: center;}' ],
   template: `
-  <div class="row justify-content-center">
+  <div class="row justify-content-center mt-4">
   <table mat-table [dataSource]="users$ | async" class="mat-elevation-z8">
 
   <ng-container matColumnDef="id">
