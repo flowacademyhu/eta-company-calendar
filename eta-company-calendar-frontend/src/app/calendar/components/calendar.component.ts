@@ -53,15 +53,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   public calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
 
-  private calendarEvents: EventInput[] = [
-    { title: 'Event Now', start: new Date() },
-  ];
-
   constructor(private readonly translate: TranslateService, private readonly dialog: MatDialog) {}
-
-  protected handleDateClick(arg: EventInput) {
-    this.openMeetingCreateDialog(arg.dateStr);
-  }
 
   public ngAfterViewInit() {
     this.translate.onLangChange
@@ -69,6 +61,13 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
       .subscribe((params) => {
         this.setCalendarLang(params.lang);
       });
+  }
+
+  protected handleDateClick(arg: EventInput) {
+    this.dialog.open(MeetingCreateComponent, {
+      width: '500px',
+      data: {startingTime: arg.dateStr}
+    });
   }
 
   private setCalendarLang(lang: string) {
@@ -81,13 +80,6 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   public ngOnDestroy() {
     this.destroy$.next(true);
-  }
-
-  private openMeetingCreateDialog(data: string) {
-    this.dialog.open(MeetingCreateComponent, {
-      width: '500px',
-      data: {startingTime: data}
-    });
   }
 
 }

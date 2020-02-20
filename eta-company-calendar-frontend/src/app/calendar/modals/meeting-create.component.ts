@@ -24,7 +24,7 @@ export class MeetingCreateComponent implements OnInit {
   protected optionalAttendantsList: string[] = [];
 
   constructor(private readonly dialogRef: MatDialogRef<MeetingCreateComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: DialogData,
+              @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
               protected readonly dateTimeAdapter: DateTimeAdapter<object>,
               private translate: TranslateService) { }
 
@@ -41,15 +41,15 @@ export class MeetingCreateComponent implements OnInit {
       optionalAttendant: new FormControl(undefined, [Validators.email])
     });
     this.dateTimeAdapter.setLocale(this.translate.currentLang);
-    this.dialogRef.disableClose = true;
     this.setStartingTimeFromDialogData();
+    this.dialogRef.disableClose = true;
   }
 
-  protected onSubmit() {
-    if (this.meetingForm.valid) {
-      this.getMeetingDetailFromForm();
+  private setStartingTimeFromDialogData() {
+    const startingTime = this.meetingForm.get('startingTime');
+    if (this.data && startingTime) {
+      startingTime.setValue(this.data.startingTime);
     }
-    this.dialogRef.close();
   }
 
   protected isOtherLocation(): boolean {
@@ -69,7 +69,6 @@ export class MeetingCreateComponent implements OnInit {
 
   protected removeAttendant(attendant: string, arr: string[]) {
     const index = arr.indexOf(attendant);
-
     if (index >= 0) {
       arr.splice(index, 1);
     }
@@ -90,6 +89,13 @@ export class MeetingCreateComponent implements OnInit {
     return startTime ? startTime : new Date(Number.MIN_VALUE);
   }
 
+  protected onSubmit() {
+    if (this.meetingForm.valid) {
+      this.getMeetingDetailFromForm();
+    }
+    this.dialogRef.close();
+  }
+
   protected closeDialog() {
     this.meetingForm.reset();
     this.dialogRef.close();
@@ -103,13 +109,6 @@ export class MeetingCreateComponent implements OnInit {
     meetingDetail.optionalAttendants = this.optionalAttendantsList;
     meetingDetail.createdBy = 'admin1@test.com';
     alert('created event: ' + meetingDetail.title);
-  }
-
-  private setStartingTimeFromDialogData() {
-    const startingTime = this.meetingForm.get('startingTime');
-    if (this.data && startingTime) {
-      startingTime.setValue(this.data.startingTime);
-    }
   }
 
 }
