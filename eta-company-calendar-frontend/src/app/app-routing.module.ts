@@ -33,6 +33,13 @@ const routes: Routes = [
     path: 'user-management',
     pathMatch: 'full',
   },
+  {
+    component: MainLayoutComponent,
+    loadChildren: () => import('./my-meetings/my-meetings.module')
+      .then((m) => m.UserManagementModule),
+    path: 'my-meetings',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
