@@ -9,6 +9,7 @@ import timeGrigPlugin from '@fullcalendar/timegrid';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
 @Component({
   selector: 'app-calendar',
@@ -54,7 +55,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     { title: 'Event Now', start: new Date() },
   ];
 
-  constructor(private readonly translate: TranslateService) {}
+  constructor(private readonly translate: TranslateService, private readonly api: ApiCommunicationService) {}
 
   protected handleDateClick(arg: EventInput) {
     if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
@@ -72,6 +73,14 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
       .subscribe((params) => {
         this.setCalendarLang(params.lang);
       });
+
+    this.api.meeting()
+    .getMeetingsByIdAndTimeRange(1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+    .subscribe((data) => {
+      this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
+        return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title};
+      }));
+    });
   }
 
   private setCalendarLang(lang: string) {

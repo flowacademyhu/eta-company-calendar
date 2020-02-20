@@ -4,7 +4,7 @@ import { MeetingListItem } from '~/app/models/meeting-list-item.model';
 import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiConnector';
 
 export class MeetingApiConnector extends AbstractApiConnector {
-  protected readonly apiRoute: string = `${this.apiBaseUrl}/meetings`;
+  protected readonly apiRoute: string = `${this.apiBaseUrl}/api/meetings`;
 
   public getMeetingsByIdAndTimeRange(userId: number,
                                      startingTimeFrom: number,
