@@ -221,7 +221,6 @@ export class ProfilViewDialog {
   }
   protected onSubmit() {
     // post
-    console.log(this.profileData);
     this.Close();
   }
 }
