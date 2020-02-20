@@ -60,6 +60,22 @@
     "MARKS_OFFICE": "Mark's office",
     "ARONS_OFFICE": "Aron's office",
     "OTHER": "other"
-  }
+  },
 
+  "newuserform": {
+    "button": "Add New User",
+    "create_new_user": "Create new user",
+    "new_user": "New User",
+    "role": "Role",
+    "admin": "Admin",
+    "user": "User",
+    "email": "Email address",
+    "password": "Password",
+    "confirm_password": "Confirm password",
+    "create":"Create",
+    "cancel":"Cancel",
+    "email_error": "Invalid email address.",
+    "password_error": "A password is required.",
+    "role_error": "Role is required"
+  }
 }

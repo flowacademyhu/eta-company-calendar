@@ -17,6 +17,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonModule,
     MatCardModule,
     MatDividerModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatFormFieldModule,
     MatInputModule,
@@ -28,12 +29,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatToolbarModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
     MatSelectModule,
     MatIconModule,
     MatChipsModule,
+    MatSelectModule,
   ],
 })
 export class MaterialModule { }
