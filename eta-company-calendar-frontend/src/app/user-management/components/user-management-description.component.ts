@@ -13,10 +13,8 @@ import { NewUserComponent } from '~/app/user-management/modals/new-user.componen
   <mat-sidenav-container class="sidenav-container">
       <mat-sidenav mode="side" opened>
         <mat-nav-list>
-          <a mat-list-item (click)="openDialog()">Új felhasználó</a>
-          <a mat-list-item>Adatok módosítása</a>
-          <a mat-list-item>Kilistázás</a>
-          <a mat-list-item>Törlés</a>
+          <a mat-list-item (click)="openDialog()">{{'usermanagement.new_user' | translate}} </a>
+          <a mat-list-item>{{'usermanagement.list_users' | translate}}</a>
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content >

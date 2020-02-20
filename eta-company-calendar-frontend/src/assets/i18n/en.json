@@ -52,5 +52,10 @@
     "email_error": "Invalid email address.",
     "password_error": "A password is required.",
     "role_error": "Role is required"
+  },
+
+  "usermanagement": {
+    "new_user": "Add new User",
+    "list_users": "List Users"
   }
 }
