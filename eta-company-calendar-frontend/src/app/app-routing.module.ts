@@ -14,8 +14,8 @@ const routes: Routes = [
   {
     canActivate: [AuthGuard],
     component: MainLayoutComponent,
-    loadChildren: () => import('./welcome/welcome.module')
-      .then((m) => m.WelcomeModule),
+    loadChildren: () => import('./calendar/calendar.module')
+      .then((m) => m.CalendarModule),
     path: '',
     pathMatch: 'full',
   },
@@ -24,6 +24,13 @@ const routes: Routes = [
     loadChildren: () => import('./profil/profil-wiew/profile.module')
       .then((m) => m.ProfileModule),
     path: 'profiles',
+    pathMatch: 'full',
+  },
+  {
+    component: MainLayoutComponent,
+    loadChildren: () => import('./user-management/user-management.module')
+      .then((m) => m.UserManagementModule),
+    path: 'user-management',
     pathMatch: 'full',
   },
 ];
