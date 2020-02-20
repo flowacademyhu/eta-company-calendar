@@ -38,6 +38,7 @@
   },
 
   "meeting": {
+    "header": "esemény létrehozása",
     "title": "cím",
     "titleError": "a cím megadása kötelező",
     "description": "leírás",

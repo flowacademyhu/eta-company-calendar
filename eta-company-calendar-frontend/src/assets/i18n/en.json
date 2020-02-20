@@ -38,6 +38,7 @@
   },
 
   "meeting": {
+    "header": "create meeting",
     "title": "title",
     "titleError": "title is required",
     "description": "description",
