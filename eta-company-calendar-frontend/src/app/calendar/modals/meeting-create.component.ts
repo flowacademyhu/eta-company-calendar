@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Location } from '~/app/models/location.model';
+import { MeetingDetail } from '~/app/models/meeting-detail.model';
 
 @Component({
   selector: 'app-meeting-create',
@@ -28,10 +29,8 @@ export class MeetingCreateComponent implements OnInit {
       location: new FormControl(undefined),
       otherLocation: new FormControl(undefined),
       recurring: new FormControl(undefined),
-      timeRange: new FormGroup({
-        startingTime: new FormControl(undefined, [Validators.required]),
-        finishTime: new FormControl(undefined, [Validators.required]),
-      }),
+      startingTime: new FormControl(undefined, [Validators.required]),
+      finishTime: new FormControl(undefined, [Validators.required]),
       requiredAttendant: new FormControl(undefined, [Validators.email]),
       optionalAttendant: new FormControl(undefined, [Validators.email])
     });
@@ -40,11 +39,12 @@ export class MeetingCreateComponent implements OnInit {
   }
 
   protected onSubmit() {
-    if (this.meetingForm.valid) {
-      alert('form is valid');
-    } else {
-      alert('form not valid');
-    }
+    this.getMeetingDetailFromForm()
+    // if (this.meetingForm.valid) {
+    //   alert('form is valid');
+    // } else {
+    //   alert('form not valid');
+    // }
     this.dialogRef.close();
   }
 
@@ -97,6 +97,16 @@ export class MeetingCreateComponent implements OnInit {
   protected closeDialog() {
     this.meetingForm.reset();
     this.dialogRef.close();
+  }
+
+  private getMeetingDetailFromForm() {
+    const meetingDetail: MeetingDetail = this.meetingForm.value;
+    meetingDetail.startingTime = meetingDetail.startingTime.valueOf();
+    meetingDetail.finishTime = meetingDetail.finishTime.valueOf();
+    meetingDetail.requiredAttendants = this.requiredAttendantsList;
+    meetingDetail.optionalAttendants = this.optionalAttendantsList;
+    meetingDetail.createdBy = 'admin1@test.com';
+    console.log(meetingDetail);
   }
 
     // private timeRangeValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
