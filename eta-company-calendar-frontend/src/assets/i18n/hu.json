@@ -39,6 +39,7 @@
 
   "meeting": {
     "title": "cím",
+    "titleError": "a cím megadása kötelező",
     "description": "leírás",
     "location": "helyszín",
     "otherLocation": "egyéb",
@@ -46,7 +47,10 @@
     "finishTime": "vége",
     "createdBy": "szervező",
     "requiredAttendants": "kötelező",
-    "optionalAttendants": "opcionális"
+    "optionalAttendants": "opcionális",
+    "submitButton": "létrehozás",
+    "attendantsTitle": "Meghívottak",
+    "attendantError": "email cím nem valid"
   },
 
   "location": {

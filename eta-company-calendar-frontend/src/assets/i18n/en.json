@@ -39,6 +39,7 @@
 
   "meeting": {
     "title": "title",
+    "titleError": "title is required",
     "description": "description",
     "location": "location",
     "otherLocation": "other",
@@ -46,7 +47,10 @@
     "finishTime": "to",
     "createdBy": "organizer",
     "requiredAttendants": "required",
-    "optionalAttendants": "optional"
+    "optionalAttendants": "optional",
+    "submitButton": "submit",
+    "attendantsTitle": "Attendants",
+    "attendantError": "email not valid"
   },
 
   "location": {

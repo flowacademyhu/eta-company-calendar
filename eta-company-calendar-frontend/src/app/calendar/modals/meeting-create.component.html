@@ -4,13 +4,13 @@
 
       <mat-form-field>
         <mat-label >{{ 'meeting.title' | translate }}</mat-label>
-        <input matInput formControlName="title" type="text">
-        <mat-error> TITLE ERROR </mat-error>
+        <input matInput formControlName="title" type="text" maxlength="80">
+        <mat-error> {{ 'meeting.titleError' | translate }} </mat-error>
       </mat-form-field>
     
       <mat-form-field>
         <mat-label>{{ 'meeting.description' | translate }}</mat-label>
-        <textarea matInput formControlName="description"></textarea>
+        <textarea matInput formControlName="description" maxlength="255"></textarea>
       </mat-form-field>
   
       <mat-form-field>
@@ -22,7 +22,7 @@
   
       <mat-form-field *ngIf="isOtherLocation()">
         <mat-label >{{ 'meeting.otherLocation' | translate }}</mat-label>
-        <input matInput formControlName="otherLocation" type="text">
+        <input matInput formControlName="otherLocation" type="text" maxlength="80">
       </mat-form-field>
   
 
@@ -32,7 +32,6 @@
           <input matInput formControlName="startingTime" [max]="getMaxStartTime()"
             [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" type="datetime-local" autocomplete="off">
           <owl-date-time #dt1 [firstDayOfWeek]="1"></owl-date-time>
-          <mat-error> FROM - TO ERROR </mat-error>
         </mat-form-field>
         <mat-icon [owlDateTimeTrigger]="dt1">event</mat-icon>
 
@@ -41,14 +40,11 @@
           <input matInput formControlName="finishTime" [min]="getMinFinishTime()"
             [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" type="datetime-local" autocomplete="off">
           <owl-date-time #dt2 [firstDayOfWeek]="1"></owl-date-time>
-          <mat-error> FROM - TO ERROR </mat-error>
         </mat-form-field>
         <mat-icon [owlDateTimeTrigger]="dt2">event</mat-icon>
       </div>
 
-      <mat-error *ngIf="checkTimeRangeError()">a kurva anyádat!!!4!44!!!!!4!!</mat-error>
-      
-      <p>Meghívottak</p>
+      <p>{{ 'meeting.attendantsTitle' | translate }}</p>
       <hr>
       
       <mat-chip-list #chipRequiredAttendants>
@@ -64,9 +60,10 @@
           matInput
           formControlName="requiredAttendant"
           type="email"
+          maxlength="80"
           [matChipInputFor]="chipRequiredAttendants"
           (matChipInputTokenEnd)="addAttendant(requiredAttendantsList)">
-          <mat-error> ATTENDANT ERROR </mat-error>
+          <mat-error>{{ 'meeting.attendantError' | translate }}</mat-error>
       </mat-form-field>
       <hr>
       <mat-chip-list #chipOptionalAttendants>
@@ -78,20 +75,18 @@
         </mat-chip>
       </mat-chip-list>
       <mat-form-field>
-        <!-- <mat-label >{{ 'meeting.optionalAttendants' | translate }}</mat-label> -->
         <input
           matInput
           formControlName="optionalAttendant"
           type="email"
+          maxlength="80"
           [matChipInputFor]="chipOptionalAttendants"
           (matChipInputTokenEnd)="addAttendant(optionalAttendantsList)">
-          <mat-error> ATTENDANT ERROR </mat-error>
+          <mat-error>{{ 'meeting.attendantError' | translate }}</mat-error>
       </mat-form-field>
       
-      
-  
       <button mat-stroked-button color="primary" type="submit" [disabled]="meetingForm.invalid"
-      >{{ 'login.login' | translate }}</button>
+      >{{ 'meeting.submitButton' | translate }}</button>
     </div>
   </form>
 </div>
