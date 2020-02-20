@@ -41,6 +41,22 @@
     "logout": "Logout",
     "email_error": "Invalid email address.",
     "password_error": "A password is required."
-  }
+  },
 
+  "newuserform":{
+    "button": "Add New User",
+    "create_new_user": "Create new user",
+    "new_user": "New User",
+    "role": "Role",
+    "admin": "Admin",
+    "user": "User",
+    "email": "Email address",
+    "password": "Password",
+    "confirm_password": "Confirm password",
+    "create":"Create",
+    "cancel":"Cancel",
+    "email_error": "Invalid email address.",
+    "password_error": "A password is required.",
+    "role_error": "Role is required"
+  }
 }

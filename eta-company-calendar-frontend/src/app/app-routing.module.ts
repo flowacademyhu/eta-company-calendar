@@ -20,6 +20,13 @@ const routes: Routes = [
     pathMatch: 'full',
   },
 
+  {
+    component: MainLayoutComponent,
+    loadChildren: () => import('./user-management/user-management.module')
+      .then((m) => m.UserManagementModule),
+    path: 'user-management',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
