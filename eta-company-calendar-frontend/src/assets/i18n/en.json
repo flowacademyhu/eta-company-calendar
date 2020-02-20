@@ -61,5 +61,9 @@
     "endingTime": "Ending Time",
     "recurring": "Recurring",
     "date": "Date"
+  },
+  "usermanagement": {
+    "new_user": "Add new user",
+    "list_users": "List users"
   }
 }

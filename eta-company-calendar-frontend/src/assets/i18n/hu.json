@@ -61,6 +61,10 @@
     "endingTime": "Vége",
     "recurring": "Ismétlődés",
     "date": "Dátum"
+  },
+  "usermanagement": {
+    "new_user": "Új felhasználó létrehozása",
+    "list_users": "Felhasználók listázása"
   }
 
 }
