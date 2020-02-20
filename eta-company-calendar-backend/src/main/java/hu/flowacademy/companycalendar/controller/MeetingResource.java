@@ -35,7 +35,9 @@ public class MeetingResource {
 
     @GetMapping("query")
     public List<MeetingListItemDTO> getFromQuery(@Valid MeetingQueryDTO queryParams) {
-        return meetingRepository.findByQuery(queryParams.getUserId()).stream()
+        return meetingRepository.findByUserIdAndTimeRange(queryParams.getUserId(),
+                                             queryParams.getStartingTimeFrom(),
+                                             queryParams.getStartingTimeTo()).stream()
             .map(MeetingListItemDTO::FromEntity).collect(Collectors.toList());
 //        return List.of(MeetingListItemDTO.builder()
 //                        .title("it works")

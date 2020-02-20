@@ -9,7 +9,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MeetingRepository extends JpaRepository<Meeting, Long> {
 
-  @Query("SELECT DISTINCT m FROM  Meeting m INNER JOIN m.requiredAttendants a WHERE a.id = ?1")
-  List<Meeting> findByQuery(Long userId);
+  @Query("SELECT DISTINCT m FROM "
+      + "Meeting m LEFT OUTER JOIN m.requiredAttendants r LEFT OUTER JOIN m.optionalAttendants o "
+      + "WHERE (m.createdBy.id = ?1 OR r.id = ?1 OR o.id = ?1) "
+      + "AND m.startingTime BETWEEN ?2 and ?3")
+  List<Meeting> findByUserIdAndTimeRange(Long userId, Long startingTimeFrom, Long StartingTimeTo);
 
 }
