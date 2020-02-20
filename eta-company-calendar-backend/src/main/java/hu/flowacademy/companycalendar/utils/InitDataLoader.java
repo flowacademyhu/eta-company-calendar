@@ -3,8 +3,10 @@ package hu.flowacademy.companycalendar.utils;
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.Recurring;
+import hu.flowacademy.companycalendar.model.Reminder;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
+import hu.flowacademy.companycalendar.repository.ReminderRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -24,11 +26,13 @@ public class InitDataLoader {
     private final MeetingRepository meetingRepository;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final ReminderRepository reminderRepository;
 
     @PostConstruct
     public void init() {
         createUsers();
         createMeetings();
+        createReminder();
     }
 
     private void createUsers() {
@@ -63,6 +67,25 @@ public class InitDataLoader {
             .startingTime(System.currentTimeMillis() + 3600000)
             .finishTime(System.currentTimeMillis() + 3600000 * 2)
             .createdAt(System.currentTimeMillis())
+            .build());
+    }
+    public void createReminder() {
+        reminderRepository.save(Reminder.builder()
+            .title("Fist testReminder")
+            .description("Dont' forget!")
+            .startingTime(System.currentTimeMillis() + 3600000)
+            .endingTime(System.currentTimeMillis() + 3600000 * 2)
+            .recurring(Recurring.DAILY)
+            .user(userRepository.getOne(1L))
+            .build());
+        System.out.println("first reminder done");
+        reminderRepository.save(Reminder.builder()
+            .title("second testReminder")
+            .description("Bee happy!")
+            .startingTime(System.currentTimeMillis() + 3600000)
+            .endingTime(System.currentTimeMillis() + 3600000 * 2)
+            .recurring(Recurring.DAILY)
+            .user(userRepository.getOne(2L))
             .build());
     }
 }

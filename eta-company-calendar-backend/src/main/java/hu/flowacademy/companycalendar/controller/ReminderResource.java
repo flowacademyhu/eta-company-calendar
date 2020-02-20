@@ -27,6 +27,9 @@ public class ReminderResource {
         return reminderService.findOne(id);
     }
 
+    @GetMapping("/user/{userid}")
+    public List<Reminder> findByUserId(@PathVariable Long userid) { return reminderService.findByUserId(userid);}
+
     @PostMapping
     public ResponseEntity<Void> createReminder(@RequestBody ReminderDTO reminderDTO) {
         reminderService.createReminder(reminderDTO);
