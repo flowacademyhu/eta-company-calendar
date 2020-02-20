@@ -26,7 +26,6 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
   `],
   template: `
   <div class='app-calendar white-background'>
-    <button (click)="testMeetingCreate()"> test meeting create</button>
     <full-calendar
       #calendar
       defaultView="dayGridMonth"
@@ -61,13 +60,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
   constructor(private readonly translate: TranslateService, private readonly dialog: MatDialog) {}
 
   protected handleDateClick(arg: EventInput) {
-    if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
-      this.calendarEvents = this.calendarEvents.concat({
-        allDay: arg.allDay,
-        start: arg.date,
-        title: 'New Event',
-      });
-    }
+    this.openMeetingCreateDialog(arg.dateStr);
   }
 
   public ngAfterViewInit() {
@@ -90,9 +83,10 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     this.destroy$.next(true);
   }
 
-  protected testMeetingCreate() {
+  private openMeetingCreateDialog(data: string) {
     this.dialog.open(MeetingCreateComponent, {
       width: '500px',
+      data: {startingTime: data}
     });
   }
 

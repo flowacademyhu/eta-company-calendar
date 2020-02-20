@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Location } from '~/app/models/location.model';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
+
+export interface DialogData {
+  startingTime: string;
+  finishTime: string;
+}
 
 @Component({
   selector: 'app-meeting-create',
@@ -19,6 +24,7 @@ export class MeetingCreateComponent implements OnInit {
   protected optionalAttendantsList: string[] = [];
 
   constructor(private readonly dialogRef: MatDialogRef<MeetingCreateComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData,
               protected readonly dateTimeAdapter: DateTimeAdapter<object>,
               private translate: TranslateService) { }
 
@@ -36,6 +42,7 @@ export class MeetingCreateComponent implements OnInit {
     });
     this.dateTimeAdapter.setLocale(this.translate.currentLang);
     this.dialogRef.disableClose = true;
+    this.setStartingTimeFromDialogData();
   }
 
   protected onSubmit() {
@@ -96,6 +103,13 @@ export class MeetingCreateComponent implements OnInit {
     meetingDetail.optionalAttendants = this.optionalAttendantsList;
     meetingDetail.createdBy = 'admin1@test.com';
     alert('created event: ' + meetingDetail.title);
+  }
+
+  private setStartingTimeFromDialogData() {
+    const startingTime = this.meetingForm.get('startingTime');
+    if (this.data && startingTime) {
+      startingTime.setValue(this.data.startingTime);
+    }
   }
 
 }
