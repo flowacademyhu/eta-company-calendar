@@ -26,8 +26,8 @@ public class MeetingCreateDTO {
   private Long startingTime;
   private Long finishTime;
   private String createdBy;
-  private List<String> requiredAttendants;
-  private List<String> optionalAttendants;
+  private List<String> requiredAttendants = new ArrayList<>();
+  private List<String> optionalAttendants = new ArrayList<>();
 
   public Meeting toEntity(User createdBy, List<User> requiredAttendants,
       List<User> optionalAttendants) {
