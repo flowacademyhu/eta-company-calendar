@@ -15,7 +15,7 @@ spring:
 
 mailing:
   mailgun:
-    apiKey: "key-2d5a8931915c81640f655ba3b11bc3b8"
+    apiKey: ${MAILGUN_API_KEY:}
     mailSenderUrl: "https://api.mailgun.net/v3/sandbox2b4aedba15744847a5e9bbf5f3343ad3.mailgun.org"
   mailFrom: "Mailgun Sandbox <postmaster@sandbox2b4aedba15744847a5e9bbf5f3343ad3.mailgun.org>"
   messageTemplate: "Hello %s, értekezleted van %s - %s a %s teremben."
@@ -46,7 +46,7 @@ spring:
 
 mailing:
   mailgun:
-    apiKey: "key-2d5a8931915c81640f655ba3b11bc3b8"
+    apiKey: ${MAILGUN_API_KEY:}
     mailSenderUrl: "https://api.mailgun.net/v3/sandbox2b4aedba15744847a5e9bbf5f3343ad3.mailgun.org"
   mailFrom: "Mailgun Sandbox <postmaster@sandbox2b4aedba15744847a5e9bbf5f3343ad3.mailgun.org>"
   messageTemplate: "Hello %s, értekezleted van %s - %s a %s teremben."
