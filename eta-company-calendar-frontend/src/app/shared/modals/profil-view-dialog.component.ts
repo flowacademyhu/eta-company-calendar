@@ -61,9 +61,8 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
             <mat-label>{{'profile.dateOfBirth' | translate }}</mat-label>
               <div class="pc">
              <input matInput
-                [(ngModel)] = "profileData.dateOfBirth "
+                [(ngModel)] = "profileData.dateOfBirth"
                 class="form-control"
-                type = "date"
                 formControlName = "dateOfBirth">
               </div>
             </mat-form-field>
@@ -156,7 +155,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               <input matInput
               [(ngModel)] = "profileData.dateOfEntry"
                 class="form-control"
-                type= "date"
                 formControlName = "dateOfEntry"
                 >
               </div>
@@ -223,6 +221,7 @@ export class ProfilViewDialog {
   }
   protected onSubmit() {
     // post
+    console.log(this.profileData);
     this.Close();
   }
 }
