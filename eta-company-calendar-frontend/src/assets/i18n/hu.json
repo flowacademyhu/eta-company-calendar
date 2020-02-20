@@ -77,6 +77,11 @@
     "email_error": "Az email cím formátuma hibás.",
     "password_error": "A jelszó kitöltése kötelező.",
     "role_error": "A szerepkör megadása kötelező"
+  },
+
+  "usermanagement": {
+    "new_user": "Új felhasználó létrehozása",
+    "list_users": "Felhasználók listázása"
   }
 
 }
