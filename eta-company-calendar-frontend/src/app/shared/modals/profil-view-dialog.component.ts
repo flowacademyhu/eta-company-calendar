@@ -215,7 +215,7 @@ export class ProfilViewDialog {
     this.mod = true;
   }
   protected onSubmit() {
-    // post
+    // put
     this.profileData = this.editForm.value;
     this.Close();
   }
