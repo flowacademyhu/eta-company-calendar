@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { UserResponse } from '~/app/models/user-response.model';
+import { User } from '~/app/models/user.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
 @Injectable()
@@ -26,6 +27,11 @@ export class UserService {
     .subscribe((users: UserResponse[]) => {
       this._userSub.next(users);
     });
+  }
+
+  public postUser(user: User) {
+    return this.api.user()
+    .postUser(user);
   }
 
   public deleteUser(id: number) {
