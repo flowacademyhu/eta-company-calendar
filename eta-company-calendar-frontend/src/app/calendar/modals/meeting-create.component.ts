@@ -39,12 +39,9 @@ export class MeetingCreateComponent implements OnInit {
   }
 
   protected onSubmit() {
-    this.getMeetingDetailFromForm()
-    // if (this.meetingForm.valid) {
-    //   alert('form is valid');
-    // } else {
-    //   alert('form not valid');
-    // }
+    if (this.meetingForm.valid) {
+      this.getMeetingDetailFromForm();
+    }
     this.dialogRef.close();
   }
 
@@ -77,20 +74,12 @@ export class MeetingCreateComponent implements OnInit {
   }
 
   protected getMaxStartTime() {
-    const timeRange = this.meetingForm.get('timeRange');
-    let finishtime;
-    if (timeRange) {
-      finishtime = timeRange.get('finishTime')?.value;
-    }
+    const finishtime = this.meetingForm.get('finishTime')?.value;
     return finishtime ? finishtime : new Date(Number.MAX_VALUE);
   }
 
   protected getMinFinishTime() {
-    const timeRange = this.meetingForm.get('timeRange');
-    let startTime;
-    if (timeRange) {
-      startTime = timeRange.get('startingTime')?.value;
-    }
+    const startTime = this.meetingForm.get('startingTime')?.value;
     return startTime ? startTime : new Date(Number.MIN_VALUE);
   }
 
@@ -106,14 +95,7 @@ export class MeetingCreateComponent implements OnInit {
     meetingDetail.requiredAttendants = this.requiredAttendantsList;
     meetingDetail.optionalAttendants = this.optionalAttendantsList;
     meetingDetail.createdBy = 'admin1@test.com';
-    console.log(meetingDetail);
+    alert('created event: ' + meetingDetail.title);
   }
-
-    // private timeRangeValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-    //   const start = control.get('startingTime');
-    //   const end = control.get('finishTime');
-
-    //   return start && end && start.value > end.value ? { invalidRange: true } : null;
-    // }
 
 }
