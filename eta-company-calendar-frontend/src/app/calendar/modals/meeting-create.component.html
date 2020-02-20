@@ -7,7 +7,7 @@
       </div>
 
       <mat-form-field>
-        <mat-label >{{ 'meeting.title' | translate }}</mat-label>
+        <mat-label >{{ 'meeting.title' | translate }} *</mat-label>
         <input matInput formControlName="title" type="text" maxlength="80">
         <mat-error>{{ 'meeting.titleError' | translate }}</mat-error>
       </mat-form-field>
@@ -31,7 +31,7 @@
   
       <div class="d-flex align-items-center">
         <mat-form-field>
-          <mat-label >{{ 'meeting.startingTime' | translate }}</mat-label>
+          <mat-label >{{ 'meeting.startingTime' | translate }} *</mat-label>
           <input
             matInput
             type="datetime-local" autocomplete="off"
@@ -43,7 +43,7 @@
         <mat-icon [owlDateTimeTrigger]="dt1">event</mat-icon>
 
         <mat-form-field>
-          <mat-label >{{ 'meeting.finishTime' | translate }}</mat-label>
+          <mat-label >{{ 'meeting.finishTime' | translate }} *</mat-label>
           <input matInput
             type="datetime-local" autocomplete="off"
             formControlName="finishTime"
