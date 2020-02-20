@@ -216,9 +216,7 @@ export class ProfilViewDialog {
   }
   protected onSubmit() {
     // post
-    this.profileData.lastName = this.editForm.get('lastName')?.setValue;
-    console.log(this.editForm.value);
-    console.log(this.profileData);
+    this.profileData = this.editForm.value;
     this.Close();
   }
 }
