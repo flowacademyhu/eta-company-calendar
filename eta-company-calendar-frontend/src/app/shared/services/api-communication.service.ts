@@ -5,13 +5,15 @@ import { WelcomeApiConnector } from '~/app/shared/api-connectors/WelcomeApiConne
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
 import { AuthApiConnector } from '../api-connectors/AuthApiConnector';
 import { ProfileApiConnector } from '../api-connectors/ProfileApiConnector';
+import { ReminderApiConnector } from '../api-connectors/ReminderApiConnector';
 import { UserApiConnector } from '../api-connectors/UserApiConnector';
 
 export enum Connector {
   WELCOME = '[Welcome]',
   PROFILE = '[Profile]',
   AUTH = '[Auth]',
-  USER = '[User]'
+  USER = '[User]',
+  REMINDER = '[Reminder]'
 }
 @Injectable()
 export class ApiCommunicationService {
@@ -39,7 +41,10 @@ export class ApiCommunicationService {
 
     this.registerConnector(
       {id: Connector.USER, connector: new UserApiConnector(this.http, this.apiBaseUrl)});
-  }
+
+    this.registerConnector(
+    {id: Connector.REMINDER, connector: new ReminderApiConnector(this.http, this.apiBaseUrl)});
+}
   /**
    * Registers a connector to the connector pool.
    * @param id: Connector - The unique identifier for a connector.
@@ -85,6 +90,9 @@ export class ApiCommunicationService {
 
   public user(): UserApiConnector {
     return this.getConnector(Connector.USER) as UserApiConnector;
+  }
+  public reminder(): ReminderApiConnector {
+    return this.getConnector(Connector.REMINDER) as ReminderApiConnector;
   }
 
 }
