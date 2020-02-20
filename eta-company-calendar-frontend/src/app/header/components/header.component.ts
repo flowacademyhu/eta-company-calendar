@@ -24,7 +24,7 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
       width: 120px;}`],
   template:
   `<mat-toolbar class="my-0 mat-elevation-z6">
-    <a class="mr-3" mat-stroked-button routerLink="/prof">{{'header.profile' | translate}}</a>
+    <a class="mr-3" mat-stroked-button routerLink="/profiles">{{'header.profile' | translate}}</a>
     <a class="mr-3" mat-stroked-button routerLink="/">{{'header.calendar' | translate}}</a>
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.meetings' | translate}}</a>
     <a class="mr-3" mat-stroked-button routerLink=".">{{'header.reminders' | translate}}</a>
