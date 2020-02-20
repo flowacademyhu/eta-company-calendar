@@ -48,11 +48,12 @@ public class MeetingService {
     }
 
     public Long createWithEmails(MeetingCreateDTO dto) {
-        User createdBy = userRepository.findFirstByEmail(dto.getCreatedBy())
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found"));
-        List<User> requiredAttendants = userRepository.findByEmailIn(dto.getRequiredAttendants());
-        List<User> optionalAttendants = userRepository.findByEmailIn(dto.getOptionalAttendants());
-        Meeting meeting = dto.toEntity(createdBy, requiredAttendants, optionalAttendants);
+        Meeting meeting = dto.toEntity(
+            userRepository.findFirstByEmail(dto.getCreatedBy())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "user not found")),
+            userRepository.findByEmailIn(dto.getRequiredAttendants()),
+            userRepository.findByEmailIn(dto.getOptionalAttendants()));
         meeting.setCreatedAt(System.currentTimeMillis());
         return meetingRepository.save(meeting).getId();
     }

@@ -43,7 +43,6 @@ public class MeetingResource {
         return meetingService.createWithEmails(dto);
     }
 
-
     @PutMapping("/{userId}")
     public MeetingDTO updateMeeting(@PathVariable Long userId, @RequestBody MeetingDTO meetingDTO) {
         return meetingService.updateMeeting(userId, meetingDTO);
