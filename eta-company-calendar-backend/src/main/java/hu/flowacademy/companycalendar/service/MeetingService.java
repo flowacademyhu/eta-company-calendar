@@ -2,16 +2,20 @@ package hu.flowacademy.companycalendar.service;
 
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.User;
+import hu.flowacademy.companycalendar.model.dto.MeetingCreateDTO;
 import hu.flowacademy.companycalendar.model.dto.MeetingDTO;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
+import java.util.ArrayList;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @Transactional
@@ -41,6 +45,22 @@ public class MeetingService {
         meeting.setCreatedBy(user);
         meeting.setCreatedAt(System.currentTimeMillis());
         return new MeetingDTO(meetingRepository.save(meeting));
+    }
+
+    public Long createWithEmails(MeetingCreateDTO dto) {
+        User createdBy = userRepository.findFirstByEmail(dto.getCreatedBy())
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found"));
+        List<User> requiredAttendants = new ArrayList<>();
+        List<User> optionalAttendants = new ArrayList<>();
+        if (dto.getRequiredAttendants() != null) {
+            requiredAttendants = userRepository.findByEmailIn(dto.getRequiredAttendants());
+        }
+        if (dto.getOptionalAttendants() != null) {
+            optionalAttendants = userRepository.findByEmailIn(dto.getOptionalAttendants());
+        }
+        Meeting meeting = dto.toEntity(createdBy, requiredAttendants, optionalAttendants);
+        meeting.setCreatedAt(System.currentTimeMillis());
+        return meetingRepository.save(meeting).getId();
     }
 
     public MeetingDTO updateMeeting(Long userId, MeetingDTO meetingDTO) {
