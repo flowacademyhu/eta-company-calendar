@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { User } from 'src/app/models/user.model';
-import { ApiCommunicationService } from 'src/app/shared/services/api-communication.service';
+import { UserService } from '../service/user-service';
 
 @Component({
     selector: 'new-user-dialog',
@@ -60,7 +60,7 @@ import { ApiCommunicationService } from 'src/app/shared/services/api-communicati
 
     constructor(
       public dialogRef: MatDialogRef<NewUserComponent>,
-      public readonly api: ApiCommunicationService) {}
+      public readonly userService: UserService) {}
 
     public onNoClick(): void {
       this.dialogRef.close();
@@ -68,9 +68,9 @@ import { ApiCommunicationService } from 'src/app/shared/services/api-communicati
 
     protected onSubmit() {
       this.user = this.newUserForm.getRawValue();
-      this.api.user()
-              .postUser(this.user)
+      this.userService.postUser(this.user)
               .subscribe(() => {alert('New user created');
+                                this.userService.getAllUsers();
                                 this.dialogRef.close(); },
                (error) => alert('Error occured: ' + error.status));
     }

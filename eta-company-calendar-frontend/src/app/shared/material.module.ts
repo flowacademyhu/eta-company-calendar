@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatMenuModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -10,6 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
@@ -22,12 +26,23 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatDialogModule,
     MatFormFieldModule,
     MatFormFieldModule,
+    MatMenuModule,
     MatInputModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    FlexLayoutModule,
     MatSelectModule,
+    MatTableModule,
+    MatIconModule,
+    MatSnackBarModule,
     MatIconModule,
     MatChipsModule,
     MatListModule,
     MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    FlexLayoutModule,
   ],
   imports: [
     MatToolbarModule,
@@ -41,6 +56,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
     MatChipsModule,
     MatSelectModule,
+    MatTableModule,
+    MatIconModule,
+    MatSnackBarModule,
     MatListModule,
     MatSidenavModule,
   ],
