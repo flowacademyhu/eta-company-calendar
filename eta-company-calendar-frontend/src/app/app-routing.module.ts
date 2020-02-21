@@ -27,6 +27,13 @@ const routes: Routes = [
     path: 'user-management',
     pathMatch: 'full',
   },
+  {
+    component: MainLayoutComponent,
+    loadChildren: () => import('./reminder/reminder.module')
+      .then((m) => m.ReminderManagerModule),
+    path: 'reminders',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
