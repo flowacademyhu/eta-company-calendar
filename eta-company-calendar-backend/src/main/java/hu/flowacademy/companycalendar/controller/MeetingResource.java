@@ -2,11 +2,10 @@ package hu.flowacademy.companycalendar.controller;
 
 import hu.flowacademy.companycalendar.model.dto.MeetingDTO;
 import hu.flowacademy.companycalendar.model.dto.MeetingListItemDTO;
-import hu.flowacademy.companycalendar.model.dto.MeetingQueryDTO;
 import hu.flowacademy.companycalendar.service.MeetingService;
-import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,9 +29,11 @@ public class MeetingResource {
         return meetingService.findAll();
     }
 
-    @GetMapping("query")
-    public List<MeetingListItemDTO> getFromQuery(@Valid MeetingQueryDTO queryParams) {
-        return meetingService.findByUserIdAndTimeRange(queryParams);
+    @GetMapping("user/{userId}")
+    public List<MeetingListItemDTO> getFromQuery(@PathVariable Long userId,
+                                                 @RequestParam Long startingTimeFrom,
+                                                 @RequestParam Long startingTimeTo) {
+        return meetingService.findByUserIdAndTimeRange(userId, startingTimeFrom, startingTimeTo);
     }
 
     @GetMapping("/{id}")

@@ -4,7 +4,6 @@ import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.MeetingDTO;
 import hu.flowacademy.companycalendar.model.dto.MeetingListItemDTO;
-import hu.flowacademy.companycalendar.model.dto.MeetingQueryDTO;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -35,11 +34,10 @@ public class MeetingService {
                 .orElseThrow(() -> new RuntimeException("Meeting not found in DB")));
     }
 
-    public List<MeetingListItemDTO> findByUserIdAndTimeRange(MeetingQueryDTO dto) {
-        return meetingRepository.findByUserIdAndTimeRange(
-            dto.getUserId(),
-            dto.getStartingTimeFrom(),
-            dto.getStartingTimeTo())
+    public List<MeetingListItemDTO> findByUserIdAndTimeRange(Long userId,
+                                                             Long startingTimeFrom,
+                                                             Long startingTimeTo) {
+        return meetingRepository.findByUserIdAndTimeRange(userId, startingTimeFrom, startingTimeTo)
             .stream().map(MeetingListItemDTO::new).collect(Collectors.toList());
     }
 
