@@ -99,5 +99,17 @@
     "description": "Description",
     "reqAttendants": "Attendants",
     "optAttendants": "Notification"
+  },
+  
+  "userlist": {
+    "button": "List Users",
+    "title": "List of users",
+    "id": "ID",
+    "email": "E-mail",
+    "role": "Role",
+    "action": "Action",
+    "snack_delete": "User deleted",
+    "snack_delete_error": "Unsuccessful"
   }
+  
 }
