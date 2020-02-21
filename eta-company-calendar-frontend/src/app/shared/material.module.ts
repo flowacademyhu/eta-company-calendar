@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatMenuModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -24,7 +26,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatDialogModule,
     MatFormFieldModule,
     MatFormFieldModule,
+    MatMenuModule,
     MatInputModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    FlexLayoutModule,
     MatSelectModule,
     MatTableModule,
     MatIconModule,
@@ -33,6 +40,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatChipsModule,
     MatListModule,
     MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    FlexLayoutModule,
   ],
   imports: [
     MatToolbarModule,
