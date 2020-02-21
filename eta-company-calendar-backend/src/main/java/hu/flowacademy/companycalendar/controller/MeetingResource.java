@@ -1,5 +1,6 @@
 package hu.flowacademy.companycalendar.controller;
 
+import hu.flowacademy.companycalendar.model.dto.MeetingCreateDTO;
 import hu.flowacademy.companycalendar.model.dto.MeetingDTO;
 import hu.flowacademy.companycalendar.model.dto.MeetingListItemDTO;
 import hu.flowacademy.companycalendar.service.MeetingService;
@@ -44,6 +45,11 @@ public class MeetingResource {
     @PostMapping("/{userId}")
     public MeetingDTO createMeeting(@PathVariable Long userId, @RequestBody MeetingDTO meetingDTO) {
         return meetingService.create(userId, meetingDTO);
+    }
+
+    @PostMapping
+    public Long createWithEmails(@RequestBody MeetingCreateDTO dto) {
+        return meetingService.createWithEmails(dto);
     }
 
     @PutMapping("/{userId}")
