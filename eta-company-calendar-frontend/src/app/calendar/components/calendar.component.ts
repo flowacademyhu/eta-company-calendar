@@ -54,9 +54,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   public calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
 
-  private calendarEvents: EventInput[] = [
-    { title: 'Event Now', start: new Date() },
-  ];
+  private calendarEvents: EventInput[] = [];
 
   constructor(private readonly translate: TranslateService,
               private readonly api: ApiCommunicationService,
@@ -69,13 +67,11 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
         this.setCalendarLang(params.lang);
       });
 
-    this.api.meeting()
-    .getMeetingsByIdAndTimeRange(1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
-    .subscribe((data) => {
-      this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
-        return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title};
-      }));
-    });
+    this.fetchMeetings();
+
+    this.dialog.afterAllClosed
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((_) => this.fetchMeetings());
   }
 
   protected handleDateClick(arg: EventInput) {
@@ -91,6 +87,17 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     }
     this.calendarComponent.getApi()
       .setOption('locale', lang);
+  }
+
+  private fetchMeetings() {
+    this.api.meeting()
+    .getMeetingsByIdAndTimeRange(1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+    .subscribe((data) => {
+      this.calendarEvents = [];
+      this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
+        return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title};
+      }));
+    });
   }
 
   public ngOnDestroy() {

@@ -125,7 +125,9 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     meetingDetail.requiredAttendants = this.requiredAttendantsList;
     meetingDetail.optionalAttendants = this.optionalAttendantsList;
     meetingDetail.createdBy = 'user0@test.com';
-    this.api.meeting().create(meetingDetail).subscribe(id => { console.log('created: ',id); this.dialogRef.close(); });
+    this.api.meeting()
+      .create(meetingDetail)
+      .subscribe();
   }
 
   public ngOnDestroy() {
