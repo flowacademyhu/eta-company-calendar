@@ -1,0 +1,115 @@
+<div class="container">
+  <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
+    <div class="d-flex flex-column">
+
+      <div class="d-flex justify-content-center">
+        <h4>{{ 'meeting.header' | translate }}</h4>
+      </div>
+
+      <mat-form-field>
+        <mat-label >{{ 'meeting.title' | translate }} *</mat-label>
+        <input matInput formControlName="title" type="text" maxlength="80">
+        <mat-error>{{ 'meeting.titleError' | translate }}</mat-error>
+      </mat-form-field>
+    
+      <mat-form-field>
+        <mat-label>{{ 'meeting.description' | translate }}</mat-label>
+        <textarea matInput formControlName="description" maxlength="255"></textarea>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>{{ 'meeting.location' | translate }}</mat-label>
+        <mat-select formControlName="location">
+          <mat-option *ngFor="let loc of locations" [value]="loc">{{ loc | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field *ngIf="isOtherLocation()">
+        <mat-label >{{ 'meeting.otherLocation' | translate }}</mat-label>
+        <input matInput formControlName="otherLocation" type="text" maxlength="80">
+      </mat-form-field>
+  
+      <div class="d-flex align-items-center">
+        <mat-form-field>
+          <mat-label >{{ 'meeting.startingTime' | translate }} *</mat-label>
+          <input
+            matInput
+            type="datetime-local" autocomplete="off"
+            formControlName="startingTime" 
+            [max]="formMaxStartTime"
+            [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" >
+          <owl-date-time #dt1 [firstDayOfWeek]="1"></owl-date-time>
+        </mat-form-field>
+        <mat-icon [owlDateTimeTrigger]="dt1">event</mat-icon>
+
+        <mat-form-field>
+          <mat-label >{{ 'meeting.finishTime' | translate }} *</mat-label>
+          <input matInput
+            type="datetime-local" autocomplete="off"
+            formControlName="finishTime"
+            [min]="formMinFinishTime"
+            [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2">
+          <owl-date-time #dt2 [firstDayOfWeek]="1"></owl-date-time>
+        </mat-form-field>
+        <mat-icon [owlDateTimeTrigger]="dt2">event</mat-icon>
+      </div>
+
+      <p>{{ 'meeting.attendantsTitle' | translate }}</p>
+      <hr>
+      
+      <mat-chip-list #chipRequiredAttendants>
+        <mat-label >{{ 'meeting.requiredAttendants' | translate }}: </mat-label>
+        <mat-chip color="accent"
+          *ngFor="let attendant of requiredAttendantsList"
+          [removable]="true"
+          (removed)="removeAttendant(attendant, requiredAttendantsList)">
+          {{ attendant }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="requiredAttendant"
+          type="email"
+          maxlength="80"
+          [matChipInputFor]="chipRequiredAttendants"
+          (matChipInputTokenEnd)="addAttendant(requiredAttendantsList)">
+          <mat-error>{{ 'meeting.attendantError' | translate }}</mat-error>
+      </mat-form-field>
+
+      <hr>
+
+      <mat-chip-list #chipOptionalAttendants>
+        <mat-label >{{ 'meeting.optionalAttendants' | translate }}: </mat-label>
+        <mat-chip color="accent"
+          *ngFor="let attendant of optionalAttendantsList"
+          [removable]="true"
+          (removed)="removeAttendant(attendant, optionalAttendantsList)">
+          {{ attendant }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+      
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="optionalAttendant"
+          type="email"
+          maxlength="80"
+          [matChipInputFor]="chipOptionalAttendants"
+          (matChipInputTokenEnd)="addAttendant(optionalAttendantsList)">
+          <mat-error>{{ 'meeting.attendantError' | translate }}</mat-error>
+      </mat-form-field>
+      
+      <div class="d-flex justify-content-between">
+        <button mat-stroked-button color="primary" type="submit" [disabled]="meetingForm.invalid"
+        >{{ 'meeting.submitButton' | translate }}</button>
+        <button mat-stroked-button (click)="closeDialog()"
+        >{{ 'meeting.cancelButton' | translate }}</button>
+      </div>
+      
+    </div>
+  </form>
+</div>
