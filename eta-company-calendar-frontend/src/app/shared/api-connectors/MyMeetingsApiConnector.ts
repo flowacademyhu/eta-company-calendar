@@ -18,7 +18,7 @@ export class MyMeetingsApiConnector extends AbstractApiConnector {
     const params = new HttpParams().set('currentTime'
                                     , Date.now()
                                     .toString());
-    return this.http.get<MeetingDetail[]>(`${this.apiRoute}/meetings/user/time/${userid}`
+    return this.http.get<MeetingDetail[]>(`${this.apiRoute}/meetings/user/${userid}`
                     ,  {params});
   }
 }

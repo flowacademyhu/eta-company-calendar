@@ -15,4 +15,6 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long> {
       + "AND m.startingTime BETWEEN ?2 and ?3")
   List<Meeting> findByUserIdAndTimeRange(Long userId, Long startingTimeFrom, Long StartingTimeTo);
 
+
+
 }
