@@ -57,6 +57,14 @@
   "usermanagement": {
     "new_user": "Új felhasználó létrehozása",
     "list_users": "Felhasználók listázása"
+  },
+
+  "meetinglist": {
+    "id": "ID",
+    "title": "Tárgy",
+    "date": "Dátum",
+    "startingTime": "Kezdés",
+    "finishTime": "Vége"
   }
 
 }

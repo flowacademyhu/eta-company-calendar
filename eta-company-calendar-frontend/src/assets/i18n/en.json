@@ -57,5 +57,13 @@
   "usermanagement": {
     "new_user": "Add new user",
     "list_users": "List users"
+  },
+
+  "meetinglist": {
+    "id": "ID",
+    "title": "Title",
+    "date": "Date",
+    "startingTime": "Starting",
+    "finishTime": "Ending"
   }
 }
