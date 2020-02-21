@@ -1,15 +1,24 @@
+import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiConnector';
-import { Meeting } from '../../models/meeting.model';
 
 export class MyMeetingsApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}/api`;
 
-  public getMeeting(meetingId: number): Observable<Meeting> {
-    return this.http.get<Meeting>(`${this.apiRoute}/meetings/${meetingId}`);
+  public getMeeting(meetingId: number): Observable<MeetingDetail> {
+    return this.http.get<MeetingDetail>(`${this.apiRoute}/meetings/${meetingId}`);
   }
 
-  public getAllMeetings(): Observable<Meeting[]> {
-    return this.http.get<Meeting[]>(`${this.apiRoute}/meetings`);
+  public getAllMeetings(): Observable<MeetingDetail[]> {
+    return this.http.get<MeetingDetail[]>(`${this.apiRoute}/meetings`);
+  }
+
+  public getMeetingsByUserId(userid: number): Observable<MeetingDetail[]> {
+    const params = new HttpParams().set('currentTime'
+                                    , Date.now()
+                                    .toString());
+    return this.http.get<MeetingDetail[]>(`${this.apiRoute}/meetings/user/time/${userid}`
+                    ,  {params});
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Meeting } from '~/app/models/meeting.model';
+import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { MeetingService } from '~/app/my-meetings/service/meeting.service';
 
 @Component({
@@ -54,7 +54,7 @@ import { MeetingService } from '~/app/my-meetings/service/meeting.service';
 })
 export class MyMeetingsDescriptionComponent implements OnInit {
 
-  protected meetings$: Observable<Meeting[]>;
+  protected meetings$: Observable<MeetingDetail[]>;
   public displayedColumns: string[] = ['date', 'startingTime', 'finishTime', 'title', 'description'];
 
   constructor(private readonly meetingService: MeetingService) {}

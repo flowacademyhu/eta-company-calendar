@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Meeting } from '~/app/models/meeting.model';
+import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
 @Injectable()
@@ -8,7 +8,7 @@ export class MeetingService {
 
   constructor(private readonly api: ApiCommunicationService) { }
 
-  private _meetingSub: BehaviorSubject<Meeting[]> = new BehaviorSubject<Meeting[]>([]);
+  private _meetingSub: BehaviorSubject<MeetingDetail[]> = new BehaviorSubject<MeetingDetail[]>([]);
 
   public get meetingSub() {
     return this._meetingSub;
@@ -17,8 +17,8 @@ export class MeetingService {
   public getAllMeetings() {
      this.api.meeting()
     .getAllMeetings()
-    .subscribe((meeting: Meeting[]) => {
-      this._meetingSub.next(meeting); });
+    .subscribe((meetingDetail: MeetingDetail[]) => {
+      this._meetingSub.next(meetingDetail); });
 
   }
 
