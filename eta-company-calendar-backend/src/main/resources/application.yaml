@@ -13,6 +13,15 @@ spring:
     hibernate:
       ddl-auto: create-drop
 
+mailing:
+  mailgun:
+    apiKey: ${MAILGUN_API_KEY:}
+    mailSenderUrl: "https://api.mailgun.net/v3/sandbox2b4aedba15744847a5e9bbf5f3343ad3.mailgun.org"
+  mailFrom: "Mailgun Sandbox <postmaster@sandbox2b4aedba15744847a5e9bbf5f3343ad3.mailgun.org>"
+  messageTemplate: "Hello %s, értekezleted van %s - %s a %s teremben."
+
+# mailgun: apiKey, mailSenderUrl, mailFrom
+
 ---
 spring:
   profiles: travis
@@ -34,3 +43,10 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+
+mailing:
+  mailgun:
+    apiKey: ${MAILGUN_API_KEY:}
+    mailSenderUrl: "https://api.mailgun.net/v3/sandbox2b4aedba15744847a5e9bbf5f3343ad3.mailgun.org"
+  mailFrom: "Mailgun Sandbox <postmaster@sandbox2b4aedba15744847a5e9bbf5f3343ad3.mailgun.org>"
+  messageTemplate: "Hello %s, értekezleted van %s - %s a %s teremben."
