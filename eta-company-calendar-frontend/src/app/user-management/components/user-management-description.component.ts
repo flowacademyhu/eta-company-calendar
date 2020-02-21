@@ -13,7 +13,7 @@ import { NewUserComponent } from '~/app/user-management/modals/new-user.componen
       person_add
       </mat-icon></button></div>
     <div class="row justify-content-center">
-      <h3>Felhasználók listája:</h3>
+      <h3>{{'userlist.title' | translate}}</h3>
     </div>
       <div class="pr-4"></div>
     </div>

@@ -61,6 +61,7 @@
 
   "userlist": {
     "button": "List Users",
+    "title": "List of users",
     "id": "ID",
     "email": "E-mail",
     "role": "Role",
