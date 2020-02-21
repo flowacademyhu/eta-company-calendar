@@ -29,7 +29,7 @@ public class MeetingResource {
         return meetingService.findAll();
     }
 
-    @GetMapping("user/{userId}")
+    @GetMapping("/user/{userId}")
     public List<MeetingListItemDTO> getFromQuery(@PathVariable Long userId,
                                                  @RequestParam Long startingTimeFrom,
                                                  @RequestParam Long startingTimeTo) {
