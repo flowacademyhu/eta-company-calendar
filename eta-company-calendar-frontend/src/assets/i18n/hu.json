@@ -96,6 +96,16 @@
   "usermanagement": {
     "new_user": "Új felhasználó létrehozása",
     "list_users": "Felhasználók listázása"
-  }
+  },
 
+  "userlist": {
+    "button": "Felhasználó lista",
+    "title": "Felhasználók listája",
+    "id": "ID",
+    "email": "E-mail cím",
+    "role": "Szerepkör",
+    "action": "Műveletek",
+    "snack_delete": "Felhasználó törölve",
+    "snack_delete_error": "Sikertelen törlés"
+  }
 }
