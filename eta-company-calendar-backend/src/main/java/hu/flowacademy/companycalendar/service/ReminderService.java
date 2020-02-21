@@ -62,7 +62,7 @@ public class ReminderService {
         return reminderRepository.findByUserId(userid);
     }
 
-    public List<Reminder> findByUserIdAndAfterCurrentTime(Long userid, Long currentTime) {
-        return reminderRepository.findByUserIdAndAfterCurrentTime(userid, currentTime);
+    public List<Reminder> findByUserIdAndAfterStartTime(Long userid, Long startTime) {
+        return reminderRepository.findByUserIdAndAfterStartTime(userid, startTime);
     }
 }

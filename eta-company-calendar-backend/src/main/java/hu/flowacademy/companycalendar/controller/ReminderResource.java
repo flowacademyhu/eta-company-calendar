@@ -31,9 +31,9 @@ public class ReminderResource {
     public List<Reminder> findByUserId(@PathVariable Long userid) { return reminderService.findByUserId(userid);}
 
     @GetMapping("user/time/{userid}")
-    public List<Reminder> findByUserIdAndAfterCurrentTime(@PathVariable Long userid,
-                                                          @RequestParam Long currentTime ) {
-        return reminderService.findByUserIdAndAfterCurrentTime(userid, currentTime);
+    public List<Reminder> findByUserIdAndAfterStartTime(@PathVariable Long userid,
+                                                          @RequestParam Long startTime ) {
+        return reminderService.findByUserIdAndAfterStartTime(userid, startTime);
     }
 
 

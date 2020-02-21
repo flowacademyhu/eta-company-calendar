@@ -14,7 +14,7 @@ export class ReminderApiConnector extends AbstractApiConnector {
     return this.http.get<Reminder[]>(`${this.apiRoute}/reminders/`);
   }
   public getRemindersByUserId(userid: number): Observable<Reminder[]> {
-    const params = new HttpParams().set('currentTime'
+    const params = new HttpParams().set('startTime'
                                     , Date.now()
                                     .toString());
     return this.http.get<Reminder[]>(`${this.apiRoute}/reminders/user/time/${userid}`
