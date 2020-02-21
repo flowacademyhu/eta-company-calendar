@@ -26,12 +26,14 @@ import { MeetingService } from '~/app/my-meetings/service/meeting.service';
 				<ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let meeting">
-          <button mat-icon-button color="primary">
+					<button mat-icon-button>
+					<mat-icon aria-label="User">
+            edit
+          </mat-icon>
+					</button>
+					<button mat-icon-button>
           <mat-icon aria-label="Delete Icon">
             delete
-          </mat-icon>
-          <mat-icon aria-label="User">
-            perm_identity
           </mat-icon>
           </button>
           </td>

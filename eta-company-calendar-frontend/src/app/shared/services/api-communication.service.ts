@@ -4,9 +4,9 @@ import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiCon
 import { WelcomeApiConnector } from '~/app/shared/api-connectors/WelcomeApiConnector';
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
 import { AuthApiConnector } from '../api-connectors/AuthApiConnector';
+import { MyMeetingsApiConnector } from '../api-connectors/MyMeetingsApiConnector';
 import { ProfileApiConnector } from '../api-connectors/ProfileApiConnector';
 import { UserApiConnector } from '../api-connectors/UserApiConnector';
-import { MyMeetingsApiConnector } from '../api-connectors/MyMeetingsApiConnector';
 
 export enum Connector {
   WELCOME = '[Welcome]',

@@ -18,7 +18,7 @@ export class MeetingService {
      this.api.meeting()
     .getAllMeetings()
     .subscribe((meeting: Meeting[]) => {
-      this._meetingSub.next(meeting);});
+      this._meetingSub.next(meeting); });
 
   }
 
