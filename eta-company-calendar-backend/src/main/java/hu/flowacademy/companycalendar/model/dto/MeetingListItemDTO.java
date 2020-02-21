@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 @NoArgsConstructor
 @Builder
 public class MeetingListItemDTO {
+  private Long id;
   private String title;
   private Long startingTime;
   private Long finishTime;
