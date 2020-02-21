@@ -57,7 +57,7 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
         <button mat-menu-item routerLink=".">{{'header.meetings' | translate}}</button>
         <button mat-menu-item routerLink=".">{{'header.reminders' | translate}}</button>
         <!-- TODO: add admin role (*ngIf) to User Management button -->
-        <button mat-menu-item routerLink=".">{{'header.userManagement' | translate}}</button>
+        <button mat-menu-item routerLink="/user-management">{{'header.userManagement' | translate}}</button>
         <button mat-menu-item (click)="onLogout()">{{'header.logout' | translate}}</button>
       </mat-menu>
         <a mat-stroked-button (click) = "openProfilDialog()"
