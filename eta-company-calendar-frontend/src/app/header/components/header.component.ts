@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.component';
 import { ConfigurationService } from '../../shared/services/configuration.service';
 
 @Component({
@@ -80,7 +82,8 @@ export class HeaderComponent {
 
   constructor(private readonly router: Router,
               private readonly configService: ConfigurationService,
-              private readonly translate: TranslateService) { }
+              private readonly translate: TranslateService,
+              private dialog: MatDialog) { }
 
   public onLanguageChange() {
     this.translate.use(this.language === 'en' ? 'hu' : 'en');
@@ -90,6 +93,10 @@ export class HeaderComponent {
   public onLogout() {
     this.configService.clearToken();
     this.router.navigate(['login']);
+  }
+
+  public openProfilDialog() {
+    this.dialog.open(ProfilViewDialog, {disableClose: true});
   }
 
 }
