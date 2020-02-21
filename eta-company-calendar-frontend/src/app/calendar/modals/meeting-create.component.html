@@ -20,7 +20,7 @@
       <mat-form-field>
         <mat-label>{{ 'meeting.location' | translate }}</mat-label>
         <mat-select formControlName="location">
-          <mat-option *ngFor="let loc of locations" [value]="loc">{{ loc | translate }}</mat-option>
+          <mat-option *ngFor="let loc of locations" [value]="loc">{{ 'location.' + loc | translate }}</mat-option>
         </mat-select>
       </mat-form-field>
   
