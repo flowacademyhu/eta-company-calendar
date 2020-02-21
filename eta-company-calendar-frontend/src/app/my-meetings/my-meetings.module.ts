@@ -18,4 +18,4 @@ import { MeetingService } from './service/meeting.service';
     MeetingService,
   ]
 })
-export class UserManagementModule {}
+export class MyMeetingsModule {}

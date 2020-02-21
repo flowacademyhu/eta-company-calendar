@@ -30,8 +30,15 @@ const routes: Routes = [
   {
     component: MainLayoutComponent,
     loadChildren: () => import('./my-meetings/my-meetings.module')
-      .then((m) => m.UserManagementModule),
+      .then((m) => m.MyMeetingsModule),
     path: 'my-meetings',
+    pathMatch: 'full',
+  },
+  {
+    component: MainLayoutComponent,
+    loadChildren: () => import('./reminder/reminder.module')
+      .then((m) => m.ReminderManagerModule),
+    path: 'reminders',
     pathMatch: 'full',
   },
 ];

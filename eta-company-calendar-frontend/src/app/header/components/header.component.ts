@@ -46,16 +46,16 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
         width: 160px;}`,
   ],
   template:
-  `<mat-toolbar class="tool-container mat-elevation-z6">
+    `<mat-toolbar class="tool-container mat-elevation-z6">
     <span class="header1">
       <button mat-icon-button [matMenuTriggerFor] = "menu" fxShow="true" fxHide.gt-sm>
         <mat-icon>menu</mat-icon>
       </button>
       <mat-menu #menu = "matMenu">
         <button mat-menu-item (click) = "openProfilDialog()">{{'header.profile' | translate}}</button>
-        <button mat-menu-item routerLink="/">{{'header.calendar' | translate}}</button>
-        <button mat-menu-item routerLink="my-meetings">{{'header.meetings' | translate}}</button>
-        <button mat-menu-item routerLink=".">{{'header.reminders' | translate}}</button>
+        <button mat-menu-item routerLink="">{{'header.calendar' | translate}}</button>
+        <button mat-menu-item routerLink="/my-meetings">{{'header.meetings' | translate}}</button>
+        <button mat-menu-item routerLink="/reminders">{{'header.reminders' | translate}}</button>
         <!-- TODO: add admin role (*ngIf) to User Management button -->
         <button mat-menu-item routerLink="/user-management">{{'header.userManagement' | translate}}</button>
         <button mat-menu-item (click)="onLogout()">{{'header.logout' | translate}}</button>
@@ -64,7 +64,7 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
         fxShow="true" fxHide.lt-md>{{'header.profile' | translate}}</a>
         <a mat-stroked-button routerLink="/" fxShow="true" fxHide.lt-md>{{'header.calendar' | translate}}</a>
         <a mat-stroked-button routerLink="/my-meetings" fxShow="true" fxHide.lt-md>{{'header.meetings' | translate}}</a>
-        <a mat-stroked-button routerLink="." fxShow="true" fxHide.lt-md>{{'header.reminders' | translate}}</a>
+        <a mat-stroked-button routerLink="/reminders" fxShow="true" fxHide.lt-md>{{'header.reminders' | translate}}</a>
         <!-- TODO: add admin role (*ngIf) to User Management button -->
         <a mat-stroked-button routerLink="/user-management"
         fxShow="true" fxHide.lt-md>{{'header.userManagement' | translate}}</a>

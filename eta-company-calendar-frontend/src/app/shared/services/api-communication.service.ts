@@ -6,6 +6,7 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
 import { AuthApiConnector } from '../api-connectors/AuthApiConnector';
 import { MyMeetingsApiConnector } from '../api-connectors/MyMeetingsApiConnector';
 import { ProfileApiConnector } from '../api-connectors/ProfileApiConnector';
+import { ReminderApiConnector } from '../api-connectors/ReminderApiConnector';
 import { UserApiConnector } from '../api-connectors/UserApiConnector';
 
 export enum Connector {
@@ -13,7 +14,8 @@ export enum Connector {
   PROFILE = '[Profile]',
   AUTH = '[Auth]',
   USER = '[User]',
-  MEETING = '[Meeting]'
+  MEETING = '[Meeting]',
+  REMINDER = '[Reminder]'
 }
 @Injectable()
 export class ApiCommunicationService {
@@ -44,7 +46,11 @@ export class ApiCommunicationService {
 
     this.registerConnector(
       {id: Connector.MEETING, connector: new MyMeetingsApiConnector(this.http, this.apiBaseUrl)});
+
+    this.registerConnector(
+    {id: Connector.REMINDER, connector: new ReminderApiConnector(this.http, this.apiBaseUrl)});
   }
+
   /**
    * Registers a connector to the connector pool.
    * @param id: Connector - The unique identifier for a connector.
@@ -90,6 +96,9 @@ export class ApiCommunicationService {
 
   public user(): UserApiConnector {
     return this.getConnector(Connector.USER) as UserApiConnector;
+  }
+  public reminder(): ReminderApiConnector {
+    return this.getConnector(Connector.REMINDER) as ReminderApiConnector;
   }
 
   public meeting(): MyMeetingsApiConnector {
