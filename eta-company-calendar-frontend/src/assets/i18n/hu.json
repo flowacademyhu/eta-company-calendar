@@ -5,6 +5,8 @@
   },
   "profile": {
     "name": "Név",
+    "lastname": "Vezetéknév",
+    "firstname": "Keresztnév",
     "button": "Váltás angol nyelvre",
     "close": "Bezárás",
     "modify": "Módosítás",
@@ -13,7 +15,11 @@
     "team": "Csoport",
     "leader": "Vezető",
     "dateOfBirth": "Születési dátum",
-    "dateOfEntry": "Munkaviszony kezdete"
+    "dateOfEntry": "Munkaviszony kezdete",
+    "view": "PROFIL ADATOK",
+    "enter_lastename": "Vezetéknév módosítása",
+    "save": "Mentés",
+    "cancel": "Mégsem"
   },
 
   "header": {
