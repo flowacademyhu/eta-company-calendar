@@ -57,7 +57,11 @@
   "usermanagement": {
     "new_user": "Új felhasználó létrehozása",
     "list_users": "Felhasználók listázása"
+<<<<<<< HEAD
   },
+=======
+  }
+>>>>>>> 93bf42d4eb9009761a7417a7a475d637a111ffae
 
   "edituserform":{
     "edit_user": "Adatok módosítása",

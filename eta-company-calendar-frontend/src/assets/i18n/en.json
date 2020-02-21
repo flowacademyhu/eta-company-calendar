@@ -57,6 +57,7 @@
   "usermanagement": {
     "new_user": "Add new user",
     "list_users": "List users"
+<<<<<<< HEAD
   },
 
   "edituserform":{
@@ -72,5 +73,7 @@
     "email_error": "Invalid email address.",
     "password_error": "A password is required.",
     "role_error": "Role is required"
+=======
+>>>>>>> 93bf42d4eb9009761a7417a7a475d637a111ffae
   }
 }
