@@ -11,6 +11,6 @@ public interface ReminderRepository extends JpaRepository<Reminder, Long> {
 
   List<Reminder> findByUserId(Long userid);
 
-  @Query("SELECT r FROM Reminder r  WHERE r.user.id = ?1 AND r.endingTime > ?2")
+  @Query("SELECT r FROM Reminder r WHERE r.user.id = ?1 AND r.endingTime > ?2")
   List<Reminder> findByUserIdAndAfterStartTime(Long userId, Long startTime);
 }
