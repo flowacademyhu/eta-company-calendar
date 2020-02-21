@@ -40,7 +40,7 @@ public class MeetingService {
             dto.getUserId(),
             dto.getStartingTimeFrom(),
             dto.getStartingTimeTo())
-            .stream().map(MeetingListItemDTO::FromEntity).collect(Collectors.toList());
+            .stream().map(MeetingListItemDTO::new).collect(Collectors.toList());
     }
 
     public MeetingDTO create(Long userId, MeetingDTO meetingDTO) {

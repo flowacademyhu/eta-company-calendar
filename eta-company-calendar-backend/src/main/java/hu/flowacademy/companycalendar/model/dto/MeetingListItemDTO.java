@@ -17,10 +17,7 @@ public class MeetingListItemDTO {
   private Long startingTime;
   private Long finishTime;
 
-  public static MeetingListItemDTO FromEntity(Meeting meeting) {
-    var dto = new MeetingListItemDTO();
-    BeanUtils.copyProperties(meeting, dto);
-    return dto;
+  public MeetingListItemDTO(Meeting meeting) {
+    BeanUtils.copyProperties(meeting, this);
   }
-
 }
