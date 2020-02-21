@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -29,6 +30,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
     MatListModule,
     MatSidenavModule,
+    MatTooltipModule,
   ],
   imports: [
     MatToolbarModule,
@@ -42,6 +44,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
     MatListModule,
     MatSidenavModule,
+    MatTooltipModule,
   ],
 })
 export class MaterialModule { }

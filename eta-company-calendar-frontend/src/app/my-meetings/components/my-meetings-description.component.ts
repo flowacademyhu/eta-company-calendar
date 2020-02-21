@@ -5,20 +5,13 @@ import { MeetingService } from '~/app/my-meetings/service/meeting.service';
 
 @Component({
   selector: 'app-my-meetings-description',
-  styles: ['table { width: 85%; }', 'th.mat-header-cell {text-align: center;}', 'td.mat-cell {text-align: center;}' ],
+  styles: ['table { width: 85%; }',
+  'th.mat-header-cell {text-align: center;}',
+  'td.mat-cell {text-align: center;}',
+],
   template: `
 	<div class="row justify-content-center" mt-4>
   <table mat-table [dataSource]="meetings$ | async" class="mat-elevation-z8">
-
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef class="text-center">{{ 'meetinglist.id' | translate }}</th>
-    <td mat-cell  *matCellDef="let meeting">{{meeting.id}}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="title">
-    <th mat-header-cell *matHeaderCellDef class="text-center">{{ 'meetinglist.title' | translate }}</th>
-    <td mat-cell *matCellDef="let meeting">{{meeting.title}}</td>
-  </ng-container>
 
   <ng-container matColumnDef="date">
     <th mat-header-cell *matHeaderCellDef class="text-center">{{ 'meetinglist.date' | translate }}</th>
@@ -35,21 +28,20 @@ import { MeetingService } from '~/app/my-meetings/service/meeting.service';
     <td mat-cell *matCellDef="let meeting">{{meeting.finishTime | date: 'HH:mm'}}</td>
   </ng-container>
 
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef class="text-center">{{ 'meetinglist.title' | translate }}</th>
+    <td mat-cell *matCellDef="let meeting">{{meeting.title}}</td>
+  </ng-container>
+
   <ng-container matColumnDef="action">
-    <th mat-header-cell *matHeaderCellDef class="text-center"></th>
+    <th mat-header-cell *matHeaderCellDef class="text-center">{{ 'meetinglist.description' | translate }}</th>
     <td mat-cell *matCellDef="let meeting">
 
-    <button mat-icon-button>
-		<mat-icon aria-label="Edit meeting">
-         edit
+    <button mat-icon-button matTooltip="{{meeting.description}}">
+		<mat-icon aria-label="{{'meetinglist.description' | translate}}">
+         library_books
        </mat-icon>
-		</button>
-
-    <button mat-icon-button>
-       <mat-icon aria-label="Delete meeting">
-         delete
-       </mat-icon>
-       </button>
+    </button>
        </td>
      </ng-container>
 
@@ -62,7 +54,7 @@ import { MeetingService } from '~/app/my-meetings/service/meeting.service';
 export class MyMeetingsDescriptionComponent implements OnInit {
 
   protected meetings$: Observable<Meeting[]>;
-  public displayedColumns: string[] = ['id', 'title', 'date', 'startingTime', 'finishTime',  'action'];
+  public displayedColumns: string[] = ['date', 'startingTime', 'finishTime', 'title', 'action'];
 
   constructor(private readonly meetingService: MeetingService) {}
 

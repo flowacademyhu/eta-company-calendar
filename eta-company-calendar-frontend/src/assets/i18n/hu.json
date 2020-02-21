@@ -64,7 +64,8 @@
     "title": "Tárgy",
     "date": "Dátum",
     "startingTime": "Kezdés",
-    "finishTime": "Vége"
+    "finishTime": "Vége",
+    "description": "Leírás"
   }
 
 }

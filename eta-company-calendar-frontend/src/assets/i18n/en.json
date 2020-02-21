@@ -64,6 +64,7 @@
     "title": "Title",
     "date": "Date",
     "startingTime": "Starting",
-    "finishTime": "Ending"
+    "finishTime": "Ending",
+    "description": "Description"
   }
 }
