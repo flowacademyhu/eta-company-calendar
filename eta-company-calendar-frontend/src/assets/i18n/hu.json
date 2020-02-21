@@ -5,6 +5,8 @@
   },
   "profile": {
     "name": "Név",
+    "lastname": "Vezetéknév",
+    "firstname": "Keresztnév",
     "button": "Váltás angol nyelvre",
     "close": "Bezárás",
     "modify": "Módosítás",
@@ -13,7 +15,11 @@
     "team": "Csoport",
     "leader": "Vezető",
     "dateOfBirth": "Születési dátum",
-    "dateOfEntry": "Munkaviszony kezdete"
+    "dateOfEntry": "Munkaviszony kezdete",
+    "view": "PROFIL ADATOK",
+    "enter_lastename": "Vezetéknév módosítása",
+    "save": "Mentés",
+    "cancel": "Mégsem"
   },
 
   "header": {
@@ -37,7 +43,32 @@
     "password_error": "A jelszó kitöltése kötelező."
   },
 
-  "newuserform":{
+  "meeting": {
+    "header": "esemény létrehozása",
+    "title": "cím",
+    "titleError": "a cím megadása kötelező",
+    "description": "leírás",
+    "location": "helyszín",
+    "otherLocation": "egyéb",
+    "startingTime": "kezdés",
+    "finishTime": "vége",
+    "createdBy": "szervező",
+    "requiredAttendants": "kötelező",
+    "optionalAttendants": "opcionális",
+    "attendantsTitle": "Meghívottak",
+    "attendantError": "email cím nem valid",
+    "submitButton": "létrehozás",
+    "cancelButton": "mégse"
+  },
+
+  "location": {
+    "MEETING_ROOM": "tárgyaló",
+    "MARKS_OFFICE": "Márk irodája",
+    "ARONS_OFFICE": "Áron irodája",
+    "OTHER": "egyéb"
+  },
+
+  "newuserform": {
     "button": "Új felhasználó hozzáadása",
     "create_new_user": "Új felhasználó létrehozása",
     "new_user": "Új felhasználó",
@@ -57,11 +88,7 @@
   "usermanagement": {
     "new_user": "Új felhasználó létrehozása",
     "list_users": "Felhasználók listázása"
-<<<<<<< HEAD
   },
-=======
-  }
->>>>>>> 93bf42d4eb9009761a7417a7a475d637a111ffae
 
   "edituserform":{
     "edit_user": "Adatok módosítása",
@@ -76,5 +103,16 @@
     "email_error": "Az email cím formátuma hibás.",
     "password_error": "A jelszó kitöltése kötelező.",
     "role_error": "A szerepkör megadása kötelező"
+  },
+
+  "userlist": {
+    "button": "Felhasználó lista",
+    "title": "Felhasználók listája",
+    "id": "ID",
+    "email": "E-mail cím",
+    "role": "Szerepkör",
+    "action": "Műveletek",
+    "snack_delete": "Felhasználó törölve",
+    "snack_delete_error": "Sikertelen törlés"
   }
 }

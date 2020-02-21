@@ -10,6 +10,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { MatDialog } from '@angular/material/dialog';
+import { MeetingCreateComponent } from '../modals/meeting-create.component';
+
 @Component({
   selector: 'app-calendar',
   styles: [`
@@ -50,21 +53,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   public calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
 
-  private calendarEvents: EventInput[] = [
-    { title: 'Event Now', start: new Date() },
-  ];
-
-  constructor(private readonly translate: TranslateService) {}
-
-  protected handleDateClick(arg: EventInput) {
-    if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
-      this.calendarEvents = this.calendarEvents.concat({
-        allDay: arg.allDay,
-        start: arg.date,
-        title: 'New Event',
-      });
-    }
-  }
+  constructor(private readonly translate: TranslateService, private readonly dialog: MatDialog) {}
 
   public ngAfterViewInit() {
     this.translate.onLangChange
@@ -72,6 +61,13 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
       .subscribe((params) => {
         this.setCalendarLang(params.lang);
       });
+  }
+
+  protected handleDateClick(arg: EventInput) {
+    this.dialog.open(MeetingCreateComponent, {
+      width: '500px',
+      data: {startingTime: arg.dateStr}
+    });
   }
 
   private setCalendarLang(lang: string) {
