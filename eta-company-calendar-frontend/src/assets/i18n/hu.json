@@ -57,6 +57,20 @@
   "usermanagement": {
     "new_user": "Új felhasználó létrehozása",
     "list_users": "Felhasználók listázása"
-  }
+  },
 
+  "edituserform":{
+    "edit_user": "Adatok módosítása",
+    "role": "Szerepkör",
+    "admin": "Admin",
+    "user": "Felhasználó",
+    "email": "Email cím",
+    "password": "Jelszó",
+    "confirm_password": "Jelszó megerősítés",
+    "edit":"Módosítás",
+    "cancel":"Mégse",
+    "email_error": "Az email cím formátuma hibás.",
+    "password_error": "A jelszó kitöltése kötelező.",
+    "role_error": "A szerepkör megadása kötelező"
+  }
 }

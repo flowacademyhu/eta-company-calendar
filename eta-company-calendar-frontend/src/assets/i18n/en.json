@@ -57,5 +57,20 @@
   "usermanagement": {
     "new_user": "Add new user",
     "list_users": "List users"
+  },
+
+  "edituserform":{
+    "edit_user": "Edit user",
+    "role": "Role",
+    "admin": "Admin",
+    "user": "User",
+    "email": "Email address",
+    "password": "Password",
+    "confirm_password": "Confirm password",
+    "create":"Create",
+    "cancel":"Cancel",
+    "email_error": "Invalid email address.",
+    "password_error": "A password is required.",
+    "role_error": "Role is required"
   }
 }
