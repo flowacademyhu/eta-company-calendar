@@ -19,11 +19,12 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
   },
+
   {
     component: MainLayoutComponent,
-    loadChildren: () => import('./profil/profil-wiew/profile.module')
-      .then((m) => m.ProfileModule),
-    path: 'profiles',
+    loadChildren: () => import('./user-management/user-management.module')
+      .then((m) => m.UserManagementModule),
+    path: 'user-management',
     pathMatch: 'full',
   },
 ];
