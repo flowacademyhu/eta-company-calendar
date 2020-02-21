@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { UserResponse } from '~/app/models/user-response.model';
+import { EditUserComponent } from '../modals/edit-user.component';
 import { UserService } from '../service/user-service';
 
 @Component({
@@ -35,8 +37,8 @@ import { UserService } from '../service/user-service';
       perm_identity
     </mat-icon>
     </button>
-     <button mat-icon-button>
-    <mat-icon aria-label="Create">
+     <button mat-icon-button (click)="openDialog()">
+    <mat-icon aria-label="Update">
       create
     </mat-icon>
     </button>
@@ -61,6 +63,7 @@ export class UserListComponent implements OnInit {
   constructor(private readonly userService: UserService,
               private readonly snackBar: MatSnackBar,
               private readonly translate: TranslateService,
+              private readonly dialog: MatDialog
               ) { }
 
   public ngOnInit() {
@@ -81,6 +84,12 @@ export class UserListComponent implements OnInit {
   public openSnackBar(message: string) {
     this.snackBar.open(`${message}`, undefined, {
     duration: 2000
+    });
+  }
+
+  public openDialog(): void {
+    this.dialog.open(EditUserComponent, {
+      width: '400px',
     });
   }
 
