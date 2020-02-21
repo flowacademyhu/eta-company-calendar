@@ -11,6 +11,9 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
+import { MatDialog } from '@angular/material/dialog';
+import { MeetingCreateComponent } from '../modals/meeting-create.component';
+
 @Component({
   selector: 'app-calendar',
   styles: [`
@@ -55,17 +58,9 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     { title: 'Event Now', start: new Date() },
   ];
 
-  constructor(private readonly translate: TranslateService, private readonly api: ApiCommunicationService) {}
-
-  protected handleDateClick(arg: EventInput) {
-    if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
-      this.calendarEvents = this.calendarEvents.concat({
-        allDay: arg.allDay,
-        start: arg.date,
-        title: 'New Event',
-      });
-    }
-  }
+  constructor(private readonly translate: TranslateService,
+              private readonly api: ApiCommunicationService,
+              private readonly dialog: MatDialog) { }
 
   public ngAfterViewInit() {
     this.translate.onLangChange
@@ -80,6 +75,13 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
       this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
         return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title};
       }));
+    });
+  }
+
+  protected handleDateClick(arg: EventInput) {
+    this.dialog.open(MeetingCreateComponent, {
+      width: '500px',
+      data: {startingTime: arg.dateStr}
     });
   }
 
