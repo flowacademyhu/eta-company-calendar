@@ -46,30 +46,6 @@ import { MeetingService } from '~/app/my-meetings/service/meeting.service';
     </td>
   </ng-container>
 
-  <ng-container matColumnDef="reqAttendants">
-    <th mat-header-cell *matHeaderCellDef class="text-center">{{ 'meetinglist.reqAttendants' | translate }}</th>
-    <td mat-cell *matCellDef="let meeting">
-
-    <button mat-icon-button matTooltip="{{meeting.requiredAttendants}}">
-		  <mat-icon>
-         people
-      </mat-icon>
-    </button>
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="optAttendants">
-    <th mat-header-cell *matHeaderCellDef class="text-center">{{ 'meetinglist.optAttendants' | translate }}</th>
-    <td mat-cell *matCellDef="let meeting">
-
-    <button mat-icon-button matTooltip="{{meeting.optionalAttendants}}">
-		  <mat-icon>
-         people_outline
-      </mat-icon>
-    </button>
-    </td>
-  </ng-container>
-
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;" align="center" ></tr>
  </table>
@@ -79,7 +55,7 @@ import { MeetingService } from '~/app/my-meetings/service/meeting.service';
 export class MyMeetingsDescriptionComponent implements OnInit {
 
   protected meetings$: Observable<Meeting[]>;
-  public displayedColumns: string[] = ['date', 'startingTime', 'finishTime', 'title', 'description', 'reqAttendants', 'optAttendants'];
+  public displayedColumns: string[] = ['date', 'startingTime', 'finishTime', 'title', 'description'];
 
   constructor(private readonly meetingService: MeetingService) {}
 
