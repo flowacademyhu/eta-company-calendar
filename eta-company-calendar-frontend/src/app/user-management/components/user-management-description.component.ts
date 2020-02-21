@@ -19,7 +19,7 @@ import { NewUserComponent } from '~/app/user-management/modals/new-user.componen
     </div>
     </mat-card>
   </div>
-  <div><app-user-list></app-user-list></div>
+  <div class="pt-1"><app-user-list></app-user-list></div>
   `,
 })
 export class UserManagementDescriptionComponent {
