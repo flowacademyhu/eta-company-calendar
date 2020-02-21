@@ -30,6 +30,13 @@ public class ReminderResource {
     @GetMapping("/user/{userid}")
     public List<Reminder> findByUserId(@PathVariable Long userid) { return reminderService.findByUserId(userid);}
 
+    @GetMapping("user/time/{userid}")
+    public List<Reminder> findByUserIdAndAfterCurrentTime(@PathVariable Long userid,
+                                                          @RequestParam Long currentTime ) {
+        return reminderService.findByUserIdAndAfterCurrentTime(userid, currentTime);
+    }
+
+
     @PostMapping
     public ResponseEntity<Void> createReminder(@RequestBody ReminderDTO reminderDTO) {
         reminderService.createReminder(reminderDTO);
