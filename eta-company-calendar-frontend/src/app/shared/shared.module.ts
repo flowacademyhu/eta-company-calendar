@@ -24,6 +24,7 @@ import { ProfilViewDialog } from './modals/profil-view-dialog.component';
   entryComponents: [
     ProfilViewDialog,
   ],
+
   exports: [
     CommonModule,
     FormsModule,

@@ -43,7 +43,32 @@
     "password_error": "A password is required."
   },
 
-  "newuserform":{
+  "meeting": {
+    "header": "create meeting",
+    "title": "title",
+    "titleError": "title is required",
+    "description": "description",
+    "location": "location",
+    "otherLocation": "other",
+    "startingTime": "from",
+    "finishTime": "to",
+    "createdBy": "organizer",
+    "requiredAttendants": "required",
+    "optionalAttendants": "optional",
+    "attendantsTitle": "Attendants",
+    "attendantError": "email not valid",
+    "submitButton": "submit",
+    "cancelButton": "cancel"
+  },
+
+  "location": {
+    "MEETING_ROOM": "meeting room",
+    "MARKS_OFFICE": "Mark's office",
+    "ARONS_OFFICE": "Aron's office",
+    "OTHER": "other"
+  },
+
+  "newuserform": {
     "button": "Add New User",
     "create_new_user": "Create new user",
     "new_user": "New User",

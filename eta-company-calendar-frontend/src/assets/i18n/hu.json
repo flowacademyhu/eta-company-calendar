@@ -43,7 +43,32 @@
     "password_error": "A jelszó kitöltése kötelező."
   },
 
-  "newuserform":{
+  "meeting": {
+    "header": "esemény létrehozása",
+    "title": "cím",
+    "titleError": "a cím megadása kötelező",
+    "description": "leírás",
+    "location": "helyszín",
+    "otherLocation": "egyéb",
+    "startingTime": "kezdés",
+    "finishTime": "vége",
+    "createdBy": "szervező",
+    "requiredAttendants": "kötelező",
+    "optionalAttendants": "opcionális",
+    "attendantsTitle": "Meghívottak",
+    "attendantError": "email cím nem valid",
+    "submitButton": "létrehozás",
+    "cancelButton": "mégse"
+  },
+
+  "location": {
+    "MEETING_ROOM": "tárgyaló",
+    "MARKS_OFFICE": "Márk irodája",
+    "ARONS_OFFICE": "Áron irodája",
+    "OTHER": "egyéb"
+  },
+
+  "newuserform": {
     "button": "Új felhasználó hozzáadása",
     "create_new_user": "Új felhasználó létrehozása",
     "new_user": "Új felhasználó",
