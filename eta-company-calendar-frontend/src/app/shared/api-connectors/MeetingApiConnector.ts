@@ -12,11 +12,10 @@ export class MeetingApiConnector extends AbstractApiConnector {
                                      ): Observable<MeetingListItem[]> {
 
     const params: HttpParams = new HttpParams()
-      .append('userId', userId.toString())
       .append('startingTimeFrom', startingTimeFrom.toString())
       .append('startingTimeTo', startingTimeTo.toString());
 
-    return this.http.get<MeetingListItem[]>(`${this.apiRoute}/query`, { params });
+    return this.http.get<MeetingListItem[]>(`${this.apiRoute}/user/${userId}`, { params });
   }
 
 }
