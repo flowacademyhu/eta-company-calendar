@@ -65,6 +65,8 @@
     "date": "Date",
     "startingTime": "Starting",
     "finishTime": "Ending",
-    "description": "Description"
+    "description": "Description",
+    "reqAttendants": "Attendants",
+    "optAttendants": "Notification"
   }
 }

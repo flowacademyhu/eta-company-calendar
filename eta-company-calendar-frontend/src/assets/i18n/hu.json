@@ -65,7 +65,9 @@
     "date": "Dátum",
     "startingTime": "Kezdés",
     "finishTime": "Vége",
-    "description": "Leírás"
+    "description": "Leírás",
+    "reqAttendants": "Résztvevők",
+    "optAttendants": "Értesítések"
   }
 
 }
