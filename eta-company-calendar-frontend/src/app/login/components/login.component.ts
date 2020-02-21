@@ -40,7 +40,7 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
 })
 
 export class LoginComponent implements OnInit {
-  private loginForm: FormGroup;
+  protected loginForm: FormGroup;
   protected errorMessage: string;
 
   constructor(private readonly router: Router,

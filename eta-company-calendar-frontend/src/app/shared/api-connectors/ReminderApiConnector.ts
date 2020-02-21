@@ -25,5 +25,4 @@ export class ReminderApiConnector extends AbstractApiConnector {
     return this.http.post<Reminder>(`${this.apiRoute}/reminders/`, reminder);
   }
 
-
 }
