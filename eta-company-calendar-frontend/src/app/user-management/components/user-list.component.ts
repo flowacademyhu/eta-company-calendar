@@ -9,7 +9,7 @@ import { UserService } from '../service/user-service';
   selector: 'app-user-list',
   styles: ['table { width: 85%; }', 'th.mat-header-cell {text-align: center;}', 'td.mat-cell {text-align: center;}' ],
   template: `
-  <div class="row justify-content-center mt-4">
+  <div class="row justify-content-center">
   <table mat-table [dataSource]="users$ | async" class="mat-elevation-z8">
 
   <ng-container matColumnDef="id">
@@ -28,25 +28,25 @@ import { UserService } from '../service/user-service';
   </ng-container>
 
   <ng-container matColumnDef="action" >
-          <th mat-header-cell *matHeaderCellDef class="text-center">{{'userlist.action' | translate}}</th>
-          <td mat-cell *matCellDef="let user">
-          <button mat-icon-button>
-          <mat-icon aria-label="User">
-            perm_identity
-          </mat-icon>
-          </button>
-           <button mat-icon-button>
-          <mat-icon aria-label="Create">
-            create
-          </mat-icon>
-          </button>
-          <button mat-icon-button (click)="deleteUser(user.id)">
-          <mat-icon aria-label="Delete Icon">
-            delete
-          </mat-icon>
-           </button>
-          </td>
-        </ng-container>
+    <th mat-header-cell *matHeaderCellDef class="text-center">{{'userlist.action' | translate}}</th>
+    <td mat-cell *matCellDef="let user">
+    <button mat-icon-button>
+    <mat-icon aria-label="User">
+      perm_identity
+    </mat-icon>
+    </button>
+     <button mat-icon-button>
+    <mat-icon aria-label="Create">
+      create
+    </mat-icon>
+    </button>
+    <button mat-icon-button (click)="deleteUser(user.id)">
+    <mat-icon aria-label="Delete Icon">
+      delete
+    </mat-icon>
+     </button>
+    </td>
+  </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -56,11 +56,12 @@ import { UserService } from '../service/user-service';
 })
 export class UserListComponent implements OnInit {
   protected users$: Observable<UserResponse[]>;
-  public displayedColumns: string[] = ['id', 'email', 'role', 'action'];
+  public displayedColumns: string[] = ['id', 'email', 'role', 'action' ];
 
   constructor(private readonly userService: UserService,
               private readonly snackBar: MatSnackBar,
-              private readonly translate: TranslateService, ) { }
+              private readonly translate: TranslateService,
+              ) { }
 
   public ngOnInit() {
     this.userService.getAllUsers();
