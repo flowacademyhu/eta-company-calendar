@@ -50,8 +50,7 @@ public class MeetingService {
     public Long createWithEmails(MeetingCreateDTO dto) {
         Meeting meeting = dto.toEntity(
             userRepository.findFirstByEmail(dto.getCreatedBy())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "user not found")),
+                .orElseThrow(() -> new RuntimeException("User not found in DB")),
             userRepository.findByEmailIn(dto.getRequiredAttendants()),
             userRepository.findByEmailIn(dto.getOptionalAttendants()));
         meeting.setCreatedAt(System.currentTimeMillis());
