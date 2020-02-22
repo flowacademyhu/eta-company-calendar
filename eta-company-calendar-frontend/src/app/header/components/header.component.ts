@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '~/app/shared/services/auth.service';
 import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.component';
-import { ConfigurationService } from '../../shared/services/configuration.service';
 
 @Component({
   selector: 'app-header',
@@ -82,8 +81,7 @@ export class HeaderComponent {
 
   public language: string;
 
-  constructor(private readonly router: Router,
-              private readonly configService: ConfigurationService,
+  constructor(private readonly auth: AuthService,
               private readonly translate: TranslateService,
               private dialog: MatDialog) { }
 
@@ -93,8 +91,7 @@ export class HeaderComponent {
   }
 
   public onLogout() {
-    this.configService.clearToken();
-    this.router.navigate(['login']);
+    this.auth.logout();
   }
 
   public openProfilDialog() {
