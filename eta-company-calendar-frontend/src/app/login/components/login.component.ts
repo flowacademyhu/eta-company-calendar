@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '~/app/shared/services/auth.service';
 
 @Component({
@@ -27,7 +26,7 @@ import { AuthService } from '~/app/shared/services/auth.service';
           <button mat-stroked-button color="primary" class="btn-block" type="submit" [disabled]="loginForm.invalid"
           >{{ 'login.login' | translate }}</button>
           <div class="button-separator"></div>
-          <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+          <p class="error-message" *ngIf="errorMessage">{{ errorMessage | translate }}</p>
         </mat-card-content>
       </form>
     </mat-card>
@@ -40,8 +39,7 @@ export class LoginComponent implements OnInit {
   protected loginForm: FormGroup;
   protected errorMessage: string;
 
-  constructor(private readonly auth: AuthService,
-              private readonly translate: TranslateService) { }
+  constructor(private readonly auth: AuthService) { }
 
   public ngOnInit() {
     this.loginForm = new FormGroup({
@@ -54,11 +52,7 @@ export class LoginComponent implements OnInit {
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
     this.auth.login(email, password)
-    .subscribe(undefined, (err) => this.setErrorMessage(err));
-  }
-
-  private setErrorMessage(messagePath: string) {
-    this.errorMessage = this.translate.instant(messagePath);
+    .subscribe(undefined, (err) => this.errorMessage = err);
   }
 
 }
