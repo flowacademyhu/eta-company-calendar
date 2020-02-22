@@ -13,6 +13,7 @@ import { HeaderComponent } from '../header/components/header.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptorService } from './interceptors/auth-interceptor.service';
 import { ProfilViewDialog } from './modals/profil-view-dialog.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ProfilViewDialog } from './modals/profil-view-dialog.component';
   ],
   providers: [
     ApiCommunicationService,
+    AuthService,
     ConfigurationService,
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
