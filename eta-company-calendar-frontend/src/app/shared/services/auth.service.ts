@@ -32,17 +32,18 @@ export class AuthService {
   }
 
   public refreshToken() {
-    console.log('old refresh token: ', this.config.fetchToken('refresh_token'));
     return this.api.auth()
       .refreshToken(this.config.fetchToken('refresh_token'))
       .pipe(
         map((newToken) => {
           this.handleToken(newToken);
-          console.log('refreshing token');
-          console.log(this.config.fetchToken('refresh_token'));
           return newToken.access_token;
         })
       );
+  }
+
+  public getToken() {
+    return this.config.fetchToken('access_token');
   }
 
   public logout() {

@@ -4,16 +4,14 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError as observableThrowError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
-import { ConfigurationService } from '../services/configuration.service';
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private readonly config: ConfigurationService,
-              private readonly authService: AuthService) { }
+  constructor(private readonly auth: AuthService) { }
 
   public intercept(req: HttpRequest<object>, next: HttpHandler): Observable<HttpEvent<object>> {
-    const accessToken = this.config.fetchToken('access_token');
+    const accessToken = this.auth.getToken();
   ​
     const authReq = (!!accessToken && !req.headers.has('Authorization')) ? this.addToken(req, accessToken) : req;
   ​
@@ -22,14 +20,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
           if (error.status === 401) {
             if (!this.containsRefreshToken(req)) {
-              const refreshToken = this.config.fetchToken('refresh_token');
-  ​
-              if (!refreshToken) {
-                this.authService.logout();
-                return observableThrowError(error);
-              }
-  ​
-              return this.authService.refreshToken()
+              return this.auth.refreshToken()
                 .pipe(
                   switchMap((newToken) => {
                     return next
@@ -37,9 +28,8 @@ export class AuthInterceptorService implements HttpInterceptor {
                   })
                 );
             } else {
-              this.authService.logout();
+              this.auth.logout();
             }
-  ​
             return observableThrowError(error);
           }
           return observableThrowError(error);
