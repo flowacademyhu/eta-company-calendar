@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
+import { AuthResponse } from '../models/auth-response.model';
 import { TokenDetails } from '../models/token-details.model';
 import { ApiCommunicationService } from './api-communication.service';
 import { ConfigurationService } from './configuration.service';
@@ -24,9 +25,22 @@ export class AuthService {
       .pipe(
         catchError(this.handleError),
         tap((token) => {
-          this.config.setToken(token);
-          this.getTokenDetails(token.access_token);
+          this.handleToken(token);
           this.router.navigate(['']);
+        })
+      );
+  }
+
+  public refreshToken() {
+    console.log('old refresh token: ', this.config.fetchToken('refresh_token'));
+    return this.api.auth()
+      .refreshToken(this.config.fetchToken('refresh_token'))
+      .pipe(
+        map((newToken) => {
+          this.handleToken(newToken);
+          console.log('refreshing token');
+          console.log(this.config.fetchToken('refresh_token'));
+          return newToken.access_token;
         })
       );
   }
@@ -35,6 +49,11 @@ export class AuthService {
     this.config.clearToken();
     this.tokenDetails.next(undefined);
     this.router.navigate(['login']);
+  }
+
+  private handleToken(token: AuthResponse) {
+    this.config.setToken(token);
+    this.getTokenDetails(token.access_token);
   }
 
   private handleError(errorRes: HttpErrorResponse) {

@@ -1,19 +1,16 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler,
   HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, throwError as observableThrowError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
-import { AuthResponse } from '../models/auth-response.model';
-import { ApiCommunicationService } from '../services/api-communication.service';
+import { AuthService } from '../services/auth.service';
 import { ConfigurationService } from '../services/configuration.service';
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
 
   constructor(private readonly config: ConfigurationService,
-              private readonly api: ApiCommunicationService,
-              private readonly router: Router) { }
+              private readonly authService: AuthService) { }
 
   public intercept(req: HttpRequest<object>, next: HttpHandler): Observable<HttpEvent<object>> {
     const accessToken = this.config.fetchToken('access_token');
@@ -28,26 +25,19 @@ export class AuthInterceptorService implements HttpInterceptor {
               const refreshToken = this.config.fetchToken('refresh_token');
   ​
               if (!refreshToken) {
-                this.router.navigate(['login']);
+                this.authService.logout();
                 return observableThrowError(error);
               }
   ​
-              return this.api.auth()
-                .refreshToken(refreshToken)
+              return this.authService.refreshToken()
                 .pipe(
-                  switchMap((resp: AuthResponse) => {
-  ​
-                    this.config.setToken(resp);
-  ​
-                    const newToken = this.config.fetchToken('access_token');
-  ​
+                  switchMap((newToken) => {
                     return next
                       .handle(newToken ? this.addToken(req, newToken) : req);
                   })
                 );
             } else {
-              this.router.navigate(['login']);
-              this.config.clearToken();
+              this.authService.logout();
             }
   ​
             return observableThrowError(error);
