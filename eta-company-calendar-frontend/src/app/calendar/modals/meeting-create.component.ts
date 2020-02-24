@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from '~/app/models/location.model';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
+import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
 export interface DialogData {
   startingTime: string;
@@ -31,7 +32,8 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   constructor(private readonly dialogRef: MatDialogRef<MeetingCreateComponent>,
               @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
               protected readonly dateTimeAdapter: DateTimeAdapter<object>,
-              private translate: TranslateService) { }
+              private readonly translate: TranslateService,
+              private readonly api: ApiCommunicationService) { }
 
   public ngOnInit() {
     this.meetingForm = new FormGroup({
@@ -55,7 +57,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   private setStartingTimeFromDialogData() {
     const startingTime = this.meetingForm.get('startingTime');
     if (this.data && startingTime) {
-      startingTime.setValue(this.data.startingTime);
+      startingTime.setValue(new Date(this.data.startingTime));
     }
   }
 
@@ -122,8 +124,10 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     meetingDetail.finishTime = meetingDetail.finishTime.valueOf();
     meetingDetail.requiredAttendants = this.requiredAttendantsList;
     meetingDetail.optionalAttendants = this.optionalAttendantsList;
-    meetingDetail.createdBy = 'admin1@test.com';
-    alert('created event: ' + meetingDetail.title);
+    meetingDetail.createdBy = 'user0@test.com';
+    this.api.meeting()
+      .create(meetingDetail)
+      .subscribe();
   }
 
   public ngOnDestroy() {

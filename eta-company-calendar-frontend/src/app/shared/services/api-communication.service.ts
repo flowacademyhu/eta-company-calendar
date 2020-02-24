@@ -4,7 +4,7 @@ import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiCon
 import { WelcomeApiConnector } from '~/app/shared/api-connectors/WelcomeApiConnector';
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
 import { AuthApiConnector } from '../api-connectors/AuthApiConnector';
-import { MyMeetingsApiConnector } from '../api-connectors/MyMeetingsApiConnector';
+import { MeetingApiConnector } from '../api-connectors/MeetingApiConnector';
 import { ProfileApiConnector } from '../api-connectors/ProfileApiConnector';
 import { ReminderApiConnector } from '../api-connectors/ReminderApiConnector';
 import { UserApiConnector } from '../api-connectors/UserApiConnector';
@@ -15,7 +15,7 @@ export enum Connector {
   AUTH = '[Auth]',
   USER = '[User]',
   MEETING = '[Meeting]',
-  REMINDER = '[Reminder]'
+  REMINDER = '[Reminder]',
 }
 @Injectable()
 export class ApiCommunicationService {
@@ -45,12 +45,11 @@ export class ApiCommunicationService {
       {id: Connector.USER, connector: new UserApiConnector(this.http, this.apiBaseUrl)});
 
     this.registerConnector(
-      {id: Connector.MEETING, connector: new MyMeetingsApiConnector(this.http, this.apiBaseUrl)});
+      {id: Connector.MEETING, connector: new MeetingApiConnector(this.http, this.apiBaseUrl)});
 
     this.registerConnector(
-    {id: Connector.REMINDER, connector: new ReminderApiConnector(this.http, this.apiBaseUrl)});
-  }
-
+      {id: Connector.REMINDER, connector: new ReminderApiConnector(this.http, this.apiBaseUrl)});
+}
   /**
    * Registers a connector to the connector pool.
    * @param id: Connector - The unique identifier for a connector.
@@ -101,8 +100,8 @@ export class ApiCommunicationService {
     return this.getConnector(Connector.REMINDER) as ReminderApiConnector;
   }
 
-  public meeting(): MyMeetingsApiConnector {
-    return this.getConnector(Connector.MEETING) as MyMeetingsApiConnector;
+  public meeting(): MeetingApiConnector {
+    return this.getConnector(Connector.MEETING) as MeetingApiConnector;
   }
 
 }
