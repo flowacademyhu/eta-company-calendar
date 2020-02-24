@@ -1,0 +1,6 @@
+export enum Location {
+  MEETING_ROOM = 'MEETING_ROOM',
+  MARKS_OFFICE = 'MARKS_OFFICE',
+  ARONS_OFFICE = 'ARONS_OFFICE',
+  OTHER = 'OTHER'
+}
