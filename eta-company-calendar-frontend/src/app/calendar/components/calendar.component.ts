@@ -9,6 +9,7 @@ import timeGrigPlugin from '@fullcalendar/timegrid';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MeetingCreateComponent } from '../modals/meeting-create.component';
@@ -53,7 +54,11 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   public calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
 
-  constructor(private readonly translate: TranslateService, private readonly dialog: MatDialog) {}
+  private calendarEvents: EventInput[] = [];
+
+  constructor(private readonly translate: TranslateService,
+              private readonly api: ApiCommunicationService,
+              private readonly dialog: MatDialog) { }
 
   public ngAfterViewInit() {
     this.translate.onLangChange
@@ -61,6 +66,12 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
       .subscribe((params) => {
         this.setCalendarLang(params.lang);
       });
+
+    this.fetchMeetings();
+
+    this.dialog.afterAllClosed
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((_) => this.fetchMeetings());
   }
 
   protected handleDateClick(arg: EventInput) {
@@ -76,6 +87,17 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     }
     this.calendarComponent.getApi()
       .setOption('locale', lang);
+  }
+
+  private fetchMeetings() {
+    this.api.meeting()
+    .getMeetingsByIdAndTimeRange(1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+    .subscribe((data) => {
+      this.calendarEvents = [];
+      this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
+        return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title};
+      }));
+    });
   }
 
   public ngOnDestroy() {

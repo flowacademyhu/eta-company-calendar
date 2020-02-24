@@ -58,4 +58,11 @@ public class ReminderService {
         reminderRepository.deleteById(id);
     }
 
+    public List<Reminder> findByUserId(Long userid) {
+        return reminderRepository.findByUserId(userid);
+    }
+
+    public List<Reminder> findByUserIdAndAfterStartTime(Long userid, Long startTime) {
+        return reminderRepository.findByUserIdAndAfterStartTime(userid, startTime);
+    }
 }
