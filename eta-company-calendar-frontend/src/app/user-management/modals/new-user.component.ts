@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/models/user.model';
 import { UserService } from '../service/user-service';
 
@@ -35,7 +36,7 @@ import { UserService } from '../service/user-service';
       <br>
       <mat-form-field appearance="fill">
         <mat-label>{{'newuserform.confirm_password' | translate}}</mat-label>
-        <input matInput formControlName="password" type="password">
+        <input matInput formControlName="confirm_password" type="password">
         <mat-error> {{'newuserform.password_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
@@ -55,6 +56,7 @@ import { UserService } from '../service/user-service';
 
     public ngOnInit() {
       this.newUserForm = new FormGroup({
+        confirm_password: new FormControl(undefined, [Validators.required]),
         email: new FormControl(undefined, [Validators.email, Validators.required]),
         password: new FormControl(undefined, [Validators.required]),
         role: new FormControl(undefined, [Validators.required])
@@ -64,6 +66,7 @@ import { UserService } from '../service/user-service';
     constructor(
       public dialogRef: MatDialogRef<NewUserComponent>,
       private readonly snackBar: MatSnackBar,
+      private readonly translate: TranslateService,
       public readonly userService: UserService) {}
 
     public onNoClick(): void {
@@ -77,11 +80,15 @@ import { UserService } from '../service/user-service';
     }
 
     protected onSubmit() {
+      if (this.newUserForm.get('password')?.value !==
+      this.newUserForm.get('confirm_password')?.value) {
+        this.openSnackBar(this.translate.instant('newuserform.match_failed'));
+      } else {
       this.user = this.newUserForm.getRawValue();
       this.userService.postUser(this.user)
-              .subscribe(() => {this.openSnackBar('New user created');
+              .subscribe(() => {this.openSnackBar(this.translate.instant('newuserform.success'));
                                 this.userService.getAllUsers();
                                 this.dialogRef.close(); },
-               (error) => this.openSnackBar('Error occured: ' + error.status));
+               () => this.openSnackBar(this.translate.instant('newuserform.fail'))); }
     }
   }

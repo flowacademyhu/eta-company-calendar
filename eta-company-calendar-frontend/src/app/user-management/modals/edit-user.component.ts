@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/models/user.model';
 import { UserResponse } from '~/app/models/user-response.model';
 import { UserService } from '../service/user-service';
@@ -30,13 +31,13 @@ import { UserService } from '../service/user-service';
       <br>
       <mat-form-field appearance="fill">
         <mat-label>{{'edituserform.password' | translate}}</mat-label>
-        <input matInput formControlName="password" type="password" value="">
+        <input matInput formControlName="password" type="password">
         <mat-error> {{'edituserform.password_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
       <mat-form-field appearance="fill">
         <mat-label>{{'edituserform.confirm_password' | translate}}</mat-label>
-        <input matInput formControlName="password" type="password" value="">
+        <input matInput formControlName="confirm_password" type="password">
         <mat-error> {{'edituserform.password_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
@@ -57,6 +58,7 @@ import { UserService } from '../service/user-service';
 
     public ngOnInit() {
       this.editUserForm = new FormGroup({
+        confirm_password: new FormControl(),
         email: new FormControl(undefined, [Validators.email]),
         password: new FormControl(),
         role: new FormControl()
@@ -66,12 +68,14 @@ import { UserService } from '../service/user-service';
         email: this.userValues.email,
         role: this.userValues.role,
         password: '',
+        confirm_password: '',
       });
     }
 
     constructor(@Inject(MAT_DIALOG_DATA)
                 private readonly userdata: UserResponse,
                 private readonly snackBar: MatSnackBar,
+                private readonly translate: TranslateService,
                 public readonly dialogRef: MatDialogRef<EditUserComponent>,
                 public readonly userService: UserService) {}
 
@@ -86,11 +90,15 @@ import { UserService } from '../service/user-service';
     }
 
     protected onSubmit() {
+      if (this.editUserForm.get('password')?.value !==
+      this.editUserForm.get('confirm_password')?.value) {
+        this.openSnackBar(this.translate.instant('edituserform.match_failed'));
+      } else {
       this.user = this.editUserForm.getRawValue();
       this.userService.updateUser(this.userdata.id, this.user)
-              .subscribe(() => {this.openSnackBar('User has been edited');
+              .subscribe(() => {this.openSnackBar(this.translate.instant('edituserform.success'));
                                 this.dialogRef.close();
                                 this.userService.getAllUsers(); },
-               (error) => this.openSnackBar('Error occured during update: ' + error.status));
+               () => this.openSnackBar('edituserform.fail')); }
     }
   }
