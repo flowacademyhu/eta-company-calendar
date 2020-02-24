@@ -4,25 +4,22 @@ import { NewUserComponent } from '~/app/user-management/modals/new-user.componen
 
 @Component({
   selector: 'app-user-management-description',
-  styles: [`.sidenav-container {
-    height: 500px;
-  }
-    mat-sidenav {
-      width: 220px
-    }
-  `,
-  ],
   template: `
-  <mat-sidenav-container class="sidenav-container">
-      <mat-sidenav mode="side" opened>
-        <mat-nav-list>
-          <a mat-list-item (click)="openDialog()">{{'usermanagement.new_user' | translate}} </a>
-          <a mat-list-item>{{'usermanagement.list_users' | translate}}</a>
-        </mat-nav-list>
-      </mat-sidenav>
-      <mat-sidenav-content >
-      </mat-sidenav-content>
-    </mat-sidenav-container>
+  <div class="row justify-content-center mt-2">
+  <mat-card style="width:85%">
+    <div class="d-flex justify-content-between">
+    <div class="pl-4"><button mat-icon-button (click)="openDialog()">
+      <mat-icon aria-label="Person Add">
+      person_add
+      </mat-icon></button></div>
+    <div class="row justify-content-center">
+      <h3>{{'userlist.title' | translate}}</h3>
+    </div>
+      <div class="pr-4"></div>
+    </div>
+    </mat-card>
+  </div>
+  <div class="pt-1"><app-user-list></app-user-list></div>
   `,
 })
 export class UserManagementDescriptionComponent {
@@ -34,4 +31,5 @@ export class UserManagementDescriptionComponent {
       width: '400px',
     });
   }
+
 }

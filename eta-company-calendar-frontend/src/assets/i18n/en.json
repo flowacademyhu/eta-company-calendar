@@ -5,6 +5,8 @@
   },
   "profile": {
     "name": "Name",
+    "lastname": "LastName",
+    "firstname": "FirstName",
     "button": "Switch to Hungarian",
     "close": "Close",
     "modify": "Modify",
@@ -13,7 +15,11 @@
     "team": "Team",
     "leader": "Leader",
     "dateOfBirth": "Date of Birth",
-    "dateOfEntry": "Date of Entry"
+    "dateOfEntry": "Date of Entry",
+    "view": "PROFILE DETAILS",
+    "enter_lastename": "Enter lastname",
+    "save": "Save",
+    "cancel": "Cancel"
   },
 
   "header": {
@@ -37,7 +43,32 @@
     "password_error": "A password is required."
   },
 
-  "newuserform":{
+  "meeting": {
+    "header": "create meeting",
+    "title": "title",
+    "titleError": "title is required",
+    "description": "description",
+    "location": "location",
+    "otherLocation": "other",
+    "startingTime": "from",
+    "finishTime": "to",
+    "createdBy": "organizer",
+    "requiredAttendants": "required",
+    "optionalAttendants": "optional",
+    "attendantsTitle": "Attendants",
+    "attendantError": "email not valid",
+    "submitButton": "submit",
+    "cancelButton": "cancel"
+  },
+
+  "location": {
+    "MEETING_ROOM": "meeting room",
+    "MARKS_OFFICE": "Mark's office",
+    "ARONS_OFFICE": "Aron's office",
+    "OTHER": "other"
+  },
+
+  "newuserform": {
     "button": "Add New User",
     "create_new_user": "Create new user",
     "new_user": "New User",
@@ -53,9 +84,29 @@
     "password_error": "A password is required.",
     "role_error": "Role is required"
   },
-
+  "reminderlist": {
+    "id": "Id",
+    "title": "Title",
+    "description": "Description",
+    "startingTime": "Starting Time",
+    "endingTime": "Ending Time",
+    "recurring": "Recurring",
+    "date": "Date"
+  },
   "usermanagement": {
     "new_user": "Add new user",
     "list_users": "List users"
+  },
+
+  "userlist": {
+    "button": "List Users",
+    "title": "List of users",
+    "id": "ID",
+    "email": "E-mail",
+    "role": "Role",
+    "action": "Action",
+    "snack_delete": "User deleted",
+    "snack_delete_error": "Unsuccessful"
   }
+  
 }
