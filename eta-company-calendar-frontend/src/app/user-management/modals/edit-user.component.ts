@@ -40,10 +40,12 @@ import { UserService } from '../service/user-service';
         <mat-error> {{'edituserform.password_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
+      <div class="d-flex justify-content-center">
       <button mat-raised-button type="submit" name="submit"
       [disabled]="editUserForm.invalid">{{'edituserform.edit_user' | translate}}</button>
       <button mat-raised-button type="button" name="cancel" (click)="onNoClick()"
       class="ml-3">{{'edituserform.cancel' | translate}}</button>
+      </div>
     </form>
     </div>`,
   })
