@@ -2,17 +2,17 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
-import { ReplaySubject, throwError } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { AuthResponse } from '../models/auth-response.model';
 import { TokenDetails } from '../models/token-details.model';
 import { ApiCommunicationService } from './api-communication.service';
 import { ConfigurationService } from './configuration.service';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class AuthService {
 
-  public tokenDetails: ReplaySubject<TokenDetails> = new ReplaySubject<TokenDetails>(1);
+  public tokenDetails: BehaviorSubject<TokenDetails> = new BehaviorSubject<TokenDetails>({} as TokenDetails);
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly config: ConfigurationService,
@@ -49,7 +49,7 @@ export class AuthService {
 
   public logout() {
     this.config.clearToken();
-    this.tokenDetails.next(undefined);
+    this.tokenDetails.next({} as TokenDetails);
     this.router.navigate(['login']);
   }
 
@@ -59,8 +59,11 @@ export class AuthService {
   }
 
   private getTokenDetails() {
-    const decodedToken: TokenDetails = jwt_decode(this.getToken());
-    this.tokenDetails.next(decodedToken);
+    let tokenDetails: TokenDetails = {} as TokenDetails;
+    if (this.getToken()) {
+      tokenDetails = jwt_decode(this.getToken());
+    }
+    this.tokenDetails.next(tokenDetails);
   }
 
   private handleError(errorRes: HttpErrorResponse) {
