@@ -44,7 +44,7 @@ import { UserService } from '../service/user-service';
     </mat-icon>
     </button>
 
-    <button mat-icon-button (click)="deleteUser(user.id)">
+    <button mat-icon-button color="warn" (click)="deleteUser(user.id)">
     <mat-icon aria-label="Delete Icon">
       delete
     </mat-icon>
