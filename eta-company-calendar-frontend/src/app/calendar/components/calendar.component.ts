@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { EventInput } from '@fullcalendar/core';
 import enGbLocale from '@fullcalendar/core/locales/en-gb';
@@ -10,8 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
-
-import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from '~/app/shared/services/auth.service';
 import { MeetingCreateComponent } from '../modals/meeting-create.component';
 
 @Component({
@@ -56,9 +56,10 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   private calendarEvents: EventInput[] = [];
 
-  constructor(private readonly translate: TranslateService,
-              private readonly api: ApiCommunicationService,
-              private readonly dialog: MatDialog) { }
+  constructor(private readonly api: ApiCommunicationService,
+              private readonly auth: AuthService,
+              private readonly dialog: MatDialog,
+              private readonly translate: TranslateService) { }
 
   public ngAfterViewInit() {
     this.translate.onLangChange
@@ -91,7 +92,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   private fetchMeetings() {
     this.api.meeting()
-    .getMeetingsByIdAndTimeRange(1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+    .getMeetingsByIdAndTimeRange(this.auth.tokenDetails.getValue().id, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
     .subscribe((data) => {
       this.calendarEvents = [];
       this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
