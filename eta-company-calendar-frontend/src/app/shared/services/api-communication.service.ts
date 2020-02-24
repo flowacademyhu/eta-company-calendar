@@ -4,6 +4,7 @@ import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiCon
 import { WelcomeApiConnector } from '~/app/shared/api-connectors/WelcomeApiConnector';
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
 import { AuthApiConnector } from '../api-connectors/AuthApiConnector';
+import { MeetingApiConnector } from '../api-connectors/MeetingApiConnector';
 import { ProfileApiConnector } from '../api-connectors/ProfileApiConnector';
 import { ReminderApiConnector } from '../api-connectors/ReminderApiConnector';
 import { UserApiConnector } from '../api-connectors/UserApiConnector';
@@ -13,7 +14,8 @@ export enum Connector {
   PROFILE = '[Profile]',
   AUTH = '[Auth]',
   USER = '[User]',
-  REMINDER = '[Reminder]'
+  MEETING = '[Meeting]',
+  REMINDER = '[Reminder]',
 }
 @Injectable()
 export class ApiCommunicationService {
@@ -43,7 +45,10 @@ export class ApiCommunicationService {
       {id: Connector.USER, connector: new UserApiConnector(this.http, this.apiBaseUrl)});
 
     this.registerConnector(
-    {id: Connector.REMINDER, connector: new ReminderApiConnector(this.http, this.apiBaseUrl)});
+      {id: Connector.MEETING, connector: new MeetingApiConnector(this.http, this.apiBaseUrl)});
+
+    this.registerConnector(
+      {id: Connector.REMINDER, connector: new ReminderApiConnector(this.http, this.apiBaseUrl)});
 }
   /**
    * Registers a connector to the connector pool.
@@ -93,6 +98,10 @@ export class ApiCommunicationService {
   }
   public reminder(): ReminderApiConnector {
     return this.getConnector(Connector.REMINDER) as ReminderApiConnector;
+  }
+
+  public meeting(): MeetingApiConnector {
+    return this.getConnector(Connector.MEETING) as MeetingApiConnector;
   }
 
 }
