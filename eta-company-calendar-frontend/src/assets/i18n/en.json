@@ -44,25 +44,25 @@
   },
 
   "meeting": {
-    "header": "create meeting",
-    "title": "title",
-    "titleError": "title is required",
-    "description": "description",
-    "location": "location",
-    "otherLocation": "other",
-    "startingTime": "from",
-    "finishTime": "to",
-    "createdBy": "organizer",
-    "requiredAttendants": "required",
-    "optionalAttendants": "optional",
-    "attendantsTitle": "Attendants",
-    "attendantError": "email not valid",
-    "submitButton": "submit",
-    "cancelButton": "cancel"
+    "header": "CREATE MEETING",
+    "title": "Title",
+    "titleError": "Title is required",
+    "description": "Description",
+    "location": "Location",
+    "otherLocation": "Other",
+    "startingTime": "From",
+    "finishTime": "To",
+    "createdBy": "Organizer",
+    "requiredAttendants": "Required attendance",
+    "optionalAttendants": "Optional attendance",
+    "attendantsTitle": "ATTENDANTS",
+    "attendantError": "E-mail not valid",
+    "submitButton": "Submit",
+    "cancelButton": "Cancel"
   },
 
   "location": {
-    "MEETING_ROOM": "meeting room",
+    "MEETING_ROOM": "Meeting room",
     "MARKS_OFFICE": "Mark's office",
     "ARONS_OFFICE": "Aron's office",
     "OTHER": "other"
