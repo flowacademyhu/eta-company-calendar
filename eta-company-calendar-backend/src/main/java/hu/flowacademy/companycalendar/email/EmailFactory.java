@@ -40,7 +40,7 @@ public class EmailFactory {
       return new SimpleEntry<>(TYPE_TEXT,
           String.format(mailingConfig.getMessageTemplate(), params));
     } else if (EmailType.HTML.equals(emailType)) {
-      return new SimpleEntry<>(TYPE_HTML, "<h1>Missing html template engine...</h1>");
+      return new SimpleEntry<>(TYPE_HTML, String.format(mailingConfig.getMessageTemplate(), params));
     }
     throw new IllegalArgumentException(Objects.toString(emailType));
   }

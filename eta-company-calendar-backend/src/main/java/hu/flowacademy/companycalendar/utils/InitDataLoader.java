@@ -46,6 +46,16 @@ public class InitDataLoader {
                 .password(passwordEncoder.encode("user123"))
                 .role(i == 0 ? Roles.ADMIN : Roles.USER).build()).collect(Collectors.toList())
         );
+        userRepository.save(User.builder()
+            .email("csalaoh@gmail.com")
+            .password("somli")
+            .role(Roles.USER)
+            .build());
+        userRepository.save(User.builder()
+            .email("calendarcsiha@gmail.com")
+            .password("csiha")
+            .role(Roles.ADMIN)
+            .build());
     }
 
     private void createMeetings() {
