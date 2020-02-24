@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { User } from 'src/app/models/user.model';
-import { ApiCommunicationService } from 'src/app/shared/services/api-communication.service';
+import { UserResponse } from '~/app/models/user-response.model';
+import { UserService } from '../service/user-service';
 
 @Component({
     selector: 'edit-user-dialog',
@@ -11,6 +12,12 @@ import { ApiCommunicationService } from 'src/app/shared/services/api-communicati
     <div>
     <h1 align="center" mat-dialog-title>{{'edituserform.edit_user' | translate}}</h1>
     <form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>{{'edituserform.email' | translate}}</mat-label>
+          <input matInput formControlName="email" type="email">
+          <mat-error> {{'edituserform.email_error' | translate}} </mat-error>
+        </mat-form-field>
+        <br>
         <mat-form-field appearance="fill">
           <mat-label>{{'edituserform.role' | translate}}</mat-label>
         <mat-select formControlName="role">
@@ -22,13 +29,13 @@ import { ApiCommunicationService } from 'src/app/shared/services/api-communicati
       <br>
       <mat-form-field appearance="fill">
         <mat-label>{{'edituserform.password' | translate}}</mat-label>
-        <input matInput formControlName="password" type="password">
+        <input matInput formControlName="password" type="password" value="">
         <mat-error> {{'edituserform.password_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
       <mat-form-field appearance="fill">
         <mat-label>{{'edituserform.confirm_password' | translate}}</mat-label>
-        <input matInput formControlName="password" type="password">
+        <input matInput formControlName="password" type="password" value="">
         <mat-error> {{'edituserform.password_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
@@ -43,17 +50,26 @@ import { ApiCommunicationService } from 'src/app/shared/services/api-communicati
   export class EditUserComponent implements OnInit {
     private editUserForm: FormGroup;
     private user: User = {} as User;
+    private userValues: UserResponse = this.userdata;
 
     public ngOnInit() {
       this.editUserForm = new FormGroup({
-        password: new FormControl(undefined, [Validators.required]),
-        role: new FormControl(undefined, [Validators.required])
+        email: new FormControl(undefined, [Validators.email]),
+        password: new FormControl(),
+        role: new FormControl()
+      });
+
+      this.editUserForm.setValue({
+        email: this.userValues.email,
+        role: this.userValues.role,
+        password: '',
       });
     }
 
-    constructor(
-      public dialogRef: MatDialogRef<EditUserComponent>,
-      public readonly api: ApiCommunicationService) {}
+    constructor(@Inject(MAT_DIALOG_DATA)
+                private readonly userdata: UserResponse,
+                public readonly dialogRef: MatDialogRef<EditUserComponent>,
+                public readonly userService: UserService) {}
 
     public onNoClick(): void {
       this.dialogRef.close();
@@ -61,8 +77,7 @@ import { ApiCommunicationService } from 'src/app/shared/services/api-communicati
 
     protected onSubmit() {
       this.user = this.editUserForm.getRawValue();
-      this.api.user()
-              .postUser(this.user)
+      this.userService.updateUser(this.userdata.id, this.user)
               .subscribe(() => {alert('User has been edited');
                                 this.dialogRef.close(); },
                (error) => alert('Error occured: ' + error.status));

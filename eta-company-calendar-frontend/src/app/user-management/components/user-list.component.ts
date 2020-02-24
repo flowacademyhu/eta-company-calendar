@@ -36,12 +36,14 @@ import { UserService } from '../service/user-service';
     <mat-icon aria-label="User">
       perm_identity
     </mat-icon>
+
     </button>
-     <button mat-icon-button (click)="openDialog()">
+     <button mat-icon-button (click)="openDialogUpdate(user)">
     <mat-icon aria-label="Update">
       create
     </mat-icon>
     </button>
+
     <button mat-icon-button (click)="deleteUser(user.id)">
     <mat-icon aria-label="Delete Icon">
       delete
@@ -63,7 +65,7 @@ export class UserListComponent implements OnInit {
   constructor(private readonly userService: UserService,
               private readonly snackBar: MatSnackBar,
               private readonly translate: TranslateService,
-              private readonly dialog: MatDialog
+              private readonly dialog: MatDialog,
               ) { }
 
   public ngOnInit() {
@@ -87,8 +89,9 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  public openDialog(): void {
+  public openDialogUpdate(user: UserResponse ): void {
     this.dialog.open(EditUserComponent, {
+      data: user,
       width: '400px',
     });
   }

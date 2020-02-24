@@ -34,6 +34,11 @@ export class UserService {
     .postUser(user);
   }
 
+  public updateUser(id: number, user: User) {
+    return this.api.user()
+    .putUser(id, user);
+  }
+
   public deleteUser(id: number) {
     return this.api
     .user()
