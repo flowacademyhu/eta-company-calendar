@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { MatDialogRef } from '@angular/material/dialog';
 import { User } from 'src/app/models/user.model';
 import { UserService } from '../service/user-service';
@@ -60,18 +61,25 @@ import { UserService } from '../service/user-service';
 
     constructor(
       public dialogRef: MatDialogRef<NewUserComponent>,
+      private readonly snackBar: MatSnackBar,
       public readonly userService: UserService) {}
 
     public onNoClick(): void {
       this.dialogRef.close();
     }
 
+    public openSnackBar(message: string) {
+      this.snackBar.open(`${message}`, undefined, {
+      duration: 2000
+      });
+    }
+
     protected onSubmit() {
       this.user = this.newUserForm.getRawValue();
       this.userService.postUser(this.user)
-              .subscribe(() => {alert('New user created');
+              .subscribe(() => {this.openSnackBar('New user created');
                                 this.userService.getAllUsers();
                                 this.dialogRef.close(); },
-               (error) => alert('Error occured: ' + error.status));
+               (error) => this.openSnackBar('Error occured: ' + error.status));
     }
   }

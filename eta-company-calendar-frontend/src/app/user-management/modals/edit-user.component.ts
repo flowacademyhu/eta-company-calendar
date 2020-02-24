@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { User } from 'src/app/models/user.model';
 import { UserResponse } from '~/app/models/user-response.model';
@@ -68,6 +69,7 @@ import { UserService } from '../service/user-service';
 
     constructor(@Inject(MAT_DIALOG_DATA)
                 private readonly userdata: UserResponse,
+                private readonly snackBar: MatSnackBar,
                 public readonly dialogRef: MatDialogRef<EditUserComponent>,
                 public readonly userService: UserService) {}
 
@@ -75,11 +77,17 @@ import { UserService } from '../service/user-service';
       this.dialogRef.close();
     }
 
+    public openSnackBar(message: string) {
+      this.snackBar.open(`${message}`, undefined, {
+      duration: 2000
+      });
+    }
+
     protected onSubmit() {
       this.user = this.editUserForm.getRawValue();
       this.userService.updateUser(this.userdata.id, this.user)
-              .subscribe(() => {alert('User has been edited');
+              .subscribe(() => {this.openSnackBar('User has been edited');
                                 this.dialogRef.close(); },
-               (error) => alert('Error occured: ' + error.status));
+               (error) => this.openSnackBar('Error occured during update: ' + error.status));
     }
   }
