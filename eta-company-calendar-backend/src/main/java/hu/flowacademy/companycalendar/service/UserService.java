@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class UserService {
 
   private final UserRepository userRepository;
-  @Qualifier("mailGunEmailService") private final EmailService emailService;
+  private final EmailService emailService;
 
   public List<UserResponseDTO> getAllUsers() {
     return userRepository.findAll()
@@ -43,7 +43,7 @@ public class UserService {
     String psw = BCrypt.hashpw(userRequestDTO.getPassword(), BCrypt.gensalt());
     User user = userRequestDTO.toEntity();
     user.setPassword(psw);
-    emailService.send(userRequestDTO.getEmail(), "registration", EmailType.HTML);
+    emailService.send(userRequestDTO.getEmail(), "registration", EmailType.HTML, "Vince", "12:00", "14:00");
     return new UserResponseDTO(userRepository.save(user));
   }
 

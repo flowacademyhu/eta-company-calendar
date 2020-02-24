@@ -2,6 +2,7 @@ package hu.flowacademy.companycalendar.email;
 
 import hu.flowacademy.companycalendar.config.mailing.MailingConfig;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
 import java.util.Objects;
 import lombok.NonNull;
@@ -17,9 +18,11 @@ public class EmailFactory {
   public static final String TYPE_TEXT = "text";
   public static final String TYPE_HTML = "html";
 
-  @NonNull private final MailingConfig mailingConfig;
+  @NonNull
+  private final MailingConfig mailingConfig;
 
-  public MultiValueMap<String, String> buildEmail(String from, String to, String subject, EmailType emailType, Object... bodyParams) {
+  public MultiValueMap<String, String> buildEmail(String from, String to, String subject,
+      EmailType emailType, Object... bodyParams) {
     MultiValueMap<String, String> requestData = new LinkedMultiValueMap<>();
     requestData.add("from", from);
     requestData.add("to", to);
@@ -34,11 +37,11 @@ public class EmailFactory {
       if (params == null) {
         return new SimpleEntry<>(TYPE_TEXT, mailingConfig.getMessageTemplate());
       }
-      return new SimpleEntry<>(TYPE_TEXT, String.format(mailingConfig.getMessageTemplate(), params));
+      return new SimpleEntry<>(TYPE_TEXT,
+          String.format(mailingConfig.getMessageTemplate(), params));
     } else if (EmailType.HTML.equals(emailType)) {
       return new SimpleEntry<>(TYPE_HTML, "<h1>Missing html template engine...</h1>");
     }
     throw new IllegalArgumentException(Objects.toString(emailType));
   }
-
 }

@@ -61,6 +61,7 @@ public class MeetingService {
             userRepository.findByEmailIn(dto.getRequiredAttendants()),
             userRepository.findByEmailIn(dto.getOptionalAttendants()));
         meeting.setCreatedAt(System.currentTimeMillis());
+
         return meetingRepository.save(meeting).getId();
     }
 
