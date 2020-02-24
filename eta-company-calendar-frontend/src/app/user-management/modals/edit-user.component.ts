@@ -89,7 +89,8 @@ import { UserService } from '../service/user-service';
       this.user = this.editUserForm.getRawValue();
       this.userService.updateUser(this.userdata.id, this.user)
               .subscribe(() => {this.openSnackBar('User has been edited');
-                                this.dialogRef.close(); },
+                                this.dialogRef.close();
+                                this.userService.getAllUsers(); },
                (error) => this.openSnackBar('Error occured during update: ' + error.status));
     }
   }
