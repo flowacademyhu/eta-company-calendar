@@ -104,9 +104,14 @@
     "date": "Date",
     "startingTime": "Starting",
     "finishTime": "Ending",
+    "details": "Details",
     "description": "Description",
+    "location" : "Location",
+    "recurring": "Recurring",
+    "createdBy": "Created by",
     "reqAttendants": "Attendants",
-    "optAttendants": "Notification"
+    "optAttendants": "Notification",
+    "modalClose": "Close"
   },
   
   "userlist": {

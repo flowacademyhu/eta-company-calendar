@@ -14,4 +14,11 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long> {
       + "WHERE (m.createdBy.id = ?1 OR r.id = ?1 OR o.id = ?1) "
       + "AND m.startingTime BETWEEN ?2 and ?3")
   List<Meeting> findByUserIdAndTimeRange(Long userId, Long startingTimeFrom, Long StartingTimeTo);
+
+  @Query("SELECT DISTINCT m FROM "
+          + "Meeting m LEFT OUTER JOIN m.requiredAttendants r LEFT OUTER JOIN m.optionalAttendants o "
+          + "WHERE m.createdBy.id = ?1 OR r.id = ?1 OR o.id = ?1")
+  List<Meeting> findByInvitedUserId(Long userId);
 }
+
+

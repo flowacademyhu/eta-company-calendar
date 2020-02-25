@@ -7,6 +7,10 @@ import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiCon
 export class MeetingApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}/api/meetings`;
 
+  public getMeetingsByInvitation(userId: number): Observable<MeetingDetail[]> {
+    return this.http.get<MeetingDetail[]>(`${this.apiRoute}/invited/${userId}`);
+  }
+
   public getMeetingsByIdAndTimeRange(userId: number,
                                      startingTimeFrom: number,
                                      startingTimeTo: number

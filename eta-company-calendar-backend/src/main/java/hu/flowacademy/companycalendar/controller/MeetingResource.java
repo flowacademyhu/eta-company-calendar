@@ -1,5 +1,6 @@
 package hu.flowacademy.companycalendar.controller;
 
+import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.dto.MeetingCreateDTO;
 import hu.flowacademy.companycalendar.model.dto.MeetingDTO;
 import hu.flowacademy.companycalendar.model.dto.MeetingListItemDTO;
@@ -35,6 +36,11 @@ public class MeetingResource {
                                                  @RequestParam Long startingTimeFrom,
                                                  @RequestParam Long startingTimeTo) {
         return meetingService.findByUserIdAndTimeRange(userId, startingTimeFrom, startingTimeTo);
+    }
+
+    @GetMapping("/invited/{userId}")
+    public List<MeetingDTO> getByInvitedFromQuery(@PathVariable Long userId) {
+        return meetingService.findByUserId(userId);
     }
 
     @GetMapping("/{id}")

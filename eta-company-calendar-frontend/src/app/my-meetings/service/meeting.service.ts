@@ -14,10 +14,10 @@ export class MeetingService {
     return this._meetingSub;
   }
 
-  public getAllMeetings() {
+  public getMeetingsByInvitation(userId: number) {
      this.api.meeting()
-    .getMeetingsByIdAndTimeRange(1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
-
+    .getMeetingsByInvitation(userId)
+    .subscribe((meetingDetail: MeetingDetail[]) => {
+      this._meetingSub.next(meetingDetail); });
   }
-
 }

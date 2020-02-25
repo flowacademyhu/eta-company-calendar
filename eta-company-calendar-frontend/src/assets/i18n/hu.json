@@ -104,9 +104,14 @@
     "date": "Dátum",
     "startingTime": "Kezdés",
     "finishTime": "Vége",
+    "details": "Részletek",
     "description": "Leírás",
+    "location" : "Helyszín",
+    "recurring": "Ismétlődés",
+    "createdBy": "Létrehozta",
     "reqAttendants": "Résztvevők",
-    "optAttendants": "Értesítések"
+    "optAttendants": "Értesítések",
+    "modalClose": "Bezárás"
   },
 
   "userlist": {
