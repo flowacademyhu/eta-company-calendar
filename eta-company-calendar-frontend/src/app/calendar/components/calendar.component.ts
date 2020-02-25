@@ -27,6 +27,16 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
   `],
   template: `
   <div class='app-calendar white-background'>
+    <mat-card>
+      <mat-form-field>
+        <mat-select [(value)]="currentUser">
+          <mat-option value="currentUser">
+            current user
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card>
+
     <full-calendar
       #calendar
       defaultView="dayGridMonth"
@@ -61,6 +71,8 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   private calendarEvents: EventInput[] = [];
 
+  protected currentUser: string;
+
   constructor(private readonly api: ApiCommunicationService,
               private readonly auth: AuthService,
               private readonly dialog: MatDialog,
@@ -79,6 +91,8 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     this.dialog.afterAllClosed
       .pipe(takeUntil(this.destroy$))
       .subscribe((_) => this.fetchMeetings());
+
+    this.currentUser = this.auth.tokenDetails.getValue().user_name;
   }
 
   protected handleDateClick(arg: EventInput) {
