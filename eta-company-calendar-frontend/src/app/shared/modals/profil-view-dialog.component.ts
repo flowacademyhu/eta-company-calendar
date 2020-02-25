@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup} from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { Observable } from 'rxjs';
 import { Profile } from '~/app/models/profile.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
-import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-profil-view-dialog',
@@ -178,8 +177,8 @@ export class ProfilViewDialog {
   public profile$: Observable<Profile>;
   public profile: Profile;
 
-  constructor(
-              private auth: AuthService,
+  constructor(@Inject(MAT_DIALOG_DATA)
+              private readonly id: number,
               private readonly api: ApiCommunicationService,
               public dialog: MatDialog,
               public dialogRef: MatDialogRef<ProfilViewDialog>) {
@@ -187,10 +186,9 @@ export class ProfilViewDialog {
 
   public ngOnInit() {
     this.api.profile()
-      .getProfile()
+      .getProfile(this.id)
       .subscribe(
         (data: Profile) => {this.profile = data;
-        console.log(data)
         });
 
     this.editForm = new FormGroup({
