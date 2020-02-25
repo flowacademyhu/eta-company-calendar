@@ -10,7 +10,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
   styleUrls: ['profil-view-dialog.component.scss'],
   template: `
 <form [formGroup]="editForm" (ngSubmit)= "onSubmit()" >
-  <h1 style="text-align:center;">{{'profile.view' | translate}}</h1>
+  <h1 style="text-align:center;">{{'profile.view' | translate | uppercase }}</h1>
     <mat-dialog-content class="dialogview mb-5">
       <div class="personal">
         <span *ngIf = "!mod">

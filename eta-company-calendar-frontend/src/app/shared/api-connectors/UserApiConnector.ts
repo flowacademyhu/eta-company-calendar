@@ -22,6 +22,10 @@ export class UserApiConnector extends AbstractApiConnector {
     return this.http.post<User>(`${this.apiRoute}/users/`, user);
   }
 
+  public putUser(id: number, user: User): Observable<User> {
+    return this.http.put<User>(`${this.apiRoute}/users/${id}`, user);
+  }
+
   public deleteUser(userId: number) {
     return this.http.delete(`${this.apiRoute}/users/` + userId);
   }
