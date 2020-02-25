@@ -28,7 +28,7 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
   `],
   template: `
   <div class='app-calendar white-background'>
-    <mat-card *ngIf="isUserLeader">
+    <mat-card *ngIf="isUserLeader" class="d-flex justify-content-center">
       <mat-form-field>
         <mat-label>{{ 'calendar.selectEmployee' | translate}}</mat-label>
         <mat-select [(value)]="selectedUser" (selectionChange)="fetchMeetings()">
