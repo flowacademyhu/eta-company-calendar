@@ -1,6 +1,8 @@
 package hu.flowacademy.companycalendar.service;
 
 import com.sun.xml.bind.v2.TODO;
+import hu.flowacademy.companycalendar.exception.ReminderNotFoundException;
+import hu.flowacademy.companycalendar.exception.UserNotFoundException;
 import hu.flowacademy.companycalendar.model.Reminder;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.ReminderDTO;
@@ -22,14 +24,14 @@ import java.util.Optional;
 public class ReminderService {
 
     private final ReminderRepository reminderRepository;
-    private final UserRepository userRepository; //TODO: userService
+    private final UserRepository userRepository;
 
     public List<Reminder> findAll() {
         return reminderRepository.findAll();
     }
 
     public Reminder findOne(Long id) {
-        return reminderRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return reminderRepository.findById(id).orElseThrow(ReminderNotFoundException::new);
     }
 
     public void createReminder(ReminderDTO reminderDTO) {
@@ -39,7 +41,7 @@ public class ReminderService {
             reminder.setUser(u.get());
             reminderRepository.save(reminder);
         } else {
-            throw new RuntimeException("User cannot be found!");
+            throw new UserNotFoundException();
         }
     }
 
