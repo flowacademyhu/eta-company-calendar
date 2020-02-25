@@ -55,7 +55,7 @@
     "createdBy": "Organizer",
     "requiredAttendants": "Required attendance",
     "optionalAttendants": "Optional attendance",
-    "attendantsTitle": "ATTENDANTS",
+    "attendantsTitle": "attendants",
     "attendantError": "E-mail not valid",
     "submitButton": "Submit",
     "cancelButton": "Cancel"

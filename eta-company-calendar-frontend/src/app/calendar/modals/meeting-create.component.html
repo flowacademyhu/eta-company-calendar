@@ -3,7 +3,7 @@
     <div class="d-flex flex-column">
 
       <div class="d-flex justify-content-center">
-        <h4>{{ 'meeting.header' | translate }}</h4>
+        <h4>{{ 'meeting.header' | translate | uppercase }}</h4>
       </div>
 
       <mat-form-field class="alignment">
@@ -54,7 +54,7 @@
         <mat-icon [owlDateTimeTrigger]="dt2">event</mat-icon>
       </div>
 
-      <h4 class="row-alignment">{{ 'meeting.attendantsTitle' | translate }}</h4>
+      <h4 class="row-alignment">{{ 'meeting.attendantsTitle' | translate | uppercase }}</h4>
       <hr>
       
       <mat-chip-list #chipRequiredAttendants>

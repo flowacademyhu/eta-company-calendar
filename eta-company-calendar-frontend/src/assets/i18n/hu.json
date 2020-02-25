@@ -44,7 +44,7 @@
   },
 
   "meeting": {
-    "header": "ESEMÉNY LÉTREHOZÁSA",
+    "header": "esemény létrehozása",
     "title": "Cím",
     "titleError": "A cím megadása kötelező",
     "description": "Leírás",
@@ -55,7 +55,7 @@
     "createdBy": "Szervező",
     "requiredAttendants": "Kötelező részvétel",
     "optionalAttendants": "Opcionális részvétel",
-    "attendantsTitle": "MEGHÍVOTTAK",
+    "attendantsTitle": "meghívottak",
     "attendantError": "E-mail cím nem létezik",
     "submitButton": "Létrehozás",
     "cancelButton": "Mégse"
