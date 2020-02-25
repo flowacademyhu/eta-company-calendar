@@ -1,6 +1,7 @@
 package hu.flowacademy.companycalendar.config;
 
 import java.util.Arrays;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -61,7 +62,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
   public void configure(final AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
     TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
     tokenEnhancerChain.setTokenEnhancers(
-        Arrays.asList(tokenEnhancer(), accessTokenConverter()));
+        List.of(tokenEnhancer(), accessTokenConverter()));
 
     endpoints.tokenStore(tokenStore())
         .tokenEnhancer(tokenEnhancerChain)
