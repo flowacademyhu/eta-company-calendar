@@ -35,6 +35,7 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
       }"
+      [locales]="locales"
       [firstDay]="1"
       [plugins]="calendarPlugins"
       [events]="calendarEvents"
