@@ -1,6 +1,8 @@
 package hu.flowacademy.companycalendar.service;
 
-import hu.flowacademy.companycalendar.exception.NotFoundException;
+import hu.flowacademy.companycalendar.exception.CommentNotFoundException;
+import hu.flowacademy.companycalendar.exception.MeetingNotFoundException;
+import hu.flowacademy.companycalendar.exception.UserNotFoundException;
 import hu.flowacademy.companycalendar.model.Comment;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.User;
@@ -28,12 +30,12 @@ public class CommentService {
   }
 
   public Comment findOne(Long id) {
-    return commentRepository.findById(id).orElseThrow(NotFoundException::new);
+    return commentRepository.findById(id).orElseThrow(CommentNotFoundException::new);
   }
 
   public Comment saveComment(CommentDTO commentDTO) {
-    User user = userRepository.findById(commentDTO.getUserId()).orElseThrow(NotFoundException::new);
-    Meeting meeting = meetingRepository.findById(commentDTO.getMeetingId()).orElseThrow(NotFoundException::new);
+    User user = userRepository.findById(commentDTO.getUserId()).orElseThrow(UserNotFoundException::new);
+    Meeting meeting = meetingRepository.findById(commentDTO.getMeetingId()).orElseThrow(MeetingNotFoundException::new);
     return commentRepository.save(commentDTO.toEntity(user, meeting));
   }
 

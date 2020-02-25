@@ -1,6 +1,6 @@
 package hu.flowacademy.companycalendar.service;
 
-import hu.flowacademy.companycalendar.exception.NotFoundException;
+import hu.flowacademy.companycalendar.exception.ProfileNotFoundException;
 import hu.flowacademy.companycalendar.model.dto.ProfileDTO;
 import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.repository.ProfileRepository;
@@ -28,18 +28,18 @@ public class ProfileService {
 
   public ProfileDTO getProfile(Long id) {
     return new ProfileDTO(profileRepository.findById(id)
-        .orElseThrow(NotFoundException::new));
+        .orElseThrow(ProfileNotFoundException::new));
   }
 
   public ProfileDTO createProfile(ProfileDTO profileDTO) {
     Profile profile = profileDTO.toEntity(userRepository.findById(profileDTO.getUserId())
-        .orElseThrow(NotFoundException::new));
+        .orElseThrow(ProfileNotFoundException::new));
     return new ProfileDTO(profileRepository.save(profile));
   }
 
   public ProfileDTO updateProfile(ProfileDTO profileDTO) {
     Profile profile = profileDTO.toEntity(userRepository.findById(profileDTO.getUserId())
-        .orElseThrow(NotFoundException::new));
+        .orElseThrow(ProfileNotFoundException::new));
     return new ProfileDTO(profileRepository.save(profile));
   }
 

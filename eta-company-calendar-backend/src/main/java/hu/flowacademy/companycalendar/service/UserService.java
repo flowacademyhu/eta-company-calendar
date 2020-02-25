@@ -3,7 +3,7 @@ package hu.flowacademy.companycalendar.service;
 import hu.flowacademy.companycalendar.email.EmailService;
 import hu.flowacademy.companycalendar.email.EmailType;
 import hu.flowacademy.companycalendar.exception.BadRequestException;
-import hu.flowacademy.companycalendar.exception.NotFoundException;
+import hu.flowacademy.companycalendar.exception.UserNotFoundException;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.UserRequestDTO;
 import hu.flowacademy.companycalendar.model.dto.UserResponseDTO;
@@ -33,7 +33,7 @@ public class UserService {
 
   public UserResponseDTO getUser(Long id) {
     return new UserResponseDTO(userRepository.findById(id)
-        .orElseThrow(NotFoundException::new));
+        .orElseThrow(UserNotFoundException::new));
   }
 
   public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
@@ -49,7 +49,7 @@ public class UserService {
 
   public UserResponseDTO updateUser(Long id, UserRequestDTO userRequestDTO) {
     User user = userRepository.findById(id)
-        .orElseThrow(NotFoundException::new);
+        .orElseThrow(UserNotFoundException::new);
     if (userRequestDTO.getPassword() != null
         && !BCrypt.checkpw(userRequestDTO.getPassword(), user.getPassword())) {
       String psw = BCrypt.hashpw(userRequestDTO.getPassword(), BCrypt.gensalt());

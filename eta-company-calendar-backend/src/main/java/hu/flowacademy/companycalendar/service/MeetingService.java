@@ -1,6 +1,7 @@
 package hu.flowacademy.companycalendar.service;
 
-import hu.flowacademy.companycalendar.exception.NotFoundException;
+import hu.flowacademy.companycalendar.exception.MeetingNotFoundException;
+import hu.flowacademy.companycalendar.exception.UserNotFoundException;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.MeetingCreateDTO;
@@ -32,7 +33,7 @@ public class MeetingService {
 
     public MeetingDTO findOne(Long id) {
         return new MeetingDTO(meetingRepository.findById(id)
-                .orElseThrow(NotFoundException::new));
+                .orElseThrow(MeetingNotFoundException::new));
     }
 
     public List<MeetingListItemDTO> findByUserIdAndTimeRange(Long userId,
@@ -44,7 +45,7 @@ public class MeetingService {
 
     public MeetingDTO create(Long userId, MeetingDTO meetingDTO) {
         User user = userRepository.findById(userId)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(UserNotFoundException::new);
         Meeting meeting = meetingDTO.toEntity();
         meeting.setCreatedBy(user);
         meeting.setCreatedAt(System.currentTimeMillis());
@@ -54,7 +55,7 @@ public class MeetingService {
     public Long createWithEmails(MeetingCreateDTO dto) {
         Meeting meeting = dto.toEntity(
             userRepository.findFirstByEmail(dto.getCreatedBy())
-                .orElseThrow(NotFoundException::new),
+                .orElseThrow(UserNotFoundException::new),
             userRepository.findByEmailIn(dto.getRequiredAttendants()),
             userRepository.findByEmailIn(dto.getOptionalAttendants()));
         meeting.setCreatedAt(System.currentTimeMillis());
@@ -63,7 +64,7 @@ public class MeetingService {
 
     public MeetingDTO updateMeeting(Long userId, MeetingDTO meetingDTO) {
         User user = userRepository.findById(userId)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(MeetingNotFoundException::new);
         Meeting meeting = meetingDTO.toEntity();
         meeting.setUpdatedBy(user);
         meeting.setUpdatedAt(System.currentTimeMillis());
