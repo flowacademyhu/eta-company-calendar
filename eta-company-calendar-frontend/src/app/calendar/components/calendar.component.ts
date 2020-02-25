@@ -45,7 +45,7 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
     ></full-calendar>
   </div>
   <div class='app-calendar white-background'>
-  <full-calendar
+    <full-calendar
       #calendar
       defaultView="dayGridMonth"
       [header]="{
@@ -59,7 +59,7 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
       [events]="calendarEvents"
       (dateClick)="handleDateClick($event)"
       fxShow="true" fxHide.lt-md fxHide.lt-sm
-    ></full-calendar>
+      ></full-calendar>
     </div>
   `
 })
