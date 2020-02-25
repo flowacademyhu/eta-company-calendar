@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { EventInput, View } from '@fullcalendar/core';
 import enGbLocale from '@fullcalendar/core/locales/en-gb';
@@ -10,8 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
-
-import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from '~/app/shared/services/auth.service';
 import { MeetingCreateComponent } from '../modals/meeting-create.component';
 
 @Component({
@@ -60,11 +60,13 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   private calendarEvents: EventInput[] = [];
 
-  constructor(private readonly translate: TranslateService,
-              private readonly api: ApiCommunicationService,
-              private readonly dialog: MatDialog) { }
+  constructor(private readonly api: ApiCommunicationService,
+              private readonly auth: AuthService,
+              private readonly dialog: MatDialog,
+              private readonly translate: TranslateService) { }
 
   public ngAfterViewInit() {
+    this.setCalendarLang(this.translate.currentLang);
     this.translate.onLangChange
       .pipe(takeUntil(this.destroy$))
       .subscribe((params) => {
@@ -100,7 +102,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   private fetchMeetings() {
     this.api.meeting()
-    .getMeetingsByIdAndTimeRange(1,
+    .getMeetingsByIdAndTimeRange(this.auth.tokenDetails.getValue().id,
                                  this.currentView.activeStart.valueOf(),
                                  this.currentView.activeEnd.valueOf())
     .subscribe((data) => {
