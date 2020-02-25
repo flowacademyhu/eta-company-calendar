@@ -46,7 +46,13 @@ public class InitDataLoader {
                 .password(passwordEncoder.encode("user123"))
                 .role(i == 0 ? Roles.ADMIN : Roles.USER).build()).collect(Collectors.toList())
         );
-        testUsers.forEach(user -> user.setLeader(user.getId() == 1 ? null : testUsers.get(0)));
+        testUsers.forEach(user -> {
+            if (user.getId() == 2) {
+                user.setRole(Roles.LEADER);
+            } else {
+                user.setLeader(testUsers.get(1));
+            }
+        });
         userRepository.saveAll(testUsers);
     }
 
@@ -66,6 +72,7 @@ public class InitDataLoader {
                 .build()).collect(Collectors.toList())
         );
     }
+
     public void createReminder() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         reminderRepository.save(Reminder.builder()
