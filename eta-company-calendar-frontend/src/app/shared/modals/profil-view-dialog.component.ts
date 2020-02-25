@@ -203,7 +203,7 @@ export class ProfilViewDialog {
     });
 
     this.editForm.setValue({
-      dateOfBirth: '',
+      dateOfBirth: this.profile.dateOfEntry,
       department: this.profile.department,
       firstname: this.profile.firstName,
       lastname: this.profile.lastName,
@@ -215,6 +215,10 @@ export class ProfilViewDialog {
 
   }
 
+  public onNoClick(): void {
+    this.dialogRef.close();
+  }
+
   public Close(): void {
     this.dialogRef.close();
   }
@@ -222,9 +226,11 @@ export class ProfilViewDialog {
     this.mod = true;
   }
   protected onSubmit() {
-
-    this.profile = this.editForm.value;
+    this.profile = this.editForm.getRawValue();
     console.log(this.profile);
+    this.api.profile()
+    .updateProfile(this.id, this.profile)
+    .subscribe(() => alert('Success'), () => alert('error'));
     this.Close();
   }
 }

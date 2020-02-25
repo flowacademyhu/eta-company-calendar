@@ -10,6 +10,6 @@ export class ProfileApiConnector extends AbstractApiConnector {
   }
 
   public updateProfile(id: number, profile: Profile): Observable<Profile> {
-    return this.http.put<Profile>(`${this.apiRoute}/api/profiles${id}`, profile);
+    return this.http.put<Profile>(`${this.apiRoute}/api/profiles/${id}`, profile);
   }
 }

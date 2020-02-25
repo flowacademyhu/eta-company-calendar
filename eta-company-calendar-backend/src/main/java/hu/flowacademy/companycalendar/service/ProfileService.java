@@ -1,5 +1,6 @@
 package hu.flowacademy.companycalendar.service;
 
+import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.ProfileDTO;
 import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.repository.ProfileRepository;
@@ -38,9 +39,23 @@ public class ProfileService {
     return new ProfileDTO(profileRepository.save(profile));
   }
 
-  public ProfileDTO updateProfile(ProfileDTO profileDTO) {
-    Profile profile = profileDTO.toEntity(userRepository.findById(profileDTO.getUserId())
+  public ProfileDTO updateProfile(Long id, ProfileDTO profileDTO) {
+    Profile profile = profileDTO.toEntity(userRepository.findById(id)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    if(profileDTO.getFirstName() != null){
+    profile.setFirstName(profileDTO.getFirstName());}
+    if(profileDTO.getLastName() != null){
+      profile.setFirstName(profileDTO.getLastName());}
+    if(profileDTO.getDepartment() != null){
+      profile.setDepartment(profileDTO.getDepartment());}
+    if(profileDTO.getPosition() != null){
+      profile.setPosition(profileDTO.getPosition());}
+    if(profileDTO.getDateOfBirth() != null){
+      profile.setDateOfBirth(profileDTO.getDateOfBirth());}
+    if(profileDTO.getDateOfEntry() != null){
+      profile.setDateOfEntry(profileDTO.getDateOfEntry());}
+    if(profileDTO.getTeam() != null){
+      profile.setTeam(profileDTO.getTeam());}
     return new ProfileDTO(profileRepository.save(profile));
   }
 

@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { UserResponse } from '~/app/models/user-response.model';
+import { ProfilViewDialog } from '~/app/shared/modals/profil-view-dialog.component';
 import { EditUserComponent } from '../modals/edit-user.component';
 import { UserService } from '../service/user-service';
 
@@ -32,7 +33,7 @@ import { UserService } from '../service/user-service';
   <ng-container matColumnDef="action" >
     <th mat-header-cell *matHeaderCellDef class="text-center">{{'userlist.action' | translate}}</th>
     <td mat-cell *matCellDef="let user">
-    <button mat-icon-button>
+    <button mat-icon-button (click)="openDialogProfile(user.id)">
     <mat-icon aria-label="User">
       perm_identity
     </mat-icon>
@@ -93,6 +94,12 @@ export class UserListComponent implements OnInit {
     this.dialog.open(EditUserComponent, {
       data: user,
       width: '400px',
+    });
+  }
+
+  public openDialogProfile(id: number) {
+    this.dialog.open(ProfilViewDialog, {
+      data: id,
     });
   }
 

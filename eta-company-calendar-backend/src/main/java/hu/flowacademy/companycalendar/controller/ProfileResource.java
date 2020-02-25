@@ -36,9 +36,9 @@ public class ProfileResource {
     return ResponseEntity.ok(profileService.createProfile(profileDTO));
   }
 
-  @PutMapping
-  public ResponseEntity<ProfileDTO> updateProfile(@RequestBody ProfileDTO profileDTO) {
-    return ResponseEntity.ok(profileService.updateProfile(profileDTO));
+  @PutMapping("/{id}")
+  public ResponseEntity<ProfileDTO> updateProfile(@PathVariable Long id, @RequestBody ProfileDTO profileDTO) {
+    return ResponseEntity.ok(profileService.updateProfile(id, profileDTO));
   }
 
   @DeleteMapping("/{id}")
