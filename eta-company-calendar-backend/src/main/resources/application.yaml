@@ -28,8 +28,7 @@ mailing:
     apiKey: ${MAILGUN_API_KEY:}
     mailSenderUrl: "https://api.mailgun.net/v3/sandbox1ec338183b504836a481e02cbee72d6e.mailgun.org"
   mailFrom: "Mailgun Sandbox <postmaster@sandbox1ec338183b504836a481e02cbee72d6e.mailgun.org>"
-  messageTemplate: "Helló %s, értekezleted van  %s-%s között a %s teremben."
-
+  messageTemplate: "Helló %s! Új értekezleted van, dátum: %s, kezdés: %s, vége: %s, helyszín: a %s. A részvételed %s."
 # mailgun: apiKey, mailSenderUrl, mailFrom
 
 ---
@@ -70,4 +69,4 @@ mailing:
     apiKey: ${MAILGUN_API_KEY:}
     mailSenderUrl: "https://api.mailgun.net/v3/sandbox1ec338183b504836a481e02cbee72d6e.mailgun.org"
   mailFrom: "Mailgun Sandbox <postmaster@sandbox1ec338183b504836a481e02cbee72d6e.mailgun.org>"
-  messageTemplate: "Hello %s, értekezleted van %s - %s a %s teremben."
+  messageTemplate: "Helló %s! Új értekezleted van, dátum: %s, kezdés: %s, vége: %s, helyszín: a %s teremben. A részvételed %s"

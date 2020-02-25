@@ -65,25 +65,48 @@ public class MeetingService {
     public Long createWithEmails(MeetingCreateDTO dto) {
         DateFormat formatterToHour = new SimpleDateFormat("HH:mm");
         DateFormat formatterToDate = new SimpleDateFormat("yyyy-MM-dd");
+        String username = "munkatárs";
         Meeting meeting = dto.toEntity(
             userRepository.findFirstByEmail(dto.getCreatedBy())
                 .orElseThrow(() -> new RuntimeException("User not found in DB")),
             userRepository.findByEmailIn(dto.getRequiredAttendants()),
             userRepository.findByEmailIn(dto.getOptionalAttendants()));
         meeting.setCreatedAt(System.currentTimeMillis());
-        List<User> emailList = meeting.getRequiredAttendants();
-        for (User user : emailList) {
+        List<User> emailListRequired = meeting.getRequiredAttendants();
+        List<User> emailListoptional = meeting.getOptionalAttendants();
+        for (User user : emailListRequired) {
             Location location =  dto.getLocation();
-            String username = user.getUsername();
+            username = user.getProfile().getFirstName();
+            String date = formatterToDate.format(new Date(dto.getStartingTime()));
             String startTime = formatterToHour.format(new Date(dto.getStartingTime()));
             String endTime = formatterToHour.format(new Date(dto.getFinishTime()));
+            String isObligatory = "kötelező";
             emailService.send(user.getEmail(),
                 "Új értekezlet",
                 EmailType.HTML,
                 username,
+                date,
                 startTime,
                 endTime,
-                location);
+                location,
+                isObligatory);
+        }
+        for (User user : emailListoptional) {
+            Location location =  dto.getLocation();
+            username = user.getProfile().getFirstName();
+            String date = formatterToDate.format(new Date(dto.getStartingTime()));
+            String startTime = formatterToHour.format(new Date(dto.getStartingTime()));
+            String endTime = formatterToHour.format(new Date(dto.getFinishTime()));
+            String isObligatory = "nem kötelező";
+            emailService.send(user.getEmail(),
+                "Új értekezlet",
+                EmailType.HTML,
+                username,
+                date,
+                startTime,
+                endTime,
+                location,
+                isObligatory);
         }
 
 

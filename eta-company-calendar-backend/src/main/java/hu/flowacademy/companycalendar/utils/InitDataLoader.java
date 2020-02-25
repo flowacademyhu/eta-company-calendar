@@ -51,6 +51,11 @@ public class InitDataLoader {
             .password("csiha")
             .role(Roles.ADMIN)
             .build());
+        userRepository.save(User.builder()
+            .email("csalaoh@gmail.com")
+            .password("csala")
+            .role(Roles.ADMIN)
+            .build());
     }
 
     private void createMeetings() {
