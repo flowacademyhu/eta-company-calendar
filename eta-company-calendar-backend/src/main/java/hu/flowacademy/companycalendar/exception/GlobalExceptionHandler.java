@@ -12,15 +12,15 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler
   @ResponseStatus(HttpStatus.NOT_FOUND)
-  public HttpStatus handleUserNotFoundException(UserNotFoundException e) {
+  public HttpStatus handleNotFoundException(NotFoundException e) {
     System.err.println(e.getMessage());
     return HttpStatus.NOT_FOUND;
   }
 
   @ExceptionHandler
-  @ResponseStatus(HttpStatus.NOT_FOUND)
-  public HttpStatus handleReminderNotFoundException(ReminderNotFoundException e) {
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public HttpStatus handleBadRequestException(BadRequestException e) {
     System.err.println(e.getMessage());
-    return HttpStatus.NOT_FOUND;
+    return HttpStatus.BAD_REQUEST;
   }
 }

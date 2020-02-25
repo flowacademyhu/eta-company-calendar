@@ -1,5 +1,6 @@
 package hu.flowacademy.companycalendar.service;
 
+import hu.flowacademy.companycalendar.exception.NotFoundException;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.MeetingCreateDTO;
@@ -7,15 +8,11 @@ import hu.flowacademy.companycalendar.model.dto.MeetingDTO;
 import hu.flowacademy.companycalendar.model.dto.MeetingListItemDTO;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
-import java.util.ArrayList;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @Transactional
@@ -23,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class MeetingService {
 
     private final MeetingRepository meetingRepository;
-    private final UserRepository userRepository; // TODO - UserService is not ready yet
+    private final UserRepository userRepository;
 
     public List<MeetingDTO> findAll() {
        return meetingRepository
@@ -35,7 +32,7 @@ public class MeetingService {
 
     public MeetingDTO findOne(Long id) {
         return new MeetingDTO(meetingRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Meeting not found in DB")));
+                .orElseThrow(NotFoundException::new));
     }
 
     public List<MeetingListItemDTO> findByUserIdAndTimeRange(Long userId,
@@ -47,7 +44,7 @@ public class MeetingService {
 
     public MeetingDTO create(Long userId, MeetingDTO meetingDTO) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found in DB"));
+                .orElseThrow(NotFoundException::new);
         Meeting meeting = meetingDTO.toEntity();
         meeting.setCreatedBy(user);
         meeting.setCreatedAt(System.currentTimeMillis());
@@ -57,7 +54,7 @@ public class MeetingService {
     public Long createWithEmails(MeetingCreateDTO dto) {
         Meeting meeting = dto.toEntity(
             userRepository.findFirstByEmail(dto.getCreatedBy())
-                .orElseThrow(() -> new RuntimeException("User not found in DB")),
+                .orElseThrow(NotFoundException::new),
             userRepository.findByEmailIn(dto.getRequiredAttendants()),
             userRepository.findByEmailIn(dto.getOptionalAttendants()));
         meeting.setCreatedAt(System.currentTimeMillis());
@@ -66,7 +63,7 @@ public class MeetingService {
 
     public MeetingDTO updateMeeting(Long userId, MeetingDTO meetingDTO) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found in DB"));
+                .orElseThrow(NotFoundException::new);
         Meeting meeting = meetingDTO.toEntity();
         meeting.setUpdatedBy(user);
         meeting.setUpdatedAt(System.currentTimeMillis());

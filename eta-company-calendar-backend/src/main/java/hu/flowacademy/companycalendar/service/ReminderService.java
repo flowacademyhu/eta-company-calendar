@@ -1,8 +1,6 @@
 package hu.flowacademy.companycalendar.service;
 
-import com.sun.xml.bind.v2.TODO;
-import hu.flowacademy.companycalendar.exception.ReminderNotFoundException;
-import hu.flowacademy.companycalendar.exception.UserNotFoundException;
+import hu.flowacademy.companycalendar.exception.NotFoundException;
 import hu.flowacademy.companycalendar.model.Reminder;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.ReminderDTO;
@@ -12,7 +10,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -31,7 +28,7 @@ public class ReminderService {
     }
 
     public Reminder findOne(Long id) {
-        return reminderRepository.findById(id).orElseThrow(ReminderNotFoundException::new);
+        return reminderRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     public void createReminder(ReminderDTO reminderDTO) {
@@ -41,7 +38,7 @@ public class ReminderService {
             reminder.setUser(u.get());
             reminderRepository.save(reminder);
         } else {
-            throw new UserNotFoundException();
+            throw new NotFoundException();
         }
     }
 

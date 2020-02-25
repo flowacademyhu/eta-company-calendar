@@ -1,5 +1,6 @@
 package hu.flowacademy.companycalendar.service;
 
+import hu.flowacademy.companycalendar.exception.NotFoundException;
 import hu.flowacademy.companycalendar.model.Comment;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.User;
@@ -8,10 +9,7 @@ import hu.flowacademy.companycalendar.repository.CommentRepository;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,12 +28,12 @@ public class CommentService {
   }
 
   public Comment findOne(Long id) {
-    return commentRepository.findById(id).orElseThrow();
+    return commentRepository.findById(id).orElseThrow(NotFoundException::new);
   }
 
   public Comment saveComment(CommentDTO commentDTO) {
-    User user = userRepository.findById(commentDTO.getUserId()).orElseThrow();
-    Meeting meeting = meetingRepository.findById(commentDTO.getMeetingId()).orElseThrow();
+    User user = userRepository.findById(commentDTO.getUserId()).orElseThrow(NotFoundException::new);
+    Meeting meeting = meetingRepository.findById(commentDTO.getMeetingId()).orElseThrow(NotFoundException::new);
     return commentRepository.save(commentDTO.toEntity(user, meeting));
   }
 
