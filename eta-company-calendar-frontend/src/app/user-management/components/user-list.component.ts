@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { MatDialog} from '@angular/material';
+=======
+import { MatDialog } from '@angular/material';
+>>>>>>> cd8320a77a0b393c4f4e7ee7662588d11b258e24
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { UserResponse } from '~/app/models/user-response.model';
+<<<<<<< HEAD
 import { DeleteUserComponent } from '../modals/delete-user.component';
+=======
+>>>>>>> cd8320a77a0b393c4f4e7ee7662588d11b258e24
 import { EditUserComponent } from '../modals/edit-user.component';
 import { UserService } from '../service/user-service';
 
@@ -45,7 +52,11 @@ import { UserService } from '../service/user-service';
     </mat-icon>
     </button>
 
+<<<<<<< HEAD
     <button mat-icon-button color="warn" (click)="openDialogDelete(user.id)">
+=======
+    <button mat-icon-button color="warn" (click)="deleteUser(user.id)">
+>>>>>>> cd8320a77a0b393c4f4e7ee7662588d11b258e24
     <mat-icon aria-label="Delete Icon">
       delete
     </mat-icon>
@@ -97,6 +108,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   public openDialogDelete(id: number): void {
     this.dialog.open(DeleteUserComponent, {
       data: id,
@@ -104,4 +116,6 @@ export class UserListComponent implements OnInit {
     });
   }
 
+=======
+>>>>>>> cd8320a77a0b393c4f4e7ee7662588d11b258e24
 }

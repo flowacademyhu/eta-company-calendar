@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { ConfigurationService } from './../services/configuration.service';
+import { Observable } from 'rxjs';
+import { TokenDetails } from '../models/token-details.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-welcome-layout',
@@ -11,21 +13,20 @@ import { ConfigurationService } from './../services/configuration.service';
     }`],
   template: `
     <div class="d-flex flex-column">
-      <app-header *ngIf="checkToken()"></app-header>
+      <app-header *ngIf="!!(tokenDetails$ | async).user_name"></app-header>
       <div class="content">
         <router-outlet></router-outlet>
       </div>
-      <app-footer *ngIf="checkToken()"></app-footer>
+      <app-footer *ngIf="!!(tokenDetails$ | async).user_name"></app-footer>
     </div>
   `
 })
 
 export class MainLayoutComponent {
+  protected tokenDetails$: Observable<TokenDetails>;
 
-  constructor(private readonly config: ConfigurationService) { }
-
-  protected checkToken() {
-    return !!this.config.fetchToken('access_token');
+  constructor(private readonly auth: AuthService) {
+    this.tokenDetails$ = this.auth.tokenDetails;
   }
 
 }
