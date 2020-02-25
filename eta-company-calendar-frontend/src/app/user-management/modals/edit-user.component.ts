@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/models/user.model';
 import { UserResponse } from '~/app/models/user-response.model';
 import { UserService } from '../service/user-service';
+import { PasswordNotMatchingValidator } from './password-validator';
 
 @Component({
     selector: 'edit-user-dialog',
@@ -61,8 +62,8 @@ import { UserService } from '../service/user-service';
         confirm_password: new FormControl(),
         email: new FormControl(undefined, [Validators.email]),
         password: new FormControl(),
-        role: new FormControl()
-      });
+        role: new FormControl(),
+      }, {validators: PasswordNotMatchingValidator });
 
       this.editUserForm.setValue({
         email: this.userValues.email,
@@ -90,15 +91,10 @@ import { UserService } from '../service/user-service';
     }
 
     protected onSubmit() {
-      if (this.editUserForm.get('password')?.value !==
-      this.editUserForm.get('confirm_password')?.value) {
-        this.openSnackBar(this.translate.instant('edituserform.match_failed'));
-      } else {
       this.user = this.editUserForm.getRawValue();
       this.userService.updateUser(this.userdata.id, this.user)
               .subscribe(() => {this.openSnackBar(this.translate.instant('edituserform.success'));
                                 this.dialogRef.close();
                                 this.userService.getAllUsers(); },
                () => this.openSnackBar('edituserform.fail')); }
-    }
   }

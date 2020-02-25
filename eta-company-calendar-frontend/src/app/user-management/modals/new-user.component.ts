@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/models/user.model';
 import { UserService } from '../service/user-service';
+import { PasswordNotMatchingValidator } from './password-validator';
 
 @Component({
     selector: 'new-user-dialog',
@@ -60,7 +61,7 @@ import { UserService } from '../service/user-service';
         email: new FormControl(undefined, [Validators.email, Validators.required]),
         password: new FormControl(undefined, [Validators.required]),
         role: new FormControl(undefined, [Validators.required])
-      });
+      }, {validators: PasswordNotMatchingValidator });
     }
 
     constructor(
