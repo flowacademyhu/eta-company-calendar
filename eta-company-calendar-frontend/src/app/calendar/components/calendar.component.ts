@@ -29,12 +29,14 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
   <div class='app-calendar white-background'>
     <mat-card>
       <mat-form-field>
-        <mat-select [(value)]="currentUser">
-          <mat-option value="currentUser">
-            current user
-          </mat-option>
+        <mat-label>Select an option</mat-label>
+        <mat-select [(value)]="selected">
+          <mat-option>None</mat-option>
+          <mat-option value="option1">Option 1</mat-option>
+          <mat-option value="option2">Option 2</mat-option>
+          <mat-option value="option3">Option 3</mat-option>
         </mat-select>
-      </mat-form-field>
+    </mat-form-field>
     </mat-card>
 
     <full-calendar
@@ -71,7 +73,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   private calendarEvents: EventInput[] = [];
 
-  protected currentUser: string;
+  protected selected: string = 'option2';
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly auth: AuthService,
@@ -91,8 +93,6 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     this.dialog.afterAllClosed
       .pipe(takeUntil(this.destroy$))
       .subscribe((_) => this.fetchMeetings());
-
-    this.currentUser = this.auth.tokenDetails.getValue().user_name;
   }
 
   protected handleDateClick(arg: EventInput) {
