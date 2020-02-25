@@ -103,7 +103,11 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
   protected handleDateClick(arg: EventInput) {
     this.dialog.open(MeetingCreateComponent, {
       width: '500px',
-      data: {startingTime: arg.dateStr}
+      data: {
+        startingTime: arg.dateStr,
+        user: this.selectedUser,
+        isEmployee: this.loggedInUser.id !== this.selectedUser.id
+      }
     });
   }
 
@@ -120,7 +124,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
       .setOption('locale', lang);
   }
 
-  private fetchMeetings() {
+  protected fetchMeetings() {
     this.api.meeting()
     .getMeetingsByIdAndTimeRange(this.selectedUser.id,
                                  this.currentView.activeStart.valueOf(),
