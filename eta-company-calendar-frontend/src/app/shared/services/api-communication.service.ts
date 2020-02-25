@@ -84,7 +84,6 @@ export class ApiCommunicationService {
   public welcome(): WelcomeApiConnector {
     return this.getConnector(Connector.WELCOME) as WelcomeApiConnector;
   }
-  // tslint:disable-next-line:adjacent-overload-signatures
   public profile(): ProfileApiConnector {
     return this.getConnector(Connector.PROFILE) as ProfileApiConnector;
   }

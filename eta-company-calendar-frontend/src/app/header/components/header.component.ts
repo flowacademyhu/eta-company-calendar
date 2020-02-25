@@ -104,9 +104,8 @@ export class HeaderComponent {
 
   public openProfilDialog() {
     const id = this.auth.tokenDetails.getValue().id;
-    console.log(id);
+    data = 
     this.dialog.open(ProfilViewDialog, {
-      data: id,
       disableClose: true});
   }
 
