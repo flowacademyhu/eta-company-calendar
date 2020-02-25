@@ -4,6 +4,7 @@ import { SharedModule } from '~/app/shared/shared.module';
 import { UserManagementRoutingModule } from '../user-management/user-management-routing.module';
 import { UserListComponent } from './components/user-list.component';
 import { UserManagementDescriptionComponent } from './components/user-management-description.component';
+import { EditUserComponent } from './modals/edit-user.component';
 import { NewUserComponent } from './modals/new-user.component';
 import { UserService } from './service/user-service';
 
@@ -11,6 +12,7 @@ import { UserService } from './service/user-service';
   declarations: [
     UserManagementDescriptionComponent,
     NewUserComponent,
+    EditUserComponent,
     UserListComponent,
   ],
   imports: [
