@@ -81,10 +81,6 @@ import { PasswordNotMatchingValidator } from './password-validator';
     }
 
     protected onSubmit() {
-      if (this.newUserForm.get('password')?.value !==
-      this.newUserForm.get('confirm_password')?.value) {
-        this.openSnackBar(this.translate.instant('newuserform.match_failed'));
-      } else {
       this.user = this.newUserForm.getRawValue();
       this.userService.postUser(this.user)
               .subscribe(() => {this.openSnackBar(this.translate.instant('newuserform.success'));
@@ -92,4 +88,3 @@ import { PasswordNotMatchingValidator } from './password-validator';
                                 this.dialogRef.close(); },
                () => this.openSnackBar(this.translate.instant('newuserform.fail'))); }
     }
-  }
