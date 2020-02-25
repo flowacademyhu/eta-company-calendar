@@ -16,9 +16,7 @@ export class MeetingService {
 
   public getAllMeetings() {
      this.api.meeting()
-    .getAllMeetings()
-    .subscribe((meetingDetail: MeetingDetail[]) => {
-      this._meetingSub.next(meetingDetail); });
+    .getMeetingsByIdAndTimeRange(1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
 
   }
 
