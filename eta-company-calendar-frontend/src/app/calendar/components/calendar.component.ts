@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FullCalendarComponent } from '@fullcalendar/angular';
-import { EventInput } from '@fullcalendar/core';
+import { EventInput, View } from '@fullcalendar/core';
 import enGbLocale from '@fullcalendar/core/locales/en-gb';
 import huLocale from '@fullcalendar/core/locales/hu';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -36,9 +36,12 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
       }"
       [locales]="locales"
+      [firstDay]="1"
       [plugins]="calendarPlugins"
       [events]="calendarEvents"
+      [aspectRatio]="1.35"
       (dateClick)="handleDateClick($event)"
+      (datesRender)="onDatesRender($event)"
     ></full-calendar>
   </div>
   `
@@ -49,6 +52,8 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
   @ViewChild('calendar') public calendarComponent: FullCalendarComponent;
+
+  protected currentView: View;
 
   public locales: object[] = [enGbLocale, huLocale];
 
@@ -83,6 +88,11 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  protected onDatesRender(info: DatesRenderInfo) {
+    this.currentView = info.view;
+    this.fetchMeetings();
+  }
+
   private setCalendarLang(lang: string) {
     if (lang === 'en') {
       lang = 'en-gb';
@@ -93,7 +103,9 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   private fetchMeetings() {
     this.api.meeting()
-    .getMeetingsByIdAndTimeRange(this.auth.tokenDetails.getValue().id, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+    .getMeetingsByIdAndTimeRange(this.auth.tokenDetails.getValue().id,
+                                 this.currentView.activeStart.valueOf(),
+                                 this.currentView.activeEnd.valueOf())
     .subscribe((data) => {
       this.calendarEvents = [];
       this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
@@ -106,4 +118,9 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     this.destroy$.next(true);
   }
 
+}
+
+export interface DatesRenderInfo {
+  view: View;
+  el: HTMLElement;
 }
