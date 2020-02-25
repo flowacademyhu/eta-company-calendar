@@ -16,7 +16,7 @@
     "leader": "Leader",
     "dateOfBirth": "Date of Birth",
     "dateOfEntry": "Date of Entry",
-    "view": "PROFILE DETAILS",
+    "view": "profile details",
     "enter_lastename": "Enter lastname",
     "save": "Save",
     "cancel": "Cancel"
@@ -44,7 +44,7 @@
   },
 
   "meeting": {
-    "header": "CREATE MEETING",
+    "header": "create meeting",
     "title": "Title",
     "titleError": "Title is required",
     "description": "Description",
