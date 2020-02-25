@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/models/user.model';
 import { UserService } from '../service/user-service';
+import { PasswordNotMatchingValidator } from './password-validator';
 
 @Component({
     selector: 'new-user-dialog',
@@ -34,14 +37,16 @@ import { UserService } from '../service/user-service';
       <br>
       <mat-form-field appearance="fill">
         <mat-label>{{'newuserform.confirm_password' | translate}}</mat-label>
-        <input matInput formControlName="password" type="password">
+        <input matInput formControlName="confirm_password" type="password">
         <mat-error> {{'newuserform.password_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
+      <div class="d-flex justify-content-center">
       <button mat-raised-button type="submit" name="submit"
       [disabled]="newUserForm.invalid">{{'newuserform.create' | translate}}</button>
       <button mat-raised-button type="button" name="cancel" (click)="onNoClick()"
       class="ml-3">{{'newuserform.cancel' | translate}}</button>
+      </div>
     </form>
     </div>`,
   })
@@ -52,26 +57,34 @@ import { UserService } from '../service/user-service';
 
     public ngOnInit() {
       this.newUserForm = new FormGroup({
+        confirm_password: new FormControl(undefined, [Validators.required]),
         email: new FormControl(undefined, [Validators.email, Validators.required]),
         password: new FormControl(undefined, [Validators.required]),
         role: new FormControl(undefined, [Validators.required])
-      });
+      }, {validators: PasswordNotMatchingValidator });
     }
 
     constructor(
       public dialogRef: MatDialogRef<NewUserComponent>,
+      private readonly snackBar: MatSnackBar,
+      private readonly translate: TranslateService,
       public readonly userService: UserService) {}
 
     public onNoClick(): void {
       this.dialogRef.close();
     }
 
+    public openSnackBar(message: string) {
+      this.snackBar.open(`${message}`, undefined, {
+      duration: 2000
+      });
+    }
+
     protected onSubmit() {
       this.user = this.newUserForm.getRawValue();
       this.userService.postUser(this.user)
-              .subscribe(() => {alert('New user created');
+              .subscribe(() => {this.openSnackBar(this.translate.instant('newuserform.success'));
                                 this.userService.getAllUsers();
                                 this.dialogRef.close(); },
-               (error) => alert('Error occured: ' + error.status));
+               () => this.openSnackBar(this.translate.instant('newuserform.fail'))); }
     }
-  }
