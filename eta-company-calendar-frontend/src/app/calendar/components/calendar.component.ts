@@ -22,7 +22,8 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
     }
     .app-calendar {
       margin: 0 auto;
-      max-width: 1000px;
+      margin-top: 0.6%;
+      max-width: 97%;
     }
   `],
   template: `
@@ -36,11 +37,30 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
       }"
       [locales]="locales"
+      [aspectRatio]="0.83"
       [plugins]="calendarPlugins"
       [events]="calendarEvents"
       (dateClick)="handleDateClick($event)"
+      fxShow.lt-sm="true" fxShow.md="false" fxShow.lg="false"
     ></full-calendar>
   </div>
+  <div class='app-calendar white-background'>
+  <full-calendar
+      #calendar
+      defaultView="dayGridMonth"
+      [header]="{
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      }"
+      [locales]="locales"
+      [aspectRatio]="2.4"
+      [plugins]="calendarPlugins"
+      [events]="calendarEvents"
+      (dateClick)="handleDateClick($event)"
+      fxShow="true" fxHide.lt-md fxHide.lt-sm
+    ></full-calendar>
+    </div>
   `
 })
 
