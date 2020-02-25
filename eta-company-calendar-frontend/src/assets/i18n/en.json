@@ -82,7 +82,10 @@
     "cancel":"Cancel",
     "email_error": "Invalid email address.",
     "password_error": "A password is required.",
-    "role_error": "Role is required"
+    "role_error": "Role is required",
+    "success":  "User has been created",
+    "fail": "Error occured during create",
+    "match_failed": "Passwords must match"
   },
   "reminderlist": {
     "id": "Id",
@@ -96,6 +99,24 @@
   "usermanagement": {
     "new_user": "Add new user",
     "list_users": "List users"
+  },
+
+  "edituserform":{
+    "edit_user": "Edit user",
+    "role": "Role",
+    "admin": "Admin",
+    "user": "User",
+    "email": "Email address",
+    "password": "Password",
+    "confirm_password": "Confirm password",
+    "create":"Create",
+    "cancel":"Cancel",
+    "email_error": "Invalid email address.",
+    "password_error": "A password is required.",
+    "role_error": "Role is required",
+    "success":  "User has been updated",
+    "fail": "Error occured during update",
+    "match_failed": "Passwords must match"
   },
 
   "userlist": {
