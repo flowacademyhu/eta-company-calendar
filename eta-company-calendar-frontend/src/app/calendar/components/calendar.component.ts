@@ -14,7 +14,6 @@ import { UserResponse } from '~/app/models/user-response.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { MeetingCreateComponent } from '../modals/meeting-create.component';
-import { MatSelectChange } from '@angular/material';
 
 @Component({
   selector: 'app-calendar',
@@ -32,15 +31,14 @@ import { MatSelectChange } from '@angular/material';
     <mat-card *ngIf="isUserLeader">
       <mat-form-field>
         <mat-label>Select an option</mat-label>
-        <mat-select [(value)]="selectedEmployee" (selectionChange)="onSelectChange($event)">
-          <mat-option value="loggedInUser">self</mat-option>
+        <mat-select [(value)]="selectedUser" (selectionChange)="fetchMeetings()">
+          <mat-option [value]="loggedInUser">self</mat-option>
           <mat-option
             *ngFor="let employee of (userEmployees$ | async)"
-            value="employee"
+            [value]="employee"
             >{{ employee.email }}</mat-option>
         </mat-select>
         </mat-form-field>
-        <p>{{ selectedEmployee.email }}</p>
     </mat-card>
 
     <full-calendar
@@ -67,28 +65,24 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
-  @ViewChild('calendar') public calendarComponent: FullCalendarComponent;
-
+  @ViewChild('calendar') protected calendarComponent: FullCalendarComponent;
+  protected calendarEvents: EventInput[] = [];
+  protected calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
   protected currentView: View;
+  protected locales: object[] = [enGbLocale, huLocale];
 
-  public locales: object[] = [enGbLocale, huLocale];
-
-  public calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
-
-  private calendarEvents: EventInput[] = [];
-
-  protected loggedInUser: UserResponse;
   protected isUserLeader: boolean;
+  protected loggedInUser: UserResponse;
+  protected selectedUser: UserResponse;
   protected userEmployees$: Observable<UserResponse[]>;
-  protected selectedEmployee: UserResponse;
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly auth: AuthService,
               private readonly dialog: MatDialog,
               private readonly translate: TranslateService) {
     this.setLoggedInUser();
-    this.selectedEmployee = this.loggedInUser;
-    this.handleIfLeader();
+    this.selectedUser = this.loggedInUser;
+    this.fetchEmployeesIfLeader();
   }
 
   public ngAfterViewInit() {
@@ -128,7 +122,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   private fetchMeetings() {
     this.api.meeting()
-    .getMeetingsByIdAndTimeRange(this.auth.tokenDetails.getValue().id,
+    .getMeetingsByIdAndTimeRange(this.selectedUser.id,
                                  this.currentView.activeStart.valueOf(),
                                  this.currentView.activeEnd.valueOf())
     .subscribe((data) => {
@@ -148,17 +142,12 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     };
   }
 
-  private handleIfLeader() {
+  private fetchEmployeesIfLeader() {
     this.isUserLeader = this.loggedInUser.role === 'LEADER';
     if (this.isUserLeader) {
       this.userEmployees$ = this.api.user()
         .getEmployees(this.loggedInUser.id);
     }
-  }
-
-  protected onSelectChange(change: MatSelectChange) {
-    console.log('this shit changed yo', change);
-    console.log(this.selectedEmployee.email);
   }
 
   public ngOnDestroy() {
