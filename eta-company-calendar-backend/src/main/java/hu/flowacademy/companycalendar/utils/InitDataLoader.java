@@ -40,12 +40,14 @@ public class InitDataLoader {
     }
 
     private void createUsers() {
-        userRepository.saveAll(
+        var testUsers = userRepository.saveAll(
             IntStream.range(0, 10).mapToObj( i -> User.builder()
                 .email("user" + i + "@test.com")
                 .password(passwordEncoder.encode("user123"))
                 .role(i == 0 ? Roles.ADMIN : Roles.USER).build()).collect(Collectors.toList())
         );
+        testUsers.forEach(user -> user.setLeader(user.getId() == 1 ? null : testUsers.get(0)));
+        userRepository.saveAll(testUsers);
     }
 
     private void createMeetings() {
