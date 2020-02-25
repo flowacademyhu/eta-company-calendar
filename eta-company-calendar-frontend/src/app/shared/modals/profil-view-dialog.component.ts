@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup} from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { Observable } from 'rxjs';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { Profile } from '~/app/models/profile.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
@@ -174,28 +173,45 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 export class ProfilViewDialog {
   public editForm: FormGroup;
   public mod: boolean = false;
+  public profile: Profile;
 
-  constructor(private readonly api: ApiCommunicationService,
+  constructor(@Inject(MAT_DIALOG_DATA)
+  private readonly id: number,
+              private readonly api: ApiCommunicationService,
               public dialog: MatDialog,
               public dialogRef: MatDialogRef<ProfilViewDialog>) {
-    this.profile$ = this.api.profile()
-      .getProfile(this.profileData.userId);
+     this.api.profile()
+      .getProfile(this.id)
+      .subscribe((data) => {this.profile = data; } );
   }
 
   public ngOnInit() {
     this.editForm = new FormGroup({
-      dateOfBirth: new FormControl(this.profileData.dateOfBirth),
-      dateOfEntry: new FormControl(this.profileData.dateOfEntry),
-      department: new FormControl(this.profileData.department),
-      firstname: new FormControl(this.profileData.firstName),
-      lastname: new FormControl(this.profileData.lastName),
-      leader: new FormControl(this.profileData.leader),
-      position: new FormControl(this.profileData.position),
-      team: new FormControl(this.profileData.team)
+      dateOfBirth: new FormControl(),
+      dateOfEntry: new FormControl(),
+      department: new FormControl(),
+      firstname: new FormControl(),
+      lastname: new FormControl(),
+      leader: new FormControl(),
+      position: new FormControl(),
+      team: new FormControl()
     });
+
+    this.editForm.setValue({
+      dateOfBirth: this.profile.dateOfBirth,
+      department: this.profile.department,
+      firstname: this.profile.firstName,
+      lastname: this.profile.lastName,
+      leader: this.profile.leader,
+      position: this.profile.position,
+      team: this.profile.team,
+      dateOfEntry: this.profile.dateOfEntry,
+    });
+
   }
+
   // test data
-  public profileData: Profile = {
+ /*  public profileData: Profile = {
     dateOfBirth: '1992-03-13',
     dateOfEntry: '2010-01-23',
     department: 'Pénzügy',
@@ -205,8 +221,7 @@ export class ProfilViewDialog {
     position: 'Csoportvezető',
     team: 'Könyvelés',
     userId: 1
-  };
-  public profile$: Observable<Profile>;
+  }; */
 
   public Close(): void {
     this.dialogRef.close();
@@ -216,7 +231,8 @@ export class ProfilViewDialog {
   }
   protected onSubmit() {
     // put
-    this.profileData = this.editForm.value;
+    this.profile = this.editForm.value;
+    console.log(this.profile);
     this.Close();
   }
 }

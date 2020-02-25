@@ -44,7 +44,7 @@ import { ProfilViewDialog } from './modals/profil-view-dialog.component';
     ApiCommunicationService,
     ConfigurationService,
     AuthGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true, },
   ],
 })
 export class SharedModule { }

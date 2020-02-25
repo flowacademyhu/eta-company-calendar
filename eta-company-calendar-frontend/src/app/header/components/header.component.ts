@@ -46,8 +46,7 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
         border-color: black !important;
         width: 160px;}`,
   ],
-  template:
-    `<mat-toolbar class="tool-container mat-elevation-z6">
+  template:     `<mat-toolbar class="tool-container mat-elevation-z6">
     <span class="header1">
       <button mat-icon-button [matMenuTriggerFor] = "menu" fxShow="true" fxHide.gt-sm>
         <mat-icon>menu</mat-icon>
@@ -80,7 +79,8 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
             {{'header.logout' | translate}}
           </button>
       </div>
-  </mat-toolbar>`
+  </mat-toolbar>
+`
 })
 
 export class HeaderComponent {
@@ -103,7 +103,11 @@ export class HeaderComponent {
   }
 
   public openProfilDialog() {
-    this.dialog.open(ProfilViewDialog, {disableClose: true});
+    const id = this.auth.tokenDetails.getValue().id;
+    console.log(id);
+    this.dialog.open(ProfilViewDialog, {
+      data: id,
+      disableClose: true});
   }
 
   protected isAdmin(tokenDetails: TokenDetails): boolean {
