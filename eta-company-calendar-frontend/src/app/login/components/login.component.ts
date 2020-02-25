@@ -1,10 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
-import { ConfigurationService } from '~/app/shared/services/configuration.service';
+import { AuthService } from '~/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-welcome-description',
@@ -30,7 +26,7 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
           <button mat-stroked-button color="primary" class="btn-block" type="submit" [disabled]="loginForm.invalid"
           >{{ 'login.login' | translate }}</button>
           <div class="button-separator"></div>
-          <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+          <p class="error-message" *ngIf="errorMessage">{{ errorMessage | translate }}</p>
         </mat-card-content>
       </form>
     </mat-card>
@@ -43,10 +39,7 @@ export class LoginComponent implements OnInit {
   protected loginForm: FormGroup;
   protected errorMessage: string;
 
-  constructor(private readonly router: Router,
-              private readonly translate: TranslateService,
-              private readonly config: ConfigurationService,
-              private readonly api: ApiCommunicationService) { }
+  constructor(private readonly auth: AuthService) { }
 
   public ngOnInit() {
     this.loginForm = new FormGroup({
@@ -58,31 +51,8 @@ export class LoginComponent implements OnInit {
   protected onSubmit() {
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
-    this.api.auth()
-    .requestToken(email, password)
-    .subscribe(
-      (token) => {
-        this.router.navigate(['']);
-        this.config.setToken(token);
-      },
-      (error) => this.handleError(error)
-    );
-  }
-
-  private handleError(errorRes: HttpErrorResponse) {
-    let errorMessage;
-    if (!errorRes.error || ! errorRes.error.error) {
-      errorMessage = 'no_response';
-    } else if (errorRes.error.error === 'invalid_grant') {
-      errorMessage = 'invalid_grant';
-    } else {
-      errorMessage = 'no_response';
-    }
-    this.setErrorMessage(`login.${errorMessage}`);
-  }
-
-  private setErrorMessage(messagePath: string) {
-    this.errorMessage = this.translate.instant(messagePath);
+    this.auth.login(email, password)
+    .subscribe(undefined, (err) => this.errorMessage = err);
   }
 
 }

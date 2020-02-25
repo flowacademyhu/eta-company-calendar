@@ -1,22 +1,17 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler,
   HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, throwError as observableThrowError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
-import { AuthResponse } from '../models/auth-response.model';
-import { ApiCommunicationService } from '../services/api-communication.service';
-import { ConfigurationService } from '../services/configuration.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private readonly config: ConfigurationService,
-              private readonly api: ApiCommunicationService,
-              private readonly router: Router) { }
+  constructor(private readonly auth: AuthService) { }
 
   public intercept(req: HttpRequest<object>, next: HttpHandler): Observable<HttpEvent<object>> {
-    const accessToken = this.config.fetchToken('access_token');
+    const accessToken = this.auth.getToken();
   ​
     const authReq = (!!accessToken && !req.headers.has('Authorization')) ? this.addToken(req, accessToken) : req;
   ​
@@ -25,31 +20,16 @@ export class AuthInterceptorService implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
           if (error.status === 401) {
             if (!this.containsRefreshToken(req)) {
-              const refreshToken = this.config.fetchToken('refresh_token');
-  ​
-              if (!refreshToken) {
-                this.router.navigate(['login']);
-                return observableThrowError(error);
-              }
-  ​
-              return this.api.auth()
-                .refreshToken(refreshToken)
+              return this.auth.refreshToken()
                 .pipe(
-                  switchMap((resp: AuthResponse) => {
-  ​
-                    this.config.setToken(resp);
-  ​
-                    const newToken = this.config.fetchToken('access_token');
-  ​
+                  switchMap((newToken) => {
                     return next
                       .handle(newToken ? this.addToken(req, newToken) : req);
                   })
                 );
             } else {
-              this.router.navigate(['login']);
-              this.config.clearToken();
+              this.auth.logout();
             }
-  ​
             return observableThrowError(error);
           }
           return observableThrowError(error);
