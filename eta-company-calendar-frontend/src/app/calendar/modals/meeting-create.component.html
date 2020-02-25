@@ -3,21 +3,21 @@
     <div class="d-flex flex-column">
 
       <div class="d-flex justify-content-center">
-        <h4>{{ 'meeting.header' | translate }}</h4>
+        <h4>{{ 'meeting.header' | translate | uppercase }}</h4>
       </div>
 
-      <mat-form-field>
-        <mat-label >{{ 'meeting.title' | translate }} *</mat-label>
+      <mat-form-field class="alignment">
+        <mat-label>{{ 'meeting.title' | translate }} *</mat-label>
         <input matInput formControlName="title" type="text" maxlength="80">
         <mat-error>{{ 'meeting.titleError' | translate }}</mat-error>
       </mat-form-field>
     
-      <mat-form-field>
+      <mat-form-field class="alignment">
         <mat-label>{{ 'meeting.description' | translate }}</mat-label>
         <textarea matInput formControlName="description" maxlength="255"></textarea>
       </mat-form-field>
   
-      <mat-form-field>
+      <mat-form-field class="alignment">
         <mat-label>{{ 'meeting.location' | translate }}</mat-label>
         <mat-select formControlName="location">
           <mat-option *ngFor="let loc of locations" [value]="loc">{{ 'location.' + loc | translate }}</mat-option>
@@ -54,7 +54,7 @@
         <mat-icon [owlDateTimeTrigger]="dt2">event</mat-icon>
       </div>
 
-      <p>{{ 'meeting.attendantsTitle' | translate }}</p>
+      <h4 class="row-alignment">{{ 'meeting.attendantsTitle' | translate | uppercase }}</h4>
       <hr>
       
       <mat-chip-list #chipRequiredAttendants>
@@ -104,9 +104,9 @@
       </mat-form-field>
       
       <div class="d-flex justify-content-between">
-        <button mat-stroked-button color="primary" type="submit" [disabled]="meetingForm.invalid"
+        <button mat-stroked-button color="primary" class="btn-block" type="submit" [disabled]="meetingForm.invalid"
         >{{ 'meeting.submitButton' | translate }}</button>
-        <button mat-stroked-button (click)="closeDialog()"
+        <button mat-stroked-button class="btn-block" (click)="closeDialog()"
         >{{ 'meeting.cancelButton' | translate }}</button>
       </div>
       
