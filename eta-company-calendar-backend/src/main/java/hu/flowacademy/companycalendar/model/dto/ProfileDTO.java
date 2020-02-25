@@ -27,6 +27,7 @@ public class ProfileDTO {
     if (profile.getUser() == null) {
       throw new IllegalArgumentException("User cannot be null!");
     }
+    this.userId = profile.getId();
     this.firstName = profile.getFirstName();
     this.lastName = profile.getLastName();
     this.dateOfBirth = profile.getDateOfBirth();

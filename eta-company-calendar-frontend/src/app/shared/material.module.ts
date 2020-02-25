@@ -43,6 +43,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatListModule,
     MatIconModule,
     FlexLayoutModule,
+
   ],
   imports: [
     MatToolbarModule,
@@ -62,5 +63,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatListModule,
     MatSidenavModule,
   ],
+
 })
+
 export class MaterialModule { }

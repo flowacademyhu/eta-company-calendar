@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup} from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { Observable } from 'rxjs';
 import { Profile } from '~/app/models/profile.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -16,7 +16,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
         <span *ngIf = "!mod">
           {{'profile.lastname' | translate }}
           <div class="pc">
-             {{profileData.lastName}}
+             {{profile.lastName}}
           </div>
         </span>
         <span *ngIf = "mod">
@@ -33,7 +33,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
         <span *ngIf = "!mod">
           {{'profile.firstname' | translate }}
           <div class="pc">
-             {{profileData.firstName}}
+             {{profile.firstName}}
           </div>
         </span>
         <span *ngIf = "mod">
@@ -50,7 +50,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
         <span *ngIf = "!mod">
           {{'profile.dateOfBirth' | translate }}
           <div class="pc">
-             {{profileData.dateOfBirth | date: 'yyyy-MM-dd'}}
+             {{profile.dateOfBirth | date: 'yyyy-MM-dd'}}
           </div>
         </span>
         <br>
@@ -73,7 +73,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
       <span *ngIf = "!mod">
           {{'profile.department' | translate }}
           <div class="pc">
-             {{profileData.department}}
+             {{profile.department}}
           </div>
         </span>
         <span *ngIf = "mod">
@@ -90,7 +90,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
         <span *ngIf = "!mod">
           {{'profile.team' | translate }}
           <div class="pc">
-             {{profileData.team}}
+             {{profile.team}}
           </div>
         </span>
         <span *ngIf = "mod">
@@ -107,7 +107,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
         <span *ngIf = "!mod">
           {{'profile.leader' | translate }}
           <div class="pc">
-             {{profileData.leader}}
+             {{profile.leader}}
           </div>
         </span>
         <span *ngIf = "mod">
@@ -123,7 +123,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
         <span *ngIf = "!mod">
           {{'profile.position' | translate }}
           <div class="pc">
-             {{profileData.position}}
+             {{profile.position}}
           </div>
         </span>
         <span *ngIf = "mod">
@@ -140,7 +140,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
         <span *ngIf = "!mod">
           {{'profile.dateOfEntry' | translate }}
           <div class="pc">
-             {{profileData.dateOfEntry  | date: 'yyyy-MM-dd'}}
+             {{profile.dateOfEntry  | date: 'yyyy-MM-dd'}}
           </div>
         </span>
         <span *ngIf = "mod">
@@ -174,39 +174,46 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 export class ProfilViewDialog {
   public editForm: FormGroup;
   public mod: boolean = false;
+  public profile$: Observable<Profile>;
+  public profile: Profile;
 
-  constructor(private readonly api: ApiCommunicationService,
+  constructor(@Inject(MAT_DIALOG_DATA)
+              private readonly id: number,
+              private readonly api: ApiCommunicationService,
               public dialog: MatDialog,
               public dialogRef: MatDialogRef<ProfilViewDialog>) {
-    this.profile$ = this.api.profile()
-      .getProfile(this.profileData.userId);
   }
 
   public ngOnInit() {
+    this.api.profile()
+      .getProfile(this.id)
+      .subscribe(
+        (data: Profile) => {this.profile = data;
+        });
+
     this.editForm = new FormGroup({
-      dateOfBirth: new FormControl(this.profileData.dateOfBirth),
-      dateOfEntry: new FormControl(this.profileData.dateOfEntry),
-      department: new FormControl(this.profileData.department),
-      firstname: new FormControl(this.profileData.firstName),
-      lastname: new FormControl(this.profileData.lastName),
-      leader: new FormControl(this.profileData.leader),
-      position: new FormControl(this.profileData.position),
-      team: new FormControl(this.profileData.team)
+      dateOfBirth: new FormControl(),
+      dateOfEntry: new FormControl(),
+      department: new FormControl(),
+      firstname: new FormControl(),
+      lastname: new FormControl(),
+      leader: new FormControl(),
+      position: new FormControl(),
+      team: new FormControl()
     });
+
+    this.editForm.setValue({
+      dateOfBirth: '',
+      department: this.profile.department,
+      firstname: this.profile.firstName,
+      lastname: this.profile.lastName,
+      leader: this.profile.leader,
+      position: this.profile.position,
+      team: this.profile.team,
+      dateOfEntry: this.profile.dateOfEntry,
+    });
+
   }
-  // test data
-  public profileData: Profile = {
-    dateOfBirth: '1992-03-13',
-    dateOfEntry: '2010-01-23',
-    department: 'Pénzügy',
-    firstName: 'Lajos',
-    lastName: 'Kovács',
-    leader: 'Szabó Ferenc',
-    position: 'Csoportvezető',
-    team: 'Könyvelés',
-    userId: 1
-  };
-  public profile$: Observable<Profile>;
 
   public Close(): void {
     this.dialogRef.close();
@@ -215,8 +222,9 @@ export class ProfilViewDialog {
     this.mod = true;
   }
   protected onSubmit() {
-    // put
-    this.profileData = this.editForm.value;
+
+    this.profile = this.editForm.value;
+    console.log(this.profile);
     this.Close();
   }
 }
