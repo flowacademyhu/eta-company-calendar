@@ -42,15 +42,14 @@ public class ReminderService {
         }
     }
 
-    public ResponseEntity<Void> updateReminder(ReminderDTO reminderDTO) {
+    public Reminder updateReminder(ReminderDTO reminderDTO) {
         Reminder existingReminder = findOne(reminderDTO.getId());
         existingReminder.setTitle(reminderDTO.getTitle());
         existingReminder.setDescription(reminderDTO.getDescription());
         existingReminder.setStartingTime(reminderDTO.getStartingTime());
         existingReminder.setEndingTime(reminderDTO.getEndingTime());
         existingReminder.setRecurring(reminderDTO.getRecurring());
-        reminderRepository.save(existingReminder);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        return reminderRepository.save(existingReminder);
     }
 
     public void deleteById(Long id) {
