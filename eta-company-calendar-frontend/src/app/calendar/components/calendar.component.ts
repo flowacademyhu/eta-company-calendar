@@ -30,9 +30,9 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
   <div class='app-calendar white-background'>
     <mat-card *ngIf="isUserLeader">
       <mat-form-field>
-        <mat-label>Select an option</mat-label>
+        <mat-label>{{ 'calendar.selectEmployee' | translate}}</mat-label>
         <mat-select [(value)]="selectedUser" (selectionChange)="fetchMeetings()">
-          <mat-option [value]="loggedInUser">self</mat-option>
+          <mat-option [value]="loggedInUser">{{ 'calendar.self' | translate }}</mat-option>
           <mat-option
             *ngFor="let employee of (userEmployees$ | async)"
             [value]="employee"

@@ -1,8 +1,14 @@
 {
+  "calendar": {
+    "selectEmployee": "dolgozó kiválasztása",
+    "self": "én"
+  },
+  
   "welcome": {
     "text": "Üdvözöllek Céges Kalendárium csapat! Olvassátok el a fejlesztői dokumentációt!",
     "button": "Váltás angol nyelvre"
   },
+
   "profile": {
     "name": "Név",
     "lastname": "Vezetéknév",
@@ -84,6 +90,7 @@
     "password_error": "A jelszó kitöltése kötelező.",
     "role_error": "A szerepkör megadása kötelező"
   },
+
   "reminderlist": {
     "id": "Id",
     "title": "Tárgy",
@@ -108,4 +115,5 @@
     "snack_delete": "Felhasználó törölve",
     "snack_delete_error": "Sikertelen törlés"
   }
+
 }
