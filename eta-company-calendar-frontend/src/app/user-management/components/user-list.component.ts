@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { UserResponse } from '~/app/models/user-response.model';
 import { DeleteUserComponent } from '../modals/delete-user.component';
@@ -65,7 +64,6 @@ export class UserListComponent implements OnInit {
 
   constructor(private readonly userService: UserService,
               private readonly snackBar: MatSnackBar,
-              private readonly translate: TranslateService,
               private readonly dialog: MatDialog,
               ) { }
 
