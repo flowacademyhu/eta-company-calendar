@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup} from '@angular/forms';
+import { FormGroup} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
-import { Observable } from 'rxjs';
 import { Profile } from '~/app/models/profile.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { ProfilEditDialog } from './profile-edit-dialog.component';
@@ -59,7 +58,7 @@ import { ProfilEditDialog } from './profile-edit-dialog.component';
     </div>
     </mat-dialog-content>
 
-    <div>
+    <div div class="d-flex justify-content-between">
       <button mat-stroked-button (click) = openEditDialog()
           align="center">{{'profile.modify' | translate}}</button>
       <button mat-stroked-button (click) = Close() type="button"

@@ -64,7 +64,7 @@ public class ProfileService {
       }
       return new ProfileDTO(profileRepository.save(profile));
     } else {
-      Profile profile = profileDTO.toEntity(userRepository.findById(id).get());
+      Profile profile = profileDTO.toEntity(userRepository.findById(id).orElseThrow());
       profile.setId(id);
       if (profileDTO.getFirstName() != null) {
         profile.setFirstName(profileDTO.getFirstName());
