@@ -1,5 +1,6 @@
 package hu.flowacademy.companycalendar.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -26,6 +27,7 @@ public class Profile {
   @OneToOne
   @JoinColumn
   @MapsId
+  @JsonBackReference
   private User user;
 
   private String firstName;

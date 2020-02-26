@@ -31,10 +31,10 @@ public class ProfileResource {
     return profileService.getProfile(id);
   }
 
-  @PostMapping
+ /* @PostMapping
   public ResponseEntity<ProfileDTO> createProfile(@RequestBody ProfileDTO profileDTO) {
     return ResponseEntity.ok(profileService.createProfile(profileDTO));
-  }
+  }*/
 
   @PutMapping("/{id}")
   public ResponseEntity<ProfileDTO> updateProfile(@PathVariable Long id, @RequestBody ProfileDTO profileDTO) {

@@ -25,7 +25,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               <div class="pc">
              <input matInput
                 class="form-control"
-                formControlName = "lastname">
+                formControlName = "lastName">
               </div>
             </mat-form-field>
         </span>
@@ -42,7 +42,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               <div class="pc">
              <input matInput
                 class="form-control"
-                formControlName = "firstname">
+                formControlName = "firstName">
               </div>
             </mat-form-field>
         </span>
@@ -205,7 +205,7 @@ export class ProfilViewDialog {
     });
 
     this.editForm.setValue({
-      dateOfBirth: this.profile.dateOfEntry,
+      dateOfBirth: this.profile.dateOfBirth,
       department: this.profile.department,
       firstName: this.profile.firstName,
       lastName: this.profile.lastName,
@@ -226,7 +226,23 @@ export class ProfilViewDialog {
   }
   public Modify(): void {
     this.mod = true;
+    this.api.profile()
+      .getProfile(this.id)
+      .subscribe(
+        (data: Profile) => {this.profile = data;
+        });
+    this.editForm.setValue({
+          dateOfBirth: this.profile.dateOfBirth,
+          department: this.profile.department,
+          firstName: this.profile.firstName,
+          lastName: this.profile.lastName,
+          leader: this.profile.leader,
+          position: this.profile.position,
+          team: this.profile.team,
+          dateOfEntry: this.profile.dateOfEntry,
+        });
   }
+
   protected onSubmit() {
     this.profile = this.editForm.getRawValue();
     console.log(this.profile);
