@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, ViewChild, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { EventInput, View } from '@fullcalendar/core';
@@ -6,15 +6,15 @@ import enGbLocale from '@fullcalendar/core/locales/en-gb';
 import huLocale from '@fullcalendar/core/locales/hu';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import rrulePlugin from '@fullcalendar/rrule';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import { TranslateService } from '@ngx-translate/core';
+// import { RRule } from 'rrule';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { MeetingCreateComponent } from '../modals/meeting-create.component';
-import { RRule } from 'rrule';
-import rrulePlugin from '@fullcalendar/rrule';
 
 @Component({
   selector: 'app-calendar',
@@ -49,7 +49,7 @@ import rrulePlugin from '@fullcalendar/rrule';
   `
 })
 
-export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -67,26 +67,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
               private readonly auth: AuthService,
               private readonly dialog: MatDialog,
               private readonly translate: TranslateService) { }
-
-  public ngOnInit() {
-    /* IDE ÍRJ */
-
-    const rule = new RRule({
-      freq: RRule.WEEKLY,
-      interval: 5,
-      byweekday: [RRule.MO, RRule.FR],
-      dtstart: new Date(Date.UTC(2020, 1, 1, 1)),
-      until: new Date(Date.UTC(2020, 12, 31))
-    })
-    console.log(rule.toString());
-
-    this.calendarEvents = [{
-      title: 'recurring event',
-      duration: '01:00',
-      rrule: rule.toString()
-    }]
-    /* */
-  }
 
   public ngAfterViewInit() {
     this.setCalendarLang(this.translate.currentLang);
@@ -124,16 +104,21 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private fetchMeetings() {
-    // this.api.meeting()
-    // .getMeetingsByIdAndTimeRange(this.auth.tokenDetails.getValue().id,
-    //                              this.currentView.activeStart.valueOf(),
-    //                              this.currentView.activeEnd.valueOf())
-    // .subscribe((data) => {
-    //   this.calendarEvents = [];
-    //   this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
-    //     return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title};
-    //   }));
-    // });
+    this.api.meeting()
+    .getMeetingsByIdAndTimeRange(this.auth.tokenDetails.getValue().id,
+                                 this.currentView.activeStart.valueOf(),
+                                 this.currentView.activeEnd.valueOf())
+    .subscribe((data) => {
+      this.calendarEvents = [];
+      this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
+        return {
+          start: meeting.startingTime,
+          end: meeting.finishTime,
+          title: meeting.title,
+          rrule: meeting.rrule?.rrule
+        };
+      }));
+    });
   }
 
   public ngOnDestroy() {
