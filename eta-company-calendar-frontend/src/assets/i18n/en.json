@@ -19,7 +19,9 @@
     "view": "PROFILE DETAILS",
     "enter_lastename": "Enter lastname",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "success":  "Profile has been updated",
+    "fail": "Error occured during update"
   },
 
   "header": {

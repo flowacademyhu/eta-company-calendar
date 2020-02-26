@@ -19,7 +19,9 @@
     "view": "PROFIL ADATOK",
     "enter_lastename": "Vezetéknév módosítása",
     "save": "Mentés",
-    "cancel": "Mégsem"
+    "cancel": "Mégsem",
+    "success":  "Profil módosítva",
+    "fail": "Sikertelen módosítás"
   },
 
   "header": {
