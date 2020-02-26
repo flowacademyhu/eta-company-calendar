@@ -13,6 +13,8 @@ import { takeUntil } from 'rxjs/operators';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { MeetingCreateComponent } from '../modals/meeting-create.component';
+import { RRule } from 'rrule';
+import rrulePlugin from '@fullcalendar/rrule';
 
 @Component({
   selector: 'app-calendar',
@@ -57,7 +59,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   public locales: object[] = [enGbLocale, huLocale];
 
-  public calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
+  public calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin, rrulePlugin];
 
   private calendarEvents: EventInput[] = [];
 
@@ -79,6 +81,19 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     this.dialog.afterAllClosed
       .pipe(takeUntil(this.destroy$))
       .subscribe((_) => this.fetchMeetings());
+
+    /* IDE ÍRJ */
+
+    const rule = new RRule({
+      freq: RRule.WEEKLY,
+      interval: 5,
+      // byweekday: [RRule.MO, RRule.FR],
+      dtstart: new Date(Date.UTC(2020, 1, 1, 1)),
+      until: new Date(Date.UTC(2020, 12, 31))
+    })
+    console.log(rule.all());
+    console.log(new Date(Date.UTC(2020, 0, 1, 1)));
+    /* */
   }
 
   protected handleDateClick(arg: EventInput) {
