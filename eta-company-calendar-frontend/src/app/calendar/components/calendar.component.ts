@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { EventInput, View } from '@fullcalendar/core';
@@ -49,7 +49,7 @@ import rrulePlugin from '@fullcalendar/rrule';
   `
 })
 
-export class CalendarComponent implements AfterViewInit, OnDestroy {
+export class CalendarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -68,6 +68,26 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
               private readonly dialog: MatDialog,
               private readonly translate: TranslateService) { }
 
+  public ngOnInit() {
+    /* IDE ÍRJ */
+
+    const rule = new RRule({
+      freq: RRule.WEEKLY,
+      interval: 5,
+      byweekday: [RRule.MO, RRule.FR],
+      dtstart: new Date(Date.UTC(2020, 1, 1, 1)),
+      until: new Date(Date.UTC(2020, 12, 31))
+    })
+    console.log(rule.toString());
+
+    this.calendarEvents = [{
+      title: 'recurring event',
+      duration: '01:00',
+      rrule: rule.toString()
+    }]
+    /* */
+  }
+
   public ngAfterViewInit() {
     this.setCalendarLang(this.translate.currentLang);
     this.translate.onLangChange
@@ -81,19 +101,6 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     this.dialog.afterAllClosed
       .pipe(takeUntil(this.destroy$))
       .subscribe((_) => this.fetchMeetings());
-
-    /* IDE ÍRJ */
-
-    const rule = new RRule({
-      freq: RRule.WEEKLY,
-      interval: 5,
-      // byweekday: [RRule.MO, RRule.FR],
-      dtstart: new Date(Date.UTC(2020, 1, 1, 1)),
-      until: new Date(Date.UTC(2020, 12, 31))
-    })
-    console.log(rule.all());
-    console.log(new Date(Date.UTC(2020, 0, 1, 1)));
-    /* */
   }
 
   protected handleDateClick(arg: EventInput) {
@@ -117,16 +124,16 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
   }
 
   private fetchMeetings() {
-    this.api.meeting()
-    .getMeetingsByIdAndTimeRange(this.auth.tokenDetails.getValue().id,
-                                 this.currentView.activeStart.valueOf(),
-                                 this.currentView.activeEnd.valueOf())
-    .subscribe((data) => {
-      this.calendarEvents = [];
-      this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
-        return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title};
-      }));
-    });
+    // this.api.meeting()
+    // .getMeetingsByIdAndTimeRange(this.auth.tokenDetails.getValue().id,
+    //                              this.currentView.activeStart.valueOf(),
+    //                              this.currentView.activeEnd.valueOf())
+    // .subscribe((data) => {
+    //   this.calendarEvents = [];
+    //   this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
+    //     return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title};
+    //   }));
+    // });
   }
 
   public ngOnDestroy() {
