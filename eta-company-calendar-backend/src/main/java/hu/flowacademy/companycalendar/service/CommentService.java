@@ -30,12 +30,12 @@ public class CommentService {
   }
 
   public Comment findOne(Long id) {
-    return commentRepository.findById(id).orElseThrow(CommentNotFoundException::new);
+    return commentRepository.findById(id).orElseThrow(() -> new CommentNotFoundException(id));
   }
 
   public Comment saveComment(CommentDTO commentDTO) {
-    User user = userRepository.findById(commentDTO.getUserId()).orElseThrow(UserNotFoundException::new);
-    Meeting meeting = meetingRepository.findById(commentDTO.getMeetingId()).orElseThrow(MeetingNotFoundException::new);
+    User user = userRepository.findById(commentDTO.getUserId()).orElseThrow(() -> new UserNotFoundException(commentDTO.getUserId()));
+    Meeting meeting = meetingRepository.findById(commentDTO.getMeetingId()).orElseThrow(() -> new MeetingNotFoundException(commentDTO.getMeetingId()));
     return commentRepository.save(commentDTO.toEntity(user, meeting));
   }
 

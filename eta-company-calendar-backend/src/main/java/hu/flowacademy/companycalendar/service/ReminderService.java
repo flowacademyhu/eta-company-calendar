@@ -26,7 +26,7 @@ public class ReminderService {
     }
 
     public Reminder findOne(Long id) {
-        return reminderRepository.findById(id).orElseThrow(ReminderNotFoundException::new);
+        return reminderRepository.findById(id).orElseThrow(() -> new ReminderNotFoundException(id));
     }
 
     public void createReminder(ReminderDTO reminderDTO) {
@@ -36,7 +36,7 @@ public class ReminderService {
             reminder.setUser(u.get());
             reminderRepository.save(reminder);
         } else {
-            throw new ReminderNotFoundException();
+            throw new ReminderNotFoundException(reminderDTO.getId());
         }
     }
 

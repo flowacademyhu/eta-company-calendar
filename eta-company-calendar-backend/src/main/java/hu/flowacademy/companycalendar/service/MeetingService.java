@@ -33,7 +33,7 @@ public class MeetingService {
 
     public MeetingDTO findOne(Long id) {
         return new MeetingDTO(meetingRepository.findById(id)
-                .orElseThrow(MeetingNotFoundException::new));
+                .orElseThrow(() -> new MeetingNotFoundException(id)));
     }
 
     public List<MeetingListItemDTO> findByUserIdAndTimeRange(Long userId,
@@ -44,8 +44,7 @@ public class MeetingService {
     }
 
     public MeetingDTO create(Long userId, MeetingDTO meetingDTO) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(UserNotFoundException::new);
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
         Meeting meeting = meetingDTO.toEntity();
         meeting.setCreatedBy(user);
         meeting.setCreatedAt(System.currentTimeMillis());
@@ -55,7 +54,7 @@ public class MeetingService {
     public Long createWithEmails(MeetingCreateDTO dto) {
         Meeting meeting = dto.toEntity(
             userRepository.findFirstByEmail(dto.getCreatedBy())
-                .orElseThrow(UserNotFoundException::new),
+                .orElseThrow(() -> new UserNotFoundException("Cannot find user")),
             userRepository.findByEmailIn(dto.getRequiredAttendants()),
             userRepository.findByEmailIn(dto.getOptionalAttendants()));
         meeting.setCreatedAt(System.currentTimeMillis());
@@ -64,7 +63,7 @@ public class MeetingService {
 
     public MeetingDTO updateMeeting(Long userId, MeetingDTO meetingDTO) {
         User user = userRepository.findById(userId)
-                .orElseThrow(MeetingNotFoundException::new);
+                .orElseThrow(() -> new UserNotFoundException(userId));
         Meeting meeting = meetingDTO.toEntity();
         meeting.setUpdatedBy(user);
         meeting.setUpdatedAt(System.currentTimeMillis());

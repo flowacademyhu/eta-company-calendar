@@ -2,7 +2,7 @@ package hu.flowacademy.companycalendar.service;
 
 import hu.flowacademy.companycalendar.email.EmailService;
 import hu.flowacademy.companycalendar.email.EmailType;
-import hu.flowacademy.companycalendar.exception.BadRequestException;
+import hu.flowacademy.companycalendar.exception.UserAlreadyExistException;
 import hu.flowacademy.companycalendar.exception.UserNotFoundException;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.UserRequestDTO;
@@ -33,12 +33,12 @@ public class UserService {
 
   public UserResponseDTO getUser(Long id) {
     return new UserResponseDTO(userRepository.findById(id)
-        .orElseThrow(UserNotFoundException::new));
+        .orElseThrow(() -> new UserNotFoundException(id)));
   }
 
   public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
     if (userRepository.findFirstByEmail(userRequestDTO.getEmail()).isPresent()) {
-      throw new BadRequestException();
+      throw new UserAlreadyExistException(userRequestDTO.getEmail());
     }
     String psw = BCrypt.hashpw(userRequestDTO.getPassword(), BCrypt.gensalt());
     User user = userRequestDTO.toEntity();
@@ -49,7 +49,7 @@ public class UserService {
 
   public UserResponseDTO updateUser(Long id, UserRequestDTO userRequestDTO) {
     User user = userRepository.findById(id)
-        .orElseThrow(UserNotFoundException::new);
+        .orElseThrow(() -> new UserNotFoundException(id));
     if (!(("").equals(userRequestDTO.getPassword()))
         && !BCrypt.checkpw(userRequestDTO.getPassword(), user.getPassword())) {
       String psw = BCrypt.hashpw(userRequestDTO.getPassword(), BCrypt.gensalt());
