@@ -32,5 +32,4 @@ public class RRule {
   private Long dtstart = Long.MIN_VALUE;
 
   private Long until = Long.MAX_VALUE;
-
 }
