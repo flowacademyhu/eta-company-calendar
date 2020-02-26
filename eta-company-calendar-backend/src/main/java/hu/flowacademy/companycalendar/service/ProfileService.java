@@ -33,65 +33,18 @@ public class ProfileService {
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
   }
 
-
   public ProfileDTO updateProfile(Long id, ProfileDTO profileDTO) {
-    if (profileRepository.findByUserId(id).isPresent()) {
-      Profile profile = profileRepository.findByUserId(id).get();
-      profile.setId(id);
-      if (profileDTO.getFirstName() != null) {
-        profile.setFirstName(profileDTO.getFirstName());
-      }
-      if (profileDTO.getLastName() != null) {
-        profile.setLastName(profileDTO.getLastName());
-      }
-      if (profileDTO.getDepartment() != null) {
-        profile.setDepartment(profileDTO.getDepartment());
-      }
-      if (profileDTO.getPosition() != null) {
-        profile.setPosition(profileDTO.getPosition());
-      }
-      if (profileDTO.getLeader() != null) {
-        profile.setLeader(profileDTO.getLeader());
-      }
-      if (profileDTO.getDateOfBirth() != null) {
-        profile.setDateOfBirth(profileDTO.getDateOfBirth());
-      }
-      if (profileDTO.getDateOfEntry() != null) {
-        profile.setDateOfEntry(profileDTO.getDateOfEntry());
-      }
-      if (profileDTO.getTeam() != null) {
-        profile.setTeam(profileDTO.getTeam());
-      }
-      return new ProfileDTO(profileRepository.save(profile));
-    } else {
-      Profile profile = profileDTO.toEntity(userRepository.findById(id).orElseThrow());
-      profile.setId(id);
-      if (profileDTO.getFirstName() != null) {
-        profile.setFirstName(profileDTO.getFirstName());
-      }
-      if (profileDTO.getLastName() != null) {
-        profile.setLastName(profileDTO.getLastName());
-      }
-      if (profileDTO.getDepartment() != null) {
-        profile.setDepartment(profileDTO.getDepartment());
-      }
-      if (profileDTO.getLeader() != null) {
-        profile.setLeader(profileDTO.getLeader());
-      }
-      if (profileDTO.getPosition() != null) {
-        profile.setPosition(profileDTO.getPosition());
-      }
-      if (profileDTO.getDateOfBirth() != null) {
-        profile.setDateOfBirth(profileDTO.getDateOfBirth());
-      }
-      if (profileDTO.getDateOfEntry() != null) {
-        profile.setDateOfEntry(profileDTO.getDateOfEntry());
-      }
-      if (profileDTO.getTeam() != null) {
-        profile.setTeam(profileDTO.getTeam());
-      }
-      return new ProfileDTO(profileRepository.save(profile));
-    }
+    Profile profile = profileRepository.findByUserId(id).orElseThrow();
+    //profile.setId(id);
+    profile.setFirstName(profileDTO.getFirstName());
+    profile.setLastName(profileDTO.getLastName());
+    profile.setDepartment(profileDTO.getDepartment());
+    profile.setPosition(profileDTO.getPosition());
+    profile.setLeader(profileDTO.getLeader());
+    profile.setDateOfBirth(profileDTO.getDateOfBirth());
+    profile.setDateOfEntry(profileDTO.getDateOfEntry());
+    profile.setTeam(profileDTO.getTeam());
+    return new ProfileDTO(profileRepository.save(profile));
   }
 
   public void deleteProfile(Long id) {
