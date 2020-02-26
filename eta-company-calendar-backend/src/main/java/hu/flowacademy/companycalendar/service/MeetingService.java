@@ -7,15 +7,12 @@ import hu.flowacademy.companycalendar.model.dto.MeetingDTO;
 import hu.flowacademy.companycalendar.model.dto.MeetingListItemDTO;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
-import java.util.ArrayList;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @Transactional
@@ -43,6 +40,11 @@ public class MeetingService {
                                                              Long startingTimeTo) {
         return meetingRepository.findByUserIdAndTimeRange(userId, startingTimeFrom, startingTimeTo)
             .stream().map(MeetingListItemDTO::new).collect(Collectors.toList());
+    }
+
+    public List<MeetingDTO> findByUserId(Long userId) {
+        return meetingRepository.findByInvitedUserId(userId)
+                .stream().map(MeetingDTO::new).collect(Collectors.toList());
     }
 
     public MeetingDTO create(Long userId, MeetingDTO meetingDTO) {

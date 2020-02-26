@@ -101,6 +101,22 @@
     "list_users": "Felhasználók listázása"
   },
 
+  "meetinglist": {
+    "id": "ID",
+    "title": "Tárgy",
+    "date": "Dátum",
+    "startingTime": "Kezdés",
+    "finishTime": "Vége",
+    "details": "Részletek",
+    "description": "Leírás",
+    "location" : "Helyszín",
+    "recurring": "Ismétlődés",
+    "createdBy": "Létrehozta",
+    "reqAttendants": "Résztvevők",
+    "optAttendants": "Értesítések",
+    "modalClose": "Bezárás"
+  },
+
   "edituserform":{
     "edit_user": "Adatok módosítása",
     "role": "Szerepkör",

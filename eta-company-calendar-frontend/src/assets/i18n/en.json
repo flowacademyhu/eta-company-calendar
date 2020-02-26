@@ -101,6 +101,22 @@
     "list_users": "List users"
   },
 
+  "meetinglist": {
+    "id": "ID",
+    "title": "Title",
+    "date": "Date",
+    "startingTime": "Starting",
+    "finishTime": "Ending",
+    "details": "Details",
+    "description": "Description",
+    "location" : "Location",
+    "recurring": "Recurring",
+    "createdBy": "Created by",
+    "reqAttendants": "Attendants",
+    "optAttendants": "Notification",
+    "modalClose": "Close"
+  },
+  
   "edituserform":{
     "edit_user": "Edit user",
     "role": "Role",
