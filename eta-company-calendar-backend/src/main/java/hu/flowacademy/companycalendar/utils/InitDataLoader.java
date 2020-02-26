@@ -63,6 +63,7 @@ public class InitDataLoader {
                 .optionalAttendants(List.of(testUsers.get(0)))
                 .build()).collect(Collectors.toList())
         );
+        
     }
     public void createReminder() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
