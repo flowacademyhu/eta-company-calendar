@@ -1,5 +1,7 @@
 package hu.flowacademy.companycalendar.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,6 +38,9 @@ public class Meeting {
 
   @Enumerated(value = EnumType.STRING)
   private Recurring recurring;
+
+  @OneToOne(cascade = CascadeType.PERSIST)
+  private RRule rrule;
 
   private Long startingTime;
 
