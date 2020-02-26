@@ -43,6 +43,11 @@ public class MeetingService {
             .stream().map(MeetingListItemDTO::new).collect(Collectors.toList());
     }
 
+    public List<MeetingDTO> findByUserId(Long userId) {
+        return meetingRepository.findByInvitedUserId(userId)
+                .stream().map(MeetingDTO::new).collect(Collectors.toList());
+    }
+
     public MeetingDTO create(Long userId, MeetingDTO meetingDTO) {
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
         Meeting meeting = meetingDTO.toEntity();
