@@ -114,7 +114,8 @@
     "createdBy": "Létrehozta",
     "reqAttendants": "Résztvevők",
     "optAttendants": "Értesítések",
-    "modalClose": "Bezárás"
+    "modalClose": "Bezárás",
+    "filter": "Szűrés"
   },
 
   "edituserform":{
