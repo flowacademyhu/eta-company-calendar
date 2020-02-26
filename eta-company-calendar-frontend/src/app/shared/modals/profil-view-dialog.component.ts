@@ -157,16 +157,18 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
         </span>
     </div>
     </mat-dialog-content>
-    <mat-dialog-actions>
+
+    <div>
       <button *ngIf = "!mod" mat-stroked-button (click) = Modify()
           align="center">{{'profile.modify' | translate}}</button>
-      <button *ngIf = "!mod" mat-stroked-button (click) = Close()
+      <button *ngIf = "!mod" mat-stroked-button (click) = Close() type="button"
           align="center">{{'profile.close' | translate}}</button>
     <button *ngIf = "mod" mat-stroked-button
           align="center" type="submit">{{'profile.save' | translate}}</button>
-    <button *ngIf = "mod" mat-stroked-button (click) = Close()
+    <button *ngIf = "mod" mat-stroked-button (click) = Close() type="button"
           align="center">{{'profile.cancel' | translate}}</button>
-    </mat-dialog-actions>
+    </div>
+
 </form>
     `
 })
@@ -195,8 +197,8 @@ export class ProfilViewDialog {
       dateOfBirth: new FormControl(),
       dateOfEntry: new FormControl(),
       department: new FormControl(),
-      firstname: new FormControl(),
-      lastname: new FormControl(),
+      firstName: new FormControl(),
+      lastName: new FormControl(),
       leader: new FormControl(),
       position: new FormControl(),
       team: new FormControl()
@@ -205,8 +207,8 @@ export class ProfilViewDialog {
     this.editForm.setValue({
       dateOfBirth: this.profile.dateOfEntry,
       department: this.profile.department,
-      firstname: this.profile.firstName,
-      lastname: this.profile.lastName,
+      firstName: this.profile.firstName,
+      lastName: this.profile.lastName,
       leader: this.profile.leader,
       position: this.profile.position,
       team: this.profile.team,
