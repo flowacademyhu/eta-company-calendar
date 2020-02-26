@@ -49,7 +49,7 @@ public class UserService {
   public UserResponseDTO updateUser(Long id, UserRequestDTO userRequestDTO) {
     User user = userRepository.findById(id)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    if (userRequestDTO.getPassword() != null
+    if (!(("").equals(userRequestDTO.getPassword()))
         && !BCrypt.checkpw(userRequestDTO.getPassword(), user.getPassword())) {
       String psw = BCrypt.hashpw(userRequestDTO.getPassword(), BCrypt.gensalt());
       user.setPassword(psw);

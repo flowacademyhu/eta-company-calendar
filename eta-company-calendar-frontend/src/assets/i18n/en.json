@@ -16,7 +16,7 @@
     "leader": "Leader",
     "dateOfBirth": "Date of Birth",
     "dateOfEntry": "Date of Entry",
-    "view": "PROFILE DETAILS",
+    "view": "profile details",
     "enter_lastename": "Enter lastname",
     "save": "Save",
     "cancel": "Cancel"
@@ -45,24 +45,24 @@
 
   "meeting": {
     "header": "create meeting",
-    "title": "title",
-    "titleError": "title is required",
-    "description": "description",
-    "location": "location",
-    "otherLocation": "other",
-    "startingTime": "from",
-    "finishTime": "to",
-    "createdBy": "organizer",
-    "requiredAttendants": "required",
-    "optionalAttendants": "optional",
-    "attendantsTitle": "Attendants",
-    "attendantError": "email not valid",
-    "submitButton": "submit",
-    "cancelButton": "cancel"
+    "title": "Title",
+    "titleError": "Title is required",
+    "description": "Description",
+    "location": "Location",
+    "otherLocation": "Other",
+    "startingTime": "From",
+    "finishTime": "To",
+    "createdBy": "Organizer",
+    "requiredAttendants": "Required attendance",
+    "optionalAttendants": "Optional attendance",
+    "attendantsTitle": "attendants",
+    "attendantError": "E-mail not valid",
+    "submitButton": "Submit",
+    "cancelButton": "Cancel"
   },
 
   "location": {
-    "MEETING_ROOM": "meeting room",
+    "MEETING_ROOM": "Meeting room",
     "MARKS_OFFICE": "Mark's office",
     "ARONS_OFFICE": "Aron's office",
     "OTHER": "other"
@@ -82,7 +82,10 @@
     "cancel":"Cancel",
     "email_error": "Invalid email address.",
     "password_error": "A password is required.",
-    "role_error": "Role is required"
+    "role_error": "Role is required",
+    "success":  "User has been created",
+    "fail": "Error occured during create",
+    "match_failed": "Passwords must match"
   },
   "reminderlist": {
     "id": "Id",
@@ -96,6 +99,40 @@
   "usermanagement": {
     "new_user": "Add new user",
     "list_users": "List users"
+  },
+
+  "meetinglist": {
+    "id": "ID",
+    "title": "Title",
+    "date": "Date",
+    "startingTime": "Starting",
+    "finishTime": "Ending",
+    "details": "Details",
+    "description": "Description",
+    "location" : "Location",
+    "recurring": "Recurring",
+    "createdBy": "Created by",
+    "reqAttendants": "Attendants",
+    "optAttendants": "Notification",
+    "modalClose": "Close"
+  },
+  
+  "edituserform":{
+    "edit_user": "Edit user",
+    "role": "Role",
+    "admin": "Admin",
+    "user": "User",
+    "email": "Email address",
+    "password": "Password",
+    "confirm_password": "Confirm password",
+    "create":"Create",
+    "cancel":"Cancel",
+    "email_error": "Invalid email address.",
+    "password_error": "A password is required.",
+    "role_error": "Role is required",
+    "success":  "User has been updated",
+    "fail": "Error occured during update",
+    "match_failed": "Passwords must match"
   },
 
   "userlist": {

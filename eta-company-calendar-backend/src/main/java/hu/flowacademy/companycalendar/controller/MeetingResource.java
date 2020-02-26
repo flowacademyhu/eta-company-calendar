@@ -37,6 +37,11 @@ public class MeetingResource {
         return meetingService.findByUserIdAndTimeRange(userId, startingTimeFrom, startingTimeTo);
     }
 
+    @GetMapping("/invited/{userId}")
+    public List<MeetingDTO> getByInvitedFromQuery(@PathVariable Long userId) {
+        return meetingService.findByUserId(userId);
+    }
+
     @GetMapping("/{id}")
     public MeetingDTO getOne(@PathVariable Long id) {
         return meetingService.findOne(id);

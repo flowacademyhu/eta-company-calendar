@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { TokenDetails } from '~/app/shared/models/token-details.model';
+import { AuthService } from '~/app/shared/services/auth.service';
 import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.component';
-import { ConfigurationService } from '../../shared/services/configuration.service';
 
 @Component({
   selector: 'app-header',
@@ -54,20 +55,24 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
       <mat-menu #menu = "matMenu">
         <button mat-menu-item (click) = "openProfilDialog()">{{'header.profile' | translate}}</button>
         <button mat-menu-item routerLink="">{{'header.calendar' | translate}}</button>
-        <button mat-menu-item routerLink=".">{{'header.meetings' | translate}}</button>
+        <button mat-menu-item routerLink="/my-meetings">{{'header.meetings' | translate}}</button>
         <button mat-menu-item routerLink="/reminders">{{'header.reminders' | translate}}</button>
-        <!-- TODO: add admin role (*ngIf) to User Management button -->
-        <button mat-menu-item routerLink="/user-management">{{'header.userManagement' | translate}}</button>
+        <button mat-menu-item
+          *ngIf="isAdmin(tokenDetails$ | async)"
+          routerLink="/user-management"
+          >{{'header.userManagement' | translate}}</button>
         <button mat-menu-item (click)="onLogout()">{{'header.logout' | translate}}</button>
       </mat-menu>
         <a mat-stroked-button (click) = "openProfilDialog()"
         fxShow="true" fxHide.lt-md>{{'header.profile' | translate}}</a>
         <a mat-stroked-button routerLink="/" fxShow="true" fxHide.lt-md>{{'header.calendar' | translate}}</a>
-        <a mat-stroked-button routerLink="." fxShow="true" fxHide.lt-md>{{'header.meetings' | translate}}</a>
+        <a mat-stroked-button routerLink="/my-meetings" fxShow="true" fxHide.lt-md>{{'header.meetings' | translate}}</a>
         <a mat-stroked-button routerLink="/reminders" fxShow="true" fxHide.lt-md>{{'header.reminders' | translate}}</a>
-        <!-- TODO: add admin role (*ngIf) to User Management button -->
-        <a mat-stroked-button routerLink="/user-management"
-        fxShow="true" fxHide.lt-md>{{'header.userManagement' | translate}}</a>
+        <a mat-stroked-button
+          *ngIf="isAdmin(tokenDetails$ | async)"
+          routerLink="/user-management"
+          fxShow="true" fxHide.lt-md
+          >{{'header.userManagement' | translate}}</a>
     </span>
       <div class="header2">
         <button class="translate-button" (click)="onLanguageChange()">{{'header.button' | translate}}</button>
@@ -79,13 +84,14 @@ import { ConfigurationService } from '../../shared/services/configuration.servic
 })
 
 export class HeaderComponent {
-
+  protected tokenDetails$: Observable<TokenDetails>;
   public language: string;
 
-  constructor(private readonly router: Router,
-              private readonly configService: ConfigurationService,
+  constructor(private readonly auth: AuthService,
               private readonly translate: TranslateService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog) {
+    this.tokenDetails$ = this.auth.tokenDetails;
+  }
 
   public onLanguageChange() {
     this.translate.use(this.language === 'en' ? 'hu' : 'en');
@@ -93,11 +99,17 @@ export class HeaderComponent {
   }
 
   public onLogout() {
-    this.configService.clearToken();
-    this.router.navigate(['login']);
+    this.auth.logout();
   }
 
   public openProfilDialog() {
     this.dialog.open(ProfilViewDialog, {disableClose: true});
+  }
+
+  protected isAdmin(tokenDetails: TokenDetails): boolean {
+    if (tokenDetails.authorities) {
+      return tokenDetails.authorities.indexOf('ADMIN') > -1;
+    }
+    return false;
   }
 }

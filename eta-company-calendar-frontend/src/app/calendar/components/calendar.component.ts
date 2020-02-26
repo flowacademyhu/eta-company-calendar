@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { FullCalendarComponent } from '@fullcalendar/angular';
-import { EventInput } from '@fullcalendar/core';
+import { EventInput, View } from '@fullcalendar/core';
 import enGbLocale from '@fullcalendar/core/locales/en-gb';
 import huLocale from '@fullcalendar/core/locales/hu';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -10,8 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
-
-import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from '~/app/shared/services/auth.service';
 import { MeetingCreateComponent } from '../modals/meeting-create.component';
 
 @Component({
@@ -36,9 +36,12 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
       }"
       [locales]="locales"
+      [firstDay]="1"
       [plugins]="calendarPlugins"
       [events]="calendarEvents"
+      [aspectRatio]="1.35"
       (dateClick)="handleDateClick($event)"
+      (datesRender)="onDatesRender($event)"
     ></full-calendar>
   </div>
   `
@@ -50,17 +53,21 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('calendar') public calendarComponent: FullCalendarComponent;
 
+  protected currentView: View;
+
   public locales: object[] = [enGbLocale, huLocale];
 
   public calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
 
   private calendarEvents: EventInput[] = [];
 
-  constructor(private readonly translate: TranslateService,
-              private readonly api: ApiCommunicationService,
-              private readonly dialog: MatDialog) { }
+  constructor(private readonly api: ApiCommunicationService,
+              private readonly auth: AuthService,
+              private readonly dialog: MatDialog,
+              private readonly translate: TranslateService) { }
 
   public ngAfterViewInit() {
+    this.setCalendarLang(this.translate.currentLang);
     this.translate.onLangChange
       .pipe(takeUntil(this.destroy$))
       .subscribe((params) => {
@@ -81,6 +88,11 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  protected onDatesRender(info: DatesRenderInfo) {
+    this.currentView = info.view;
+    this.fetchMeetings();
+  }
+
   private setCalendarLang(lang: string) {
     if (lang === 'en') {
       lang = 'en-gb';
@@ -91,7 +103,9 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   private fetchMeetings() {
     this.api.meeting()
-    .getMeetingsByIdAndTimeRange(1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+    .getMeetingsByIdAndTimeRange(this.auth.tokenDetails.getValue().id,
+                                 this.currentView.activeStart.valueOf(),
+                                 this.currentView.activeEnd.valueOf())
     .subscribe((data) => {
       this.calendarEvents = [];
       this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
@@ -104,4 +118,9 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     this.destroy$.next(true);
   }
 
+}
+
+export interface DatesRenderInfo {
+  view: View;
+  el: HTMLElement;
 }

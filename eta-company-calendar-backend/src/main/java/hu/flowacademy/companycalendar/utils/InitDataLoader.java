@@ -2,10 +2,12 @@ package hu.flowacademy.companycalendar.utils;
 
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
+import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.model.Recurring;
 import hu.flowacademy.companycalendar.model.Reminder;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
+import hu.flowacademy.companycalendar.repository.ProfileRepository;
 import hu.flowacademy.companycalendar.repository.ReminderRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
 import java.text.DateFormat;
@@ -31,6 +33,7 @@ public class InitDataLoader {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final ReminderRepository reminderRepository;
+    private final ProfileRepository profileRepository;
 
     @PostConstruct
     public void init() throws ParseException {
@@ -73,6 +76,7 @@ public class InitDataLoader {
                 .optionalAttendants(List.of(testUsers.get(0)))
                 .build()).collect(Collectors.toList())
         );
+        
     }
     public void createReminder() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");

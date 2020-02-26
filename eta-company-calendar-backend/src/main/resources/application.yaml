@@ -28,7 +28,14 @@ mailing:
     apiKey: ${MAILGUN_API_KEY:}
     mailSenderUrl: "https://api.mailgun.net/v3/sandbox1ec338183b504836a481e02cbee72d6e.mailgun.org"
   mailFrom: "Mailgun Sandbox <postmaster@sandbox1ec338183b504836a481e02cbee72d6e.mailgun.org>"
-  messageTemplate: "Helló %s! Új értekezleted van, dátum: %s, kezdés: %s, vége: %s, helyszín: a %s. A részvételed %s."
+  messageTemplate: "Helló %s!
+                    \n\nEzt az értesítést azért kaptad, mert meghívót kaptál egy értekezletre.
+                    \n Az értekezlet dátuma: %s
+                    \nKkezdés: %s
+                    \nVége: %s
+                    \nHelyszín: %s.
+                    \nA részvételed az értekezleten %s."
+
 # mailgun: apiKey, mailSenderUrl, mailFrom
 
 ---
@@ -69,4 +76,10 @@ mailing:
     apiKey: ${MAILGUN_API_KEY:}
     mailSenderUrl: "https://api.mailgun.net/v3/sandbox1ec338183b504836a481e02cbee72d6e.mailgun.org"
   mailFrom: "Mailgun Sandbox <postmaster@sandbox1ec338183b504836a481e02cbee72d6e.mailgun.org>"
-  messageTemplate: "Helló %s! Új értekezleted van, dátum: %s, kezdés: %s, vége: %s, helyszín: a %s teremben. A részvételed %s"
+  messageTemplate: "Helló %s!
+                   \n\nEzt az értesítést azért kaptad, mert meghívót kaptál egy értekezletre.
+                   \n Az értekezlet dátuma: %s
+                   \nKkezdés: %s
+                   \nVége: %s
+                   \nHelyszín: %s.
+                   \nA részvételed az értekezleten %s."
