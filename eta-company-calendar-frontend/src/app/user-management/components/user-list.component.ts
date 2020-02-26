@@ -75,15 +75,6 @@ export class UserListComponent implements OnInit {
     .userSub;
   }
 
-  public deleteUser(userId: number) {
-    this.userService.deleteUser(userId)
-            .subscribe(() => {this.openSnackBar(this.translate.instant('userlist.snack_delete'));
-                              this.userService.getAllUsers(); },
-            () => {this.openSnackBar(
-              this.translate.instant('userlist.snack_delete_error'));
-              });
-  }
-
   public openSnackBar(message: string) {
     this.snackBar.open(`${message}`, undefined, {
     duration: 2000
