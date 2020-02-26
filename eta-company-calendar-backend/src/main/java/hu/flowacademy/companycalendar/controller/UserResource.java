@@ -33,6 +33,11 @@ public class UserResource {
     return userService.getUser(id);
   }
 
+  @GetMapping("/{id}/employees")
+  public List<UserResponseDTO> getEmployees(@PathVariable Long id) {
+    return userService.getEmployees(id);
+  }
+
   @PostMapping
   public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequestDTO) {
     return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(userRequestDTO));
