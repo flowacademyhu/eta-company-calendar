@@ -67,10 +67,7 @@ import { PasswordNotMatchingValidator } from './password-validator';
     constructor(
       public dialogRef: MatDialogRef<NewUserComponent>,
       private readonly snackBar: MatSnackBar,
-<<<<<<< HEAD
-=======
       private readonly translate: TranslateService,
->>>>>>> cd8320a77a0b393c4f4e7ee7662588d11b258e24
       public readonly userService: UserService) {}
 
     public onNoClick(): void {
@@ -86,15 +83,8 @@ import { PasswordNotMatchingValidator } from './password-validator';
     protected onSubmit() {
       this.user = this.newUserForm.getRawValue();
       this.userService.postUser(this.user)
-<<<<<<< HEAD
-              .subscribe(() => {this.openSnackBar('New user created');
-                                this.userService.getAllUsers();
-                                this.dialogRef.close(); },
-               (error) => this.openSnackBar('Error occured: ' + error.status));
-=======
               .subscribe(() => {this.openSnackBar(this.translate.instant('newuserform.success'));
                                 this.userService.getAllUsers();
                                 this.dialogRef.close(); },
                () => this.openSnackBar(this.translate.instant('newuserform.fail'))); }
->>>>>>> cd8320a77a0b393c4f4e7ee7662588d11b258e24
     }
