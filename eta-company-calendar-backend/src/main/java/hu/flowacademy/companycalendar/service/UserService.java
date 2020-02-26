@@ -69,4 +69,12 @@ public class UserService {
   public void deleteUser(Long id) {
     userRepository.deleteById(id);
   }
+
+  public List<UserResponseDTO> getEmployees(Long id) {
+    return userRepository.findById(id).orElseThrow()
+        .getEmployees()
+        .stream()
+        .map(UserResponseDTO::new)
+        .collect(Collectors.toList());
+  }
 }

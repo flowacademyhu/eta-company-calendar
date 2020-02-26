@@ -16,7 +16,7 @@
     "leader": "Vezető",
     "dateOfBirth": "Születési dátum",
     "dateOfEntry": "Munkaviszony kezdete",
-    "view": "PROFIL ADATOK",
+    "view": "profil adatok",
     "enter_lastename": "Vezetéknév módosítása",
     "save": "Mentés",
     "cancel": "Mégsem",
@@ -41,33 +41,33 @@
     "invalid_grant": "Hibás email cím vagy jelszó.",
     "no_response": "A szerver nem elérhető.",
     "logout": "Kijelentkezés",
-    "email_error": "Az email cím formátuma hibás.",
+    "email_error": "Az e-mail cím formátuma hibás.",
     "password_error": "A jelszó kitöltése kötelező."
   },
 
   "meeting": {
     "header": "esemény létrehozása",
-    "title": "cím",
-    "titleError": "a cím megadása kötelező",
-    "description": "leírás",
-    "location": "helyszín",
-    "otherLocation": "egyéb",
-    "startingTime": "kezdés",
-    "finishTime": "vége",
-    "createdBy": "szervező",
-    "requiredAttendants": "kötelező",
-    "optionalAttendants": "opcionális",
-    "attendantsTitle": "Meghívottak",
-    "attendantError": "email cím nem valid",
-    "submitButton": "létrehozás",
-    "cancelButton": "mégse"
+    "title": "Cím",
+    "titleError": "A cím megadása kötelező",
+    "description": "Leírás",
+    "location": "Helyszín",
+    "otherLocation": "Egyéb",
+    "startingTime": "Kezdés",
+    "finishTime": "Vége",
+    "createdBy": "Szervező",
+    "requiredAttendants": "Kötelező részvétel",
+    "optionalAttendants": "Opcionális részvétel",
+    "attendantsTitle": "meghívottak",
+    "attendantError": "E-mail cím nem létezik",
+    "submitButton": "Létrehozás",
+    "cancelButton": "Mégse"
   },
 
   "location": {
-    "MEETING_ROOM": "tárgyaló",
+    "MEETING_ROOM": "Tárgyaló",
     "MARKS_OFFICE": "Márk irodája",
     "ARONS_OFFICE": "Áron irodája",
-    "OTHER": "egyéb"
+    "OTHER": "Egyéb"
   },
 
   "newuserform": {
@@ -82,7 +82,7 @@
     "confirm_password": "Jelszó megerősítés",
     "create":"Létrehoz",
     "cancel":"Mégse",
-    "email_error": "Az email cím formátuma hibás.",
+    "email_error": "Az e-mail cím formátuma hibás.",
     "password_error": "A jelszó kitöltése kötelező.",
     "role_error": "A szerepkör megadása kötelező",
     "success":  "Felhasználó létrehozva",
@@ -101,6 +101,22 @@
   "usermanagement": {
     "new_user": "Új felhasználó létrehozása",
     "list_users": "Felhasználók listázása"
+  },
+
+  "meetinglist": {
+    "id": "ID",
+    "title": "Tárgy",
+    "date": "Dátum",
+    "startingTime": "Kezdés",
+    "finishTime": "Vége",
+    "details": "Részletek",
+    "description": "Leírás",
+    "location" : "Helyszín",
+    "recurring": "Ismétlődés",
+    "createdBy": "Létrehozta",
+    "reqAttendants": "Résztvevők",
+    "optAttendants": "Értesítések",
+    "modalClose": "Bezárás"
   },
 
   "edituserform":{

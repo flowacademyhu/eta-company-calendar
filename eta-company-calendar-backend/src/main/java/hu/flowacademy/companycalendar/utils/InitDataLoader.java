@@ -41,13 +41,21 @@ public class InitDataLoader {
     }
 
     private void createUsers() {
-        userRepository.saveAll(
+        var testUsers = userRepository.saveAll(
             IntStream.range(0, 10).mapToObj( i -> User.builder()
                 .email("user" + i + "@test.com")
                 .password(passwordEncoder.encode("user123"))
                 .role(i == 0 ? Roles.ADMIN : Roles.USER).build()).collect(Collectors.toList())
 
         );
+        testUsers.forEach(user -> {
+            if (user.getId() == 2) {
+                user.setRole(Roles.LEADER);
+            } else {
+                user.setLeader(testUsers.get(1));
+            }
+        });
+        userRepository.saveAll(testUsers);
     }
 
     private void createMeetings() {
@@ -65,7 +73,9 @@ public class InitDataLoader {
                 .optionalAttendants(List.of(testUsers.get(0)))
                 .build()).collect(Collectors.toList())
         );
+        
     }
+
     public void createReminder() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         reminderRepository.save(Reminder.builder()
