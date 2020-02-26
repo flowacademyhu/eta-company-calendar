@@ -2,6 +2,7 @@ package hu.flowacademy.companycalendar.utils;
 
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
+import hu.flowacademy.companycalendar.model.RRule;
 import hu.flowacademy.companycalendar.model.Recurring;
 import hu.flowacademy.companycalendar.model.Reminder;
 import hu.flowacademy.companycalendar.model.User;
@@ -71,7 +72,20 @@ public class InitDataLoader {
                 .optionalAttendants(List.of(testUsers.get(0)))
                 .build()).collect(Collectors.toList())
         );
-        
+        var rrule = "DTSTART:20200201T010000Z\n"
+            + "RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,FR;UNTIL=20210131T000000Z";
+        meetingRepository.save(Meeting.builder()
+            .title("recurring meeting")
+            .description("a meeting every Monday and Friday")
+            .location(Location.MARKS_OFFICE)
+            .createdAt(System.currentTimeMillis())
+            .createdBy(testUsers.get(0))
+            .requiredAttendants(List.of(testUsers.get(1)))
+            .rrule(RRule.builder()
+                .rrule(rrule)
+                .dtstart(1580518800000L)
+                .until(1612051200000L).build())
+            .build());
     }
 
     public void createReminder() throws ParseException {
