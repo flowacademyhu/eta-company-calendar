@@ -5,8 +5,8 @@
   },
   "profile": {
     "name": "Name",
-    "lastname": "LastName",
-    "firstname": "FirstName",
+    "lastName": "LastName",
+    "firstName": "FirstName",
     "button": "Switch to Hungarian",
     "close": "Close",
     "modify": "Modify",

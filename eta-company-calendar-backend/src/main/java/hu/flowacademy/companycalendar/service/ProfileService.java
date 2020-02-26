@@ -42,13 +42,16 @@ public class ProfileService {
         profile.setFirstName(profileDTO.getFirstName());
       }
       if (profileDTO.getLastName() != null) {
-        profile.setFirstName(profileDTO.getLastName());
+        profile.setLastName(profileDTO.getLastName());
       }
       if (profileDTO.getDepartment() != null) {
         profile.setDepartment(profileDTO.getDepartment());
       }
       if (profileDTO.getPosition() != null) {
         profile.setPosition(profileDTO.getPosition());
+      }
+      if (profileDTO.getLeader() != null) {
+        profile.setLeader(profileDTO.getLeader());
       }
       if (profileDTO.getDateOfBirth() != null) {
         profile.setDateOfBirth(profileDTO.getDateOfBirth());
@@ -67,10 +70,13 @@ public class ProfileService {
         profile.setFirstName(profileDTO.getFirstName());
       }
       if (profileDTO.getLastName() != null) {
-        profile.setFirstName(profileDTO.getLastName());
+        profile.setLastName(profileDTO.getLastName());
       }
       if (profileDTO.getDepartment() != null) {
         profile.setDepartment(profileDTO.getDepartment());
+      }
+      if (profileDTO.getLeader() != null) {
+        profile.setLeader(profileDTO.getLeader());
       }
       if (profileDTO.getPosition() != null) {
         profile.setPosition(profileDTO.getPosition());

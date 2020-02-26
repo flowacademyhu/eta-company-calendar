@@ -17,6 +17,7 @@ public class ProfileDTO {
   private String lastName;
   private LocalDate dateOfBirth;
   private LocalDate dateOfEntry;
+  private String leader;
   private String department;
   private String position;
   private String team;

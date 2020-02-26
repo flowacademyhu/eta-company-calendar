@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { Observable } from 'rxjs';
@@ -14,35 +14,35 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
     <mat-dialog-content class="dialogview mb-5">
       <div class="personal">
         <span *ngIf = "!mod">
-          {{'profile.lastname' | translate }}
+          {{'profile.lastName' | translate }}
           <div class="pc">
              {{profile.lastName}}
           </div>
         </span>
         <span *ngIf = "mod">
           <mat-form-field>
-            <mat-label>{{'profile.lastname' | translate }}</mat-label>
+            <mat-label>{{'profile.lastName' | translate }}</mat-label>
               <div class="pc">
              <input matInput
-                class="form-control"
-                formControlName = "lastName">
+                class="form-control" type="text"
+                formControlName="lastName">
               </div>
             </mat-form-field>
         </span>
         <br>
         <span *ngIf = "!mod">
-          {{'profile.firstname' | translate }}
+          {{'profile.firstName' | translate }}
           <div class="pc">
              {{profile.firstName}}
           </div>
         </span>
         <span *ngIf = "mod">
           <mat-form-field>
-            <mat-label>{{'profile.firstname' | translate }}</mat-label>
+            <mat-label>{{'profile.firstName' | translate }}</mat-label>
               <div class="pc">
              <input matInput
-                class="form-control"
-                formControlName = "firstName">
+                class="form-control" type="text"
+                formControlName="firstName">
               </div>
             </mat-form-field>
         </span>
@@ -62,7 +62,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
              <input matInput
                 type = "date"
                 class="form-control"
-                formControlName = "dateOfBirth">
+                formControlName="dateOfBirth">
               </div>
             </mat-form-field>
         </span>
@@ -80,9 +80,9 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
           <mat-form-field>
             <mat-label>{{'profile.department' | translate }}</mat-label>
               <div class="pc">
-             <input matInput
+             <input matInput type="text"
                 class="form-control"
-                formControlName = "department">
+                formControlName="department">
               </div>
             </mat-form-field>
         </span>
@@ -99,7 +99,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               <div class="pc">
              <input matInput
                 class="form-control"
-                formControlName = "team">
+                formControlName="team">
               </div>
             </mat-form-field>
         </span>
@@ -116,7 +116,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               <div class="pc">
              <input matInput
                 class="form-control"
-                formControlName = "leader">
+                formControlName="leader">
               </div>
             </mat-form-field>
         </span>
@@ -132,7 +132,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               <div class="pc">
              <input matInput
                 class="form-control"
-                formControlName = "position">
+                formControlName="position">
               </div>
             </mat-form-field>
         </span>
@@ -150,7 +150,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               <input matInput
                 class="form-control"
                 type = "date"
-                formControlName = "dateOfEntry"
+                formControlName="dateOfEntry"
                 >
               </div>
             </mat-form-field>
@@ -173,11 +173,11 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
     `
 })
 
-export class ProfilViewDialog {
+export class ProfilViewDialog implements OnInit {
   public editForm: FormGroup;
   public mod: boolean = false;
   public profile$: Observable<Profile>;
-  public profile: Profile;
+  public profile: Profile = {} as Profile;
 
   constructor(@Inject(MAT_DIALOG_DATA)
               private readonly id: number,
@@ -191,28 +191,31 @@ export class ProfilViewDialog {
       .getProfile(this.id)
       .subscribe(
         (data: Profile) => {this.profile = data;
-        });
+        console.log(data);
+        console.log(this.profile);
+        }
+        );
 
     this.editForm = new FormGroup({
-      dateOfBirth: new FormControl(),
-      dateOfEntry: new FormControl(),
-      department: new FormControl(),
-      firstName: new FormControl(),
-      lastName: new FormControl(),
-      leader: new FormControl(),
-      position: new FormControl(),
-      team: new FormControl()
+      dateOfBirth: new FormControl(''),
+      dateOfEntry: new FormControl(''),
+      department: new FormControl(''),
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
+      leader: new FormControl(''),
+      position: new FormControl(''),
+      team: new FormControl('')
     });
 
     this.editForm.setValue({
-      dateOfBirth: this.profile.dateOfBirth,
-      department: this.profile.department,
-      firstName: this.profile.firstName,
-      lastName: this.profile.lastName,
-      leader: this.profile.leader,
-      position: this.profile.position,
-      team: this.profile.team,
-      dateOfEntry: this.profile.dateOfEntry,
+      dateOfBirth: this.profile.dateOfBirth.valueOf(),
+      department: this.profile.department.valueOf(),
+      firstName: this.profile.firstName.valueOf(),
+      lastName: this.profile.lastName.valueOf(),
+      leader: this.profile.leader.valueOf(),
+      position: this.profile.position.valueOf(),
+      team: this.profile.team.valueOf(),
+      dateOfEntry: this.profile.dateOfEntry.valueOf(),
     });
 
   }
@@ -226,21 +229,6 @@ export class ProfilViewDialog {
   }
   public Modify(): void {
     this.mod = true;
-    this.api.profile()
-      .getProfile(this.id)
-      .subscribe(
-        (data: Profile) => {this.profile = data;
-        });
-    this.editForm.setValue({
-          dateOfBirth: this.profile.dateOfBirth,
-          department: this.profile.department,
-          firstName: this.profile.firstName,
-          lastName: this.profile.lastName,
-          leader: this.profile.leader,
-          position: this.profile.position,
-          team: this.profile.team,
-          dateOfEntry: this.profile.dateOfEntry,
-        });
   }
 
   protected onSubmit() {
