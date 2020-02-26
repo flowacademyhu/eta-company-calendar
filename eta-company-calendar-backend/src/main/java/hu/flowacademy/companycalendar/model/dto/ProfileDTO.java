@@ -35,13 +35,13 @@ public class ProfileDTO {
     this.department = profile.getDepartment();
     this.position = profile.getPosition();
     this.team = profile.getTeam();
+    this.leader = profile.getLeader();
   }
 
   public Profile toEntity(User user) {
     Profile profile = Profile.builder().user(user).build();
     BeanUtils.copyProperties(this, profile);
-    //user.setProfile(profile);
-    //profile.setUser(user);
+    profile.setUser(user);
     return profile;
   }
 }
