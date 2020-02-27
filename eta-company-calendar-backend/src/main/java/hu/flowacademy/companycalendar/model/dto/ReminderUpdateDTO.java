@@ -13,21 +13,34 @@ import org.springframework.beans.BeanUtils;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReminderCreateDTO {
+public class ReminderUpdateDTO {
 
   private Long id;
   private String title;
   private String description;
   private Recurring recurring;
   private Long startingTime;
-  private String createdBy;
-  private Long createdAt;
+  private Long userId;
+  private Long updatedAt;
 
-  public Reminder toEntity(User createdBy) {
+  public ReminderUpdateDTO(Reminder reminder) {
+    this.id = reminder.getId();
+    this.title = reminder.getTitle();
+    this.description = reminder.getDescription();
+    this.recurring = reminder.getRecurring();
+    this.startingTime = reminder.getStartingTime();
+    this.userId = reminder.getUser().getId();
+    this.updatedAt = reminder.getUpdatedAt();
+
+  }
+
+  public Reminder toEntity(User userId) {
     Reminder reminder = new Reminder();
     BeanUtils.copyProperties(this, reminder);
-    reminder.setUser(createdBy);
+    reminder.setUser(userId);
     reminder.setCreatedAt(System.currentTimeMillis());
     return reminder;
   }
+
+
 }

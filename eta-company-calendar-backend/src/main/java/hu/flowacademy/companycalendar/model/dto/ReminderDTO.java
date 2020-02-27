@@ -3,6 +3,7 @@ package hu.flowacademy.companycalendar.model.dto;
 import hu.flowacademy.companycalendar.model.Recurring;
 import hu.flowacademy.companycalendar.model.Reminder;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
+@Builder
 public class ReminderDTO {
 
     private Long id;
@@ -19,6 +21,8 @@ public class ReminderDTO {
     private String title;
     private String description;
     private Long startingTime;
+    private Long createdAt;
+    private Long updatedAt;
     private Recurring recurring;
 
     public ReminderDTO(Reminder reminder) {
@@ -26,6 +30,8 @@ public class ReminderDTO {
         this.title = reminder.getTitle();
         this.description = reminder.getDescription();
         this.startingTime = reminder.getStartingTime();
+        this.createdAt = reminder.getCreatedAt();
+        this.updatedAt = reminder.getUpdatedAt();
         this.recurring = reminder.getRecurring();
         if (reminder.getUser() != null) {
             this.userId = reminder.getUser().getId();
@@ -37,6 +43,8 @@ public class ReminderDTO {
         reminder.setTitle(getTitle());
         reminder.setDescription(getDescription());
         reminder.setStartingTime(getStartingTime());
+        reminder.setCreatedAt(getCreatedAt());
+        reminder.setUpdatedAt(getUpdatedAt());
         reminder.setRecurring(getRecurring());
         return reminder;
     }

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class MeetingService {
 
     private final MeetingRepository meetingRepository;
-    private final UserRepository userRepository; // TODO - UserService is not ready yet
+    private final UserRepository userRepository;
 
     public List<MeetingDTO> findAll() {
        return meetingRepository

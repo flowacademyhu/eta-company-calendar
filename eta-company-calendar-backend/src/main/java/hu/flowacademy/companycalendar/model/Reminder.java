@@ -27,6 +27,12 @@ public class Reminder {
     @Column
     private Long startingTime;
 
+    @Column
+    private Long createdAt;
+
+    @Column
+    private Long updatedAt;
+
     @Enumerated(value = EnumType.STRING)
     private Recurring recurring;
 
