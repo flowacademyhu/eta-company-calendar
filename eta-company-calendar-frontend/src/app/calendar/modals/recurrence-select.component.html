@@ -1,0 +1,34 @@
+<form>
+  <div class="d-flex flex-column">
+    
+    <div>
+      <mat-label>repeates every</mat-label>
+      <table class="example-full-width" cellspacing="0"><tr>
+        <td><mat-form-field>
+          <input matInput type="number" value="1">
+        </mat-form-field></td>
+        <td><mat-form-field>
+          <mat-label>select</mat-label>
+          <mat-select>
+            <mat-option value="day">Day</mat-option>
+            <mat-option value="week">Week</mat-option>
+            <mat-option value="month">Month</mat-option>
+            <mat-option value="year">Year</mat-option>
+          </mat-select>
+        </mat-form-field></td>
+      </tr></table>
+    </div>
+
+    <div>
+      <mat-label>Ofertas vinculadas</mat-label>
+      <mat-chip-list multiple>
+        <mat-chip *ngFor="let day of daysOfWeek" selectable="true"
+                 [selected]="day.isSelected"
+                 (click)="toggleDay(day)">
+          {{day.name}}&nbsp;
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  
+  </div>
+</form>

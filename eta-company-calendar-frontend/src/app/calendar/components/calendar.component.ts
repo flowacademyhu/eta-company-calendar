@@ -15,6 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { MeetingCreateComponent } from '../modals/meeting-create.component';
+import { RecurrenceSelectComponent } from '../modals/recurrence-select.component';
 
 @Component({
   selector: 'app-calendar',
@@ -29,6 +30,7 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
   `],
   template: `
   <div class='app-calendar white-background'>
+    <button (click)="getRecurrenceComponent()">recurrence component</button>
     <full-calendar
       #calendar
       defaultView="dayGridMonth"
@@ -87,6 +89,12 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     this.dialog.open(MeetingCreateComponent, {
       width: '500px',
       data: {startingTime: arg.dateStr}
+    });
+  }
+
+  protected getRecurrenceComponent() {
+    this.dialog.open(RecurrenceSelectComponent, {
+      width: '500px',
     });
   }
 
