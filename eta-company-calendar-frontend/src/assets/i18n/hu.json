@@ -1,8 +1,14 @@
 {
+  "calendar": {
+    "selectEmployee": "naptár kiválasztása",
+    "self": "saját naptár"
+  },
+
   "welcome": {
     "text": "Üdvözöllek Céges Kalendárium csapat! Olvassátok el a fejlesztői dokumentációt!",
     "button": "Váltás angol nyelvre"
   },
+
   "profile": {
     "name": "Név",
     "lastname": "Vezetéknév",
@@ -87,6 +93,7 @@
     "fail": "Sikertelen létrehozás",
     "match_failed": "A két jelszó nem egyezik"
   },
+
   "reminderlist": {
     "id": "Id",
     "title": "Tárgy",
@@ -145,4 +152,5 @@
     "snack_delete": "Felhasználó törölve",
     "snack_delete_error": "Sikertelen törlés"
   }
+
 }
