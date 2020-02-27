@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -45,6 +47,12 @@ public class User implements UserDetails {
 
   @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
   private Profile profile;
+
+  @ManyToOne
+  private User leader;
+
+  @OneToMany(mappedBy = "leader", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+  private List<User> employees;
 
   @JsonIgnore
   @Override

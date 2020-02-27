@@ -1,6 +1,6 @@
 package hu.flowacademy.companycalendar.model;
 
 public enum Roles {
-  ADMIN, USER
+  ADMIN, LEADER, USER
 }
 
