@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Reminder } from '~/app/models/reminder.model';
+import { ReminderDetail } from '~/app/models/reminder-detail.model';
 import { ReminderService } from '~/app/reminder/service/reminder.service';
 
 @Component({
@@ -46,7 +46,7 @@ import { ReminderService } from '~/app/reminder/service/reminder.service';
 
 export class ReminderDescriptionComponent implements OnInit {
 
-  protected reminders$: Observable<Reminder[]>;
+  protected reminders$: Observable<ReminderDetail[]>;
   public displayedColumns: string[] = ['id', 'title', 'description', 'date', 'startingTime', 'endingTime', 'recurring'];
 
   constructor(private readonly reminderService: ReminderService) {}
