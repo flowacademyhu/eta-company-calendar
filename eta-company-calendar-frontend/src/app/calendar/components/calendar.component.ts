@@ -12,7 +12,8 @@ import { takeUntil } from 'rxjs/operators';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
 import { MatDialog } from '@angular/material/dialog';
-import { ReminderCreateComponent } from '../modals2/reminder-create.component';
+import { MeetingCreateComponent } from '../modals/meeting-create.component';
+// import { ReminderCreateComponent } from '../modals2/reminder-create.component';
 
 @Component({
   selector: 'app-calendar',
@@ -74,8 +75,8 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
       .subscribe((_) => this.fetchMeetings());
   }
 
-  protected handleDateClick(arg: EventInput) {
-    this.dialog.open(ReminderCreateComponent, {
+   protected handleDateClick(arg: EventInput) {
+    this.dialog.open(MeetingCreateComponent, {
       width: '500px',
       data: {startingTime: arg.dateStr}
     });
