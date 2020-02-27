@@ -18,7 +18,7 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long> {
       + " (m.startingTime BETWEEN ?2 and ?3"
       + " OR ?2 BETWEEN rrule.dtstart and rrule.until"
       + " OR ?3 BETWEEN rrule.dtstart and rrule.until)")
-  List<Meeting> findByUserIdAndTimeRange(Long userId, Long startingTimeFrom, Long StartingTimeTo);
+  List<Meeting> findByUserIdAndTimeRange(Long userId, Long startingTimeFrom, Long startingTimeTo);
 
   @Query("SELECT DISTINCT m FROM "
           + "Meeting m LEFT OUTER JOIN m.requiredAttendants r LEFT OUTER JOIN m.optionalAttendants o "
