@@ -22,7 +22,7 @@ import java.util.Optional;
 public class ReminderService {
 
     private final ReminderRepository reminderRepository;
-    private final UserRepository userRepository; //TODO: userService
+    private final UserRepository userRepository;
 
     public List<Reminder> findAll() {
         return reminderRepository.findAll();
@@ -48,7 +48,6 @@ public class ReminderService {
         existingReminder.setTitle(reminderDTO.getTitle());
         existingReminder.setDescription(reminderDTO.getDescription());
         existingReminder.setStartingTime(reminderDTO.getStartingTime());
-        existingReminder.setEndingTime(reminderDTO.getEndingTime());
         existingReminder.setRecurring(reminderDTO.getRecurring());
         reminderRepository.save(existingReminder);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();

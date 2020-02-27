@@ -19,7 +19,6 @@ public class ReminderDTO {
     private String title;
     private String description;
     private Long startingTime;
-    private Long endingTime;
     private Recurring recurring;
 
     public ReminderDTO(Reminder reminder) {
@@ -27,7 +26,6 @@ public class ReminderDTO {
         this.title = reminder.getTitle();
         this.description = reminder.getDescription();
         this.startingTime = reminder.getStartingTime();
-        this.endingTime = reminder.getEndingTime();
         this.recurring = reminder.getRecurring();
         if (reminder.getUser() != null) {
             this.userId = reminder.getUser().getId();
@@ -39,7 +37,6 @@ public class ReminderDTO {
         reminder.setTitle(getTitle());
         reminder.setDescription(getDescription());
         reminder.setStartingTime(getStartingTime());
-        reminder.setEndingTime(getEndingTime());
         reminder.setRecurring(getRecurring());
         return reminder;
     }
