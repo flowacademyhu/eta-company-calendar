@@ -25,8 +25,11 @@ public class ReminderService {
     private final ReminderRepository reminderRepository;
     private final UserRepository userRepository;
 
-    public List<Reminder> findAll() {
-        return reminderRepository.findAll();
+    public List<ReminderListItemDTO> findAll() {
+        List<Reminder> reminders = reminderRepository.findAll();
+        return reminders.stream()
+            .map(ReminderListItemDTO::new)
+            .collect(Collectors.toList());
     }
 
     public Reminder findOne(Long id) {

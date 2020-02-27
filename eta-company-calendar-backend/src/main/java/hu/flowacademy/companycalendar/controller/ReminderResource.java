@@ -23,7 +23,7 @@ public class ReminderResource {
     private final ReminderService reminderService;
 
     @GetMapping
-    public List<Reminder> findAll() {
+    public List<ReminderListItemDTO> findAll() {
         return reminderService.findAll();
     }
 

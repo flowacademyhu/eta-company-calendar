@@ -16,6 +16,7 @@ public class ReminderListItemDTO {
   private Long id;
   private String title;
   private Long startingTime;
+  private String description;
 
   public ReminderListItemDTO(Reminder reminder) { BeanUtils.copyProperties(reminder, this); }
 }
