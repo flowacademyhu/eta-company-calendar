@@ -84,7 +84,8 @@ public class InitDataLoader {
             .rrule(RRule.builder()
                 .rrule(rrule)
                 .dtstart(1580518800000L)
-                .until(1612051200000L).build())
+                .until(1612051200000L)
+                .duration(7200000L).build())
             .build());
     }
 
