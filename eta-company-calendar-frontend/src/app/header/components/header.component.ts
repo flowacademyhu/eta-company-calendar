@@ -46,7 +46,8 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
         border-color: black !important;
         width: 160px;}`,
   ],
-  template:     `<mat-toolbar class="tool-container mat-elevation-z6">
+  template:
+  `<mat-toolbar class="tool-container mat-elevation-z6">
     <span class="header1">
       <button mat-icon-button [matMenuTriggerFor] = "menu" fxShow="true" fxHide.gt-sm>
         <mat-icon>menu</mat-icon>

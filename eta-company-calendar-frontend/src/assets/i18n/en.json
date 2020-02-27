@@ -1,4 +1,9 @@
 {
+  "calendar": {
+    "selectEmployee": "select calendar",
+    "self": "own calendar"
+  },
+
   "welcome": {
     "text": "Welcome Team Company Calendar! Read the dev-docs!",
     "button": "Switch to Hungarian"

@@ -1,13 +1,12 @@
 package hu.flowacademy.companycalendar.service;
 
+import hu.flowacademy.companycalendar.exception.ProfileNotFoundException;
 import hu.flowacademy.companycalendar.model.dto.ProfileDTO;
 import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.repository.ProfileRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,11 +27,12 @@ public class ProfileService {
 
   public ProfileDTO getProfile(Long id) {
     return new ProfileDTO(profileRepository.findById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+        .orElseThrow(() -> new ProfileNotFoundException(id)));
   }
 
   public ProfileDTO updateProfile(Long id, ProfileDTO profileDTO) {
-    Profile profile = profileRepository.findByUserId(id).orElseThrow();
+    Profile profile = profileRepository.findByUserId(id)
+        .orElseThrow(() -> new ProfileNotFoundException(id));
     BeanUtils.copyProperties(profileDTO, profile);
     return new ProfileDTO(profileRepository.save(profile));
   }
