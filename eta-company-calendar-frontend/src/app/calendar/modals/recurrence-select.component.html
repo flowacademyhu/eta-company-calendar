@@ -20,7 +20,7 @@
     </div>
 
     <div>
-      <mat-label>Ofertas vinculadas</mat-label>
+      <mat-label>repeates on</mat-label>
       <mat-chip-list multiple>
         <mat-chip *ngFor="let day of daysOfWeek" selectable="true"
                  [selected]="day.isSelected"
@@ -28,6 +28,38 @@
           {{day.name}}&nbsp;
         </mat-chip>
       </mat-chip-list>
+    </div>
+
+    <div>
+      <label>Ends</label>
+      <mat-radio-group  class="d-flex flex-column">
+
+        <mat-radio-button value="1">
+          after 
+          <mat-form-field>
+            <input matInput type="number" value="1">
+          </mat-form-field>
+          occurence
+        </mat-radio-button>
+        
+        <mat-radio-button value="2">
+          after
+          <mat-form-field>
+            <mat-label >{{ 'meeting.startingTime' | translate }} *</mat-label>
+            <input
+              matInput
+              type="datetime" autocomplete="off"
+              [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" >
+            <owl-date-time #dt1 [firstDayOfWeek]="1"></owl-date-time>
+          </mat-form-field>
+          <mat-icon [owlDateTimeTrigger]="dt1">event</mat-icon>  
+        </mat-radio-button>
+
+        <mat-radio-button>
+          never
+        </mat-radio-button>
+        
+      </mat-radio-group>
     </div>
   
   </div>
