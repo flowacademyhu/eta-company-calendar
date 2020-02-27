@@ -10,10 +10,7 @@
         <td><mat-form-field>
           <mat-label>select</mat-label>
           <mat-select>
-            <mat-option value="day">Day</mat-option>
-            <mat-option value="week">Week</mat-option>
-            <mat-option value="month">Month</mat-option>
-            <mat-option value="year">Year</mat-option>
+            <mat-option *ngFor="let freq of frequencyTypes" [value]="freq.value">{{ freq.name }}</mat-option>
           </mat-select>
         </mat-form-field></td>
       </tr></table>
@@ -22,9 +19,9 @@
     <div>
       <mat-label>repeates on</mat-label>
       <mat-chip-list multiple>
-        <mat-chip *ngFor="let day of daysOfWeek" selectable="true"
+        <mat-chip *ngFor="let day of weekDays" selectable="true"
                  [selected]="day.isSelected"
-                 (click)="toggleDay(day)">
+                 (click)="toggleWeekDay(day)">
           {{day.name}}&nbsp;
         </mat-chip>
       </mat-chip-list>
@@ -33,16 +30,8 @@
     <div>
       <label>Ends</label>
       <mat-radio-group  class="d-flex flex-column">
-
-        <mat-radio-button value="1">
-          after 
-          <mat-form-field>
-            <input matInput type="number" value="1">
-          </mat-form-field>
-          occurence
-        </mat-radio-button>
         
-        <mat-radio-button value="2">
+        <mat-radio-button value="1">
           after
           <mat-form-field>
             <mat-label >{{ 'meeting.startingTime' | translate }} *</mat-label>
@@ -55,7 +44,7 @@
           <mat-icon [owlDateTimeTrigger]="dt1">event</mat-icon>  
         </mat-radio-button>
 
-        <mat-radio-button>
+        <mat-radio-button value="2">
           never
         </mat-radio-button>
         

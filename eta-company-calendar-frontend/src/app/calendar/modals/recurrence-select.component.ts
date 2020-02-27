@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { RRule, Weekday } from 'rrule';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-recurrence-select',
@@ -8,18 +9,10 @@ import { RRule, Weekday } from 'rrule';
 })
 
 export class RecurrenceSelectComponent implements OnInit {
-  constructor(private readonly dialogRef: MatDialogRef<RecurrenceSelectComponent>,
-              @Inject(MAT_DIALOG_DATA) private readonly data: object) { }
 
-  public ngOnInit() {
-    console.log(this.data);
-  }
+  private recurrenceForm: FormGroup;
 
-  public onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  protected daysOfWeek: DayOfWeek[] = [
+  protected weekDays: DayOfWeek[] = [
     { name: 'M', value: RRule.MO, isSelected: false },
     { name: 'T', value: RRule.TU, isSelected: false },
     { name: 'W', value: RRule.WE, isSelected: false },
@@ -29,9 +22,33 @@ export class RecurrenceSelectComponent implements OnInit {
     { name: 'S', value: RRule.SU, isSelected: false },
   ];
 
+  protected frequencyTypes: Frequency[] = [
+    {name: 'DAY', value: RRule.DAILY },
+    {name: 'WEEK', value: RRule.DAILY },
+    {name: 'MONTH', value: RRule.DAILY },
+    {name: 'YEAR', value: RRule.DAILY },
+  ]
+
   protected selectedDays: DayOfWeek[] = [];
 
-  protected toggleDay(day: DayOfWeek): void {
+  constructor(private readonly dialogRef: MatDialogRef<RecurrenceSelectComponent>,
+              @Inject(MAT_DIALOG_DATA) private readonly data: object) { }
+
+  public ngOnInit() {
+    console.log(this.data);
+    this.recurrenceForm = new FormGroup({
+      frequency: new FormControl(undefined, [Validators.required, Validators.min(1)]),
+      interval: new FormControl(undefined, [Validators.required]),
+      weekDays: new FormControl([]),
+      until: new FormControl(undefined)
+    });
+  }
+
+  public onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  protected toggleWeekDay(day: DayOfWeek): void {
     const index = this.selectedDays.indexOf(day);
 
     if (index >= 0) {
@@ -48,4 +65,9 @@ export interface DayOfWeek {
   name: string;
   isSelected: boolean;
   value: Weekday;
+}
+
+export interface Frequency {
+  name: string;
+  value: number;
 }
