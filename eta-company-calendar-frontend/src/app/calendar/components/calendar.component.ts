@@ -92,9 +92,11 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  // test
   protected getRecurrenceComponent() {
     this.dialog.open(RecurrenceSelectComponent, {
       width: '500px',
+      data: {startingDate: new Date()},
     });
   }
 

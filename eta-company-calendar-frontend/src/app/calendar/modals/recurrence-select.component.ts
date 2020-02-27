@@ -31,11 +31,14 @@ export class RecurrenceSelectComponent implements OnInit {
 
   protected selectedDays: DayOfWeek[] = [];
 
+  protected startingDate: Date;
+
   constructor(private readonly dialogRef: MatDialogRef<RecurrenceSelectComponent>,
-              @Inject(MAT_DIALOG_DATA) private readonly data: object) { }
+              @Inject(MAT_DIALOG_DATA) private readonly data: DialogData) { }
 
   public ngOnInit() {
     console.log(this.data);
+    this.startingDate = this.data.startingDate;
     this.recurrenceForm = new FormGroup({
       frequency: new FormControl(undefined, [Validators.required, Validators.min(1)]),
       interval: new FormControl(undefined, [Validators.required]),
@@ -59,6 +62,10 @@ export class RecurrenceSelectComponent implements OnInit {
     day.isSelected = !day.isSelected;
   }
 
+  public onSubmit() {
+    console.log(this.recurrenceForm);
+  }
+
 }
 
 export interface DayOfWeek {
@@ -70,4 +77,10 @@ export interface DayOfWeek {
 export interface Frequency {
   name: string;
   value: number;
+}
+
+export interface DialogData {
+  startingDate: Date;
+  duration?: number;
+  rrule?: string;
 }
