@@ -115,7 +115,8 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
           start: meeting.startingTime,
           end: meeting.finishTime,
           title: meeting.title,
-          rrule: meeting.rrule?.rrule
+          rrule: meeting.rrule?.rrule,
+          duration: meeting.rrule?.duration,
         };
       }));
     });
