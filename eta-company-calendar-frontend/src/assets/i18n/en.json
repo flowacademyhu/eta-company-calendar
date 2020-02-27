@@ -65,6 +65,17 @@
     "submitButton": "Submit",
     "cancelButton": "Cancel"
   },
+  
+  "reminder": {
+    "header": "create reminder",
+    "title": "title",
+    "titleError": "title is required",
+    "description": "description",
+    "startingTime": "from",
+    "createdBy": "organizer",
+    "submitButton": "submit",
+    "cancelButton": "cancel"
+  },
 
   "location": {
     "MEETING_ROOM": "Meeting room",
@@ -150,5 +161,5 @@
     "snack_delete": "User deleted",
     "snack_delete_error": "Unsuccessful"
   }
-  
+
 }

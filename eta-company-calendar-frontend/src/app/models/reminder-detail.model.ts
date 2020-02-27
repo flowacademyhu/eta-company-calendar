@@ -5,6 +5,5 @@ export interface ReminderDetail {
   description: string;
   recurring: Recurring;
   startingTime: number;
-  finishTime: number;
   createdBy: string;
 }

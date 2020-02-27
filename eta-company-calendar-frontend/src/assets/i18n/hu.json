@@ -67,6 +67,17 @@
     "cancelButton": "Mégse"
   },
 
+  "reminder": {
+    "header": "emlékeztető létrehozása",
+    "title": "cím",
+    "titleError": "a cím megadása kötelező",
+    "description": "leírás",
+    "startingTime": "kezdés",
+    "createdBy": "szervező",
+    "submitButton": "létrehozás",
+    "cancelButton": "mégse"
+  },
+
   "location": {
     "MEETING_ROOM": "Tárgyaló",
     "MARKS_OFFICE": "Márk irodája",
