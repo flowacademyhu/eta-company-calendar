@@ -1,11 +1,10 @@
 package hu.flowacademy.companycalendar.service;
 
-import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.ProfileDTO;
 import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.repository.ProfileRepository;
-import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,7 +18,6 @@ import java.util.stream.Collectors;
 public class ProfileService {
 
   private final ProfileRepository profileRepository;
-  private final UserRepository userRepository;
 
   public List<ProfileDTO> getAllProfile() {
     return profileRepository.findAll()
@@ -35,15 +33,7 @@ public class ProfileService {
 
   public ProfileDTO updateProfile(Long id, ProfileDTO profileDTO) {
     Profile profile = profileRepository.findByUserId(id).orElseThrow();
-    //profile.setId(id);
-    profile.setFirstName(profileDTO.getFirstName());
-    profile.setLastName(profileDTO.getLastName());
-    profile.setDepartment(profileDTO.getDepartment());
-    profile.setPosition(profileDTO.getPosition());
-    profile.setLeader(profileDTO.getLeader());
-    profile.setDateOfBirth(profileDTO.getDateOfBirth());
-    profile.setDateOfEntry(profileDTO.getDateOfEntry());
-    profile.setTeam(profileDTO.getTeam());
+    BeanUtils.copyProperties(profileDTO, profile);
     return new ProfileDTO(profileRepository.save(profile));
   }
 
