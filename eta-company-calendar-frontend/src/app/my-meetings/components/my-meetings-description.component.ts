@@ -1,4 +1,3 @@
-import { ApiCommunicationService } from './../../shared/services/api-communication.service';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Observable, Subscription } from 'rxjs';
@@ -6,6 +5,7 @@ import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { MeetingService } from '~/app/my-meetings/service/meeting.service';
 import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.component.ts';
 import { AuthService } from '~/app/shared/services/auth.service';
+import { ApiCommunicationService } from './../../shared/services/api-communication.service';
 
 @Component({
   selector: 'app-my-meetings-description',
@@ -60,12 +60,16 @@ import { AuthService } from '~/app/shared/services/auth.service';
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
- </table>
- <mat-paginator
+  <tr mat-footer-row *matFooterRowDef="['paginator']; sticky: true"></tr>
+  <ng-container matColumnDef="paginator">
+        <td mat-footer-cell *matFooterCellDef [colSpan]="displayedColumns.length"></td>
+    </ng-container>
+  </table>
+  <mat-paginator
         [pageSize]="5"
         [pageSizeOptions]="[5, 10, 20, 50]"
-        showFirstLastButton>
-      </mat-paginator>
+        showFirstLastButtons>
+  </mat-paginator>
   </div>
   `,
 })
@@ -77,7 +81,7 @@ export class MyMeetingsDescriptionComponent implements OnInit, OnDestroy, AfterV
   public dataSub: Subscription;
 
   @ViewChild(MatSort) public sort: MatSort;
-  @ViewChild(MatPaginator) public paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly meetingService: MeetingService,
