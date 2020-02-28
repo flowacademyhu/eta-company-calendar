@@ -33,6 +33,8 @@ export class RecurrenceSelectComponent implements OnInit {
 
   protected startingDate: Date;
 
+  protected hasEndDate: boolean = true;
+
   constructor(private readonly dialogRef: MatDialogRef<RecurrenceSelectComponent>,
               @Inject(MAT_DIALOG_DATA) private readonly data: DialogData) { }
 
@@ -43,7 +45,8 @@ export class RecurrenceSelectComponent implements OnInit {
       frequency: new FormControl(undefined, [Validators.required, Validators.min(1)]),
       interval: new FormControl(undefined, [Validators.required]),
       weekDays: new FormControl([]),
-      until: new FormControl(undefined)
+      hasEndDate: new FormControl(undefined),
+      until: new FormControl(undefined),
     });
     this.recurrenceForm.get('frequency')
       ?.setValue(this.frequencyTypes[1].value);

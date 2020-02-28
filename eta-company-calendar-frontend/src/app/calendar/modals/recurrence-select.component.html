@@ -17,7 +17,7 @@
 
     <div>
       <mat-label>repeates on</mat-label>
-      <mat-chip-list multiple>
+      <mat-chip-list multiple formControlName="weekDays">
         <mat-chip *ngFor="let day of weekDays" selectable="true"
                  [selected]="day.isSelected"
                  (click)="toggleWeekDay(day)">
@@ -28,23 +28,24 @@
 
     <div>
       <label>Ends</label>
-      <mat-radio-group  class="d-flex flex-column">
+      <mat-radio-group  class="d-flex flex-column" [(ngModel)]="hasEndDate" formControlName="hasEndDate">
         
-        <mat-radio-button value="1">
+        <mat-radio-button [value]="true">
           after
           <mat-form-field>
             <mat-label >{{ 'meeting.startingTime' | translate }} *</mat-label>
-            <input
-              matInput
+            <input matInput
+              formControlName="until"
+              [disabled]="!hasEndDate"
               type="datetime" autocomplete="off"
               [min]="startingDate"
               [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" >
-            <owl-date-time #dt1 [firstDayOfWeek]="1"></owl-date-time>
+            <owl-date-time #dt1 [firstDayOfWeek]="1" [disabled]="!hasEndDate"></owl-date-time>
           </mat-form-field>
           <mat-icon [owlDateTimeTrigger]="dt1">event</mat-icon>  
         </mat-radio-button>
 
-        <mat-radio-button value="2">
+        <mat-radio-button [value]="false">
           never
         </mat-radio-button>
         
