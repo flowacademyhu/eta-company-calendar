@@ -15,7 +15,7 @@
       </tr></table>
     </div>
 
-    <div>
+    <div *ngIf="recurrenceForm.get('frequency').value === 2">
       <mat-label>repeates on</mat-label>
       <mat-chip-list multiple formControlName="weekDays">
         <mat-chip *ngFor="let day of weekDays" selectable="true"
