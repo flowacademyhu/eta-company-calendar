@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { RRule, Weekday } from 'rrule';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-recurrence-select',
@@ -24,10 +24,11 @@ export class RecurrenceSelectComponent implements OnInit {
 
   protected frequencyTypes: Frequency[] = [
     {name: 'DAY', value: RRule.DAILY },
-    {name: 'WEEK', value: RRule.DAILY },
-    {name: 'MONTH', value: RRule.DAILY },
-    {name: 'YEAR', value: RRule.DAILY },
-  ]
+    {name: 'WEEK', value: RRule.WEEKLY },
+    {name: 'MONTH', value: RRule.MONTHLY },
+    {name: 'YEAR', value: RRule.YEARLY },
+  ];
+  protected selectedFrequencyType: Frequency;
 
   protected selectedDays: DayOfWeek[] = [];
 
@@ -45,6 +46,7 @@ export class RecurrenceSelectComponent implements OnInit {
       weekDays: new FormControl([]),
       until: new FormControl(undefined)
     });
+    this.recurrenceForm.get('frequency')?.setValue(this.frequencyTypes[1]);
   }
 
   public onNoClick(): void {

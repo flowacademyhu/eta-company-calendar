@@ -1,4 +1,4 @@
-<form>
+<form [formGroup]="recurrenceForm" (ngSubmit)="onSubmit()">
   <div class="d-flex flex-column">
     
     <div>
@@ -9,8 +9,8 @@
         </mat-form-field></td>
         <td><mat-form-field>
           <mat-label>select</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let freq of frequencyTypes" [value]="freq.value">{{ freq.name }}</mat-option>
+          <mat-select formControlName="frequency">
+            <mat-option *ngFor="let freq of frequencyTypes; let i = index" [value]="freq.value">{{ freq.name }}</mat-option>
           </mat-select>
         </mat-form-field></td>
       </tr></table>
