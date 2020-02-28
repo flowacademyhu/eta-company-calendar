@@ -51,7 +51,7 @@
   },
 
   "meeting": {
-    "header": "create meeting",
+    "header": "Create meeting",
     "title": "Title",
     "titleError": "Title is required",
     "description": "Description",
@@ -67,7 +67,7 @@
     "submitButton": "Submit",
     "cancelButton": "Cancel"
   },
-  
+
   "reminder": {
     "header": "create reminder",
     "title": "title",
@@ -134,7 +134,7 @@
     "optAttendants": "Notification",
     "modalClose": "Close"
   },
-  
+
   "edituserform":{
     "edit_user": "Edit user",
     "role": "Role",

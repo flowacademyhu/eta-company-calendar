@@ -52,7 +52,7 @@
   },
 
   "meeting": {
-    "header": "esemény létrehozása",
+    "header": "Esemény létrehozása",
     "title": "Cím",
     "titleError": "A cím megadása kötelező",
     "description": "Leírás",
@@ -70,14 +70,14 @@
   },
 
   "reminder": {
-    "header": "emlékeztető létrehozása",
-    "title": "cím",
+    "header": "Emlékeztető létrehozása",
+    "title": "Cím",
     "titleError": "a cím megadása kötelező",
-    "description": "leírás",
-    "startingTime": "kezdés",
-    "createdBy": "szervező",
-    "submitButton": "létrehozás",
-    "cancelButton": "mégse"
+    "description": "Leírás",
+    "startingTime": "Kezdés",
+    "createdBy": "Szervező",
+    "submitButton": "Létrehozás",
+    "cancelButton": "Mégse"
   },
 
   "location": {

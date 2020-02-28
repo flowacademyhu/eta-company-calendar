@@ -14,7 +14,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 import { MatDialog } from '@angular/material/dialog';
 // import { MeetingCreateComponent } from '../modals/meeting-create.component';
 import { ReminderCreateComponent } from '../modals/reminder-create.component';
-// import { ReminderCreateComponent } from '../modals2/reminder-create.component';
 
 @Component({
   selector: 'app-calendar',
@@ -70,6 +69,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
       });
 
     this.fetchMeetings();
+    this.fetchReminders();
 
     this.dialog.afterAllClosed
       .pipe(takeUntil(this.destroy$))
@@ -91,17 +91,27 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
       .setOption('locale', lang);
   }
 
-  private fetchMeetings() {
+   private fetchMeetings() {
     this.api.meeting()
     .getMeetingsByIdAndTimeRange(1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
     .subscribe((data) => {
       this.calendarEvents = [];
       this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
-        return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title};
+        return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title, backgroundColor: 'green'};
       }));
     });
   }
 
+  private fetchReminders() {
+    this.api.reminder()
+    .getRemindersByIdAndTimeRange(1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+    .subscribe((data) => {
+      this.calendarEvents = [];
+      this.calendarEvents = this.calendarEvents.concat(data.map(((reminder) => {
+        return {start: reminder.startingTime, title: reminder.title, , backgroundColor: 'red'};
+      })));
+    });
+  }
   public ngOnDestroy() {
     this.destroy$.next(true);
   }
