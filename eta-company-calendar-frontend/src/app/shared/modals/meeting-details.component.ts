@@ -7,7 +7,7 @@ import { MeetingService } from '~/app/my-meetings/service/meeting.service';
   selector: 'meeting-details-modal',
   styleUrls: ['profil-view-dialog.component.scss'],
   template: `
-  <h1 mat-dialog-title>{{ meeting.title | uppercase }}</h1>
+  <h1 mat-dialog-title>{{ meeting.title | translate | uppercase }}</h1>
 <div mat-dialog-content>
 
   <mat-label>{{ 'meetinglist.location' | translate }}</mat-label>
