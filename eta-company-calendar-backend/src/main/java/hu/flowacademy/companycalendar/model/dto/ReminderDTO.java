@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 
@@ -33,19 +34,14 @@ public class ReminderDTO {
         this.createdAt = reminder.getCreatedAt();
         this.updatedAt = reminder.getUpdatedAt();
         this.recurring = reminder.getRecurring();
-        if (reminder.getUser() != null) {
-            this.userId = reminder.getUser().getId();
+        if (reminder.getCreatedBy() != null) {
+            this.userId = reminder.getCreatedBy().getId();
         } else this.userId = null;
     }
 
     public Reminder toEntity() {
         Reminder reminder = new Reminder();
-        reminder.setTitle(getTitle());
-        reminder.setDescription(getDescription());
-        reminder.setStartingTime(getStartingTime());
-        reminder.setCreatedAt(getCreatedAt());
-        reminder.setUpdatedAt(getUpdatedAt());
-        reminder.setRecurring(getRecurring());
+        BeanUtils.copyProperties(this, reminder);
         return reminder;
     }
 }

@@ -27,13 +27,13 @@ public class ReminderResource {
         return reminderService.findAll();
     }
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public Reminder findOne(@PathVariable Long id) {
         return reminderService.findOne(id);
-    }
+    }*/
 
-    /*@GetMapping("/user/{userid}")
-    public List<Reminder> findByUserId(@PathVariable Long userid) { return reminderService.findByUserId(userid);}*/
+    @GetMapping("/own/{userId}")
+    public List<ReminderDTO> findByUserId(@PathVariable Long userId) { return reminderService.findByUserId(userId);}
 
     @GetMapping("/user/{userId}")
     public List<ReminderListItemDTO> getReminderFromQuery(@PathVariable Long userId,
@@ -42,10 +42,9 @@ public class ReminderResource {
         return reminderService.findByUserIdAndTimeRange(userId, startingTimeFrom, startingTimeTo);
     }
 
-    /*@GetMapping("user/time/{userid}")
-    public List<Reminder> findByUserIdAndAfterStartTime(@PathVariable Long userid,
-                                                          @RequestParam Long startTime ) {
-        return reminderService.findByUserIdAndAfterStartTime(userid, startTime);
+    /*@GetMapping("user/time/{userId}")
+    public List<ReminderDTO> findByUserIdAndAfterStartTime(@PathVariable Long userId) {
+        return reminderService.findByUserId(userId);
     }*/
 
 

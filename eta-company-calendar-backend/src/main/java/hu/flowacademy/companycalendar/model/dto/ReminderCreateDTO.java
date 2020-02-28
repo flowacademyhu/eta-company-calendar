@@ -26,7 +26,7 @@ public class ReminderCreateDTO {
   public Reminder toEntity(User createdBy) {
     Reminder reminder = new Reminder();
     BeanUtils.copyProperties(this, reminder);
-    reminder.setUser(createdBy);
+    reminder.setCreatedBy(createdBy);
     reminder.setCreatedAt(System.currentTimeMillis());
     return reminder;
   }
