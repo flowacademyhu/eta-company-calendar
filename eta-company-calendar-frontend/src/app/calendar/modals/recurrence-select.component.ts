@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { RRule, Weekday } from 'rrule';
 import { DateTimeAdapter } from 'ng-pick-datetime';
@@ -52,7 +52,7 @@ export class RecurrenceSelectComponent implements OnInit {
       weekDays: new FormControl([]),
       hasEndDate: new FormControl(undefined),
       until: new FormControl(undefined),
-    });
+    }, WeekDaySelectedValidator);
     this.recurrenceForm.get('frequency')
       ?.setValue(this.frequencyTypes[1].value);
   }
@@ -73,6 +73,9 @@ export class RecurrenceSelectComponent implements OnInit {
   }
 
   public onSubmit() {
+    console.log('is form valid: ', this.recurrenceForm.valid);
+    console.log('form group error: ', this.recurrenceForm.errors);
+    this.getAllErrors();
     const rrule = new RRule({
       freq: this.recurrenceForm.get('frequency')?.value,
       byweekday: this.selectedDays.map((weekday) => weekday.value),
@@ -80,6 +83,12 @@ export class RecurrenceSelectComponent implements OnInit {
       until: this.recurrenceForm.get('until')?.value
     });
     this.dialogRef.close(rrule);
+  }
+
+  private getAllErrors() {
+    Object.keys(this.recurrenceForm.controls).forEach((key) => {
+      console.log('error: ', key, this.recurrenceForm.get(key)?.errors);
+    });
   }
 
 }
@@ -100,3 +109,12 @@ export interface DialogData {
   duration?: number;
   rrule?: string;
 }
+
+export const WeekDaySelectedValidator: ValidatorFn = (control: AbstractControl):
+ValidationErrors => {
+  const frequency = control.get('frequency');
+  const weekDays = control.get('weekDays');
+  console.log('weekday stuff', weekDays?.value.size === 0 || ! weekDays?.value);
+  console.log('weekday rule', frequency?.value === RRule.WEEKLY);
+  return frequency?.value === RRule.WEEKLY && weekDays?.value.size === 0 ? { NoWeekDaySelected: true } : {};
+ };
