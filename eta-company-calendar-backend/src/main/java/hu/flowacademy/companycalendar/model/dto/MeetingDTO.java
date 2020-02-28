@@ -1,10 +1,8 @@
 package hu.flowacademy.companycalendar.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.Recurring;
-import hu.flowacademy.companycalendar.model.User;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 @Component
