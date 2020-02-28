@@ -28,7 +28,6 @@ export class RecurrenceSelectComponent implements OnInit {
     {name: 'MONTH', value: RRule.MONTHLY },
     {name: 'YEAR', value: RRule.YEARLY },
   ];
-  protected selectedFrequencyType: Frequency;
 
   protected selectedDays: DayOfWeek[] = [];
 
@@ -46,7 +45,8 @@ export class RecurrenceSelectComponent implements OnInit {
       weekDays: new FormControl([]),
       until: new FormControl(undefined)
     });
-    this.recurrenceForm.get('frequency')?.setValue(this.frequencyTypes[1]);
+    this.recurrenceForm.get('frequency')
+      ?.setValue(this.frequencyTypes[1].value);
   }
 
   public onNoClick(): void {
