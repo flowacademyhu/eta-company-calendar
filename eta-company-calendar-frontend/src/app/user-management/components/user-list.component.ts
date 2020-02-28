@@ -11,7 +11,11 @@ import { UserService } from '../service/user-service';
 
 @Component({
   selector: 'app-user-list',
-  styles: ['table { width: 85%; }', 'th.mat-header-cell {text-align: center;}', 'td.mat-cell {text-align: center;}' ],
+  styles: ['table { width: 85%; }',
+  'mat-paginator { width: 85%; }',
+   'th.mat-header-cell {text-align: center;}',
+   'td.mat-cell {text-align: center;}',
+  ],
   template: `
   <div class="row justify-content-center">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -58,10 +62,11 @@ import { UserService } from '../service/user-service';
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<mat-paginator
+<mat-paginator class="mat-elevation-z8"
   [pageSize]="5"
   [pageSizeOptions]="[5, 10, 20]"
-  showFirstLastButton>
+  showFirstLastButtons
+  >
 </mat-paginator>
 </div>
   `,
