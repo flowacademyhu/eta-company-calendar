@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { UserResponse } from '~/app/models/user-response.model';
+import { DeleteUserComponent } from '../modals/delete-user.component';
 import { EditUserComponent } from '../modals/edit-user.component';
 import { UserService } from '../service/user-service';
 
@@ -44,7 +44,7 @@ import { UserService } from '../service/user-service';
     </mat-icon>
     </button>
 
-    <button mat-icon-button color="warn" (click)="deleteUser(user.id)">
+    <button mat-icon-button color="warn" (click)="openDialogDelete(user.id)">
     <mat-icon aria-label="Delete Icon">
       delete
     </mat-icon>
@@ -64,7 +64,6 @@ export class UserListComponent implements OnInit {
 
   constructor(private readonly userService: UserService,
               private readonly snackBar: MatSnackBar,
-              private readonly translate: TranslateService,
               private readonly dialog: MatDialog,
               ) { }
 
@@ -72,15 +71,6 @@ export class UserListComponent implements OnInit {
     this.userService.getAllUsers();
     this.users$ = this.userService
     .userSub;
-  }
-
-  public deleteUser(userId: number) {
-    this.userService.deleteUser(userId)
-            .subscribe(() => {this.openSnackBar(this.translate.instant('userlist.snack_delete'));
-                              this.userService.getAllUsers(); },
-            () => {this.openSnackBar(
-              this.translate.instant('userlist.snack_delete_error'));
-              });
   }
 
   public openSnackBar(message: string) {
@@ -92,6 +82,13 @@ export class UserListComponent implements OnInit {
   public openDialogUpdate(user: UserResponse ): void {
     this.dialog.open(EditUserComponent, {
       data: user,
+      width: '400px',
+    });
+  }
+
+  public openDialogDelete(id: number): void {
+    this.dialog.open(DeleteUserComponent, {
+      data: id,
       width: '400px',
     });
   }
