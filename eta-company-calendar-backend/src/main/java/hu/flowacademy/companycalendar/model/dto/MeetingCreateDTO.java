@@ -2,6 +2,7 @@ package hu.flowacademy.companycalendar.model.dto;
 
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
+import hu.flowacademy.companycalendar.model.RRule;
 import hu.flowacademy.companycalendar.model.Recurring;
 import hu.flowacademy.companycalendar.model.User;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class MeetingCreateDTO {
   private Location location;
   private String otherLocation;
   private Recurring recurring;
+  private RRule rrule;
   private Long startingTime;
   private Long finishTime;
   private String createdBy;

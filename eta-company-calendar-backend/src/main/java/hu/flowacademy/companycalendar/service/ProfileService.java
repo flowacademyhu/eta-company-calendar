@@ -1,12 +1,11 @@
 package hu.flowacademy.companycalendar.service;
 
 import hu.flowacademy.companycalendar.exception.ProfileNotFoundException;
-import hu.flowacademy.companycalendar.exception.UserNotFoundException;
 import hu.flowacademy.companycalendar.model.dto.ProfileDTO;
 import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.repository.ProfileRepository;
-import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -18,7 +17,6 @@ import java.util.stream.Collectors;
 public class ProfileService {
 
   private final ProfileRepository profileRepository;
-  private final UserRepository userRepository;
 
   public List<ProfileDTO> getAllProfile() {
     return profileRepository.findAll()
@@ -32,15 +30,10 @@ public class ProfileService {
         .orElseThrow(() -> new ProfileNotFoundException(id)));
   }
 
-  public ProfileDTO createProfile(ProfileDTO profileDTO) {
-    Profile profile = profileDTO.toEntity(userRepository.findById(profileDTO.getUserId())
-        .orElseThrow(() -> new UserNotFoundException(profileDTO.getUserId())));
-    return new ProfileDTO(profileRepository.save(profile));
-  }
-
-  public ProfileDTO updateProfile(ProfileDTO profileDTO) {
-    Profile profile = profileDTO.toEntity(userRepository.findById(profileDTO.getUserId())
-        .orElseThrow(() -> new UserNotFoundException(profileDTO.getUserId())));
+  public ProfileDTO updateProfile(Long id, ProfileDTO profileDTO) {
+    Profile profile = profileRepository.findByUserId(id)
+        .orElseThrow(() -> new ProfileNotFoundException(id));
+    BeanUtils.copyProperties(profileDTO, profile);
     return new ProfileDTO(profileRepository.save(profile));
   }
 

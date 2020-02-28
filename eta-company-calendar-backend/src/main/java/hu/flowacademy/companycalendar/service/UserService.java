@@ -2,6 +2,7 @@ package hu.flowacademy.companycalendar.service;
 
 import hu.flowacademy.companycalendar.email.EmailService;
 import hu.flowacademy.companycalendar.email.EmailType;
+import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.exception.UserAlreadyExistException;
 import hu.flowacademy.companycalendar.exception.UserNotFoundException;
 import hu.flowacademy.companycalendar.model.User;
@@ -43,6 +44,7 @@ public class UserService {
     String psw = BCrypt.hashpw(userRequestDTO.getPassword(), BCrypt.gensalt());
     User user = userRequestDTO.toEntity();
     user.setPassword(psw);
+    user.setProfile(Profile.builder().user(user).build());
     emailService.send(userRequestDTO.getEmail(), "registration", EmailType.HTML);
     return new UserResponseDTO(userRepository.save(user));
   }

@@ -27,34 +27,36 @@ import java.util.List;
 @AllArgsConstructor
 public class InitDataLoader {
 
-    private final MeetingRepository meetingRepository;
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
-    private final ReminderRepository reminderRepository;
+  private final MeetingRepository meetingRepository;
+  private final UserRepository userRepository;
+  private final BCryptPasswordEncoder passwordEncoder;
+  private final ReminderRepository reminderRepository;
 
-    @PostConstruct
-    public void init() throws ParseException {
-        createUsers();
-        createMeetings();
-        createReminder();
-    }
+  @PostConstruct
+  public void init() throws ParseException {
+    createUsers();
+    createMeetings();
+    createReminder();
+  }
 
-    private void createUsers() {
-        var testUsers = userRepository.saveAll(
-            IntStream.range(0, 10).mapToObj( i -> User.builder()
-                .email("user" + i + "@test.com")
-                .password(passwordEncoder.encode("user123"))
-                .role(i == 0 ? Roles.ADMIN : Roles.USER).build()).collect(Collectors.toList())
-        );
-        testUsers.forEach(user -> {
-            if (user.getId() == 2) {
-                user.setRole(Roles.LEADER);
-            } else {
-                user.setLeader(testUsers.get(1));
-            }
-        });
-        userRepository.saveAll(testUsers);
-    }
+  private void createUsers() {
+    var testUsers = userRepository.saveAll(
+        IntStream.range(0, 10).mapToObj(i -> User.builder()
+            .email("user" + i + "@test.com")
+            .password(passwordEncoder.encode("user123"))
+            .role(i == 0 ? Roles.ADMIN : Roles.USER).build()
+        ).collect(Collectors.toList())
+    );
+    testUsers.forEach(user -> {
+      if (user.getId() == 2) {
+        user.setRole(Roles.LEADER);
+      } else {
+        user.setLeader(testUsers.get(1));
+      }
+    });
+    testUsers.forEach(u -> u.setProfile(Profile.builder().user(u).build()));
+    userRepository.saveAll(testUsers);
+  }
 
     private void createMeetings() {
         var testUsers = userRepository.findAll();
@@ -71,7 +73,21 @@ public class InitDataLoader {
                 .optionalAttendants(List.of(testUsers.get(0)))
                 .build()).collect(Collectors.toList())
         );
-        
+        var rrule = "DTSTART:20200201T010000Z\n"
+            + "RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,FR;UNTIL=20210131T000000Z";
+        meetingRepository.save(Meeting.builder()
+            .title("recurring meeting")
+            .description("a meeting every Monday and Friday")
+            .location(Location.MARKS_OFFICE)
+            .createdAt(System.currentTimeMillis())
+            .createdBy(testUsers.get(0))
+            .requiredAttendants(List.of(testUsers.get(1)))
+            .rrule(RRule.builder()
+                .rrule(rrule)
+                .dtstart(1580518800000L)
+                .until(1612051200000L)
+                .duration(7200000L).build())
+            .build());
     }
 
     public void createReminder() throws ParseException {
