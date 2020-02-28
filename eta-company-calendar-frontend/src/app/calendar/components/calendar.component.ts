@@ -10,7 +10,9 @@ import timeGrigPlugin from '@fullcalendar/timegrid';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { UserResponse } from '~/app/models/user-response.model';
+import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { MeetingCreateComponent } from '../modals/meeting-create.component';
@@ -77,6 +79,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
   protected loggedInUser: UserResponse;
   protected selectedUser: UserResponse;
   protected userEmployees$: Observable<UserResponse[]>;
+  protected selectedMeeting: MeetingDetail = {} as MeetingDetail;
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly auth: AuthService,
@@ -114,8 +117,14 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
   }
 
   protected handleEventClick(arg: EventClickInfo) {
-    console.log(arg);
-    console.log('id: ', arg.event.id);
+     this.api.meeting()
+    .getMeetingById(arg.event.id)
+    .subscribe((meeting) => {this.selectedMeeting = meeting;
+                             this.dialog.open(MeetingDetailsModal, {
+                              data: this.selectedMeeting,
+                              width: '400px' } ); }
+
+    );
   }
 
   protected onDatesRender(info: DatesRenderInfo) {
