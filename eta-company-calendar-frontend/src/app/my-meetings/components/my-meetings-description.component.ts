@@ -11,6 +11,7 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
   selector: 'app-my-meetings-description',
   styles: [
   'table { width: 85%; }',
+  'mat-paginator { width: 85%; }',
   'th.mat-header-cell {text-align: center;}',
   'td.mat-cell {text-align: center;}',
 ],
@@ -60,12 +61,8 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  <tr mat-footer-row *matFooterRowDef="['paginator']; sticky: true"></tr>
-  <ng-container matColumnDef="paginator">
-        <td mat-footer-cell *matFooterCellDef [colSpan]="displayedColumns.length"></td>
-    </ng-container>
   </table>
-  <mat-paginator
+  <mat-paginator class="mat-elevation-z8"
         [pageSize]="5"
         [pageSizeOptions]="[5, 10, 20, 50]"
         showFirstLastButtons>
