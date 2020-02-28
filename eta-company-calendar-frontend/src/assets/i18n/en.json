@@ -121,7 +121,9 @@
     "createdBy": "Created by",
     "reqAttendants": "Attendants",
     "optAttendants": "Notification",
-    "modalClose": "Close"
+    "modalClose": "Close",
+    "myMeetings": "My meetings",
+    "filter": "Filter"
   },
   
   "edituserform":{

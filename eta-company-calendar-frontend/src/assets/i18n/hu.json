@@ -123,7 +123,9 @@
     "createdBy": "Létrehozta",
     "reqAttendants": "Résztvevők",
     "optAttendants": "Értesítések",
-    "modalClose": "Bezárás"
+    "modalClose": "Bezárás",
+    "myMeetings": "Értekezleteim",
+    "filter": "Szűrés"
   },
 
   "edituserform":{
