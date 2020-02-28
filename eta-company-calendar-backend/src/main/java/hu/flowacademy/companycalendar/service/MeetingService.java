@@ -1,6 +1,5 @@
 package hu.flowacademy.companycalendar.service;
 
-
 import hu.flowacademy.companycalendar.config.mailing.MailingConfig;
 import hu.flowacademy.companycalendar.constants.Constants;
 import hu.flowacademy.companycalendar.email.GmailService;
