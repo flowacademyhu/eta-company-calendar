@@ -28,28 +28,27 @@
 
     <div>
       <label>Ends</label>
-      <mat-radio-group  class="d-flex flex-column" [(ngModel)]="hasEndDate" formControlName="hasEndDate">
-        
+      <mat-radio-group  class="d-flex flex-row" [(ngModel)]="hasEndDate" formControlName="hasEndDate">
         <mat-radio-button [value]="true">
-          after
-          <mat-form-field>
-            <mat-label >{{ 'meeting.startingTime' | translate }} *</mat-label>
-            <input matInput
-              formControlName="until"
-              [disabled]="!hasEndDate"
-              type="datetime" autocomplete="off"
-              [min]="startingDate"
-              [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" >
-            <owl-date-time #dt1 [firstDayOfWeek]="1" [disabled]="!hasEndDate"></owl-date-time>
-          </mat-form-field>
-          <mat-icon [owlDateTimeTrigger]="dt1">event</mat-icon>  
+          after date
         </mat-radio-button>
-
         <mat-radio-button [value]="false">
           never
         </mat-radio-button>
-        
       </mat-radio-group>
+    </div>
+
+    <div *ngIf="hasEndDate">
+      <mat-form-field>
+        <mat-label >date</mat-label>
+        <input matInput
+          formControlName="until"
+          type="datetime" autocomplete="off"
+          [min]="startingDate"
+          [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" >
+        <owl-date-time #dt1 [firstDayOfWeek]="1"></owl-date-time>
+      </mat-form-field>
+      <mat-icon [owlDateTimeTrigger]="dt1">event</mat-icon> 
     </div>
   
   </div>
