@@ -1,6 +1,7 @@
 package hu.flowacademy.companycalendar.service;
 
 import hu.flowacademy.companycalendar.exception.ReminderNotFoundException;
+import hu.flowacademy.companycalendar.exception.UserNotFoundException;
 import hu.flowacademy.companycalendar.model.Reminder;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.ReminderCreateDTO;
@@ -47,7 +48,7 @@ public class ReminderService {
         Reminder reminder = reminderDTO.toEntity();
         Optional<User> u = userRepository.findById(reminderDTO.getUserId());
         if (u.isPresent()) {
-            reminder.setUser(u.get());
+            reminder.setCreatedBy(u.get());
             reminder.setCreatedAt(System.currentTimeMillis());
             reminderRepository.save(reminder);
         } else {
@@ -58,7 +59,7 @@ public class ReminderService {
     public Long createWithEmails(ReminderCreateDTO dto) {
         Reminder reminder = dto.toEntity(
             userRepository.findFirstByEmail(dto.getCreatedBy())
-                .orElseThrow(() -> new RuntimeException("User not found in DB")));
+                .orElseThrow(() -> new UserNotFoundException(dto.getCreatedBy())));
         reminder.setCreatedAt(System.currentTimeMillis());
         return reminderRepository.save(reminder).getId();
     }
@@ -77,8 +78,9 @@ public class ReminderService {
         reminderRepository.deleteById(id);
     }
 
-    public List<Reminder> findByUserId(Long userid) {
-        return reminderRepository.findByUserId(userid);
+    public List<ReminderDTO> findByUserId(Long userId) {
+        return reminderRepository.findByUserId(userId).stream().map(ReminderDTO::new).collect(
+            Collectors.toList());
     }
 
     /*public List<Reminder> findByUserIdAndAfterStartTime(Long userid, Long startTime) {

@@ -100,7 +100,7 @@ public class InitDataLoader {
             .startingTime(formatter.parse("2020-02-12 10:00").getTime())
             .createdAt(System.currentTimeMillis())
             .recurring(Recurring.DAILY)
-            .user(userRepository.getOne(1L))
+            .createdBy(userRepository.getOne(1L))
             .build());
         reminderRepository.save(Reminder.builder()
             .title("second testReminder")
@@ -108,7 +108,7 @@ public class InitDataLoader {
             .startingTime(System.currentTimeMillis())
             .createdAt(System.currentTimeMillis())
             .recurring(Recurring.DAILY)
-            .user(userRepository.getOne(2L))
+            .createdBy(userRepository.getOne(2L))
             .build());
         reminderRepository.save(Reminder.builder()
             .title("3nd testReminder")
@@ -116,7 +116,7 @@ public class InitDataLoader {
             .startingTime(formatter.parse("2020-01-12 12:00").getTime())
             .createdAt(System.currentTimeMillis())
             .recurring(Recurring.DAILY)
-            .user(userRepository.getOne(2L))
+            .createdBy(userRepository.getOne(2L))
             .build());
         reminderRepository.save(Reminder.builder()
             .title("4nd testReminder")
@@ -124,7 +124,7 @@ public class InitDataLoader {
             .startingTime(formatter.parse("2020-03-12 10:00").getTime())
             .createdAt(System.currentTimeMillis())
             .recurring(Recurring.DAILY)
-            .user(userRepository.getOne(2L))
+            .createdBy(userRepository.getOne(2L))
             .build());
     }
 }

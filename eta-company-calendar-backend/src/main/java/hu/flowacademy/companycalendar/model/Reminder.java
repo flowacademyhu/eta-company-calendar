@@ -45,5 +45,5 @@ public class Reminder {
 
     @ManyToOne
     @JoinColumn
-    private User user;
+    private User createdBy;
 }

@@ -29,7 +29,7 @@ public class ReminderUpdateDTO {
     this.description = reminder.getDescription();
     this.recurring = reminder.getRecurring();
     this.startingTime = reminder.getStartingTime();
-    this.userId = reminder.getUser().getId();
+    this.userId = reminder.getCreatedBy().getId();
     this.updatedAt = reminder.getUpdatedAt();
 
   }
@@ -37,7 +37,7 @@ public class ReminderUpdateDTO {
   public Reminder toEntity(User userId) {
     Reminder reminder = new Reminder();
     BeanUtils.copyProperties(this, reminder);
-    reminder.setUser(userId);
+    reminder.setCreatedBy(userId);
     reminder.setCreatedAt(System.currentTimeMillis());
     return reminder;
   }
