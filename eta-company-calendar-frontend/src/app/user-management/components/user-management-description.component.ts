@@ -110,11 +110,10 @@ export class UserManagementDescriptionComponent {
               }
 
   public ngOnInit() {
+    this.userService.getAllUsers();
     this.dataSource.paginator = this.paginator;
-    this.dataSub = this.userService.getAllUsersForPagination()
-      .subscribe((res) => {
-        this.dataSource.data = (res as unknown as UserResponse[]);
-      });
+    this.userService.userSub
+    .subscribe((users) => this.dataSource.data = users);
   }
 
   public ngAfterViewInit(): void {
