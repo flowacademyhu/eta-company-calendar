@@ -3,6 +3,7 @@ package hu.flowacademy.companycalendar.utils;
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.RRule;
+import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.model.Recurring;
 import hu.flowacademy.companycalendar.model.Reminder;
 import hu.flowacademy.companycalendar.model.User;
@@ -16,7 +17,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import hu.flowacademy.companycalendar.model.Roles;
@@ -28,34 +28,36 @@ import java.util.List;
 @AllArgsConstructor
 public class InitDataLoader {
 
-    private final MeetingRepository meetingRepository;
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
-    private final ReminderRepository reminderRepository;
+  private final MeetingRepository meetingRepository;
+  private final UserRepository userRepository;
+  private final BCryptPasswordEncoder passwordEncoder;
+  private final ReminderRepository reminderRepository;
 
-    @PostConstruct
-    public void init() throws ParseException {
-        createUsers();
-        createMeetings();
-        createReminder();
-    }
+  @PostConstruct
+  public void init() throws ParseException {
+    createUsers();
+    createMeetings();
+    createReminder();
+  }
 
-    private void createUsers() {
-        var testUsers = userRepository.saveAll(
-            IntStream.range(0, 10).mapToObj( i -> User.builder()
-                .email("user" + i + "@test.com")
-                .password(passwordEncoder.encode("user123"))
-                .role(i == 0 ? Roles.ADMIN : Roles.USER).build()).collect(Collectors.toList())
-        );
-        testUsers.forEach(user -> {
-            if (user.getId() == 2) {
-                user.setRole(Roles.LEADER);
-            } else {
-                user.setLeader(testUsers.get(1));
-            }
-        });
-        userRepository.saveAll(testUsers);
-    }
+  private void createUsers() {
+    var testUsers = userRepository.saveAll(
+        IntStream.range(0, 10).mapToObj(i -> User.builder()
+            .email("user" + i + "@test.com")
+            .password(passwordEncoder.encode("user123"))
+            .role(i == 0 ? Roles.ADMIN : Roles.USER).build()
+        ).collect(Collectors.toList())
+    );
+    testUsers.forEach(user -> {
+      if (user.getId() == 2) {
+        user.setRole(Roles.LEADER);
+      } else {
+        user.setLeader(testUsers.get(1));
+      }
+    });
+    testUsers.forEach(u -> u.setProfile(Profile.builder().user(u).build()));
+    userRepository.saveAll(testUsers);
+  }
 
     private void createMeetings() {
         var testUsers = userRepository.findAll();
@@ -89,39 +91,39 @@ public class InitDataLoader {
             .build());
     }
 
-    public void createReminder() throws ParseException {
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        reminderRepository.save(Reminder.builder()
-            .title("Fist testReminder")
-            .description("Dont' forget!")
-            .startingTime(formatter.parse("2020-02-12 10:00").getTime())
-            .endingTime(formatter.parse("2020-02-22 12:00").getTime())
-            .recurring(Recurring.DAILY)
-            .user(userRepository.getOne(1L))
-            .build());
-        reminderRepository.save(Reminder.builder()
-            .title("second testReminder")
-            .description("Bee happy!")
-            .startingTime(System.currentTimeMillis())
-            .endingTime(formatter.parse("2020-02-12 12:00").getTime())
-            .recurring(Recurring.DAILY)
-            .user(userRepository.getOne(2L))
-            .build());
-        reminderRepository.save(Reminder.builder()
-            .title("3nd testReminder")
-            .description("Meeting always")
-            .startingTime(formatter.parse("2020-01-12 12:00").getTime())
-            .endingTime(formatter.parse("2020-01-12 03:00").getTime())
-            .recurring(Recurring.DAILY)
-            .user(userRepository.getOne(2L))
-            .build());
-        reminderRepository.save(Reminder.builder()
-            .title("4nd testReminder")
-            .description("OMG")
-            .startingTime(formatter.parse("2020-03-12 10:00").getTime())
-            .endingTime(formatter.parse("2020-03-12 11:00").getTime())
-            .recurring(Recurring.DAILY)
-            .user(userRepository.getOne(2L))
-            .build());
-    }
+  public void createReminder() throws ParseException {
+    DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    reminderRepository.save(Reminder.builder()
+        .title("Fist testReminder")
+        .description("Dont' forget!")
+        .startingTime(formatter.parse("2020-02-12 10:00").getTime())
+        .endingTime(formatter.parse("2020-02-22 12:00").getTime())
+        .recurring(Recurring.DAILY)
+        .user(userRepository.getOne(1L))
+        .build());
+    reminderRepository.save(Reminder.builder()
+        .title("second testReminder")
+        .description("Bee happy!")
+        .startingTime(System.currentTimeMillis())
+        .endingTime(formatter.parse("2020-02-12 12:00").getTime())
+        .recurring(Recurring.DAILY)
+        .user(userRepository.getOne(2L))
+        .build());
+    reminderRepository.save(Reminder.builder()
+        .title("3nd testReminder")
+        .description("Meeting always")
+        .startingTime(formatter.parse("2020-01-12 12:00").getTime())
+        .endingTime(formatter.parse("2020-01-12 03:00").getTime())
+        .recurring(Recurring.DAILY)
+        .user(userRepository.getOne(2L))
+        .build());
+    reminderRepository.save(Reminder.builder()
+        .title("4nd testReminder")
+        .description("OMG")
+        .startingTime(formatter.parse("2020-03-12 10:00").getTime())
+        .endingTime(formatter.parse("2020-03-12 11:00").getTime())
+        .recurring(Recurring.DAILY)
+        .user(userRepository.getOne(2L))
+        .build());
+  }
 }
