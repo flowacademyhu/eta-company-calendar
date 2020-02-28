@@ -1,8 +1,8 @@
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ReminderListItem } from '~/app/models/reminder-list-item.model';
 import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiConnector';
 import { ReminderDetail } from '../../models/reminder-detail.model';
-import { ReminderListItem } from '~/app/models/reminder-list-item.model';
 
 export class ReminderApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}/api`;

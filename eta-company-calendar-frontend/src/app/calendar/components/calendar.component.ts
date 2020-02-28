@@ -108,7 +108,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     .subscribe((data) => {
       this.calendarEvents = [];
       this.calendarEvents = this.calendarEvents.concat(data.map(((reminder) => {
-        return {start: reminder.startingTime, title: reminder.title, , backgroundColor: 'red'};
+        return {start: reminder.startingTime, title: reminder.title, backgroundColor: 'red'};
       })));
     });
   }
