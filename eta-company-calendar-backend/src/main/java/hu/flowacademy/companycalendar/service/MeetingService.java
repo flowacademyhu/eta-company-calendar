@@ -1,9 +1,12 @@
 package hu.flowacademy.companycalendar.service;
 
+
 import hu.flowacademy.companycalendar.config.mailing.MailingConfig;
 import hu.flowacademy.companycalendar.constants.Constants;
 import hu.flowacademy.companycalendar.email.GmailService;
 import hu.flowacademy.companycalendar.model.Location;
+import hu.flowacademy.companycalendar.exception.MeetingNotFoundException;
+import hu.flowacademy.companycalendar.exception.UserNotFoundException;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.MeetingCreateDTO;
@@ -17,7 +20,6 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +30,6 @@ public class MeetingService {
 
     private static final DateFormat FORMATTER_TO_HOUR = new SimpleDateFormat("HH:mm");
     private static final DateFormat FORMATTER_TO_DATE = new SimpleDateFormat("yyyy-MM-dd");
-
     private final MeetingRepository meetingRepository;
     private final UserRepository userRepository; // TODO - UserService is not ready yet
     private final GmailService emailService;
@@ -44,7 +45,7 @@ public class MeetingService {
 
     public MeetingDTO findOne(Long id) {
         return new MeetingDTO(meetingRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Meeting not found in DB")));
+                .orElseThrow(() -> new MeetingNotFoundException(id)));
     }
 
     public List<MeetingListItemDTO> findByUserIdAndTimeRange(Long userId,
@@ -83,7 +84,6 @@ public class MeetingService {
         String finish = FORMATTER_TO_HOUR.format(meeting.getFinishTime());
         String location = Location.OTHER.equals(dto.getLocation()) ? dto.getOtherLocation() : dto.getLocation().toString();
 
-
         sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, true);
         sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, false);
 
@@ -99,7 +99,6 @@ public class MeetingService {
         }
     }
 
-
     private String getMeetingText(String firstName, String meetingDate, String start, String finish, String location, String obligatory) {
         return String.format(mailingConfig.getMessageTemplate(),
             firstName,
@@ -112,7 +111,7 @@ public class MeetingService {
 
     public MeetingDTO updateMeeting(Long userId, MeetingDTO meetingDTO) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found in DB"));
+                .orElseThrow(() -> new UserNotFoundException(userId));
         Meeting meeting = meetingDTO.toEntity();
         meeting.setUpdatedBy(user);
         meeting.setUpdatedAt(System.currentTimeMillis());

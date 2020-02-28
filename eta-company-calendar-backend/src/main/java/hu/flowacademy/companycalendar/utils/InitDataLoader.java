@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import hu.flowacademy.companycalendar.model.Roles;
@@ -36,12 +35,12 @@ public class InitDataLoader {
     private final ReminderRepository reminderRepository;
     private final ProfileRepository profileRepository;
 
-    @PostConstruct
-    public void init() throws ParseException {
-        createUsers();
-        createMeetings();
-        createReminder();
-    }
+  @PostConstruct
+  public void init() throws ParseException {
+    createUsers();
+    createMeetings();
+    createReminder();
+  }
 
     private void createUsers() {
         var testUsers = userRepository.saveAll(
@@ -55,16 +54,17 @@ public class InitDataLoader {
             .password("csiha")
             .role(Roles.ADMIN)
             .build();
-        calendarCsiha.setProfile(new Profile(null, calendarCsiha, "Csiha", "Calendar", LocalDate.now(), LocalDate.now(), "mydepartment", "intern", "building"));
         userRepository.save(calendarCsiha);
+        calendarCsiha.setProfile(new Profile(null, calendarCsiha, "Csiha", "Calendar", LocalDate.now(), LocalDate.now(), "mydepartment", "intern", "building"));
 
         User csalaoh = User.builder()
             .email("csalaoh@gmail.com")
             .password("csala")
             .role(Roles.ADMIN)
             .build();
-        csalaoh.setProfile(new Profile(null, csalaoh, "Laszlo", "Csanyi", LocalDate.now(), LocalDate.now(), "mydepartment", "intern", "building"));
         userRepository.save(csalaoh);
+        csalaoh.setProfile(new Profile(null, csalaoh, "Laszlo", "Csanyi", LocalDate.now(), LocalDate.now(), "mydepartment", "intern", "building"));
+
 
         testUsers.forEach(user -> {
             if (user.getId() == 2) {
@@ -76,57 +76,56 @@ public class InitDataLoader {
         userRepository.saveAll(testUsers);
     }
 
-    private void createMeetings() {
-        var testUsers = userRepository.findAll();
-        meetingRepository.saveAll(
-            IntStream.range(0, 10).mapToObj(i -> Meeting.builder()
-                .title("test meeting " + i)
-                .description("description of test meeting " + i)
-                .location(Location.MEETING_ROOM)
-                .startingTime(System.currentTimeMillis() + 86400000 * i)
-                .finishTime(System.currentTimeMillis() + 86400000 * i + 3600000)
-                .createdAt(System.currentTimeMillis())
-                .createdBy(testUsers.get(i))
-                .requiredAttendants(testUsers.subList(i + 1, 10))
-                .optionalAttendants(List.of(testUsers.get(0)))
-                .build()).collect(Collectors.toList())
-        );
-        
-    }
+  private void createMeetings() {
+    var testUsers = userRepository.findAll();
+    meetingRepository.saveAll(
+        IntStream.range(0, 10).mapToObj(i -> Meeting.builder()
+            .title("test meeting " + i)
+            .description("description of test meeting " + i)
+            .location(Location.MEETING_ROOM)
+            .startingTime(System.currentTimeMillis() + 86400000 * i)
+            .finishTime(System.currentTimeMillis() + 86400000 * i + 3600000)
+            .createdAt(System.currentTimeMillis())
+            .createdBy(testUsers.get(i))
+            .requiredAttendants(testUsers.subList(i + 1, 10))
+            .optionalAttendants(List.of(testUsers.get(0)))
+            .build()).collect(Collectors.toList())
+    );
+  }
 
-    public void createReminder() throws ParseException {
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        reminderRepository.save(Reminder.builder()
-            .title("Fist testReminder")
-            .description("Dont' forget!")
-            .startingTime(formatter.parse("2020-02-12 10:00").getTime())
-            .endingTime(formatter.parse("2020-02-22 12:00").getTime())
-            .recurring(Recurring.DAILY)
-            .user(userRepository.getOne(1L))
-            .build());
-        reminderRepository.save(Reminder.builder()
-            .title("second testReminder")
-            .description("Bee happy!")
-            .startingTime(System.currentTimeMillis())
-            .endingTime(formatter.parse("2020-02-12 12:00").getTime())
-            .recurring(Recurring.DAILY)
-            .user(userRepository.getOne(2L))
-            .build());
-        reminderRepository.save(Reminder.builder()
-            .title("3nd testReminder")
-            .description("Meeting always")
-            .startingTime(formatter.parse("2020-01-12 12:00").getTime())
-            .endingTime(formatter.parse("2020-01-12 03:00").getTime())
-            .recurring(Recurring.DAILY)
-            .user(userRepository.getOne(2L))
-            .build());
-        reminderRepository.save(Reminder.builder()
-            .title("4nd testReminder")
-            .description("OMG")
-            .startingTime(formatter.parse("2020-03-12 10:00").getTime())
-            .endingTime(formatter.parse("2020-03-12 11:00").getTime())
-            .recurring(Recurring.DAILY)
-            .user(userRepository.getOne(2L))
-            .build());
-    }
+  public void createReminder() throws ParseException {
+    DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    reminderRepository.save(Reminder.builder()
+        .title("Fist testReminder")
+        .description("Dont' forget!")
+        .startingTime(formatter.parse("2020-02-12 10:00").getTime())
+        .endingTime(formatter.parse("2020-02-22 12:00").getTime())
+        .recurring(Recurring.DAILY)
+        .user(userRepository.getOne(1L))
+        .build());
+    reminderRepository.save(Reminder.builder()
+        .title("second testReminder")
+        .description("Bee happy!")
+        .startingTime(System.currentTimeMillis())
+        .endingTime(formatter.parse("2020-02-12 12:00").getTime())
+        .recurring(Recurring.DAILY)
+        .user(userRepository.getOne(2L))
+        .build());
+    reminderRepository.save(Reminder.builder()
+        .title("3nd testReminder")
+        .description("Meeting always")
+        .startingTime(formatter.parse("2020-01-12 12:00").getTime())
+        .endingTime(formatter.parse("2020-01-12 03:00").getTime())
+        .recurring(Recurring.DAILY)
+        .user(userRepository.getOne(2L))
+        .build());
+    reminderRepository.save(Reminder.builder()
+        .title("4nd testReminder")
+        .description("OMG")
+        .startingTime(formatter.parse("2020-03-12 10:00").getTime())
+        .endingTime(formatter.parse("2020-03-12 11:00").getTime())
+        .recurring(Recurring.DAILY)
+        .user(userRepository.getOne(2L))
+        .build());
+  }
 }

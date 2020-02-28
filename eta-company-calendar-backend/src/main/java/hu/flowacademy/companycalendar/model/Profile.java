@@ -1,5 +1,6 @@
 package hu.flowacademy.companycalendar.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -26,13 +27,18 @@ public class Profile {
   @OneToOne
   @JoinColumn
   @MapsId
+  @JsonBackReference
   private User user;
 
   private String firstName;
   private String lastName;
   private LocalDate dateOfBirth;
   private LocalDate dateOfEntry;
+  private String leader;
   private String department;
   private String position;
   private String team;
+
+  public Profile(Object o, User calendarCsiha, String csiha, String calendar, LocalDate now, LocalDate now1, String mydepartment, String intern, String building) {
+  }
 }

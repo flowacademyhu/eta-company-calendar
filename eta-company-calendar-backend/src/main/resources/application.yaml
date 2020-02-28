@@ -31,7 +31,7 @@ mailing:
   messageTemplate: "Helló %s!
                     \n\nEzt az értesítést azért kaptad, mert meghívót kaptál egy értekezletre.
                     \n Az értekezlet dátuma: %s
-                    \nKkezdés: %s
+                    \nKezdés: %s
                     \nVége: %s
                     \nHelyszín: %s.
                     \nA részvételed az értekezleten %s."
@@ -79,7 +79,7 @@ mailing:
   messageTemplate: "Helló %s!
                    \n\nEzt az értesítést azért kaptad, mert meghívót kaptál egy értekezletre.
                    \n Az értekezlet dátuma: %s
-                   \nKkezdés: %s
+                   \nKezdés: %s
                    \nVége: %s
                    \nHelyszín: %s.
                    \nA részvételed az értekezleten %s."

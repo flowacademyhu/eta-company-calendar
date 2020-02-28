@@ -2,16 +2,17 @@ package hu.flowacademy.companycalendar.service;
 
 import hu.flowacademy.companycalendar.email.EmailService;
 import hu.flowacademy.companycalendar.email.EmailType;
+import hu.flowacademy.companycalendar.model.Profile;
+import hu.flowacademy.companycalendar.exception.UserAlreadyExistException;
+import hu.flowacademy.companycalendar.exception.UserNotFoundException;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.UserRequestDTO;
 import hu.flowacademy.companycalendar.model.dto.UserResponseDTO;
 import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,22 +34,23 @@ public class UserService {
 
   public UserResponseDTO getUser(Long id) {
     return new UserResponseDTO(userRepository.findById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+        .orElseThrow(() -> new UserNotFoundException(id)));
   }
 
   public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
     if (userRepository.findFirstByEmail(userRequestDTO.getEmail()).isPresent()) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+      throw new UserAlreadyExistException(userRequestDTO.getEmail());
     }
     String psw = BCrypt.hashpw(userRequestDTO.getPassword(), BCrypt.gensalt());
     User user = userRequestDTO.toEntity();
     user.setPassword(psw);
+
     return new UserResponseDTO(userRepository.save(user));
   }
 
   public UserResponseDTO updateUser(Long id, UserRequestDTO userRequestDTO) {
     User user = userRepository.findById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        .orElseThrow(() -> new UserNotFoundException(id));
     if (!(("").equals(userRequestDTO.getPassword()))
         && !BCrypt.checkpw(userRequestDTO.getPassword(), user.getPassword())) {
       String psw = BCrypt.hashpw(userRequestDTO.getPassword(), BCrypt.gensalt());
