@@ -1,6 +1,7 @@
 package hu.flowacademy.companycalendar.model.dto;
 
 import hu.flowacademy.companycalendar.model.Meeting;
+import hu.flowacademy.companycalendar.model.RRule;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,7 @@ public class MeetingListItemDTO {
   private String title;
   private Long startingTime;
   private Long finishTime;
+  private RRule rrule;
 
   public MeetingListItemDTO(Meeting meeting) {
     BeanUtils.copyProperties(meeting, this);
