@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { RRule, Weekday } from 'rrule';
+import { DateTimeAdapter } from 'ng-pick-datetime';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-recurrence-select',
@@ -36,10 +38,13 @@ export class RecurrenceSelectComponent implements OnInit {
   protected hasEndDate: boolean = true;
 
   constructor(private readonly dialogRef: MatDialogRef<RecurrenceSelectComponent>,
-              @Inject(MAT_DIALOG_DATA) private readonly data: DialogData) { }
+              @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
+              protected readonly dateTimeAdapter: DateTimeAdapter<object>,
+              private readonly translate: TranslateService) { }
 
   public ngOnInit() {
     console.log(this.data);
+    this.dateTimeAdapter.setLocale(this.translate.currentLang);
     this.startingDate = this.data.startingDate;
     this.recurrenceForm = new FormGroup({
       frequency: new FormControl(undefined, [Validators.required, Validators.min(1)]),
