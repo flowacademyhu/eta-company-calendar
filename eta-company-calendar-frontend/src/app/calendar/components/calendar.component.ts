@@ -24,7 +24,7 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
     }
     .app-calendar {
       margin: 0 auto;
-      max-width: 1000px;
+      max-width: 93%;
     }
     .menu {
       width: 13.5%;
@@ -56,7 +56,7 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
       [firstDay]="1"
       [plugins]="calendarPlugins"
       [events]="calendarEvents"
-      [aspectRatio]="1.35"
+      [aspectRatio]="2.4"
       (dateClick)="handleDateClick($event)"
       (datesRender)="onDatesRender($event)"
     ></full-calendar>
