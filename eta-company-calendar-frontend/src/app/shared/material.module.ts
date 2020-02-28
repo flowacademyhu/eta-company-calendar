@@ -68,5 +68,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule,
     MatPaginatorModule,
   ],
+
 })
+
 export class MaterialModule { }
