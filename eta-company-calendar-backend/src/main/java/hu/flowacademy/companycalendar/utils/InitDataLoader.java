@@ -2,6 +2,7 @@ package hu.flowacademy.companycalendar.utils;
 
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
+import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.model.Recurring;
 import hu.flowacademy.companycalendar.model.Reminder;
 import hu.flowacademy.companycalendar.model.User;
@@ -15,7 +16,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import hu.flowacademy.companycalendar.model.Roles;
@@ -27,52 +27,53 @@ import java.util.List;
 @AllArgsConstructor
 public class InitDataLoader {
 
-    private final MeetingRepository meetingRepository;
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
-    private final ReminderRepository reminderRepository;
+  private final MeetingRepository meetingRepository;
+  private final UserRepository userRepository;
+  private final BCryptPasswordEncoder passwordEncoder;
+  private final ReminderRepository reminderRepository;
 
-    @PostConstruct
-    public void init() throws ParseException {
-        createUsers();
-        createMeetings();
-        createReminder();
-    }
+  @PostConstruct
+  public void init() throws ParseException {
+    createUsers();
+    createMeetings();
+    createReminder();
+  }
 
-    private void createUsers() {
-        var testUsers = userRepository.saveAll(
-            IntStream.range(0, 10).mapToObj( i -> User.builder()
-                .email("user" + i + "@test.com")
-                .password(passwordEncoder.encode("user123"))
-                .role(i == 0 ? Roles.ADMIN : Roles.USER).build()).collect(Collectors.toList())
-        );
-        testUsers.forEach(user -> {
-            if (user.getId() == 2) {
-                user.setRole(Roles.LEADER);
-            } else {
-                user.setLeader(testUsers.get(1));
-            }
-        });
-        userRepository.saveAll(testUsers);
-    }
+  private void createUsers() {
+    var testUsers = userRepository.saveAll(
+        IntStream.range(0, 10).mapToObj(i -> User.builder()
+            .email("user" + i + "@test.com")
+            .password(passwordEncoder.encode("user123"))
+            .role(i == 0 ? Roles.ADMIN : Roles.USER).build()
+        ).collect(Collectors.toList())
+    );
+    testUsers.forEach(user -> {
+      if (user.getId() == 2) {
+        user.setRole(Roles.LEADER);
+      } else {
+        user.setLeader(testUsers.get(1));
+      }
+    });
+    testUsers.forEach(u -> u.setProfile(Profile.builder().user(u).build()));
+    userRepository.saveAll(testUsers);
+  }
 
-    private void createMeetings() {
-        var testUsers = userRepository.findAll();
-        meetingRepository.saveAll(
-            IntStream.range(0, 10).mapToObj(i -> Meeting.builder()
-                .title("test meeting " + i)
-                .description("description of test meeting " + i)
-                .location(Location.MEETING_ROOM)
-                .startingTime(System.currentTimeMillis() + 86400000 * i)
-                .finishTime(System.currentTimeMillis() + 86400000 * i + 3600000)
-                .createdAt(System.currentTimeMillis())
-                .createdBy(testUsers.get(i))
-                .requiredAttendants(testUsers.subList(i + 1, 10))
-                .optionalAttendants(List.of(testUsers.get(0)))
-                .build()).collect(Collectors.toList())
-        );
-        
-    }
+  private void createMeetings() {
+    var testUsers = userRepository.findAll();
+    meetingRepository.saveAll(
+        IntStream.range(0, 10).mapToObj(i -> Meeting.builder()
+            .title("test meeting " + i)
+            .description("description of test meeting " + i)
+            .location(Location.MEETING_ROOM)
+            .startingTime(System.currentTimeMillis() + 86400000 * i)
+            .finishTime(System.currentTimeMillis() + 86400000 * i + 3600000)
+            .createdAt(System.currentTimeMillis())
+            .createdBy(testUsers.get(i))
+            .requiredAttendants(testUsers.subList(i + 1, 10))
+            .optionalAttendants(List.of(testUsers.get(0)))
+            .build()).collect(Collectors.toList())
+    );
+  }
 
     public void createReminder() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");

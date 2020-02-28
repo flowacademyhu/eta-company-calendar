@@ -11,8 +11,8 @@
 
   "profile": {
     "name": "Név",
-    "lastname": "Vezetéknév",
-    "firstname": "Keresztnév",
+    "lastName": "Vezetéknév",
+    "firstName": "Keresztnév",
     "button": "Váltás angol nyelvre",
     "close": "Bezárás",
     "modify": "Módosítás",
@@ -25,7 +25,9 @@
     "view": "profil adatok",
     "enter_lastename": "Vezetéknév módosítása",
     "save": "Mentés",
-    "cancel": "Mégsem"
+    "cancel": "Mégsem",
+    "success":  "Profil módosítva",
+    "fail": "Sikertelen módosítás"
   },
 
   "header": {
@@ -149,6 +151,15 @@
     "email": "E-mail cím",
     "role": "Szerepkör",
     "action": "Műveletek",
+    "snack_delete": "Felhasználó törölve",
+    "snack_delete_error": "Sikertelen törlés"
+  },
+
+  "deleteuser": {
+    "title": "Felhasználó törlése",
+    "question": "Biztos benne, hogy törölni szeretné ezt a felhasználót?",
+    "cancel": "Mégsem",
+    "confirm": "Törlés",
     "snack_delete": "Felhasználó törölve",
     "snack_delete_error": "Sikertelen törlés"
   }
