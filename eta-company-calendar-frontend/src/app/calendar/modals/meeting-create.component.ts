@@ -7,12 +7,13 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from '~/app/models/location.model';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
+import { UserResponse } from '~/app/models/user-response.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
-import { AuthService } from '~/app/shared/services/auth.service';
 
 export interface DialogData {
   startingTime: string;
   finishTime: string;
+  user: UserResponse;
 }
 
 @Component({
@@ -31,7 +32,6 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   protected formMinFinishTime: Date = new Date(Number.MIN_VALUE);
 
   constructor(private readonly api: ApiCommunicationService,
-              private readonly auth: AuthService,
               @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
               protected readonly dateTimeAdapter: DateTimeAdapter<object>,
               private readonly dialogRef: MatDialogRef<MeetingCreateComponent>,
@@ -126,7 +126,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     meetingDetail.finishTime = meetingDetail.finishTime.valueOf();
     meetingDetail.requiredAttendants = this.requiredAttendantsList;
     meetingDetail.optionalAttendants = this.optionalAttendantsList;
-    meetingDetail.createdBy = this.auth.tokenDetails.getValue().user_name;
+    meetingDetail.createdBy = this.data.user.email;
     this.api.meeting()
       .create(meetingDetail)
       .subscribe();
