@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { UserResponse } from '~/app/models/user-response.model';
 import { User } from '~/app/models/user.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -45,4 +45,8 @@ export class UserService {
     .deleteUser(id);
   }
 
+  public getAllUsersForPagination(): Observable<UserResponse[]> {
+    return this.api.user()
+   .getAllUsers();
+ }
 }
