@@ -1,28 +1,24 @@
 package hu.flowacademy.companycalendar.email;
 
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
 @Slf4j
-@RequiredArgsConstructor
-public class GmailService implements EmailService {
-
-  @NonNull
+@AllArgsConstructor
+@Service
+public class GmailService {
   private final JavaMailSender mailSender;
-  @NonNull
-  private final EmailFactory emailFactory;
 
   @Async
-  @Override
-  public void send(String to, String subject, EmailType emailType, Object... bodyParams) {
+  public void send(String to, String subject, String text) {
     SimpleMailMessage message = new SimpleMailMessage();
     message.setTo(to);
     message.setSubject(subject);
-    message.setText(emailFactory.buildContent(emailType, bodyParams).getValue());
+    message.setText(text);
     mailSender.send(message);
   }
 }

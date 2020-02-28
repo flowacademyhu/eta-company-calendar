@@ -23,7 +23,8 @@ public class MailGunEmailService implements EmailService {
 
     @Override
     public void send(String to, String subject, EmailType emailType, Object... bodyParams) {
-        asyncSend(emailFactory.buildEmail(mailingConfig.getMailFrom(), to, subject, emailType, bodyParams), createHeader());
+        asyncSend(emailFactory.buildEmail(mailingConfig.getMailFrom(), to, subject, emailType, bodyParams),
+            createHeader());
     }
 
     private HttpHeaders createHeader() {

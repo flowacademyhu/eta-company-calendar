@@ -1,7 +1,8 @@
 package hu.flowacademy.companycalendar.service;
 
-import hu.flowacademy.companycalendar.email.EmailService;
-import hu.flowacademy.companycalendar.email.EmailType;
+import hu.flowacademy.companycalendar.config.mailing.MailingConfig;
+import hu.flowacademy.companycalendar.constants.Constants;
+import hu.flowacademy.companycalendar.email.GmailService;
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.User;
@@ -25,9 +26,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class MeetingService {
 
+    private static final DateFormat FORMATTER_TO_HOUR = new SimpleDateFormat("HH:mm");
+    private static final DateFormat FORMATTER_TO_DATE = new SimpleDateFormat("yyyy-MM-dd");
+
     private final MeetingRepository meetingRepository;
     private final UserRepository userRepository; // TODO - UserService is not ready yet
-    private final EmailService emailService;
+    private final GmailService emailService;
+    private final MailingConfig mailingConfig;
 
     public List<MeetingDTO> findAll() {
        return meetingRepository
@@ -54,62 +59,55 @@ public class MeetingService {
                 .stream().map(MeetingDTO::new).collect(Collectors.toList());
     }
 
-    public MeetingDTO create(Long userId, MeetingDTO meetingDTO) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found in DB"));
-        Meeting meeting = meetingDTO.toEntity();
-        meeting.setCreatedBy(user);
+    public Meeting create(MeetingCreateDTO dto) {
+        Meeting meeting = dto.toEntity();
+        User createdBy = userRepository.findById(dto.getCreatedByUser()).orElseThrow();
+        List<User> requiredUsers = userRepository.findAllById(dto.getRequiredAttendants());
+        List<User> optionalUsers = userRepository.findAllById(dto.getOptionalAttendants());
+
+        meeting.setCreatedBy(createdBy);
+        meeting.setUpdatedBy(createdBy);
+        meeting.setRequiredAttendants(requiredUsers);
+        meeting.setOptionalAttendants(optionalUsers);
         meeting.setCreatedAt(System.currentTimeMillis());
-        return new MeetingDTO(meetingRepository.save(meeting));
+        meeting.setUpdatedAt(meeting.getCreatedAt());
+
+        return meetingRepository.save(meeting);
     }
 
     public Long createWithEmails(MeetingCreateDTO dto) {
-        DateFormat formatterToHour = new SimpleDateFormat("HH:mm");
-        DateFormat formatterToDate = new SimpleDateFormat("yyyy-MM-dd");
-        String username = "munkatárs";
-        Meeting meeting = dto.toEntity(
-            userRepository.findFirstByEmail(dto.getCreatedBy())
-                .orElseThrow(() -> new RuntimeException("User not found in DB")),
-            userRepository.findByEmailIn(dto.getRequiredAttendants()),
-            userRepository.findByEmailIn(dto.getOptionalAttendants()));
-        meeting.setCreatedAt(System.currentTimeMillis());
-        List<User> emailListRequired = meeting.getRequiredAttendants();
-        List<User> emailListoptional = meeting.getOptionalAttendants();
-        for (User user : emailListRequired) {
-            Location location =  dto.getLocation();
-            username = user.getProfile().getFirstName();
-            String date = formatterToDate.format(new Date(dto.getStartingTime()));
-            String startTime = formatterToHour.format(new Date(dto.getStartingTime()));
-            String endTime = formatterToHour.format(new Date(dto.getFinishTime()));
-            String isObligatory = "kötelező";
-            emailService.send(user.getEmail(),
-                "Új értekezlet",
-                EmailType.HTML,
-                username,
-                date,
-                startTime,
-                endTime,
-                location,
-                isObligatory);
+        Meeting meeting = create(dto);
+        Date startingDate = new Date(meeting.getStartingTime());
+        String meetingDate = FORMATTER_TO_DATE.format(startingDate);
+        String start = FORMATTER_TO_HOUR.format(startingDate);
+        String finish = FORMATTER_TO_HOUR.format(meeting.getFinishTime());
+        String location = Location.OTHER.equals(dto.getLocation()) ? dto.getOtherLocation() : dto.getLocation().toString();
+
+
+        sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, true);
+        sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, false);
+
+        return meeting.getId();
+    }
+
+    private void sendMeetingEmailForAttendants(Meeting meeting, String meetingDate, String start, String finish, String location, boolean obligatory) {
+        List<User> attendants = obligatory ? meeting.getRequiredAttendants() : meeting.getOptionalAttendants();
+        for (User attendant : attendants) {
+            String firstName = attendant.getProfile().getFirstName();
+            String text = getMeetingText(firstName, meetingDate, start, finish, location, obligatory ? Constants.OBLIGATORY : Constants.NOT_OBLIGATORY);
+            emailService.send(attendant.getEmail(), Constants.NEW_MEETING, text);
         }
-        for (User user : emailListoptional) {
-            Location location =  dto.getLocation();
-            username = user.getProfile().getFirstName();
-            String date = formatterToDate.format(new Date(dto.getStartingTime()));
-            String startTime = formatterToHour.format(new Date(dto.getStartingTime()));
-            String endTime = formatterToHour.format(new Date(dto.getFinishTime()));
-            String isObligatory = "nem kötelező";
-            emailService.send(user.getEmail(),
-                "Új értekezlet",
-                EmailType.HTML,
-                username,
-                date,
-                startTime,
-                endTime,
-                location,
-                isObligatory);
-        }
-        return meetingRepository.save(meeting).getId();
+    }
+
+
+    private String getMeetingText(String firstName, String meetingDate, String start, String finish, String location, String obligatory) {
+        return String.format(mailingConfig.getMessageTemplate(),
+            firstName,
+            meetingDate,
+            start,
+            finish,
+            location,
+            obligatory);
     }
 
     public MeetingDTO updateMeeting(Long userId, MeetingDTO meetingDTO) {
@@ -123,5 +121,9 @@ public class MeetingService {
 
     public void deleteById(Long id) {
         meetingRepository.deleteById(id);
+    }
+
+    private String createMeetingEmailText(String... parameters) {
+        return String.format(mailingConfig.getMessageTemplate(), parameters);
     }
 }

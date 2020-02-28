@@ -13,6 +13,7 @@ import hu.flowacademy.companycalendar.repository.UserRepository;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.AllArgsConstructor;
@@ -49,16 +50,22 @@ public class InitDataLoader {
                 .password(passwordEncoder.encode("user123"))
                 .role(i == 0 ? Roles.ADMIN : Roles.USER).build()).collect(Collectors.toList())
         );
-        userRepository.save(User.builder()
+        User calendarCsiha = User.builder()
             .email("calendarcsiha@gmail.com")
             .password("csiha")
             .role(Roles.ADMIN)
-            .build());
-        userRepository.save(User.builder()
+            .build();
+        calendarCsiha.setProfile(new Profile(null, calendarCsiha, "Csiha", "Calendar", LocalDate.now(), LocalDate.now(), "mydepartment", "intern", "building"));
+        userRepository.save(calendarCsiha);
+
+        User csalaoh = User.builder()
             .email("csalaoh@gmail.com")
             .password("csala")
             .role(Roles.ADMIN)
-            .build());
+            .build();
+        csalaoh.setProfile(new Profile(null, csalaoh, "Laszlo", "Csanyi", LocalDate.now(), LocalDate.now(), "mydepartment", "intern", "building"));
+        userRepository.save(csalaoh);
+
         testUsers.forEach(user -> {
             if (user.getId() == 2) {
                 user.setRole(Roles.LEADER);
