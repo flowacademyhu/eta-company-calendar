@@ -122,7 +122,8 @@
     "reqAttendants": "Attendants",
     "optAttendants": "Notification",
     "modalClose": "Close",
-    "filter": "Filter"
+    "filter": "Filter",
+    "myMeetings": "My meetings"
   },
   
   "edituserform":{

@@ -16,11 +16,20 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
   'td.mat-cell {text-align: center;}',
 ],
   template: `
-	<div class="row justify-content-center" mt-4>
-  <mat-form-field>
-    <input matInput type="text" (keyup)="doFilter($event.target.value)"
-      placeholder="{{ 'meetinglist.filter' | translate}}">
-  </mat-form-field>
+  <div class="row justify-content-center mt-2">
+    <mat-card style="width:85%">
+      <div class="pl-4 d-flex justify-content-between">
+        <h3 class="ml-5" >{{'meetinglist.myMeetings' | translate}}</h3>
+          <mat-form-field>
+            <input matInput type="text" (keyup)="doFilter($event.target.value)"
+              placeholder="{{ 'meetinglist.filter' | translate}}">
+          </mat-form-field>
+      </div>
+    </mat-card>
+  </div>
+
+<div class="pt-1 row justify-content-center" mt-4>
+
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <ng-container matColumnDef="date">
@@ -46,14 +55,19 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
     <td mat-cell *matCellDef="let meeting">{{meeting.title}}</td>
   </ng-container>
 
-  <ng-container matColumnDef="description">
+  <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header>
-      {{ 'meetinglist.details' | translate }}</th>
+      {{ 'userlist.action' | translate }}</th>
     <td mat-cell *matCellDef="let meeting">
 
-    <button mat-icon-button matTooltip="{{ 'meetinglist.details' | translate }}" (click)="openDialog(meeting)">
+    <button mat-icon-button (click)="openDialog(meeting)">
 		  <mat-icon>
          library_books
+      </mat-icon>
+    </button>
+    <button mat-icon-button color="warn"(click)="openDialog(meeting)">
+		  <mat-icon>
+         delete
       </mat-icon>
     </button>
     </td>
@@ -73,7 +87,7 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
 export class MyMeetingsDescriptionComponent implements OnInit, OnDestroy, AfterViewInit  {
 
   protected meetings$: Observable<MeetingDetail[]>;
-  public displayedColumns: string[] = ['date', 'startingTime', 'finishTime', 'title', 'description'];
+  public displayedColumns: string[] = ['date', 'startingTime', 'finishTime', 'title', 'action'];
   public dataSource: MatTableDataSource<MeetingDetail> = new MatTableDataSource<MeetingDetail>();
   public dataSub: Subscription;
 

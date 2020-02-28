@@ -124,7 +124,9 @@
     "reqAttendants": "Résztvevők",
     "optAttendants": "Értesítések",
     "modalClose": "Bezárás",
-    "filter": "Szűrés"
+    "filter": "Szűrés",
+    "myMeetings": "Értekezleteim"
+
   },
 
   "edituserform":{
