@@ -1,19 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { UserResponse } from '~/app/models/user-response.model';
 import { ProfilViewDialog } from '~/app/shared/modals/profil-view-dialog.component';
+import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { DeleteUserComponent } from '../modals/delete-user.component';
 import { EditUserComponent } from '../modals/edit-user.component';
 import { UserService } from '../service/user-service';
 
 @Component({
   selector: 'app-user-list',
-  styles: ['table { width: 85%; }', 'th.mat-header-cell {text-align: center;}', 'td.mat-cell {text-align: center;}' ],
+  styles: ['table { width: 85%; }',
+  'mat-paginator { width: 85%; }',
+   'th.mat-header-cell {text-align: center;}',
+   'td.mat-cell {text-align: center;}',
+  ],
   template: `
   <div class="row justify-content-center">
-  <table mat-table [dataSource]="users$ | async" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef> {{'userlist.id' | translate}} </th>
@@ -57,9 +62,11 @@ import { UserService } from '../service/user-service';
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<mat-paginator [length]="100"
-[pageSize]="10"
-[pageSizeOptions]="[5, 10, 25, 100]">
+<mat-paginator class="mat-elevation-z8"
+  [pageSize]="5"
+  [pageSizeOptions]="[5, 10, 20]"
+  showFirstLastButtons
+  >
 </mat-paginator>
 </div>
   `,
@@ -67,16 +74,35 @@ import { UserService } from '../service/user-service';
 export class UserListComponent implements OnInit {
   protected users$: Observable<UserResponse[]>;
   public displayedColumns: string[] = ['id', 'email', 'role', 'action' ];
+  public dataSource: MatTableDataSource<UserResponse> = new MatTableDataSource<UserResponse>();
+  public dataSub: Subscription;
 
-  constructor(private readonly userService: UserService,
+  @ViewChild(MatSort) public sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
+
+  constructor(private readonly api: ApiCommunicationService,
+              private readonly userService: UserService,
               private readonly snackBar: MatSnackBar,
-              private readonly dialog: MatDialog,
-              ) { }
+              private readonly dialog: MatDialog) {
+                this.users$ = this.api.user()
+                .getAllUsers();
+              }
 
   public ngOnInit() {
-    this.userService.getAllUsers();
-    this.users$ = this.userService
-    .userSub;
+    this.dataSource.paginator = this.paginator;
+    this.dataSub = this.userService.getAllUsersForPagination()
+      .subscribe((res) => {
+        this.dataSource.data = (res as unknown as UserResponse[]);
+      });
+  }
+
+  public ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  public ngOnDestroy(): void {
+    this.dataSub.unsubscribe();
   }
 
   public openSnackBar(message: string) {
