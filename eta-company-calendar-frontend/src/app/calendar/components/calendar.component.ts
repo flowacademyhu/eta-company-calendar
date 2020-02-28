@@ -20,20 +20,21 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
   styles: [`
     .white-background {
       background-color: white;
+      border: 2px solid;
     }
     .app-calendar {
       margin: 0 auto;
       max-width: 1000px;
     }
-    mat-card {
-      background: transparent;
+    .menu {
+      width: 13.5%;
     }
   `],
   template: `
   <div class='app-calendar white-background'>
-    <mat-card *ngIf="isUserLeader" class="d-flex justify-content-left">
-      <mat-form-field>
-        <mat-label>{{ 'calendar.selectEmployee' | translate}}</mat-label>
+    <div *ngIf="isUserLeader" class="d-flex justify-content-left">
+      <mat-form-field class="menu">
+        <mat-label class="title">{{ 'calendar.selectEmployee' | translate}}</mat-label>
         <mat-select [(value)]="selectedUser" (selectionChange)="fetchMeetings()">
           <mat-option [value]="loggedInUser">{{ 'calendar.self' | translate }}</mat-option>
           <mat-option
@@ -42,8 +43,7 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
             >{{ employee.email }}</mat-option>
         </mat-select>
         </mat-form-field>
-    </mat-card>
-
+    </div>
     <full-calendar
       #calendar
       defaultView="dayGridMonth"
