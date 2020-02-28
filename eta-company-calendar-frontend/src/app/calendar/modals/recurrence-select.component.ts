@@ -69,6 +69,14 @@ export class RecurrenceSelectComponent implements OnInit {
 
   public onSubmit() {
     console.log(this.recurrenceForm);
+    const rrule = new RRule({
+      freq: this.recurrenceForm.get('frequency')?.value,
+      byweekday: this.selectedDays.map((weekday) => weekday.value),
+      dtstart: this.data.startingDate,
+      until: this.recurrenceForm.get('until')?.value
+    });
+    console.log(rrule);
+    console.log(rrule.toString());
   }
 
 }
