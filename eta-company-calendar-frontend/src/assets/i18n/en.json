@@ -10,8 +10,8 @@
   },
   "profile": {
     "name": "Name",
-    "lastname": "LastName",
-    "firstname": "FirstName",
+    "lastName": "LastName",
+    "firstName": "FirstName",
     "button": "Switch to Hungarian",
     "close": "Close",
     "modify": "Modify",
@@ -24,7 +24,9 @@
     "view": "profile details",
     "enter_lastename": "Enter lastname",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "success":  "Profile has been updated",
+    "fail": "Error occured during update"
   },
 
   "header": {

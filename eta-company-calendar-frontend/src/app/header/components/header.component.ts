@@ -80,7 +80,8 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
             {{'header.logout' | translate}}
           </button>
       </div>
-  </mat-toolbar>`
+  </mat-toolbar>
+`
 })
 
 export class HeaderComponent {
@@ -103,7 +104,11 @@ export class HeaderComponent {
   }
 
   public openProfilDialog() {
-    this.dialog.open(ProfilViewDialog, {disableClose: true});
+   this.dialog.open(ProfilViewDialog, {
+      data: this.auth.tokenDetails.getValue()
+                        .id
+                        .valueOf(),
+      disableClose: true});
   }
 
   protected isAdmin(tokenDetails: TokenDetails): boolean {

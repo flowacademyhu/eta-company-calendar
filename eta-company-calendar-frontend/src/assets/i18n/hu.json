@@ -11,8 +11,8 @@
 
   "profile": {
     "name": "Név",
-    "lastname": "Vezetéknév",
-    "firstname": "Keresztnév",
+    "lastName": "Vezetéknév",
+    "firstName": "Keresztnév",
     "button": "Váltás angol nyelvre",
     "close": "Bezárás",
     "modify": "Módosítás",
@@ -25,7 +25,9 @@
     "view": "profil adatok",
     "enter_lastename": "Vezetéknév módosítása",
     "save": "Mentés",
-    "cancel": "Mégsem"
+    "cancel": "Mégsem",
+    "success":  "Profil módosítva",
+    "fail": "Sikertelen módosítás"
   },
 
   "header": {

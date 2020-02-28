@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { UserResponse } from '~/app/models/user-response.model';
+import { ProfilViewDialog } from '~/app/shared/modals/profil-view-dialog.component';
 import { DeleteUserComponent } from '../modals/delete-user.component';
 import { EditUserComponent } from '../modals/edit-user.component';
 import { UserService } from '../service/user-service';
@@ -32,7 +33,7 @@ import { UserService } from '../service/user-service';
   <ng-container matColumnDef="action" >
     <th mat-header-cell *matHeaderCellDef class="text-center">{{'userlist.action' | translate}}</th>
     <td mat-cell *matCellDef="let user">
-    <button mat-icon-button>
+    <button mat-icon-button (click)="openDialogProfile(user.id)">
     <mat-icon aria-label="User">
       perm_identity
     </mat-icon>
@@ -50,11 +51,16 @@ import { UserService } from '../service/user-service';
     </mat-icon>
      </button>
     </td>
+
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<mat-paginator [length]="100"
+[pageSize]="10"
+[pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator>
 </div>
   `,
 })
@@ -85,6 +91,11 @@ export class UserListComponent implements OnInit {
       width: '400px',
     });
   }
+
+  public openDialogProfile(id: number) {
+    this.dialog.open(ProfilViewDialog, {
+      data: id, });
+    }
 
   public openDialogDelete(id: number): void {
     this.dialog.open(DeleteUserComponent, {
