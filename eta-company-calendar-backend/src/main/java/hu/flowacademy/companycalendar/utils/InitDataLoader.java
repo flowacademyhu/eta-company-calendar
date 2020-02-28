@@ -2,6 +2,8 @@ package hu.flowacademy.companycalendar.utils;
 
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
+import hu.flowacademy.companycalendar.model.Profile;
+import hu.flowacademy.companycalendar.model.RRule;
 import hu.flowacademy.companycalendar.model.Recurring;
 import hu.flowacademy.companycalendar.model.Reminder;
 import hu.flowacademy.companycalendar.model.User;
