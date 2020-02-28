@@ -6,8 +6,8 @@ import { ReminderDetail } from '../../models/reminder-detail.model';
 export class ReminderApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}/api`;
 
-  public getReminder(id: number): Observable<ReminderDetail> {
-    return this.http.get<ReminderDetail>(`${this.apiRoute}/reminders/${id}`);
+  public findByUserId(userId: number): Observable<ReminderDetail[] > {
+    return this.http.get<ReminderDetail[]>(`${this.apiRoute}/reminders/own/${userId}`);
   }
 
   public getAllReminder(): Observable<ReminderDetail[]> {

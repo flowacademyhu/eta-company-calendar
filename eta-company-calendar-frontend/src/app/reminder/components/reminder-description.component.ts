@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ReminderDetail } from '~/app/models/reminder-detail.model';
 import { ReminderService } from '~/app/reminder/service/reminder.service';
+import { AuthService } from '~/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-my-meetings-description',
@@ -29,10 +30,6 @@ import { ReminderService } from '~/app/reminder/service/reminder.service';
       <th mat-header-cell *matHeaderCellDef> {{'reminderlist.startingTime' | translate}} </th>
       <td mat-cell *matCellDef="let reminder"> {{reminder.startingTime | date: ' HH:mm' }} </td>
     </ng-container>
-    <ng-container matColumnDef="endingTime">
-      <th mat-header-cell *matHeaderCellDef> {{'reminderlist.endingTime' | translate}} </th>
-      <td mat-cell *matCellDef="let reminder"> {{reminder.endingTime | date: ' HH:mm'}} </td>
-    </ng-container>
     <ng-container matColumnDef="recurring">
       <th mat-header-cell *matHeaderCellDef> {{'reminderlist.recurring' | translate}} </th>
       <td mat-cell *matCellDef="let reminder"> {{reminder.recurring}} </td>
@@ -47,12 +44,13 @@ import { ReminderService } from '~/app/reminder/service/reminder.service';
 export class ReminderDescriptionComponent implements OnInit {
 
   protected reminders$: Observable<ReminderDetail[]>;
-  public displayedColumns: string[] = ['id', 'title', 'description', 'date', 'startingTime', 'endingTime', 'recurring'];
+  public displayedColumns: string[] = ['id', 'title', 'description', 'date', 'startingTime', 'recurring'];
 
-  constructor(private readonly reminderService: ReminderService) {}
+  constructor(private readonly reminderService: ReminderService,
+              private auth: AuthService) {}
 
   public ngOnInit() {
-    this.reminderService.getRemindersByUserId(2);
+    this.reminderService.getRemindersByUserId(this.auth.tokenDetails.getValue().id);
     this.reminders$ = this.reminderService
     .reminderSub;
   }
