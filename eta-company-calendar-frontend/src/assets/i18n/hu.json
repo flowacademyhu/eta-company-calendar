@@ -103,7 +103,8 @@
     "startingTime": "Kezdés",
     "endingTime": "Vége",
     "recurring": "Ismétlődés",
-    "date": "Dátum"
+    "date": "Dátum",
+    "myReminders": "Emlékeztetőim"
   },
   "usermanagement": {
     "new_user": "Új felhasználó létrehozása",

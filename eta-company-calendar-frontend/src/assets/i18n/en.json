@@ -101,7 +101,8 @@
     "startingTime": "Starting Time",
     "endingTime": "Ending Time",
     "recurring": "Recurring",
-    "date": "Date"
+    "date": "Date",
+    "myReminders": "My reminders"
   },
   "usermanagement": {
     "new_user": "Add new user",

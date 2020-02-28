@@ -19,7 +19,7 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
   <div class="row justify-content-center mt-2">
     <mat-card style="width:85%">
       <div class="pl-4 d-flex justify-content-between">
-        <h3 class="ml-5" >{{'meetinglist.myMeetings' | translate}}</h3>
+        <h3 class="ml-5" >{{'meetinglist.myMeetings' | translate | uppercase }}</h3>
           <mat-form-field>
             <input matInput type="text" (keyup)="doFilter($event.target.value)"
               placeholder="{{ 'meetinglist.filter' | translate}}">
