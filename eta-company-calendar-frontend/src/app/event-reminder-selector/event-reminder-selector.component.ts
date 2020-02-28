@@ -1,9 +1,9 @@
-import { MeetingCreateComponent } from './../calendar/modals/meeting-create.component';
-import { Component, OnInit, Inject } from '@angular/core';
-import { UserResponse } from '~/app/models/user-response.model';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { EventInput } from '@fullcalendar/core';
 import { Observable } from 'rxjs';
+import { UserResponse } from '~/app/models/user-response.model';
+import { MeetingCreateComponent } from './../calendar/modals/meeting-create.component';
 
 @Component({
   selector: 'app-event-reminder-selector',
