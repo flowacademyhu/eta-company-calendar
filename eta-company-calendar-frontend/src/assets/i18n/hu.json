@@ -153,6 +153,15 @@
     "action": "Műveletek",
     "snack_delete": "Felhasználó törölve",
     "snack_delete_error": "Sikertelen törlés"
+  },
+
+  "deleteuser": {
+    "title": "Felhasználó törlése",
+    "question": "Biztos benne, hogy törölni szeretné ezt a felhasználót?",
+    "cancel": "Mégsem",
+    "confirm": "Törlés",
+    "snack_delete": "Felhasználó törölve",
+    "snack_delete_error": "Sikertelen törlés"
   }
 
 }
