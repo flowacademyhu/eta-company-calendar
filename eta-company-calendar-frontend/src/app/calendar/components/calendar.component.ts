@@ -55,6 +55,8 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
       [events]="calendarEvents"
       [aspectRatio]="1.35"
       (dateClick)="handleDateClick($event)"
+      (eventClick)="handleEventClick($event)"
+      (eventMouseover)="handleEventClick($event)"
       (datesRender)="onDatesRender($event)"
     ></full-calendar>
   </div>
@@ -111,6 +113,11 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  protected handleEventClick(arg: EventClickInfo) {
+    console.log(arg);
+    console.log('id: ', arg.event.id);
+  }
+
   protected onDatesRender(info: DatesRenderInfo) {
     this.currentView = info.view;
     this.fetchMeetings();
@@ -132,7 +139,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     .subscribe((data) => {
       this.calendarEvents = [];
       this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
-        return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title};
+        return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title, id: meeting.id};
       }));
     });
   }
@@ -163,4 +170,8 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 export interface DatesRenderInfo {
   view: View;
   el: HTMLElement;
+}
+
+export interface EventClickInfo {
+  event: {id: number};
 }
