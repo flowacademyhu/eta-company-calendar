@@ -9,7 +9,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import rrulePlugin from '@fullcalendar/rrule';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import { TranslateService } from '@ngx-translate/core';
-// import { RRule } from 'rrule';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -94,9 +93,14 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   // test
   protected getRecurrenceComponent() {
-    this.dialog.open(RecurrenceSelectComponent, {
+    const dialogRef = this.dialog.open(RecurrenceSelectComponent, {
       width: '500px',
       data: {startingDate: new Date()},
+    });
+    dialogRef.afterClosed()
+    .subscribe((result) => {
+      console.log('after dialog close:');
+      console.log(result);
     });
   }
 
