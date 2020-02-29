@@ -35,26 +35,30 @@
       </mat-radio-group>
     </div>
 
-    <div *ngIf="recurrenceForm.get('endType').value === 'occurrences'">
-      total occurrences:
-      <mat-form-field>
-        <input matInput formControlName="occurrences" type="number" min="1">
-      </mat-form-field>
-    </div>
+    <div [ngSwitch]="recurrenceForm.get('endType').value">
 
-    <div *ngIf="recurrenceForm.get('endType').value === 'endDate'">
-      <mat-form-field>
-        <mat-label >date</mat-label>
-        <input matInput
-          formControlName="endDate"
-          type="datetime" autocomplete="off"
-          [min]="startingDate"
-          [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" >
-        <owl-date-time #dt1 [firstDayOfWeek]="1"></owl-date-time>
-      </mat-form-field>
-      <mat-icon [owlDateTimeTrigger]="dt1">event</mat-icon> 
-    </div>
+      <div *ngSwitchCase="'occurrences'">
+        total occurrences:
+        <mat-form-field>
+          <input matInput formControlName="occurrences" type="number" min="1">
+        </mat-form-field>
+      </div>
 
+      <div *ngSwitchCase="'endDate'">
+        <mat-form-field>
+          <mat-label >date</mat-label>
+          <input matInput
+            formControlName="endDate"
+            type="datetime" autocomplete="off"
+            [min]="startingDate"
+            [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" >
+          <owl-date-time #dt1 [firstDayOfWeek]="1"></owl-date-time>
+        </mat-form-field>
+        <mat-icon [owlDateTimeTrigger]="dt1">event</mat-icon> 
+      </div>
+
+    </div>
+    
     <div>
       <button mat-button type="submit">lofash</button>
     </div>
