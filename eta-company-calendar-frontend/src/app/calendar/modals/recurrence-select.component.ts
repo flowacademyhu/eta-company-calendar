@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { RRule, Weekday } from 'rrule';
+import { RecurrenceDialogData } from '../models/recurrence-dialog-data.model';
 
 @Component({
   selector: 'app-recurrence-select',
@@ -47,7 +48,7 @@ export class RecurrenceSelectComponent implements OnInit {
   protected startingDate: Date;
 
   constructor(private readonly dialogRef: MatDialogRef<RecurrenceSelectComponent>,
-              @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
+              @Inject(MAT_DIALOG_DATA) private readonly data: RecurrenceDialogData,
               protected readonly dateTimeAdapter: DateTimeAdapter<object>,
               private readonly translate: TranslateService) { }
 
@@ -178,12 +179,6 @@ export interface DayOfWeek {
 export interface Frequency {
   name: string;
   value: number;
-}
-
-export interface DialogData {
-  startingDate: Date;
-  duration?: number;
-  rrule?: string;
 }
 
 export const WeekDaySelectedValidator: ValidatorFn = (control: AbstractControl): ValidationErrors => {
