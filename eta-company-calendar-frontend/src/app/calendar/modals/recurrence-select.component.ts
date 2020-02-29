@@ -75,11 +75,11 @@ export class RecurrenceSelectComponent implements OnInit {
       this.selectedDays.push(day);
     }
     day.isSelected = !day.isSelected;
+    this.recurrenceForm.get('weekDays')
+      ?.setValue(this.selectedDays.map((d) => d.value));
   }
 
   public onSubmit() {
-    console.log('is form valid: ', this.recurrenceForm.valid);
-    console.log('form group error: ', this.recurrenceForm.errors);
     this.getAllErrors();
     const rrule = new RRule({
       freq: this.recurrenceForm.get('frequency')?.value,
@@ -90,10 +90,12 @@ export class RecurrenceSelectComponent implements OnInit {
     this.dialogRef.close(rrule);
   }
 
+  // test
   private getAllErrors() {
     Object.keys(this.recurrenceForm.controls).forEach((key) => {
       console.log('error: ', key, this.recurrenceForm.get(key)?.errors);
     });
+    console.log('form group error: ', this.recurrenceForm.errors);
   }
 
 }
@@ -115,11 +117,8 @@ export interface DialogData {
   rrule?: string;
 }
 
-export const WeekDaySelectedValidator: ValidatorFn = (control: AbstractControl):
-ValidationErrors => {
+export const WeekDaySelectedValidator: ValidatorFn = (control: AbstractControl): ValidationErrors => {
   const frequency = control.get('frequency');
   const weekDays = control.get('weekDays');
-  console.log('weekday stuff', weekDays?.value.size === 0 || ! weekDays?.value);
-  console.log('weekday rule', frequency?.value === RRule.WEEKLY);
-  return frequency?.value === RRule.WEEKLY && weekDays?.value.size === 0 ? { NoWeekDaySelected: true } : {};
+  return frequency?.value === RRule.WEEKLY && weekDays?.value.length === 0 ? { NoWeekDaySelected: true } : {};
  };
