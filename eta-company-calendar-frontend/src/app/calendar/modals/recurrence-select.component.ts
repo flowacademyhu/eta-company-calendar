@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { RRule, Weekday } from 'rrule';
-import { DateTimeAdapter } from 'ng-pick-datetime';
 import { TranslateService } from '@ngx-translate/core';
+import { DateTimeAdapter } from 'ng-pick-datetime';
+import { RRule, Weekday } from 'rrule';
 
 @Component({
   selector: 'app-recurrence-select',
@@ -45,7 +45,9 @@ export class RecurrenceSelectComponent implements OnInit {
   public ngOnInit() {
     console.log(this.data);
     this.dateTimeAdapter.setLocale(this.translate.currentLang);
+
     this.startingDate = this.data.startingDate;
+
     this.recurrenceForm = new FormGroup({
       frequency: new FormControl(undefined, [Validators.required, Validators.min(1)]),
       interval: new FormControl(undefined, [Validators.required]),
@@ -53,8 +55,11 @@ export class RecurrenceSelectComponent implements OnInit {
       hasEndDate: new FormControl(undefined),
       until: new FormControl(undefined),
     }, WeekDaySelectedValidator);
+
     this.recurrenceForm.get('frequency')
       ?.setValue(this.frequencyTypes[1].value);
+    this.recurrenceForm.get('interval')
+      ?.setValue(1);
   }
 
   public onNoClick(): void {
