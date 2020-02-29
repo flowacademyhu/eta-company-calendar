@@ -130,6 +130,7 @@
     "role": "Role",
     "admin": "Admin",
     "user": "User",
+    "leader": "Leader",
     "email": "Email address",
     "password": "Password",
     "confirm_password": "Confirm password",
