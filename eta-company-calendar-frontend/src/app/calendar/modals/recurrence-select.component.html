@@ -58,10 +58,14 @@
       </div>
 
     </div>
-    
+
+    <mat-error *ngIf="recurrenceForm.hasError('NoWeekDaySelected')">No weekday selected</mat-error>
+    <mat-error *ngIf="recurrenceForm.hasError('NoOccurrenceSelected')">No occurrence selected</mat-error>
+    <mat-error *ngIf="recurrenceForm.hasError('NoEndDateSelected')">No end date selected</mat-error>
+
     <div>
-      <button mat-button type="submit">lofash</button>
+      <button mat-button type="submit">set recurrence</button>
     </div>
-  
+
   </div>
 </form>
