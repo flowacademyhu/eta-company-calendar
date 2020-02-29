@@ -20,8 +20,8 @@ export class RecurrenceSelectComponent implements OnInit {
     { name: 'wednesday', value: RRule.WE, isSelected: false },
     { name: 'thursday', value: RRule.TH, isSelected: false },
     { name: 'friday', value: RRule.FR, isSelected: false },
-    { name: 'Saturday', value: RRule.SA, isSelected: false },
-    { name: 'Sunday', value: RRule.SU, isSelected: false },
+    { name: 'saturday', value: RRule.SA, isSelected: false },
+    { name: 'sunday', value: RRule.SU, isSelected: false },
   ];
 
   protected frequencyTypes: Frequency[] = [
