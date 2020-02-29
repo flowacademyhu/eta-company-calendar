@@ -54,9 +54,9 @@ export class RecurrenceSelectComponent implements OnInit {
       interval: new FormControl(undefined, [Validators.required]),
       weekDays: new FormControl([]),
       endType: new FormControl(undefined),
-      occurrences: new FormControl(undefined, [Validators.required]),
-      endDate: new FormControl(undefined, [Validators.required]),
-    }, WeekDaySelectedValidator);
+      occurrences: new FormControl(undefined),
+      endDate: new FormControl(undefined),
+    }, [WeekDaySelectedValidator, EndingSelectedValidator] );
 
     this.setDefaultValues();
 
@@ -151,4 +151,19 @@ export const WeekDaySelectedValidator: ValidatorFn = (control: AbstractControl):
   const frequency = control.get('frequency');
   const weekDays = control.get('weekDays');
   return frequency?.value === RRule.WEEKLY && weekDays?.value.length === 0 ? { NoWeekDaySelected: true } : {};
+};
+
+export const EndingSelectedValidator: ValidatorFn = (control: AbstractControl): ValidationErrors => {
+  const endType = control.get('endType');
+  const occurrences = control.get('occurrences');
+  const endDate = control.get('endDate');
+
+  switch (endType?.value) {
+    case 'occurrences':
+      return occurrences?.value >= 1 ? {} : { NoOccurrenceSelected : true };
+    case 'endDate':
+      return endDate?.value ? {} : { NoEndDateSelected: true };
+    default:
+      return {};
+  }
 };
