@@ -1,10 +1,10 @@
 <form [formGroup]="recurrenceForm" (ngSubmit)="onSubmit()">
   <div class="d-flex flex-column">
     
-    <div>
+    <div class="m-1">
       <mat-label>{{ 'recurrenceSelect.repeatInvervalHeader' | translate }}</mat-label>
       <table class="example-full-width" cellspacing="0"><tr>
-        <td><mat-form-field>
+        <td><mat-form-field class="number-input">
           <input matInput formControlName="interval" type="number" min="1">
         </mat-form-field></td>
         <td><mat-form-field>
@@ -18,8 +18,8 @@
       </tr></table>
     </div>
 
-    <div *ngIf="recurrenceForm.get('frequency').value === 2">
-      <mat-label>{{ 'recurrenceSelect.repeatDaysHeader' | translate }}</mat-label>
+    <div class="m-1" *ngIf="recurrenceForm.get('frequency').value === 2">
+      <p>{{ 'recurrenceSelect.repeatDaysHeader' | translate }}</p>
       <mat-chip-list multiple>
         <mat-chip *ngFor="let day of weekDays" selectable="true"
                  [selected]="day.isSelected"
@@ -29,25 +29,25 @@
       </mat-chip-list>
     </div>
 
-    <div>
-      <label>{{ 'recurrenceSelect.endSelectHeader' | translate }}</label>
-      <mat-radio-group  class="d-flex flex-row" formControlName="endType">
-        <mat-radio-button *ngFor="let type of endTypes" [value]="type">
+    <div class="m-1 mt-3">
+      <p>{{ 'recurrenceSelect.endSelectHeader' | translate }}</p>
+      <mat-radio-group  class="d-flex flex-row m-1" formControlName="endType">
+        <mat-radio-button class="m-1" *ngFor="let type of endTypes" [value]="type">
           {{'recurrenceSelect.' + type | translate }}
         </mat-radio-button>
       </mat-radio-group>
     </div>
 
-    <div [ngSwitch]="recurrenceForm.get('endType').value">
+    <div class="m-1" [ngSwitch]="recurrenceForm.get('endType').value">
 
       <div *ngSwitchCase="'endTypeOccurrences'">
         {{ 'recurrenceSelect.occurrenceEndText' | translate }}
-        <mat-form-field>
+        <mat-form-field class="number-input" >
           <input matInput formControlName="occurrences" type="number" min="1">
         </mat-form-field>
       </div>
 
-      <div *ngSwitchCase="'endTypeDate'">
+      <div *ngSwitchCase="'endTypeDate'" class="d-flex align-items-center">
         <mat-form-field>
           <mat-label >{{ 'recurrenceSelect.dateEndText' | translate }}</mat-label>
           <input matInput
@@ -62,15 +62,18 @@
 
     </div>
 
-    <mat-error *ngIf="recurrenceForm.hasError('NoWeekDaySelected')"
-      >{{ 'recurrenceSelect.errNoWeekDaySelected' | translate }}</mat-error>
-    <mat-error *ngIf="recurrenceForm.hasError('NoOccurrenceSelected')"
-      >{{ 'recurrenceSelect.errNoOccurrenceSelected' | translate }}</mat-error>
-    <mat-error *ngIf="recurrenceForm.hasError('NoEndDateSelected')"
-      >{{ 'recurrenceSelect.errNoEndDateSelected' | translate }}</mat-error>
+    <div class="m-1">
+      <mat-error *ngIf="recurrenceForm.hasError('NoWeekDaySelected')"
+        >{{ 'recurrenceSelect.errNoWeekDaySelected' | translate }}</mat-error>
+      <mat-error *ngIf="recurrenceForm.hasError('NoOccurrenceSelected')"
+        >{{ 'recurrenceSelect.errNoOccurrenceSelected' | translate }}</mat-error>
+      <mat-error *ngIf="recurrenceForm.hasError('NoEndDateSelected')"
+        >{{ 'recurrenceSelect.errNoEndDateSelected' | translate }}</mat-error>
+    </div>
 
-    <div>
-      <button mat-button type="submit">{{ 'recurrenceSelect.submitButtonText' | translate }}</button>
+    <div class="m-1">
+      <button mat-button type="submit" [disabled]="recurrenceForm.invalid"
+        >{{ 'recurrenceSelect.submitButtonText' | translate }}</button>
     </div>
 
   </div>

@@ -7,6 +7,15 @@ import { RRule, Weekday } from 'rrule';
 
 @Component({
   selector: 'app-recurrence-select',
+  styles: [`
+    .mat-icon {
+      cursor: pointer;
+    }
+
+    .number-input {
+      width: 30px;
+    }
+  `],
   templateUrl: 'recurrence-select.component.html'
 })
 
