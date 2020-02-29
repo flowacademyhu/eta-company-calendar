@@ -128,6 +128,32 @@
     "action": "Action",
     "snack_delete": "User deleted",
     "snack_delete_error": "Unsuccessful"
+  },
+
+  "recurrenceSelect": {
+    "repeatInvervalHeader": "select repetition",
+    "intervalDay": "day",
+    "invervalWeek": "week",
+    "intervalMonth": "month",
+    "intervalYear": "year",
+    "repeatDaysHeader": "select days",
+    "monday": "Mo",
+    "tuesday": "Tu",
+    "wednesday": "We",
+    "thursday:": "Th",
+    "friday": "Fr",
+    "Saturday": "Sa",
+    "Sunday": "Su",
+    "endSelectHeader": "select ending",
+    "endTypeOccurrences": "after occurrences",
+    "endTypeDate": "end date",
+    "endTypeNever": "never",
+    "occurrenceEndText": "number of occurrences: ",
+    "dateEndText": "end date",
+    "submitButtonText": "Ok",
+    "errNoWeekDaySelected": "No weekday selected",
+    "errNoOccurrenceSelected": "No occurrence selected",
+    "errNoEndDateSelected": "No end date selected"
   }
   
 }

@@ -15,23 +15,23 @@ export class RecurrenceSelectComponent implements OnInit {
   private recurrenceForm: FormGroup;
 
   protected weekDays: DayOfWeek[] = [
-    { name: 'M', value: RRule.MO, isSelected: false },
-    { name: 'T', value: RRule.TU, isSelected: false },
-    { name: 'W', value: RRule.WE, isSelected: false },
-    { name: 'T', value: RRule.TH, isSelected: false },
-    { name: 'F', value: RRule.FR, isSelected: false },
-    { name: 'S', value: RRule.SA, isSelected: false },
-    { name: 'S', value: RRule.SU, isSelected: false },
+    { name: 'monday', value: RRule.MO, isSelected: false },
+    { name: 'tuesday', value: RRule.TU, isSelected: false },
+    { name: 'wednesday', value: RRule.WE, isSelected: false },
+    { name: 'thursday', value: RRule.TH, isSelected: false },
+    { name: 'friday', value: RRule.FR, isSelected: false },
+    { name: 'Saturday', value: RRule.SA, isSelected: false },
+    { name: 'Sunday', value: RRule.SU, isSelected: false },
   ];
 
   protected frequencyTypes: Frequency[] = [
-    {name: 'DAY', value: RRule.DAILY },
-    {name: 'WEEK', value: RRule.WEEKLY },
-    {name: 'MONTH', value: RRule.MONTHLY },
-    {name: 'YEAR', value: RRule.YEARLY },
+    {name: 'intervalDay', value: RRule.DAILY },
+    {name: 'invervalWeek', value: RRule.WEEKLY },
+    {name: 'intervalMonth', value: RRule.MONTHLY },
+    {name: 'intervalYear', value: RRule.YEARLY },
   ];
 
-  protected endTypes: string[] = ['occurrences', 'endDate', 'never'];
+  protected endTypes: string[] = ['endTypeOccurrences', 'endTypeDate', 'endTypeNever'];
 
   protected selectedDays: DayOfWeek[] = [];
 
@@ -159,9 +159,9 @@ export const EndingSelectedValidator: ValidatorFn = (control: AbstractControl): 
   const endDate = control.get('endDate');
 
   switch (endType?.value) {
-    case 'occurrences':
+    case 'endTypeOccurrences':
       return occurrences?.value >= 1 ? {} : { NoOccurrenceSelected : true };
-    case 'endDate':
+    case 'endTypeDate':
       return endDate?.value ? {} : { NoEndDateSelected: true };
     default:
       return {};

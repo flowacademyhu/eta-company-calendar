@@ -128,5 +128,32 @@
     "action": "Műveletek",
     "snack_delete": "Felhasználó törölve",
     "snack_delete_error": "Sikertelen törlés"
+  },
+
+  "recurrenceSelect": {
+    "repeatInvervalHeader": "ismétlődés kiválsztása",
+    "intervalDay": "nap",
+    "invervalWeek": "hét",
+    "intervalMonth": "hónap",
+    "intervalYear": "év",
+    "repeatDaysHeader": "ismétlődés napjai",
+    "monday": "H",
+    "tuesday": "K",
+    "wednesday": "Sz",
+    "thursday:": "Cs",
+    "friday": "P",
+    "Saturday": "Sz",
+    "Sunday": "V",
+    "endSelectHeader": "ismétlődés végének típusa",
+    "endTypeOccurrences": "alkalmak",
+    "endTypeDate": "dátum",
+    "endTypeNever": "soha",
+    "occurrenceEndText": "alkalmak száma: ",
+    "dateEndText": "Végdátum",
+    "submitButtonText": "Rendben",
+    "errNoWeekDaySelected": "Nincs nap kiválasztva",
+    "errNoOccurrenceSelected": "Alkalmak száma nincs megadva",
+    "errNoEndDateSelected": "Végdátum nincs megadva"
   }
+
 }
