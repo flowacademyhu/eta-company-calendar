@@ -95,6 +95,10 @@ export class RecurrenceSelectComponent implements OnInit {
     this.recurrenceForm.get('hasEndDate')
       ?.setValue(true);
 
+    const defaultEndDate = new Date(this.startingDate).setDate(this.startingDate.getDate() + 7);
+    this.recurrenceForm.get('until')
+      ?.setValue(new Date(defaultEndDate));
+
     const dayOfStartingDate = this.startingDate.getDay() - 1;
     this.toggleWeekDay(this.weekDays[dayOfStartingDate]);
   }
