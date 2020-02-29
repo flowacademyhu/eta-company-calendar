@@ -5,7 +5,7 @@
       <mat-label>repeates every</mat-label>
       <table class="example-full-width" cellspacing="0"><tr>
         <td><mat-form-field>
-          <input matInput formControlName="interval" type="number">
+          <input matInput formControlName="interval" type="number" min="1">
         </mat-form-field></td>
         <td><mat-form-field>
           <mat-select formControlName="frequency">
@@ -28,7 +28,7 @@
 
     <div>
       <label>Ends</label>
-      <mat-radio-group  class="d-flex flex-row" [(ngModel)]="hasEndDate" formControlName="hasEndDate">
+      <mat-radio-group  class="d-flex flex-row" formControlName="hasEndDate">
         <mat-radio-button [value]="true">
           after date
         </mat-radio-button>
@@ -38,7 +38,7 @@
       </mat-radio-group>
     </div>
 
-    <div *ngIf="hasEndDate">
+    <div *ngIf="recurrenceForm.get('hasEndDate').value">
       <mat-form-field>
         <mat-label >date</mat-label>
         <input matInput

@@ -34,8 +34,7 @@ export class RecurrenceSelectComponent implements OnInit {
   protected selectedDays: DayOfWeek[] = [];
 
   protected startingDate: Date;
-
-  protected hasEndDate: boolean = true;
+  protected endDate: Date;
 
   constructor(private readonly dialogRef: MatDialogRef<RecurrenceSelectComponent>,
               @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
@@ -56,10 +55,8 @@ export class RecurrenceSelectComponent implements OnInit {
       until: new FormControl(undefined),
     }, WeekDaySelectedValidator);
 
-    this.recurrenceForm.get('frequency')
-      ?.setValue(this.frequencyTypes[1].value);
-    this.recurrenceForm.get('interval')
-      ?.setValue(1);
+    this.setDefaultValues();
+
   }
 
   public onNoClick(): void {
@@ -88,6 +85,18 @@ export class RecurrenceSelectComponent implements OnInit {
       until: this.recurrenceForm.get('until')?.value
     });
     this.dialogRef.close(rrule);
+  }
+
+  private setDefaultValues() {
+    this.recurrenceForm.get('frequency')
+      ?.setValue(this.frequencyTypes[1].value);
+    this.recurrenceForm.get('interval')
+      ?.setValue(1);
+    this.recurrenceForm.get('hasEndDate')
+      ?.setValue(true);
+
+    const dayOfStartingDate = this.startingDate.getDay() - 1;
+    this.toggleWeekDay(this.weekDays[dayOfStartingDate]);
   }
 
   // test
@@ -121,4 +130,4 @@ export const WeekDaySelectedValidator: ValidatorFn = (control: AbstractControl):
   const frequency = control.get('frequency');
   const weekDays = control.get('weekDays');
   return frequency?.value === RRule.WEEKLY && weekDays?.value.length === 0 ? { NoWeekDaySelected: true } : {};
- };
+};
