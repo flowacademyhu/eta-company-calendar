@@ -7,6 +7,7 @@ import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.MeetingCreateDTO;
 import hu.flowacademy.companycalendar.model.dto.MeetingDTO;
 import hu.flowacademy.companycalendar.model.dto.MeetingListItemDTO;
+import hu.flowacademy.companycalendar.model.dto.MeetingUpdateDTO;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -24,28 +25,28 @@ public class MeetingService {
     private final UserRepository userRepository;
 
     public List<MeetingDTO> findAll() {
-       return meetingRepository
-               .findAll()
-               .stream()
-               .map(MeetingDTO::new)
-               .collect(Collectors.toList());
+        return meetingRepository
+            .findAll()
+            .stream()
+            .map(MeetingDTO::new)
+            .collect(Collectors.toList());
     }
 
-    public MeetingDTO findOne(Long id) {
-        return new MeetingDTO(meetingRepository.findById(id)
-                .orElseThrow(() -> new MeetingNotFoundException(id)));
+    public Meeting findOne(Long id) {
+        return meetingRepository.findById(id)
+            .orElseThrow(() -> new MeetingNotFoundException(id));
     }
 
     public List<MeetingListItemDTO> findByUserIdAndTimeRange(Long userId,
-                                                             Long startingTimeFrom,
-                                                             Long startingTimeTo) {
+        Long startingTimeFrom,
+        Long startingTimeTo) {
         return meetingRepository.findByUserIdAndTimeRange(userId, startingTimeFrom, startingTimeTo)
             .stream().map(MeetingListItemDTO::new).collect(Collectors.toList());
     }
 
     public List<MeetingDTO> findByUserId(Long userId) {
         return meetingRepository.findByInvitedUserId(userId)
-                .stream().map(MeetingDTO::new).collect(Collectors.toList());
+            .stream().map(MeetingDTO::new).collect(Collectors.toList());
     }
 
     public MeetingDTO create(Long userId, MeetingDTO meetingDTO) {
@@ -66,13 +67,20 @@ public class MeetingService {
         return meetingRepository.save(meeting).getId();
     }
 
-    public MeetingDTO updateMeeting(Long userId, MeetingDTO meetingDTO) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException(userId));
-        Meeting meeting = meetingDTO.toEntity();
-        meeting.setUpdatedBy(user);
-        meeting.setUpdatedAt(System.currentTimeMillis());
-        return new MeetingDTO(meetingRepository.save(meeting));
+    public MeetingUpdateDTO updateMeeting(MeetingCreateDTO meetingCreateDTO) {
+        Meeting existingMeeting = findOne(meetingCreateDTO.getId());
+        existingMeeting.setUpdatedAt(System.currentTimeMillis());
+        existingMeeting.setTitle(meetingCreateDTO.getTitle());
+        existingMeeting.setDescription(meetingCreateDTO.getDescription());
+        existingMeeting.setLocation(meetingCreateDTO.getLocation());
+        existingMeeting.setOtherLocation(meetingCreateDTO.getOtherLocation());
+        existingMeeting.setRecurring(meetingCreateDTO.getRecurring());
+        existingMeeting.setStartingTime(meetingCreateDTO.getStartingTime());
+        existingMeeting.setFinishTime(meetingCreateDTO.getFinishTime());
+        existingMeeting.setUpdatedBy(userRepository.findById(meetingCreateDTO.getUserId()).orElseThrow());
+        existingMeeting.setRequiredAttendants(userRepository.findByEmailIn(meetingCreateDTO.getRequiredAttendants()));
+        existingMeeting.setOptionalAttendants(userRepository.findByEmailIn(meetingCreateDTO.getOptionalAttendants()));
+        return new MeetingUpdateDTO(meetingRepository.save(existingMeeting));
     }
 
     public void deleteById(Long id) {

@@ -2,7 +2,6 @@ package hu.flowacademy.companycalendar.model.dto;
 
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
-import hu.flowacademy.companycalendar.model.RRule;
 import hu.flowacademy.companycalendar.model.Recurring;
 import hu.flowacademy.companycalendar.model.User;
 import java.util.ArrayList;
@@ -19,12 +18,13 @@ import org.springframework.beans.BeanUtils;
 @NoArgsConstructor
 public class MeetingCreateDTO {
 
+  private Long id;
+  private Long userId;
   private String title;
   private String description;
   private Location location;
   private String otherLocation;
   private Recurring recurring;
-  private RRule rrule;
   private Long startingTime;
   private Long finishTime;
   private String createdBy;
