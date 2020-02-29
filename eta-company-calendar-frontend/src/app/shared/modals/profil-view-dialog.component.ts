@@ -22,10 +22,10 @@ import { ProfilEditDialog } from './profile-edit-dialog.component';
              {{profile.firstName}}
           </div>
         <br>
-          {{'profile.dateOfBirth' | translate }}
-          <div class="pc">
-             {{profile.dateOfBirth | date: 'yyyy-MM-dd'}}
-          </div>
+        {{'profile.position' | translate }}
+        <div class="pc">
+           {{profile.position}}
+        </div>
         <br>
         </div>
       <div class="divider"> </div>
@@ -44,16 +44,7 @@ import { ProfilEditDialog } from './profile-edit-dialog.component';
           <div class="pc">
              {{profile.leader}}
           </div>
-        <br>
-          {{'profile.position' | translate }}
-          <div class="pc">
-             {{profile.position}}
-          </div>
-        <br>
-          {{'profile.dateOfEntry' | translate }}
-          <div class="pc">
-             {{profile.dateOfEntry  | date: 'yyyy-MM-dd'}}
-          </div>
+    
     </div>
     </mat-dialog-content>
 

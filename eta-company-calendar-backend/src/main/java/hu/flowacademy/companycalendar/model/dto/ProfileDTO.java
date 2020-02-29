@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
-import java.time.LocalDate;
+
 
 @Component
 @Data
@@ -15,8 +15,6 @@ public class ProfileDTO {
 
   private String firstName;
   private String lastName;
-  private LocalDate dateOfBirth;
-  private LocalDate dateOfEntry;
   private String leader;
   private String department;
   private String position;
@@ -30,8 +28,6 @@ public class ProfileDTO {
 
     this.firstName = profile.getFirstName();
     this.lastName = profile.getLastName();
-    this.dateOfBirth = profile.getDateOfBirth();
-    this.dateOfEntry = profile.getDateOfEntry();
     this.department = profile.getDepartment();
     this.position = profile.getPosition();
     this.team = profile.getTeam();

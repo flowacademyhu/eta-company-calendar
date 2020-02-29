@@ -19,8 +19,6 @@
     "department": "Department",
     "team": "Team",
     "leader": "Leader",
-    "dateOfBirth": "Date of Birth",
-    "dateOfEntry": "Date of Entry",
     "view": "profile details",
     "enter_lastename": "Enter lastname",
     "save": "Save",

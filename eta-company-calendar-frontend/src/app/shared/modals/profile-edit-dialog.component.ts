@@ -32,13 +32,12 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
     </mat-form-field>
     <br>
     <mat-form-field>
-      <mat-label>{{'profile.dateOfBirth' | translate }}</mat-label>
-        <div class="pc">
-       <input matInput
-          type = "date"
-          class="form-control"
-          formControlName="dateOfBirth">
-        </div>
+    <mat-label>{{'profile.position' | translate }}</mat-label>
+      <div class="pc">
+      <input matInput
+        class="form-control"
+        formControlName="position">
+      </div>
     </mat-form-field>
     <br>
     </div>
@@ -70,26 +69,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
           formControlName="leader">
         </div>
       </mat-form-field>
-    <mat-form-field>
-    <br>
-    <mat-label>{{'profile.position' | translate }}</mat-label>
-      <div class="pc">
-      <input matInput
-        class="form-control"
-        formControlName="position">
-      </div>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <mat-label>{{'profile.dateOfEntry' | translate }}</mat-label>
-        <div class="pc">
-        <input matInput
-          class="form-control"
-          type = "date"
-          formControlName="dateOfEntry"
-          >
-        </div>
-    </mat-form-field>
 </div>
 </mat-dialog-content>
 <div class="d-flex justify-content-between">
@@ -122,21 +101,17 @@ export class ProfilEditDialog implements OnInit {
       .subscribe(
         (data: Profile) => {this.profile = data;
                             this.editForm.patchValue({
-          dateOfBirth: this.profile.dateOfBirth,
           department: this.profile.department,
           firstName: this.profile.firstName,
           lastName: this.profile.lastName,
           leader: this.profile.leader,
           position: this.profile.position,
           team: this.profile.team,
-          dateOfEntry: this.profile.dateOfEntry,
             });
           }
         );
 
     this.editForm = new FormGroup({
-      dateOfBirth: new FormControl(this.profile.dateOfBirth),
-      dateOfEntry: new FormControl(),
       department: new FormControl(),
       firstName: new FormControl(),
       lastName: new FormControl(),
