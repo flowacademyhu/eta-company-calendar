@@ -31,7 +31,7 @@ export class RecurrenceSelectComponent implements OnInit {
     {name: 'YEAR', value: RRule.YEARLY },
   ];
 
-  protected endTypes: string[] = ['occurrences', 'date', 'never'];
+  protected endTypes: string[] = ['occurrences', 'endDate', 'never'];
 
   protected selectedDays: DayOfWeek[] = [];
 
@@ -54,8 +54,8 @@ export class RecurrenceSelectComponent implements OnInit {
       interval: new FormControl(undefined, [Validators.required]),
       weekDays: new FormControl([]),
       endType: new FormControl(undefined),
-      occurrence: new FormControl(undefined),
-      until: new FormControl(undefined),
+      occurrences: new FormControl(undefined, [Validators.required]),
+      endDate: new FormControl(undefined, [Validators.required]),
     }, WeekDaySelectedValidator);
 
     this.setDefaultValues();
@@ -93,10 +93,10 @@ export class RecurrenceSelectComponent implements OnInit {
   private setRRuleEnd(rrule: RRule) {
     switch (this.recurrenceForm.get('endType')?.value) {
       case 'occurrences':
-        rrule.options.count = this.recurrenceForm.get('occurrence')?.value;
+        rrule.options.count = this.recurrenceForm.get('occurrences')?.value;
         break;
-      case 'date':
-        rrule.options.until = this.recurrenceForm.get('until')?.value;
+      case 'endDate':
+        rrule.options.until = this.recurrenceForm.get('endDate')?.value;
         break;
     }
   }
@@ -110,10 +110,10 @@ export class RecurrenceSelectComponent implements OnInit {
       ?.setValue(this.endTypes[0]);
 
     const defaultEndDate = new Date(this.startingDate).setDate(this.startingDate.getDate() + 7);
-    this.recurrenceForm.get('until')
+    this.recurrenceForm.get('endDate')
       ?.setValue(new Date(defaultEndDate));
 
-    this.recurrenceForm.get('occurrence')
+    this.recurrenceForm.get('occurrences')
       ?.setValue(1);
 
     const dayOfStartingDate = this.startingDate.getDay() - 1;
