@@ -81,6 +81,7 @@
     "new_user": "New User",
     "role": "Role",
     "admin": "Admin",
+    "leader": "Leader",
     "user": "User",
     "email": "Email address",
     "password": "Password",
