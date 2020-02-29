@@ -95,7 +95,10 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
   protected getRecurrenceComponent() {
     const dialogRef = this.dialog.open(RecurrenceSelectComponent, {
       width: '500px',
-      data: {startingDate: new Date()},
+      data: {
+        startingDate: new Date(),
+        rrule: 'DTSTART:20200201T010000Z\nRRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,FR;UNTIL=20210131T000000Z'
+      },
     });
     dialogRef.afterClosed()
     .subscribe((result) => {

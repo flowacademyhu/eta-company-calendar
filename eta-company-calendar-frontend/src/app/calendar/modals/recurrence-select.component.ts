@@ -23,6 +23,13 @@ export class RecurrenceSelectComponent implements OnInit {
 
   private recurrenceForm: FormGroup;
 
+  protected frequencyTypes: Frequency[] = [
+    {name: 'intervalYear', value: RRule.YEARLY },
+    {name: 'intervalMonth', value: RRule.MONTHLY },
+    {name: 'invervalWeek', value: RRule.WEEKLY },
+    {name: 'intervalDay', value: RRule.DAILY },
+  ];
+
   protected weekDays: DayOfWeek[] = [
     { name: 'monday', value: RRule.MO, isSelected: false },
     { name: 'tuesday', value: RRule.TU, isSelected: false },
@@ -33,19 +40,11 @@ export class RecurrenceSelectComponent implements OnInit {
     { name: 'sunday', value: RRule.SU, isSelected: false },
   ];
 
-  protected frequencyTypes: Frequency[] = [
-    {name: 'intervalDay', value: RRule.DAILY },
-    {name: 'invervalWeek', value: RRule.WEEKLY },
-    {name: 'intervalMonth', value: RRule.MONTHLY },
-    {name: 'intervalYear', value: RRule.YEARLY },
-  ];
-
   protected endTypes: string[] = ['endTypeOccurrences', 'endTypeDate', 'endTypeNever'];
 
   protected selectedDays: DayOfWeek[] = [];
 
   protected startingDate: Date;
-  protected endDate: Date;
 
   constructor(private readonly dialogRef: MatDialogRef<RecurrenceSelectComponent>,
               @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
@@ -53,7 +52,6 @@ export class RecurrenceSelectComponent implements OnInit {
               private readonly translate: TranslateService) { }
 
   public ngOnInit() {
-    console.log(this.data);
     this.dateTimeAdapter.setLocale(this.translate.currentLang);
 
     this.startingDate = this.data.startingDate;
@@ -67,8 +65,11 @@ export class RecurrenceSelectComponent implements OnInit {
       endDate: new FormControl(undefined),
     }, [WeekDaySelectedValidator, EndingSelectedValidator] );
 
-    this.setDefaultValues();
-
+    if (this.data.rrule) {
+      this.setValuesFromRRule(this.data.rrule);
+    } else {
+      this.setDefaultValues();
+    }
   }
 
   public onNoClick(): void {
@@ -88,8 +89,7 @@ export class RecurrenceSelectComponent implements OnInit {
       ?.setValue(this.selectedDays.map((d) => d.value));
   }
 
-  public onSubmit() {
-    this.getAllErrors();
+  protected onSubmit() {
     const rrule = new RRule({
       freq: this.recurrenceForm.get('frequency')?.value,
       byweekday: this.selectedDays.map((weekday) => weekday.value),
@@ -112,29 +112,59 @@ export class RecurrenceSelectComponent implements OnInit {
 
   private setDefaultValues() {
     this.recurrenceForm.get('frequency')
-      ?.setValue(this.frequencyTypes[1].value);
+      ?.setValue(this.frequencyTypes[RRule.WEEKLY].value);
+
     this.recurrenceForm.get('interval')
       ?.setValue(1);
+
     this.recurrenceForm.get('endType')
       ?.setValue(this.endTypes[0]);
+    this.setEndTypeDefaults();
 
+    const dayOfStartingDate = this.startingDate.getDay() - 1;
+    this.toggleWeekDay(this.weekDays[dayOfStartingDate]);
+  }
+
+  private setEndTypeDefaults() {
     const defaultEndDate = new Date(this.startingDate).setDate(this.startingDate.getDate() + 7);
     this.recurrenceForm.get('endDate')
       ?.setValue(new Date(defaultEndDate));
 
     this.recurrenceForm.get('occurrences')
       ?.setValue(1);
-
-    const dayOfStartingDate = this.startingDate.getDay() - 1;
-    this.toggleWeekDay(this.weekDays[dayOfStartingDate]);
   }
 
-  // test
-  private getAllErrors() {
-    Object.keys(this.recurrenceForm.controls).forEach((key) => {
-      console.log('error: ', key, this.recurrenceForm.get(key)?.errors);
-    });
-    console.log('form group error: ', this.recurrenceForm.errors);
+  private setValuesFromRRule(rruleStr: string) {
+    const rrule = RRule.fromString(rruleStr);
+
+    this.recurrenceForm.get('frequency')
+      ?.setValue(this.frequencyTypes[rrule.options.freq].value);
+
+    this.recurrenceForm.get('interval')
+      ?.setValue(rrule.options.interval);
+
+    rrule.options.byweekday.forEach((day) => this.toggleWeekDay(this.weekDays[day]));
+
+    this.setEndTypeFromRRule(rrule);
+  }
+
+  private setEndTypeFromRRule(rrule: RRule) {
+    this.setEndTypeDefaults();
+
+    if (rrule.options.count) {
+      this.recurrenceForm.get('endType')
+        ?.setValue(this.endTypes[0]);
+      this.recurrenceForm.get('occurrences')
+        ?.setValue(rrule.options.count);
+    } else if (rrule.options.until) {
+      this.recurrenceForm.get('endType')
+      ?.setValue(this.endTypes[1]);
+      this.recurrenceForm.get('endDate')
+        ?.setValue(rrule.options.until);
+    } else {
+      this.recurrenceForm.get('endType')
+      ?.setValue(this.endTypes[2]);
+    }
   }
 
 }
