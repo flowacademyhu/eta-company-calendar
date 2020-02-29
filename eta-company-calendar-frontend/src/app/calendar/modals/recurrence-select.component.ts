@@ -31,6 +31,8 @@ export class RecurrenceSelectComponent implements OnInit {
     {name: 'YEAR', value: RRule.YEARLY },
   ];
 
+  protected endTypes: string[] = ['occurrences', 'date', 'never'];
+
   protected selectedDays: DayOfWeek[] = [];
 
   protected startingDate: Date;
@@ -51,7 +53,8 @@ export class RecurrenceSelectComponent implements OnInit {
       frequency: new FormControl(undefined, [Validators.required, Validators.min(1)]),
       interval: new FormControl(undefined, [Validators.required]),
       weekDays: new FormControl([]),
-      hasEndDate: new FormControl(undefined),
+      endType: new FormControl(undefined),
+      occurrence: new FormControl(undefined),
       until: new FormControl(undefined),
     }, WeekDaySelectedValidator);
 
@@ -82,9 +85,20 @@ export class RecurrenceSelectComponent implements OnInit {
       freq: this.recurrenceForm.get('frequency')?.value,
       byweekday: this.selectedDays.map((weekday) => weekday.value),
       dtstart: this.data.startingDate,
-      until: this.recurrenceForm.get('until')?.value
     });
+    this.setRRuleEnd(rrule);
     this.dialogRef.close(rrule);
+  }
+
+  private setRRuleEnd(rrule: RRule) {
+    switch (this.recurrenceForm.get('endType')?.value) {
+      case 'occurrences':
+        rrule.options.count = this.recurrenceForm.get('occurrence')?.value;
+        break;
+      case 'date':
+        rrule.options.until = this.recurrenceForm.get('until')?.value;
+        break;
+    }
   }
 
   private setDefaultValues() {
@@ -92,12 +106,15 @@ export class RecurrenceSelectComponent implements OnInit {
       ?.setValue(this.frequencyTypes[1].value);
     this.recurrenceForm.get('interval')
       ?.setValue(1);
-    this.recurrenceForm.get('hasEndDate')
-      ?.setValue(true);
+    this.recurrenceForm.get('endType')
+      ?.setValue(this.endTypes[0]);
 
     const defaultEndDate = new Date(this.startingDate).setDate(this.startingDate.getDate() + 7);
     this.recurrenceForm.get('until')
       ?.setValue(new Date(defaultEndDate));
+
+    this.recurrenceForm.get('occurrence')
+      ?.setValue(1);
 
     const dayOfStartingDate = this.startingDate.getDay() - 1;
     this.toggleWeekDay(this.weekDays[dayOfStartingDate]);

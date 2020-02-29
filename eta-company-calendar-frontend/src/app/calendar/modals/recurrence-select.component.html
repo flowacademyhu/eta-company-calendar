@@ -28,17 +28,21 @@
 
     <div>
       <label>Ends</label>
-      <mat-radio-group  class="d-flex flex-row" formControlName="hasEndDate">
-        <mat-radio-button [value]="true">
-          after date
-        </mat-radio-button>
-        <mat-radio-button [value]="false">
-          never
+      <mat-radio-group  class="d-flex flex-row" formControlName="endType">
+        <mat-radio-button *ngFor="let type of endTypes" [value]="type">
+          {{ type }}
         </mat-radio-button>
       </mat-radio-group>
     </div>
 
-    <div *ngIf="recurrenceForm.get('hasEndDate').value">
+    <div *ngIf="recurrenceForm.get('endType').value === 'occurrences'">
+      total occurrences:
+      <mat-form-field>
+        <input matInput formControlName="occurrence" type="number" min="1">
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="recurrenceForm.get('endType').value === 'date'">
       <mat-form-field>
         <mat-label >date</mat-label>
         <input matInput
