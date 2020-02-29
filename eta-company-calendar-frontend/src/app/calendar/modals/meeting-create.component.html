@@ -6,6 +6,8 @@
         <h4>{{ 'meeting.header' | translate | uppercase }}</h4>
       </div>
 
+      <app-recurrence-show [rruleStr]="testRRuleStr"></app-recurrence-show>
+
       <mat-form-field class="alignment">
         <mat-label>{{ 'meeting.title' | translate }} *</mat-label>
         <input matInput formControlName="title" type="text" maxlength="80">

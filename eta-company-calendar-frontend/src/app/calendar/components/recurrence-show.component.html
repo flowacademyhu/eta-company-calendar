@@ -1,0 +1,13 @@
+<p *ngIf="!rruleStr"> No recurrence</p>
+<p *ngIf="rruleStr">{{ rruleStr }}</p>
+<p>{{ 'recurrenceSelect.showRepetition' | translate }} {{ interval }} {{ 'recurrenceSelect.'+frequency | translate }}</p>
+<div>
+  <span>{{ 'recurrenceSelect.showWeekDays' | translate }}</span>
+  <span *ngFor="let day of weekDaysSelected; index as i">
+    <span *ngIf="i !== 0">, </span>
+    {{ 'recurrenceSelect.'+day | translate }}
+  </span>
+</div>
+
+<p *ngIf="occurrences"> {{ 'recurrenceSelect.showOccurrences' }}: {{ occurrences }}</p>
+<p *ngIf="endDate">{{ 'recurrenceSelect.showEndDate'}}: {{ endDate | date }}</p>

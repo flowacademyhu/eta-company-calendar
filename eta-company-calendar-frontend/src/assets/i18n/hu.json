@@ -153,7 +153,11 @@
     "submitButtonText": "Rendben",
     "errNoWeekDaySelected": "Nincs nap kiválasztva",
     "errNoOccurrenceSelected": "Alkalmak száma nincs megadva",
-    "errNoEndDateSelected": "Végdátum nincs megadva"
+    "errNoEndDateSelected": "Végdátum nincs megadva",
+    "showRepetition": "ismétlődés",
+    "showWeekDays": "napok",
+    "showOccurrences": "alkalmak",
+    "showEndDate": "végdátum"
   }
 
 }

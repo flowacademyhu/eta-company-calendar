@@ -153,7 +153,11 @@
     "submitButtonText": "Ok",
     "errNoWeekDaySelected": "No weekday selected",
     "errNoOccurrenceSelected": "No occurrence selected",
-    "errNoEndDateSelected": "No end date selected"
+    "errNoEndDateSelected": "No end date selected",
+    "showRepetition": "repetition",
+    "showWeekDays": "on days",
+    "showOccurrences": "occurrences",
+    "showEndDate": "end date"
   }
   
 }

@@ -29,6 +29,9 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   protected optionalAttendantsList: string[] = [];
   protected formMaxStartTime: Date = new Date(Number.MAX_VALUE);
   protected formMinFinishTime: Date = new Date(Number.MIN_VALUE);
+  // test
+  protected testRRuleStr: string =
+    'DTSTART:20200201T010000Z\nRRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,FR;UNTIL=20210131T000000Z';
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly auth: AuthService,
