@@ -12,6 +12,7 @@ import { AuthService } from '~/app/shared/services/auth.service';
 import { RecurrenceDialogData } from '../models/recurrence-dialog-data.model';
 import { RecurrenceSelectComponent } from './recurrence-select.component';
 import RRule from 'rrule';
+import { Recurrence } from '~/app/models/recurrence.model';
 
 export interface DialogData {
   startingTime: string;
@@ -163,14 +164,18 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     const startingTime = this.meetingForm.get('startingTime')?.value.valueOf();
     const finishTime = this.meetingForm.get('finishTime')?.value.valueOf();
     const duration = finishTime - startingTime;
-    console.log('date start:', new Date(startingTime));
-    console.log('finish date: ', new Date(finishTime));
-    console.log('duration in millis:', duration);
 
     const rrule = RRule.fromString(this.rruleStr);
     const until = rrule.options.until;
     console.log(this.rruleStr);
     console.log(rrule);
+
+    const recurrence: Recurrence = {
+      dtstart: startingTime,
+      rrule: this.rruleStr,
+      duration,
+    };
+    console.log(recurrence);
 
   }
 
