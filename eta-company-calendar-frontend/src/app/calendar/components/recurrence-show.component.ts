@@ -32,7 +32,8 @@ export class RecurrenceShowComponent implements OnChanges {
       this.interval = this.rrule.options.interval;
 
       if (this.rrule.options.byweekday) {
-        this.weekDaysSelected = this.rrule.options.byweekday.map((dayNum) => this.weekDays[dayNum]);
+        this.weekDaysSelected = this.rrule.options.byweekday.sort()
+          .map((dayNum) => this.weekDays[dayNum]);
       } else {
         this.weekDaysSelected = undefined;
       }
