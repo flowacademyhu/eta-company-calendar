@@ -20,4 +20,10 @@ export class MeetingService {
     .subscribe((meetingDetail: MeetingDetail[]) => {
       this._meetingSub.next(meetingDetail); });
   }
+
+  public deleteMeeting(id: number) {
+    return this.api.meeting()
+    .deleteMeeting(id);
+  }
+
 }

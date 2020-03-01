@@ -122,7 +122,9 @@
     "reqAttendants": "Attendants",
     "optAttendants": "Notification",
     "modalClose": "Close",
-    "delete": "Delete"
+    "delete": "Delete",
+    "snack_delete": "Meeting deleted",
+    "snack_delete_fail": "Error occured during delete"
   },
   
   "edituserform":{

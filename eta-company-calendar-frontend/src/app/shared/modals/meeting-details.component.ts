@@ -1,5 +1,7 @@
 import { Component, Inject } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { MeetingService } from '~/app/my-meetings/service/meeting.service';
 
@@ -47,17 +49,37 @@ export class MeetingDetailsModal {
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    private readonly meetingData: MeetingDetail,
+    private readonly meetingData: MeetingData,
     public dialogRef: MatDialogRef<MeetingDetailsModal>,
+    private readonly snackBar: MatSnackBar,
+    private readonly translate: TranslateService,
     public readonly meetingService: MeetingService) {}
 
     public ngOnInit() {
-      this.meeting = this.meetingData;
+      this.meeting = this.meetingData.meetingData;
     }
 
   public onClose(): void {
     this.dialogRef.close();
   }
 
-  public deleteMeeting(){}
+  public deleteMeeting() {
+    return this.meetingService
+    .deleteMeeting(this.meetingData.meetingId)
+    .subscribe(() => {this.openSnackBar(this.translate.instant('meetinglist.snack_delete')),
+            this.dialogRef.close(); },
+    () => {this.openSnackBar(this.translate.instant('meetinglist.snack_delete_fail')); }
+    );
+  }
+
+  public openSnackBar(message: string) {
+    this.snackBar.open(`${message}`, undefined, {
+    duration: 2000
+    });
+  }
+}
+
+export interface MeetingData {
+  meetingData: MeetingDetail;
+  meetingId: number;
 }

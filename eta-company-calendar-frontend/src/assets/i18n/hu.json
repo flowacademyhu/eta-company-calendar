@@ -124,7 +124,9 @@
     "reqAttendants": "Résztvevők",
     "optAttendants": "Értesítések",
     "modalClose": "Bezárás",
-    "delete": "Törlés"
+    "delete": "Törlés",
+    "snack_delete": "Értekezlet törölve",
+    "snack_delete_fail": "Sikertelen törlés"
   },
 
   "edituserform":{
