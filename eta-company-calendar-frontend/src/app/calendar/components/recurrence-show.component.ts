@@ -3,7 +3,33 @@ import RRule from 'rrule';
 
 @Component({
   selector: 'app-recurrence-show',
-  templateUrl: 'recurrence-show.component.html'
+  template: `
+  <div class="mt-2 mb-2">
+    <div *ngIf="!rruleStr">
+      {{ 'recurrenceSelect.showNoRecurrence' | translate }}
+    </div>
+
+    <div *ngIf="rruleStr">
+      <div>
+        {{ 'recurrenceSelect.showRepetition' | translate }}
+        : {{ interval }} {{ 'recurrenceSelect.'+frequency | translate }}
+      </div>
+      <div *ngIf="weekDaysSelected">
+        <span>{{ 'recurrenceSelect.showWeekDays' | translate }}:</span>
+        <span *ngFor="let day of weekDaysSelected; index as i">
+          <span *ngIf="i !== 0">, </span>
+          {{ 'recurrenceSelect.'+day | translate }}
+        </span>
+      </div>
+      <div *ngIf="occurrences">
+        {{ 'recurrenceSelect.showOccurrences' | translate }}: {{ occurrences }}
+      </div>
+      <div *ngIf="endDate">
+        {{ 'recurrenceSelect.showEndDate' | translate }}: {{ endDate | date }}
+      </div>
+    </div>
+  </div>
+  `
 })
 
 export class RecurrenceShowComponent implements OnChanges {
