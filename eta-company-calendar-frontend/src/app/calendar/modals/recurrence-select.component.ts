@@ -67,8 +67,10 @@ export class RecurrenceSelectComponent implements OnInit {
     }, [WeekDaySelectedValidator, EndingSelectedValidator] );
 
     if (this.data.rrule) {
+      console.log('has rrule');
       this.setValuesFromRRule(this.data.rrule);
     } else {
+      console.log('doesnt have rrule');
       this.setDefaultValues();
     }
   }
@@ -122,7 +124,7 @@ export class RecurrenceSelectComponent implements OnInit {
       ?.setValue(this.endTypes[0]);
     this.setEndTypeDefaults();
 
-    const dayOfStartingDate = this.startingDate.getDay() - 1;
+    const dayOfStartingDate = (this.startingDate.getDay() - 1 < 0) ? 6 : this.startingDate.getDay() - 1;
     this.toggleWeekDay(this.weekDays[dayOfStartingDate]);
   }
 

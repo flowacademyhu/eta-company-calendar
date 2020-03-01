@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Subject } from 'rxjs';
@@ -9,7 +9,8 @@ import { Location } from '~/app/models/location.model';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
-import RRule from 'rrule';
+import { RecurrenceDialogData } from '../models/recurrence-dialog-data.model';
+import { RecurrenceSelectComponent } from './recurrence-select.component';
 
 export interface DialogData {
   startingTime: string;
@@ -38,6 +39,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
               private readonly auth: AuthService,
               @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
               protected readonly dateTimeAdapter: DateTimeAdapter<object>,
+              private readonly dialog: MatDialog,
               private readonly dialogRef: MatDialogRef<MeetingCreateComponent>,
               private readonly translate: TranslateService) { }
 
@@ -113,8 +115,20 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   }
 
   protected onClickRecurrence() {
-    console.log('wtf');
     this.rruleStr = '';
+    const dialogData: RecurrenceDialogData = {
+      startingDate: new Date(),
+      rrule: this.rruleStr
+    };
+    const dialogRef = this.dialog.open(RecurrenceSelectComponent, {
+      width: '500px',
+      data: dialogData,
+    });
+    dialogRef.afterClosed()
+    .subscribe((result) => {
+      console.log('after dialog close:');
+      console.log(result);
+    });
   }
 
   protected onSubmit() {
