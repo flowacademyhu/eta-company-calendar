@@ -44,8 +44,8 @@ public class ReminderResource {
     }
 
     @PutMapping
-    public ResponseEntity<Void> update(@RequestBody ReminderDTO reminderDTO) {
-        return reminderService.updateReminder(reminderDTO);
+    public ResponseEntity<ReminderDTO> update(@RequestBody ReminderDTO reminderDTO) {
+        return ResponseEntity.ok(new ReminderDTO(reminderService.updateReminder(reminderDTO)));
     }
 
     @DeleteMapping("/{id}")

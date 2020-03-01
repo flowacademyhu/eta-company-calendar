@@ -1,12 +1,17 @@
 {
+  "calendar": {
+    "selectEmployee": "select calendar",
+    "self": "own calendar"
+  },
+
   "welcome": {
     "text": "Welcome Team Company Calendar! Read the dev-docs!",
     "button": "Switch to Hungarian"
   },
   "profile": {
     "name": "Name",
-    "lastname": "LastName",
-    "firstname": "FirstName",
+    "lastName": "LastName",
+    "firstName": "FirstName",
     "button": "Switch to Hungarian",
     "close": "Close",
     "modify": "Modify",
@@ -19,7 +24,9 @@
     "view": "profile details",
     "enter_lastename": "Enter lastname",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "success":  "Profile has been updated",
+    "fail": "Error occured during update"
   },
 
   "header": {
@@ -103,6 +110,22 @@
     "list_users": "List users"
   },
 
+  "meetinglist": {
+    "id": "ID",
+    "title": "Title",
+    "date": "Date",
+    "startingTime": "Starting",
+    "finishTime": "Ending",
+    "details": "Details",
+    "description": "Description",
+    "location" : "Location",
+    "recurring": "Recurring",
+    "createdBy": "Created by",
+    "reqAttendants": "Attendants",
+    "optAttendants": "Notification",
+    "modalClose": "Close"
+  },
+  
   "edituserform":{
     "edit_user": "Edit user",
     "role": "Role",
@@ -162,6 +185,15 @@
     "showOccurrences": "occurrences",
     "showEndDate": "end date",
     "showNoRecurrence": "does not repeat"
+  },
+
+  "deleteuser": {
+    "title": "Delete user",
+    "question": "Are you sure you want to delete this user?",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "snack_delete": "User deleted",
+    "snack_delete_error": "Unsuccessful"
   }
   
 }

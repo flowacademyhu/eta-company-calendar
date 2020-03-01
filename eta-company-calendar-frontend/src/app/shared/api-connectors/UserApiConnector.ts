@@ -14,6 +14,10 @@ export class UserApiConnector extends AbstractApiConnector {
   return this.http.get<UserResponse[]>(`${this.apiRoute}/users/`);
   }
 
+  public getEmployees(id: number): Observable<UserResponse[]> {
+    return this.http.get<UserResponse[]>(`${this.apiRoute}/users/${id}/employees`);
+  }
+
   public postUser(user: User): Observable<User> {
     return this.http.post<User>(`${this.apiRoute}/users/`, user);
   }

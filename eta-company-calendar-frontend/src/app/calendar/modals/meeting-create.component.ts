@@ -9,14 +9,15 @@ import { takeUntil } from 'rxjs/operators';
 import { Location } from '~/app/models/location.model';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { Recurrence } from '~/app/models/recurrence.model';
+import { UserResponse } from '~/app/models/user-response.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
-import { AuthService } from '~/app/shared/services/auth.service';
 import { RecurrenceDialogData } from '../models/recurrence-dialog-data.model';
 import { RecurrenceSelectComponent } from './recurrence-select.component';
 
 export interface DialogData {
   startingTime: string;
   finishTime: string;
+  user: UserResponse;
 }
 
 @Component({
@@ -36,7 +37,6 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   protected rruleStr: string;
 
   constructor(private readonly api: ApiCommunicationService,
-              private readonly auth: AuthService,
               @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
               protected readonly dateTimeAdapter: DateTimeAdapter<object>,
               private readonly dialog: MatDialog,
@@ -149,7 +149,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     meetingDetail.finishTime = meetingDetail.finishTime.valueOf();
     meetingDetail.requiredAttendants = this.requiredAttendantsList;
     meetingDetail.optionalAttendants = this.optionalAttendantsList;
-    meetingDetail.createdBy = this.auth.tokenDetails.getValue().user_name;
+    meetingDetail.createdBy = this.data.user.email;
     meetingDetail.rrule = this.addRecurrence();
     this.api.meeting()
       .create(meetingDetail)
