@@ -157,7 +157,8 @@
     "showRepetition": "repetition",
     "showWeekDays": "on days",
     "showOccurrences": "occurrences",
-    "showEndDate": "end date"
+    "showEndDate": "end date",
+    "showNoRecurrence": "does not repeate"
   }
   
 }

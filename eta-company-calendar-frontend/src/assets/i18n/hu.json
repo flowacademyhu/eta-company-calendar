@@ -157,7 +157,8 @@
     "showRepetition": "ismétlődés",
     "showWeekDays": "napok",
     "showOccurrences": "alkalmak",
-    "showEndDate": "végdátum"
+    "showEndDate": "végdátum",
+    "showNoRecurrence": "nincs ismétlődés"
   }
 
 }

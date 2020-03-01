@@ -1,13 +1,24 @@
-<p *ngIf="!rruleStr"> No recurrence</p>
-<p *ngIf="rruleStr">{{ rruleStr }}</p>
-<p>{{ 'recurrenceSelect.showRepetition' | translate }} {{ interval }} {{ 'recurrenceSelect.'+frequency | translate }}</p>
-<div>
-  <span>{{ 'recurrenceSelect.showWeekDays' | translate }}</span>
-  <span *ngFor="let day of weekDaysSelected; index as i">
-    <span *ngIf="i !== 0">, </span>
-    {{ 'recurrenceSelect.'+day | translate }}
-  </span>
+<div class="mt-2 mb-2">
+  <div *ngIf="!rruleStr">
+    {{ 'recurrenceSelect.showNoRecurrence' | translate }}
+  </div>
+  
+  <div *ngIf="rruleStr">
+    <div>
+      {{ 'recurrenceSelect.showRepetition' | translate }}: {{ interval }} {{ 'recurrenceSelect.'+frequency | translate }}
+    </div>
+    <div>
+      <span>{{ 'recurrenceSelect.showWeekDays' | translate }}:</span>
+      <span *ngFor="let day of weekDaysSelected; index as i">
+        <span *ngIf="i !== 0">, </span>
+        {{ 'recurrenceSelect.'+day | translate }}
+      </span>
+    </div>
+    <div *ngIf="occurrences">
+      {{ 'recurrenceSelect.showOccurrences' }}: {{ occurrences }}
+    </div>
+    <div *ngIf="endDate">
+      {{ 'recurrenceSelect.showEndDate' | translate }}: {{ endDate | date }}
+    </div>
+  </div>
 </div>
-
-<p *ngIf="occurrences"> {{ 'recurrenceSelect.showOccurrences' }}: {{ occurrences }}</p>
-<p *ngIf="endDate">{{ 'recurrenceSelect.showEndDate' | translate }}: {{ endDate | date }}</p>
