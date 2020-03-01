@@ -14,9 +14,6 @@ import { takeUntil } from 'rxjs/operators';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { MeetingCreateComponent } from '../modals/meeting-create.component';
-import { RecurrenceSelectComponent } from '../modals/recurrence-select.component';
-import { RecurrenceDialogData } from '../models/recurrence-dialog-data.model';
-import RRule from 'rrule';
 
 @Component({
   selector: 'app-calendar',
@@ -31,7 +28,6 @@ import RRule from 'rrule';
   `],
   template: `
   <div class='app-calendar white-background'>
-    <button (click)="getRecurrenceComponent()">recurrence component</button>
     <full-calendar
       #calendar
       defaultView="dayGridMonth"
@@ -90,23 +86,6 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     this.dialog.open(MeetingCreateComponent, {
       width: '500px',
       data: {startingTime: arg.dateStr}
-    });
-  }
-
-  // test
-  protected getRecurrenceComponent() {
-    const dialogData: RecurrenceDialogData = {
-      startingDate: new Date(),
-      // rrule: 'DTSTART:20200201T010000Z\nRRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,FR;UNTIL=20210131T000000Z'
-    };
-    const dialogRef = this.dialog.open(RecurrenceSelectComponent, {
-      width: '500px',
-      data: dialogData,
-    });
-    dialogRef.afterClosed()
-    .subscribe((result) => {
-      console.log('after dialog close:');
-      console.log(result);
     });
   }
 

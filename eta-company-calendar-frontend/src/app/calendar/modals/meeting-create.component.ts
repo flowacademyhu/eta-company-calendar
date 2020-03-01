@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
-import RRule from 'rrule';
+import { RRule } from 'rrule';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from '~/app/models/location.model';
@@ -127,7 +127,6 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     .subscribe((result) => {
       if (result) {
         this.rruleStr = result.rruleStr;
-        this.addRecurrence();
       }
     });
   }
