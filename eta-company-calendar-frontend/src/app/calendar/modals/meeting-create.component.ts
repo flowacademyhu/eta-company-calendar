@@ -3,16 +3,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
+import RRule from 'rrule';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from '~/app/models/location.model';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
+import { Recurrence } from '~/app/models/recurrence.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { RecurrenceDialogData } from '../models/recurrence-dialog-data.model';
 import { RecurrenceSelectComponent } from './recurrence-select.component';
-import RRule from 'rrule';
-import { Recurrence } from '~/app/models/recurrence.model';
 
 export interface DialogData {
   startingTime: string;
@@ -116,7 +116,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
 
   protected onClickRecurrence() {
     const dialogData: RecurrenceDialogData = {
-      startingDate: new Date(),
+      startingDate: this.meetingForm.get('startingTime')?.value,
       rrule: this.rruleStr
     };
     const dialogRef = this.dialog.open(RecurrenceSelectComponent, {
@@ -126,9 +126,8 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed()
     .subscribe((result) => {
       if (result) {
-        console.log('result', result);
         this.rruleStr = result.rruleStr;
-        // this.addRecurrence();
+        this.addRecurrence();
       }
     });
   }
@@ -152,31 +151,40 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     meetingDetail.requiredAttendants = this.requiredAttendantsList;
     meetingDetail.optionalAttendants = this.optionalAttendantsList;
     meetingDetail.createdBy = this.auth.tokenDetails.getValue().user_name;
+    meetingDetail.rrule = this.addRecurrence();
     this.api.meeting()
       .create(meetingDetail)
       .subscribe();
   }
 
-  private addRecurrence() {
+  private addRecurrence(): Recurrence | undefined {
     if (!this.rruleStr) {
-      return;
+      return undefined;
     }
-    const startingTime = this.meetingForm.get('startingTime')?.value.valueOf();
-    const finishTime = this.meetingForm.get('finishTime')?.value.valueOf();
+    const startingTime = this.meetingForm.get('startingTime')?.value
+      .valueOf();
+    const finishTime = this.meetingForm.get('finishTime')?.value
+      .valueOf();
     const duration = finishTime - startingTime;
 
-    const rrule = RRule.fromString(this.rruleStr);
-    const until = rrule.options.until;
-    console.log(this.rruleStr);
-    console.log(rrule);
+    let rrule = RRule.fromString(this.rruleStr);
+    if (startingTime !== rrule.options.dtstart.valueOf()) {
+      const rruleOptions = rrule.options;
+      rruleOptions.dtstart = new Date(startingTime);
+      rrule = new RRule(rruleOptions);
+    }
 
-    const recurrence: Recurrence = {
+    let until = rrule.options.until?.valueOf();
+    if (!until && rrule.options.count) {
+      until = rrule.all()
+        .pop()
+        ?.valueOf();
+    }
+    return {
       dtstart: startingTime,
-      rrule: this.rruleStr,
+      rrule: rrule.toString(),
       duration,
     };
-    console.log(recurrence);
-
   }
 
   public ngOnDestroy() {
