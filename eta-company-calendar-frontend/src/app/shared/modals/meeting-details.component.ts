@@ -36,6 +36,7 @@ import { MeetingService } from '~/app/my-meetings/service/meeting.service';
 </div>
 <div mat-dialog-actions>
 <button mat-stroked-button (click)="onClose()">{{ 'meetinglist.modalClose' | translate }}</button>
+<button mat-stroked-button (click)="deleteMeeting()">{{ 'meetinglist.delete' | translate }}</button>
 </div>
 	`
 })
@@ -57,4 +58,6 @@ export class MeetingDetailsModal {
   public onClose(): void {
     this.dialogRef.close();
   }
+
+  public deleteMeeting(){}
 }

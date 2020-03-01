@@ -121,7 +121,8 @@
     "createdBy": "Created by",
     "reqAttendants": "Attendants",
     "optAttendants": "Notification",
-    "modalClose": "Close"
+    "modalClose": "Close",
+    "delete": "Delete"
   },
   
   "edituserform":{
