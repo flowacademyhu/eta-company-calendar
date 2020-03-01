@@ -44,7 +44,6 @@ import { ProfilEditDialog } from './profile-edit-dialog.component';
           <div class="pc">
              {{profile.leader}}
           </div>
-    
     </div>
     </mat-dialog-content>
 
