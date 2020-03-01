@@ -164,7 +164,9 @@ export class RecurrenceSelectComponent implements OnInit {
     this.recurrenceForm.get('interval')
       ?.setValue(rrule.options.interval);
 
-    rrule.options.byweekday.forEach((day) => this.toggleWeekDay(this.weekDays[day]));
+    if (rrule.options.byweekday) {
+      rrule.options.byweekday.forEach((day) => this.toggleWeekDay(this.weekDays[day]));
+    }
 
     this.setEndTypeFromRRule(rrule);
   }
