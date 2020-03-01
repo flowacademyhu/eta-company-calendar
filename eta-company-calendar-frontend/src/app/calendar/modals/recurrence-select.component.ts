@@ -67,10 +67,8 @@ export class RecurrenceSelectComponent implements OnInit {
     }, [WeekDaySelectedValidator, EndingSelectedValidator] );
 
     if (this.data.rrule) {
-      console.log('has rrule');
       this.setValuesFromRRule(this.data.rrule);
     } else {
-      console.log('doesnt have rrule');
       this.setDefaultValues();
     }
   }
@@ -99,7 +97,11 @@ export class RecurrenceSelectComponent implements OnInit {
       dtstart: this.data.startingDate,
     });
     this.setRRuleEnd(rrule);
-    this.dialogRef.close(rrule);
+    this.dialogRef.close({ rruleStr: rrule.toString() });
+  }
+
+  protected onRemove() {
+    this.dialogRef.close({ rruleStr: '' });
   }
 
   private setRRuleEnd(rrule: RRule) {

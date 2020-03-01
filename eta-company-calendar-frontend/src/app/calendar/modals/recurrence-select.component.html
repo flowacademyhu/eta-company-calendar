@@ -71,9 +71,11 @@
         >{{ 'recurrenceSelect.errNoEndDateSelected' | translate }}</mat-error>
     </div>
 
-    <div class="m-1">
+    <div class="m-1 d-flex flex-row justify-content-between">
       <button mat-button type="submit" [disabled]="recurrenceForm.invalid"
         >{{ 'recurrenceSelect.submitButtonText' | translate }}</button>
+      <button mat-button (click)="onRemove()"
+        >{{ 'recurrenceSelect.removeButtonText' | translate }}</button>
     </div>
 
   </div>

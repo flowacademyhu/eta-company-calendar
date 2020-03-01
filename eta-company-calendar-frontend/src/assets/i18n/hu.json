@@ -153,6 +153,7 @@
     "occurrenceEndText": "alkalmak száma: ",
     "dateEndText": "Végdátum",
     "submitButtonText": "Rendben",
+    "removeButtonText": "törlés",
     "errNoWeekDaySelected": "Nincs nap kiválasztva",
     "errNoOccurrenceSelected": "Alkalmak száma nincs megadva",
     "errNoEndDateSelected": "Végdátum nincs megadva",

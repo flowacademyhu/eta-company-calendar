@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Subject } from 'rxjs';
@@ -31,9 +31,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   protected optionalAttendantsList: string[] = [];
   protected formMaxStartTime: Date = new Date(Number.MAX_VALUE);
   protected formMinFinishTime: Date = new Date(Number.MIN_VALUE);
-  // test
-  protected rruleStr: string =
-    'DTSTART:20200201T010000Z\nRRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,FR;UNTIL=20210131T000000Z';
+  protected rruleStr: string;
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly auth: AuthService,
@@ -126,8 +124,9 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed()
     .subscribe((result) => {
-      console.log('after dialog close:');
-      console.log(result);
+      if (result) {
+        this.rruleStr = result.rruleStr;
+      }
     });
   }
 

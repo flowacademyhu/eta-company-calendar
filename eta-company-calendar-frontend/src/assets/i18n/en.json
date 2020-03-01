@@ -153,6 +153,7 @@
     "occurrenceEndText": "number of occurrences: ",
     "dateEndText": "end date",
     "submitButtonText": "Ok",
+    "removeButtonText": "remove",
     "errNoWeekDaySelected": "No weekday selected",
     "errNoOccurrenceSelected": "No occurrence selected",
     "errNoEndDateSelected": "No end date selected",
