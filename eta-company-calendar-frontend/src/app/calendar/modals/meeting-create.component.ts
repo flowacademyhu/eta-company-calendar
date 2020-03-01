@@ -9,6 +9,7 @@ import { Location } from '~/app/models/location.model';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
+import RRule from 'rrule';
 
 export interface DialogData {
   startingTime: string;
@@ -30,7 +31,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   protected formMaxStartTime: Date = new Date(Number.MAX_VALUE);
   protected formMinFinishTime: Date = new Date(Number.MIN_VALUE);
   // test
-  protected testRRuleStr: string =
+  protected rruleStr: string =
     'DTSTART:20200201T010000Z\nRRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,FR;UNTIL=20210131T000000Z';
 
   constructor(private readonly api: ApiCommunicationService,
@@ -109,6 +110,11 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((newDate) => this.formMaxStartTime = newDate);
     }
+  }
+
+  protected onClickRecurrence() {
+    console.log('wtf');
+    this.rruleStr = '';
   }
 
   protected onSubmit() {

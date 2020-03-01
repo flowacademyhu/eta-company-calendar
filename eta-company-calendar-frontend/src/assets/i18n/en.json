@@ -58,7 +58,9 @@
     "attendantsTitle": "attendants",
     "attendantError": "E-mail not valid",
     "submitButton": "Submit",
-    "cancelButton": "Cancel"
+    "cancelButton": "Cancel",
+    "addRecurrence": "add",
+    "modifyRecurrence": "modify"
   },
 
   "location": {
@@ -158,7 +160,7 @@
     "showWeekDays": "on days",
     "showOccurrences": "occurrences",
     "showEndDate": "end date",
-    "showNoRecurrence": "does not repeate"
+    "showNoRecurrence": "does not repeat"
   }
   
 }

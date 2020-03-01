@@ -58,7 +58,9 @@
     "attendantsTitle": "meghívottak",
     "attendantError": "E-mail cím nem létezik",
     "submitButton": "Létrehozás",
-    "cancelButton": "Mégse"
+    "cancelButton": "Mégse",
+    "addRecurrence": "hozzáadás",
+    "modifyRecurrence": "módosítás"
   },
 
   "location": {
