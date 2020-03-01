@@ -7,7 +7,7 @@
     <div>
       {{ 'recurrenceSelect.showRepetition' | translate }}: {{ interval }} {{ 'recurrenceSelect.'+frequency | translate }}
     </div>
-    <div>
+    <div *ngIf="weekDaysSelected">
       <span>{{ 'recurrenceSelect.showWeekDays' | translate }}:</span>
       <span *ngFor="let day of weekDaysSelected; index as i">
         <span *ngIf="i !== 0">, </span>
