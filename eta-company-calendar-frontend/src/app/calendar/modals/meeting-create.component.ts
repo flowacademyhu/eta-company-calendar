@@ -115,7 +115,6 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   }
 
   protected onClickRecurrence() {
-    this.rruleStr = '';
     const dialogData: RecurrenceDialogData = {
       startingDate: new Date(),
       rrule: this.rruleStr
@@ -127,8 +126,9 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed()
     .subscribe((result) => {
       if (result) {
+        console.log('result', result);
         this.rruleStr = result.rruleStr;
-        this.addRecurrence();
+        // this.addRecurrence();
       }
     });
   }

@@ -15,7 +15,7 @@
       </span>
     </div>
     <div *ngIf="occurrences">
-      {{ 'recurrenceSelect.showOccurrences' }}: {{ occurrences }}
+      {{ 'recurrenceSelect.showOccurrences' | translate }}: {{ occurrences }}
     </div>
     <div *ngIf="endDate">
       {{ 'recurrenceSelect.showEndDate' | translate }}: {{ endDate | date }}
