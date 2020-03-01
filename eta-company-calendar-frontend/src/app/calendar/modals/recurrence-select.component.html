@@ -74,7 +74,7 @@
     <div class="m-1 d-flex flex-row justify-content-between">
       <button mat-button type="submit" [disabled]="recurrenceForm.invalid"
         >{{ 'recurrenceSelect.submitButtonText' | translate }}</button>
-      <button mat-button (click)="onRemove()"
+      <button mat-button (click)="onRemove(); $event.preventDefault()"
         >{{ 'recurrenceSelect.removeButtonText' | translate }}</button>
     </div>
 

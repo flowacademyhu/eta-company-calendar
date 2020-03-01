@@ -58,8 +58,8 @@ export class RecurrenceSelectComponent implements OnInit {
     this.startingDate = this.data.startingDate;
 
     this.recurrenceForm = new FormGroup({
-      frequency: new FormControl(undefined, [Validators.required, Validators.min(1)]),
-      interval: new FormControl(undefined, [Validators.required]),
+      frequency: new FormControl(undefined, [Validators.required]),
+      interval: new FormControl(undefined, [Validators.required, Validators.min(1)]),
       weekDays: new FormControl([]),
       endType: new FormControl(undefined),
       occurrences: new FormControl(undefined),
@@ -91,12 +91,16 @@ export class RecurrenceSelectComponent implements OnInit {
   }
 
   protected onSubmit() {
+    const count = this.getCountFromForm();
+    const until = this.getUntilFromForm();
     const rrule = new RRule({
       freq: this.recurrenceForm.get('frequency')?.value,
+      interval: this.recurrenceForm.get('interval')?.value,
       byweekday: this.selectedDays.map((weekday) => weekday.value),
       dtstart: this.data.startingDate,
+      count,
+      until
     });
-    this.setRRuleEnd(rrule);
     this.dialogRef.close({ rruleStr: rrule.toString() });
   }
 
@@ -104,14 +108,19 @@ export class RecurrenceSelectComponent implements OnInit {
     this.dialogRef.close({ rruleStr: '' });
   }
 
-  private setRRuleEnd(rrule: RRule) {
-    switch (this.recurrenceForm.get('endType')?.value) {
-      case 'occurrences':
-        rrule.options.count = this.recurrenceForm.get('occurrences')?.value;
-        break;
-      case 'endDate':
-        rrule.options.until = this.recurrenceForm.get('endDate')?.value;
-        break;
+  private getCountFromForm(): number | undefined {
+    if (this.recurrenceForm.get('endType')?.value === 'endTypeOccurrences') {
+      return this.recurrenceForm.get('occurrences')?.value;
+    } else {
+      return undefined;
+    }
+  }
+
+  private getUntilFromForm(): Date | undefined {
+    if (this.recurrenceForm.get('endType')?.value === 'endTypeDate') {
+      return this.recurrenceForm.get('endDate')?.value;
+    } else {
+      return undefined;
     }
   }
 
