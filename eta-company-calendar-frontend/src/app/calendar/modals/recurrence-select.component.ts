@@ -91,21 +91,28 @@ export class RecurrenceSelectComponent implements OnInit {
   }
 
   protected onSubmit() {
+    const freq = this.recurrenceForm.get('frequency')?.value;
+    const interval = this.recurrenceForm.get('interval')?.value;
+    const byweekday = this.getByweekdayFromForm();
+    const dtstart = this.data.startingDate;
     const count = this.getCountFromForm();
     const until = this.getUntilFromForm();
     const rrule = new RRule({
-      freq: this.recurrenceForm.get('frequency')?.value,
-      interval: this.recurrenceForm.get('interval')?.value,
-      byweekday: this.selectedDays.map((weekday) => weekday.value),
-      dtstart: this.data.startingDate,
-      count,
-      until
+      freq, interval, byweekday, dtstart, count, until
     });
     this.dialogRef.close({ rruleStr: rrule.toString() });
   }
 
   protected onRemove() {
     this.dialogRef.close({ rruleStr: '' });
+  }
+
+  private getByweekdayFromForm(): Weekday[] | undefined {
+    if (this.recurrenceForm.get('frequency')?.value === RRule.WEEKLY) {
+      return this.selectedDays.map((weekday) => weekday.value);
+    } else {
+      return undefined;
+    }
   }
 
   private getCountFromForm(): number | undefined {
