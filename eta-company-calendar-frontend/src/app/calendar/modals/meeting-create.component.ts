@@ -11,6 +11,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 import { AuthService } from '~/app/shared/services/auth.service';
 import { RecurrenceDialogData } from '../models/recurrence-dialog-data.model';
 import { RecurrenceSelectComponent } from './recurrence-select.component';
+import RRule from 'rrule';
 
 export interface DialogData {
   startingTime: string;
@@ -126,6 +127,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     .subscribe((result) => {
       if (result) {
         this.rruleStr = result.rruleStr;
+        this.addRecurrence();
       }
     });
   }
@@ -152,6 +154,24 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     this.api.meeting()
       .create(meetingDetail)
       .subscribe();
+  }
+
+  private addRecurrence() {
+    if (!this.rruleStr) {
+      return;
+    }
+    const startingTime = this.meetingForm.get('startingTime')?.value.valueOf();
+    const finishTime = this.meetingForm.get('finishTime')?.value.valueOf();
+    const duration = finishTime - startingTime;
+    console.log('date start:', new Date(startingTime));
+    console.log('finish date: ', new Date(finishTime));
+    console.log('duration in millis:', duration);
+
+    const rrule = RRule.fromString(this.rruleStr);
+    const until = rrule.options.until;
+    console.log(this.rruleStr);
+    console.log(rrule);
+
   }
 
   public ngOnDestroy() {
