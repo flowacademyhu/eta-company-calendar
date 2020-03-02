@@ -125,7 +125,10 @@
     "createdBy": "Létrehozta",
     "reqAttendants": "Résztvevők",
     "optAttendants": "Értesítések",
-    "modalClose": "Bezárás"
+    "modalClose": "Bezárás",
+    "delete": "Törlés",
+    "snack_delete": "Értekezlet törölve",
+    "snack_delete_fail": "Sikertelen törlés"
   },
 
   "edituserform":{
@@ -203,6 +206,13 @@
     "new_reminder": "Emlékeztető",
     "selector_title": "Kérlek válassz:",
     "dialog_title": "Új bejegyzés"
+  },
+
+  "deletemeeting": {
+    "title": "Értekezlet törlése",
+    "question": "Biztos törölni szeretné az értekezletet?",
+    "confirm": "Megerősít",
+    "cancel": "Mégse"
   }
 
 }
