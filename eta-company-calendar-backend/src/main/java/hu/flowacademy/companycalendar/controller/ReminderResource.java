@@ -35,7 +35,7 @@ public class ReminderResource {
     @GetMapping("/own/{userId}")
     public List<ReminderDTO> findByUserId(@PathVariable Long userId) { return reminderService.findByUserId(userId);}
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/list/user/{userId}")
     public List<ReminderListItemDTO> getReminderFromQuery(@PathVariable Long userId,
                                                   @RequestParam Long startingTimeFrom,
                                                   @RequestParam Long startingTimeTo) {

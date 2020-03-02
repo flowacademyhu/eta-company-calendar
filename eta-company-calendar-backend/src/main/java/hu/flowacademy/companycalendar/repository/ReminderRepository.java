@@ -21,6 +21,8 @@ public interface ReminderRepository extends JpaRepository<Reminder, Long> {
       + "AND r.startingTime BETWEEN ?2 and ?3")
   List<Reminder> findByUserIdAndTimeRange(Long userId, Long startingTimeFrom, Long StartingTimeTo);
 
+
+
   @Query("SELECT DISTINCT r FROM "
       + "Reminder r "
       + "WHERE r.createdBy.id = ?1 ")
