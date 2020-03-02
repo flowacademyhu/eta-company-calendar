@@ -64,7 +64,9 @@
     "attendantsTitle": "meghívottak",
     "attendantError": "E-mail cím nem létezik",
     "submitButton": "Létrehozás",
-    "cancelButton": "Mégse"
+    "cancelButton": "Mégse",
+    "addRecurrence": "hozzáadás",
+    "modifyRecurrence": "módosítás"
   },
 
   "location": {
@@ -122,7 +124,10 @@
     "createdBy": "Létrehozta",
     "reqAttendants": "Résztvevők",
     "optAttendants": "Értesítések",
-    "modalClose": "Bezárás"
+    "modalClose": "Bezárás",
+    "delete": "Törlés",
+    "snack_delete": "Értekezlet törölve",
+    "snack_delete_fail": "Sikertelen törlés"
   },
 
   "edituserform":{
@@ -155,6 +160,38 @@
     "snack_delete_error": "Sikertelen törlés"
   },
 
+  "recurrenceSelect": {
+    "repeatInvervalHeader": "ismétlődés kiválsztása",
+    "intervalDay": "nap",
+    "invervalWeek": "hét",
+    "intervalMonth": "hónap",
+    "intervalYear": "év",
+    "repeatDaysHeader": "ismétlődés napjai",
+    "monday": "H",
+    "tuesday": "K",
+    "wednesday": "Sze",
+    "thursday": "Cs",
+    "friday": "P",
+    "saturday": "Szo",
+    "sunday": "V",
+    "endSelectHeader": "ismétlődés végének típusa",
+    "endTypeOccurrences": "alkalmak",
+    "endTypeDate": "dátum",
+    "endTypeNever": "soha",
+    "occurrenceEndText": "alkalmak száma: ",
+    "dateEndText": "Végdátum",
+    "submitButtonText": "Rendben",
+    "removeButtonText": "törlés",
+    "errNoWeekDaySelected": "Nincs nap kiválasztva",
+    "errNoOccurrenceSelected": "Alkalmak száma nincs megadva",
+    "errNoEndDateSelected": "Végdátum nincs megadva",
+    "showRepetition": "ismétlődés",
+    "showWeekDays": "napok",
+    "showOccurrences": "alkalmak",
+    "showEndDate": "végdátum",
+    "showNoRecurrence": "nincs ismétlődés"
+  },
+
   "deleteuser": {
     "title": "Felhasználó törlése",
     "question": "Biztos benne, hogy törölni szeretné ezt a felhasználót?",
@@ -162,6 +199,20 @@
     "confirm": "Törlés",
     "snack_delete": "Felhasználó törölve",
     "snack_delete_error": "Sikertelen törlés"
+  },
+
+  "eventselector": {
+    "new_meeting": "Értekezlet",
+    "new_reminder": "Emlékeztető",
+    "selector_title": "Kérlek válassz:",
+    "dialog_title": "Új bejegyzés"
+  },
+
+  "deletemeeting": {
+    "title": "Értekezlet törlése",
+    "question": "Biztos törölni szeretné az értekezletet?",
+    "confirm": "Megerősít",
+    "cancel": "Mégse"
   }
 
 }

@@ -11,6 +11,10 @@ export class MeetingApiConnector extends AbstractApiConnector {
     return this.http.get<MeetingDetail[]>(`${this.apiRoute}/invited/${userId}`);
   }
 
+  public getMeetingById(meetingId: number): Observable<MeetingDetail> {
+      return this.http.get<MeetingDetail>(`${this.apiRoute}/${meetingId}`);
+  }
+
   public getMeetingsByIdAndTimeRange(userId: number,
                                      startingTimeFrom: number,
                                      startingTimeTo: number
@@ -26,4 +30,9 @@ export class MeetingApiConnector extends AbstractApiConnector {
   public create(dto: MeetingDetail): Observable<number> {
     return this.http.post<number>(`${this.apiRoute}`, dto);
   }
+
+  public deleteMeeting(meetingId: number) {
+    return this.http.delete(`${this.apiRoute}/${meetingId}`);
+  }
+
 }
