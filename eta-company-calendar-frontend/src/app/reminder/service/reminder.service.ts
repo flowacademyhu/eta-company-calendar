@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Reminder } from '~/app/models/reminder.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
@@ -14,11 +14,14 @@ export class ReminderService {
     return this._reminderSub;
   }
 
-  public getRemindersByUserId(userid: number) {
-     this.api.reminder()
-    .getRemindersByUserId(userid)
-    .subscribe((reminder: Reminder[]) => {
-      this._reminderSub.next(reminder); });
+  public getRemindersByUserId(userid: number): Observable<Reminder[]> {
+     return this.api.reminder()
+    .getRemindersByUserId(userid);
+  }
+
+  public deleteReminder(id: number) {
+    return this.api.reminder()
+    .deleteReminder(id);
   }
 
 }

@@ -17,12 +17,16 @@ export class ReminderApiConnector extends AbstractApiConnector {
     const params = new HttpParams().set('startTime'
                                     , Date.now()
                                     .toString());
-    return this.http.get<Reminder[]>(`${this.apiRoute}/reminders/user/time/${userid}`
+    return this.http.get<Reminder[]>(`${this.apiRoute}/reminders/own/${userid}`
                     ,  {params});
   }
 
   public postReminder(reminder: Reminder): Observable<Reminder> {
     return this.http.post<Reminder>(`${this.apiRoute}/reminders/`, reminder);
+  }
+
+  public deleteReminder(reminderId: number) {
+    return this.http.delete(`${this.apiRoute}/reminders/${reminderId}`);
   }
 
 }
