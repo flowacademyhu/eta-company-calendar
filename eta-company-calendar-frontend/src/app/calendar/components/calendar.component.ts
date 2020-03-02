@@ -67,13 +67,15 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
       .subscribe((params) => {
         this.setCalendarLang(params.lang);
       });
-
-    this.fetchMeetings();
+    this.calendarEvents = [];
     this.fetchReminders();
+    this.fetchMeetings();
+
 
     this.dialog.afterAllClosed
       .pipe(takeUntil(this.destroy$))
-      .subscribe((_) => this.fetchMeetings());
+      .subscribe((_) => this.fetchReminders())
+      ;
   }
 
    protected handleDateClick(arg: EventInput) {
@@ -91,13 +93,13 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
       .setOption('locale', lang);
   }
 
-   private fetchMeetings() {
+      private fetchMeetings() {
     this.api.meeting()
     .getMeetingsByIdAndTimeRange(1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
     .subscribe((data) => {
-      this.calendarEvents = [];
+     // this.calendarEvents = [];
       this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
-        return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title, backgroundColor: 'green'};
+        return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title, backgroundColor: 'blue'};
       }));
     });
   }
@@ -106,7 +108,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     this.api.reminder()
     .getRemindersByIdAndTimeRange(1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
     .subscribe((data) => {
-      this.calendarEvents = [];
+     // this.calendarEvents = [];
       this.calendarEvents = this.calendarEvents.concat(data.map(((reminder) => {
         return {start: reminder.startingTime, title: reminder.title, backgroundColor: 'red'};
       })));
