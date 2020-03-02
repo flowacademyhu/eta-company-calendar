@@ -18,4 +18,10 @@ export class MeetingService {
      return this.api.meeting()
     .getMeetingsByInvitation(userId);
   }
+
+  public deleteMeeting(id: number) {
+    return this.api.meeting()
+    .deleteMeeting(id);
+  }
+
 }
