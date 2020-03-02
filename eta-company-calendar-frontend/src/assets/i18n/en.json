@@ -1,7 +1,7 @@
 {
   "calendar": {
-    "selectEmployee": "select calendar",
-    "self": "own calendar"
+    "selectEmployee": "Select calendar",
+    "self": "Own calendar"
   },
 
   "welcome": {

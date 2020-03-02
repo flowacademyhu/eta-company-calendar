@@ -25,25 +25,29 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
       margin: 0 auto;
       max-width: 97%;
     }
-    .dropdown {
-      max-height: 10%;
+    mat-form-field {
+      width: 130px;
+      height: 1%;
+      margin-top: 5px;
+      margin-left: 13px;
+    }
+    .selector {
+      margin: 0 auto;
     }
   `],
   template: `
   <div class='app-calendar white-background'>
-    <mat-card *ngIf="isUserLeader" class="dropdown d-flex  justify-content-center">
-      <mat-form-field>
-        <mat-label>{{ 'calendar.selectEmployee' | translate}}</mat-label>
-        <mat-select [(value)]="selectedUser" (selectionChange)="fetchMeetings()">
-          <mat-option [value]="loggedInUser">{{ 'calendar.self' | translate }}</mat-option>
+    <div *ngIf="isUserLeader" class="dropdown">
+      <mat-form-field appearance="none">
+        <mat-select  class="selector" [(value)]="selectedUser" (selectionChange)="fetchMeetings()">
+        <mat-option class="self" [value]="loggedInUser">{{ 'calendar.self' | translate }}</mat-option>
           <mat-option
             *ngFor="let employee of (userEmployees$ | async)"
             [value]="employee"
             >{{ employee.email }}</mat-option>
         </mat-select>
         </mat-form-field>
-    </mat-card>
-
+    </div>
     <full-calendar
       #calendar
       defaultView="dayGridMonth"
@@ -63,7 +67,7 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
     ></full-calendar>
   </div>
   <div class='app-calendar white-background'>
-    <full-calendar
+      <full-calendar
       #calendar
       defaultView="dayGridMonth"
       [header]="{
