@@ -20,6 +20,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 export class AttendantsComponent implements OnInit {
   @Input() public requiredAttendantIds: number[];
   @Input() public optionalAttendantIds: number[];
+  @Input() public currentUserId: number;
   @Input() public canModify: boolean;
 
   protected visible: boolean = true;
@@ -42,11 +43,14 @@ export class AttendantsComponent implements OnInit {
   constructor(private readonly api: ApiCommunicationService) { }
 
   public ngOnInit() {
+    console.log(this.currentUserId);
     this.api.user()
       .getAllUsers()
       .subscribe((res) => {
         this.allUsers = res;
-        this.selectableUserTexts = this.allUsers.map((user) => user.email);
+        this.selectableUserTexts = this.allUsers
+          .filter((user) => user.id !== this.currentUserId)
+          .map((user) => user.email);
         this.filteredUserTexts = this.reqAttendantCtrl.valueChanges.pipe(
           startWith(undefined),
           map((userText: string | null) => userText ? this._filterUser(userText) : this.selectableUserTexts.slice()));
