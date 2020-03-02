@@ -1,12 +1,9 @@
 package hu.flowacademy.companycalendar.controller;
 
-import hu.flowacademy.companycalendar.model.Reminder;
-import hu.flowacademy.companycalendar.model.dto.MeetingCreateDTO;
-import hu.flowacademy.companycalendar.model.dto.MeetingListItemDTO;
+
 import hu.flowacademy.companycalendar.model.dto.ReminderCreateDTO;
 import hu.flowacademy.companycalendar.model.dto.ReminderDTO;
 import hu.flowacademy.companycalendar.model.dto.ReminderListItemDTO;
-import hu.flowacademy.companycalendar.model.dto.ReminderUpdateDTO;
 import hu.flowacademy.companycalendar.service.ReminderService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,11 +24,6 @@ public class ReminderResource {
         return reminderService.findAll();
     }
 
-    /*@GetMapping("/{id}")
-    public Reminder findOne(@PathVariable Long id) {
-        return reminderService.findOne(id);
-    }*/
-
     @GetMapping("/own/{userId}")
     public List<ReminderDTO> findByUserId(@PathVariable Long userId) { return reminderService.findByUserId(userId);}
 
@@ -41,18 +33,6 @@ public class ReminderResource {
                                                   @RequestParam Long startingTimeTo) {
         return reminderService.findByUserIdAndTimeRange(userId, startingTimeFrom, startingTimeTo);
     }
-
-    /*@GetMapping("user/time/{userId}")
-    public List<ReminderDTO> findByUserIdAndAfterStartTime(@PathVariable Long userId) {
-        return reminderService.findByUserId(userId);
-    }*/
-
-
-    /*@PostMapping
-    public ResponseEntity<Void> createReminder(@RequestBody ReminderDTO reminderDTO) {
-        reminderService.createReminder(reminderDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }*/
 
     @PostMapping
     public Long createWithEmails(@RequestBody ReminderCreateDTO dto) {
