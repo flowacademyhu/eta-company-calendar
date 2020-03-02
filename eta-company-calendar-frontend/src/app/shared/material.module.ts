@@ -18,6 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [],
@@ -49,6 +50,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     FlexLayoutModule,
     MatRadioModule,
     MatPaginatorModule,
+    MatAutocompleteModule,
   ],
   imports: [
     MatToolbarModule,
@@ -70,6 +72,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatRadioModule,
     MatTooltipModule,
     MatPaginatorModule,
+    MatAutocompleteModule,
   ],
 
 })
