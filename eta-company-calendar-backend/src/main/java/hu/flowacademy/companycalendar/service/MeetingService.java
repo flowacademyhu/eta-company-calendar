@@ -2,9 +2,10 @@ package hu.flowacademy.companycalendar.service;
 
 import hu.flowacademy.companycalendar.config.mailing.MailingConfig;
 import hu.flowacademy.companycalendar.constants.Constants;
+import hu.flowacademy.companycalendar.email.EmailType;
 import hu.flowacademy.companycalendar.email.GmailService;
-import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.exception.MeetingNotFoundException;
+import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.MeetingCreateDTO;
@@ -16,11 +17,12 @@ import hu.flowacademy.companycalendar.repository.UserRepository;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -83,18 +85,21 @@ public class MeetingService {
         String finish = FORMATTER_TO_HOUR.format(meeting.getFinishTime());
         String location = Location.OTHER.equals(dto.getLocation()) ? dto.getOtherLocation() : dto.getLocation().toString();
 
-        sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, true);
-        sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, false);
+        sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, true, EmailType.CREATE);
+        sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, false, EmailType.CREATE);
 
         return meeting.getId();
     }
 
-    private void sendMeetingEmailForAttendants(Meeting meeting, String meetingDate, String start, String finish, String location, boolean obligatory) {
+    private void sendMeetingEmailForAttendants(Meeting meeting, String meetingDate, String start,
+        String finish, String location, boolean obligatory,
+        EmailType emailType) {
         List<User> attendants = obligatory ? meeting.getRequiredAttendants() : meeting.getOptionalAttendants();
         for (User attendant : attendants) {
             String firstName = attendant.getName();
             String text = getMeetingText(firstName, meetingDate, start, finish, location, obligatory ? Constants.OBLIGATORY : Constants.NOT_OBLIGATORY);
-            emailService.send(attendant.getEmail(), Constants.NEW_MEETING, text);
+            emailService.send(attendant.getEmail(), Constants.NEW_MEETING, emailType.getTemplateName(),
+                Map.of("firstName", firstName, "obligatory", obligatory, "meetingDate", meetingDate));
         }
     }
 

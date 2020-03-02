@@ -1,15 +1,15 @@
 package hu.flowacademy.companycalendar.service;
 
 import hu.flowacademy.companycalendar.exception.ProfileNotFoundException;
-import hu.flowacademy.companycalendar.model.dto.ProfileDTO;
 import hu.flowacademy.companycalendar.model.Profile;
+import hu.flowacademy.companycalendar.model.dto.ProfileDTO;
 import hu.flowacademy.companycalendar.repository.ProfileRepository;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional

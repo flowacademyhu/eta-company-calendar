@@ -3,9 +3,9 @@ package hu.flowacademy.companycalendar.utils;
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.RRule;
-import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.model.Recurring;
 import hu.flowacademy.companycalendar.model.Reminder;
+import hu.flowacademy.companycalendar.model.Roles;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
 import hu.flowacademy.companycalendar.repository.ProfileRepository;
@@ -14,16 +14,14 @@ import hu.flowacademy.companycalendar.repository.UserRepository;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
-import hu.flowacademy.companycalendar.model.Roles;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import java.util.List;
+import org.springframework.stereotype.Component;
 
 @Component
 @Transactional
