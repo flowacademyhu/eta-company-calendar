@@ -35,7 +35,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   protected optionalAttendantsList: string[] = [];
   protected formMinFinishTime: Date = new Date(Number.MIN_VALUE);
   protected rruleStr: string;
-  protected options: UserResponse[];
+  protected userOptions: UserResponse[];
 
   constructor(private readonly api: ApiCommunicationService,
               @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
@@ -54,16 +54,17 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
       recurring: new FormControl(undefined),
       startingTime: new FormControl(undefined, [Validators.required]),
       finishTime: new FormControl(undefined, [Validators.required]),
-      requiredAttendant: new FormControl(undefined, [Validators.email]),
-      optionalAttendant: new FormControl(undefined, [Validators.email])
+      requiredAttendants: new FormControl([]),
+      optionalAttendants: new FormControl([])
     });
     this.dateTimeAdapter.setLocale(this.translate.currentLang);
     this.dialogRef.disableClose = true;
     this.subscribeToStartingTimeChange();
     this.setStartingTimeFromDialogData();
     this.userService.getAllUsersForSelect()
-      .subscribe((user) => this.options = user
-      );
+      .subscribe((users) => {
+        this.userOptions = users.filter((user) => user.id !== this.data.user.id);
+      });
   }
 
   private setStartingTimeFromDialogData() {
@@ -147,8 +148,10 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     const meetingDetail: MeetingDetail = this.meetingForm.value;
     meetingDetail.startingTime = meetingDetail.startingTime.valueOf();
     meetingDetail.finishTime = meetingDetail.finishTime.valueOf();
-    meetingDetail.requiredAttendants = this.requiredAttendantsList;
-    meetingDetail.optionalAttendants = this.optionalAttendantsList;
+    meetingDetail.requiredAttendants = this.meetingForm.get('requiredAttendants')?.value
+      .map((user) => user.id);
+    meetingDetail.optionalAttendants = this.meetingForm.get('optionalAttendants')?.value
+    .map((user) => user.id);
     meetingDetail.createdBy = this.data.user.email;
     meetingDetail.createdByUser = this.data.user.id;
     meetingDetail.rrule = this.addRecurrence();

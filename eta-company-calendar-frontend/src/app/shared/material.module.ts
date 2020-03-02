@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -49,6 +50,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     FlexLayoutModule,
     MatRadioModule,
     MatPaginatorModule,
+    MatAutocompleteModule,
   ],
   imports: [
     MatToolbarModule,
@@ -70,6 +72,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatRadioModule,
     MatTooltipModule,
     MatPaginatorModule,
+    MatAutocompleteModule,
   ],
 
 })

@@ -71,23 +71,22 @@
       <hr>
       
       <mat-form-field>
-        <mat-select multiple>
-        <mat-option *ngFor="let option of options" [value]="option.email">
-        {{option.email}}
-        </mat-option>
+        <mat-select multiple formControlName="requiredAttendants">
+          <mat-option *ngFor="let option of userOptions" [value]="option">
+          {{option.email}}
+          </mat-option>
         </mat-select>
         <mat-error>{{ 'meeting.attendantError' | translate }}</mat-error>
-        </mat-form-field>
-        
-        <hr>
-        <mat-form-field>
-        <mat-select multiple>
-        <mat-option *ngFor="let option of options" [value]="option.email">
-        {{option.email}}
-        </mat-option>
+      </mat-form-field>
+      <hr>
+      <mat-form-field>
+        <mat-select multiple formControlName="optionalAttendants">
+          <mat-option *ngFor="let option of userOptions" [value]="option">
+          {{option.email}}
+          </mat-option>
         </mat-select>
         <mat-error>{{ 'meeting.attendantError' | translate }}</mat-error>
-        </mat-form-field>
+      </mat-form-field>
       
       <div class="d-flex justify-content-between">
         <button mat-stroked-button color="primary" class="btn-block" type="submit" [disabled]="meetingForm.invalid"
