@@ -65,7 +65,9 @@
     "attendantsTitle": "attendants",
     "attendantError": "E-mail not valid",
     "submitButton": "Submit",
-    "cancelButton": "Cancel"
+    "cancelButton": "Cancel",
+    "addRecurrence": "add",
+    "modifyRecurrence": "modify"
   },
 
   "location": {
@@ -153,6 +155,38 @@
     "snack_delete_error": "Unsuccessful"
   },
 
+  "recurrenceSelect": {
+    "repeatInvervalHeader": "select repetition",
+    "intervalDay": "day",
+    "invervalWeek": "week",
+    "intervalMonth": "month",
+    "intervalYear": "year",
+    "repeatDaysHeader": "select days",
+    "monday": "Mo",
+    "tuesday": "Tu",
+    "wednesday": "We",
+    "thursday": "Th",
+    "friday": "Fr",
+    "saturday": "Sa",
+    "sunday": "Su",
+    "endSelectHeader": "select ending",
+    "endTypeOccurrences": "after occurrences",
+    "endTypeDate": "end date",
+    "endTypeNever": "never",
+    "occurrenceEndText": "number of occurrences: ",
+    "dateEndText": "end date",
+    "submitButtonText": "Ok",
+    "removeButtonText": "remove",
+    "errNoWeekDaySelected": "No weekday selected",
+    "errNoOccurrenceSelected": "No occurrence selected",
+    "errNoEndDateSelected": "No end date selected",
+    "showRepetition": "repetition",
+    "showWeekDays": "on days",
+    "showOccurrences": "occurrences",
+    "showEndDate": "end date",
+    "showNoRecurrence": "does not repeat"
+  },
+
   "deleteuser": {
     "title": "Delete user",
     "question": "Are you sure you want to delete this user?",
@@ -160,6 +194,13 @@
     "confirm": "Confirm",
     "snack_delete": "User deleted",
     "snack_delete_error": "Unsuccessful"
+  },
+
+  "eventselector": {
+    "new_meeting": "Meeting",
+    "new_reminder": "Reminder",
+    "selector_title": "Please select:",
+    "dialog_title": "New entry"
   }
   
 }

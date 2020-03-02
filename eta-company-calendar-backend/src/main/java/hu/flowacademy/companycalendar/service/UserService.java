@@ -1,7 +1,5 @@
 package hu.flowacademy.companycalendar.service;
 
-import hu.flowacademy.companycalendar.email.EmailService;
-import hu.flowacademy.companycalendar.email.EmailType;
 import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.exception.UserAlreadyExistException;
 import hu.flowacademy.companycalendar.exception.UserNotFoundException;
@@ -10,7 +8,6 @@ import hu.flowacademy.companycalendar.model.dto.UserRequestDTO;
 import hu.flowacademy.companycalendar.model.dto.UserResponseDTO;
 import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -23,8 +20,7 @@ import java.util.stream.Collectors;
 public class UserService {
 
   private final UserRepository userRepository;
-  @Qualifier("mailGunEmailService") private final EmailService emailService;
-
+  
   public List<UserResponseDTO> getAllUsers() {
     return userRepository.findAll()
         .stream()
@@ -47,7 +43,6 @@ public class UserService {
     user.setProfile(Profile.builder().user(user).build());
     if(userRequestDTO.getLeaderId() != null){
       user.setLeader(userRepository.findById(userRequestDTO.getLeaderId()).orElseThrow());}
-    emailService.send(userRequestDTO.getEmail(), "registration", EmailType.HTML);
     return new UserResponseDTO(userRepository.save(user));
   }
 
