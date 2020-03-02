@@ -49,4 +49,9 @@ export class UserService {
     return this.api.user()
    .getAllUsers();
  }
+
+ public getAllUsersForSelect() {
+  return this.api.user()
+  .getAllUsers();
+  }
 }

@@ -11,6 +11,7 @@ import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { Recurrence } from '~/app/models/recurrence.model';
 import { UserResponse } from '~/app/models/user-response.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
+import { UserService } from '~/app/user-management/service/user-service';
 import { RecurrenceDialogData } from '../models/recurrence-dialog-data.model';
 import { RecurrenceSelectComponent } from './recurrence-select.component';
 
@@ -34,13 +35,15 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   protected optionalAttendantsList: string[] = [];
   protected formMinFinishTime: Date = new Date(Number.MIN_VALUE);
   protected rruleStr: string;
+  protected options: UserResponse[];
 
   constructor(private readonly api: ApiCommunicationService,
               @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
               protected readonly dateTimeAdapter: DateTimeAdapter<object>,
               private readonly dialog: MatDialog,
               private readonly dialogRef: MatDialogRef<MeetingCreateComponent>,
-              private readonly translate: TranslateService) { }
+              private readonly translate: TranslateService,
+              private readonly userService: UserService) { }
 
   public ngOnInit() {
     this.meetingForm = new FormGroup({
@@ -58,6 +61,9 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     this.dialogRef.disableClose = true;
     this.subscribeToStartingTimeChange();
     this.setStartingTimeFromDialogData();
+    this.userService.getAllUsersForSelect()
+      .subscribe((user) => this.options = user
+      );
   }
 
   private setStartingTimeFromDialogData() {

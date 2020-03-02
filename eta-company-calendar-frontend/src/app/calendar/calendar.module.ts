@@ -4,6 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { MeetingService } from '../my-meetings/service/meeting.service';
 import { SharedModule } from '../shared/shared.module';
+import { UserService } from '../user-management/service/user-service';
 import { CalendarRoutingModule } from './calendar-routing.module';
 import { CalendarComponent } from './components/calendar.component';
 import { RecurrenceShowComponent } from './components/recurrence-show.component';
@@ -34,6 +35,7 @@ import { RecurrenceSelectComponent } from './modals/recurrence-select.component'
   ],
   providers: [
     MeetingService,
+    UserService,
   ]
 })
 export class CalendarModule { }

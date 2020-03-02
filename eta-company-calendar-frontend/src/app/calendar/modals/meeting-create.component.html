@@ -70,51 +70,24 @@
       <h4 class="row-alignment">{{ 'meeting.attendantsTitle' | translate | uppercase }}</h4>
       <hr>
       
-      <mat-chip-list #chipRequiredAttendants>
-        <mat-label >{{ 'meeting.requiredAttendants' | translate }}: </mat-label>
-        <mat-chip color="accent"
-          *ngFor="let attendant of requiredAttendantsList"
-          [removable]="true"
-          (removed)="removeAttendant(attendant, requiredAttendantsList)">
-          {{ attendant }}
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-      </mat-chip-list>
-
       <mat-form-field>
-        <input
-          matInput
-          formControlName="requiredAttendant"
-          type="email"
-          maxlength="80"
-          [matChipInputFor]="chipRequiredAttendants"
-          (matChipInputTokenEnd)="addAttendant(requiredAttendantsList)">
-          <mat-error>{{ 'meeting.attendantError' | translate }}</mat-error>
-      </mat-form-field>
-
-      <hr>
-
-      <mat-chip-list #chipOptionalAttendants>
-        <mat-label >{{ 'meeting.optionalAttendants' | translate }}: </mat-label>
-        <mat-chip color="accent"
-          *ngFor="let attendant of optionalAttendantsList"
-          [removable]="true"
-          (removed)="removeAttendant(attendant, optionalAttendantsList)">
-          {{ attendant }}
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-      </mat-chip-list>
-      
-      <mat-form-field>
-        <input
-          matInput
-          formControlName="optionalAttendant"
-          type="email"
-          maxlength="80"
-          [matChipInputFor]="chipOptionalAttendants"
-          (matChipInputTokenEnd)="addAttendant(optionalAttendantsList)">
-          <mat-error>{{ 'meeting.attendantError' | translate }}</mat-error>
-      </mat-form-field>
+        <mat-select multiple>
+        <mat-option *ngFor="let option of options" [value]="option.email">
+        {{option.email}}
+        </mat-option>
+        </mat-select>
+        <mat-error>{{ 'meeting.attendantError' | translate }}</mat-error>
+        </mat-form-field>
+        
+        <hr>
+        <mat-form-field>
+        <mat-select multiple>
+        <mat-option *ngFor="let option of options" [value]="option.email">
+        {{option.email}}
+        </mat-option>
+        </mat-select>
+        <mat-error>{{ 'meeting.attendantError' | translate }}</mat-error>
+        </mat-form-field>
       
       <div class="d-flex justify-content-between">
         <button mat-stroked-button color="primary" class="btn-block" type="submit" [disabled]="meetingForm.invalid"
