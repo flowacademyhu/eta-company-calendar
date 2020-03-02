@@ -25,7 +25,7 @@ import { UserService } from '../service/user-service';
         <h3 class="ml-5">{{'userlist.title' | translate | uppercase }}</h3>
         <div>
           <mat-form-field>
-            <input matInput type="text"
+            <input matInput type="text" (keyup)="doFilter($event.target.value)"
               placeholder="{{ 'meetinglist.filter' | translate}}">
           </mat-form-field>
           <button matTooltip="{{ 'newuserform.new_user' | translate }}" mat-icon-button (click)="openDialog()">
@@ -119,6 +119,11 @@ export class UserManagementDescriptionComponent {
   public ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim()
+     .toLocaleLowerCase();
   }
 
   public ngOnDestroy(): void {
