@@ -117,7 +117,8 @@
     "endingTime": "Vége",
     "recurring": "Ismétlődés",
     "date": "Dátum",
-    "modalClose": "Bezárás"
+    "modalClose": "Bezárás",
+    "createdBy": "Létrehozta"
   },
   "usermanagement": {
     "new_user": "Új felhasználó létrehozása",

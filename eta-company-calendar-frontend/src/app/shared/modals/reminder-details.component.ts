@@ -7,7 +7,9 @@ import { ReminderService } from '~/app/reminder/service/reminder.service';
   selector: 'reminder-details-modal',
   styleUrls: ['profil-view-dialog.component.scss'],
   template: `
-  <h1 mat-dialog-title>{{ reminder.title | translate | uppercase }}</h1>
+  <h1>
+    <p>{{reminder.title}} </p>
+</h1>
 <div mat-dialog-content>
 
   <mat-label>{{'reminderlist.description' | translate}}</mat-label>

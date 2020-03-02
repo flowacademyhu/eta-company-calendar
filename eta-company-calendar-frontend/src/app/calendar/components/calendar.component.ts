@@ -46,7 +46,7 @@ import { EventReminderSelectorComponent } from '../modals/event-reminder-selecto
       [events]="calendarEvents"
       (dateClick)="handleDateClick($event)"
       (eventClick)="handleEventClick($event)"
-      (eventMouseover)="handleEventClick($event)"
+      (eventMouseover)="handleMouseover($event)"
       (datesRender)="onDatesRender($event)"
     ></full-calendar>
   </div>
@@ -85,7 +85,6 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
       .subscribe((params) => {
         this.setCalendarLang(params.lang);
       });
-    this.calendarEvents = [];
     this.fetchReminders();
     this.fetchMeetings();
 
@@ -107,6 +106,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
   }
 
 /*    protected handleEventClick(arg: EventClickInfo) {
+    console.log(arg.event.id);
      this.api.meeting()
     .getMeetingById(arg.event.id)
     .subscribe((meeting) => {this.selectedMeeting = meeting;
@@ -115,15 +115,16 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
                               width: '400px' } ); }
 
     );
-  } */
-
-   protected handleEventClick(arg: EventClickInfo) {
-    this.api.reminder()
+  }
+ */
+  protected handleEventClick(arg: EventClickInfo) {
+     this.api.reminder()
    .getReminderById(arg.event.id)
    .subscribe((reminder) => {this.selectedReminder = reminder;
                              this.dialog.open(ReminderDetailsModal, {
                              data: this.selectedReminder,
-                             width: '400px' } ); }
+                             width: '400px' } );
+                              }
 
    );
  }
@@ -181,7 +182,12 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     .subscribe((data) => {
       this.calendarEvents = [];
       this.calendarEvents = this.calendarEvents.concat(data.map(((reminder) => {
-        return {start: reminder.startingTime, title: reminder.title, backgroundColor: 'red'};
+        return {
+          id: reminder.id,
+          start: reminder.startingTime,
+          title: reminder.title,
+          rrule: reminder.rrule?.rrule,
+          backgroundColor: 'red'};
       })));
     });
   }

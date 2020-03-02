@@ -115,7 +115,8 @@
     "endingTime": "Ending Time",
     "recurring": "Recurring",
     "date": "Date",
-    "modalClose": "Close"
+    "modalClose": "Close",
+    "createdBy": "Created by"
   },
   "usermanagement": {
     "new_user": "Add new user",

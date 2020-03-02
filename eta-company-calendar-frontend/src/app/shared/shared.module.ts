@@ -15,6 +15,7 @@ import { AuthInterceptorService } from './interceptors/auth-interceptor.service'
 import { MeetingDetailsModal } from './modals/meeting-details.component';
 import { ProfilViewDialog } from './modals/profil-view-dialog.component';
 import { ProfilEditDialog } from './modals/profile-edit-dialog.component';
+import { ReminderDetailsModal } from './modals/reminder-details.component';
 
 @NgModule({
   declarations: [
@@ -24,10 +25,12 @@ import { ProfilEditDialog } from './modals/profile-edit-dialog.component';
     ProfilViewDialog,
     ProfilEditDialog,
     MeetingDetailsModal,
+    ReminderDetailsModal,
   ],
   entryComponents: [
     ProfilViewDialog,
     MeetingDetailsModal,
+    ReminderDetailsModal,
   ],
 
   exports: [
