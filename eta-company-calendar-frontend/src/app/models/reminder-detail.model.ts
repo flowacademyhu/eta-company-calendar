@@ -8,4 +8,5 @@ export interface ReminderDetail {
   updatedAt: number;
   recurring: Recurring;
   createdBy: string;
+  createdByUser: number;
 }

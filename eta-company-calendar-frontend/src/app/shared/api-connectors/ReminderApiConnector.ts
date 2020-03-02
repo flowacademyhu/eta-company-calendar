@@ -5,11 +5,15 @@ import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiCon
 import { ReminderDetail } from '../../models/reminder-detail.model';
 
 export class ReminderApiConnector extends AbstractApiConnector {
-  protected readonly apiRoute: string = `${this.apiBaseUrl}/api`;
+  protected readonly apiRoute: string = `${this.apiBaseUrl}/api/reminders`;
 
   public findByUserId(userId: number): Observable<ReminderDetail[]> {
-    return this.http.get<ReminderDetail[]>(`${this.apiRoute}/reminders/own/${userId}`);
+    return this.http.get<ReminderDetail[]>(`${this.apiRoute}/own/${userId}`);
   }
+
+  public getReminderById(reminderId: number): Observable<ReminderDetail> {
+    return this.http.get<ReminderDetail>(`${this.apiRoute}/${reminderId}`);
+}
 
   public getRemindersByInvitation(userId: number): Observable<ReminderDetail[]> {
     return this.http.get<ReminderDetail[]>(`${this.apiRoute}/invited/${userId}`);
@@ -24,22 +28,22 @@ export class ReminderApiConnector extends AbstractApiConnector {
       .append('startingTimeFrom', startingTimeFrom.toString())
       .append('startingTimeTo', startingTimeTo.toString());
 
-    return this.http.get<ReminderListItem[]>(`${this.apiRoute}/reminders/list/user/${userId}`, { params });
+    return this.http.get<ReminderListItem[]>(`${this.apiRoute}/user/${userId}`, { params });
   }
 
   public getAllReminder(): Observable<ReminderDetail[]> {
-    return this.http.get<ReminderDetail[]>(`${this.apiRoute}/reminders/`);
+    return this.http.get<ReminderDetail[]>(`${this.apiRoute}`);
   }
   public getRemindersByUserId(userid: number): Observable<ReminderDetail[]> {
     const params = new HttpParams().set('startTime'
       , Date.now()
         .toString());
-    return this.http.get<ReminderDetail[]>(`${this.apiRoute}/reminders/user/time/${userid}`
+    return this.http.get<ReminderDetail[]>(`${this.apiRoute}user/time/${userid}`
       , { params });
   }
 
   public create(reminder: ReminderDetail): Observable<ReminderDetail> {
-    return this.http.post<ReminderDetail>(`${this.apiRoute}/reminders/`, reminder);
+    return this.http.post<ReminderDetail>(`${this.apiRoute}`, reminder);
   }
 
   public getMeetingsByIdAndTimeRange(userId: number,

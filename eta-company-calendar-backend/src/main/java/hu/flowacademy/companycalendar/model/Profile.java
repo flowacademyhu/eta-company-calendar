@@ -38,4 +38,7 @@ public class Profile {
   private String department;
   private String position;
   private String team;
+
+  public Profile(Object o, User calendarCsiha, String csiha, String calendar, LocalDate now, LocalDate now1, String mydepartment, String intern, String building) {
+  }
 }

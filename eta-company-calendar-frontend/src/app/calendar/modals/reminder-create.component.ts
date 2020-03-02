@@ -5,12 +5,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Subject } from 'rxjs';
 import { ReminderDetail } from '~/app/models/reminder-detail.model';
+import { UserResponse } from '~/app/models/user-response.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 
 export interface DialogData {
   startingTime: string;
   finishTime: string;
+  user: UserResponse;
 }
 
 @Component({
@@ -23,6 +25,7 @@ export class ReminderCreateComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
   private reminderForm: FormGroup;
   protected formMaxStartTime: Date = new Date(Number.MAX_VALUE);
+  protected rruleStr: string;
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly auth: AuthService,
@@ -50,7 +53,6 @@ export class ReminderCreateComponent implements OnInit, OnDestroy {
     }
   }
 
-
   protected checkTimeRangeError() {
     const timeRange = this.reminderForm.get('timeRange');
     return timeRange && timeRange.hasError('invalidRange');
@@ -72,6 +74,7 @@ export class ReminderCreateComponent implements OnInit, OnDestroy {
     const reminderDetail: ReminderDetail = this.reminderForm.value;
     reminderDetail.startingTime = reminderDetail.startingTime.valueOf();
     reminderDetail.createdBy = this.auth.tokenDetails.getValue().user_name;
+    reminderDetail.createdByUser = this.data.user.id;
     this.api.reminder()
       .create(reminderDetail)
       .subscribe();
