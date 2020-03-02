@@ -27,10 +27,10 @@ public class ReminderResource {
         return reminderService.findAll();
     }
 
-    /*@GetMapping("/{id}")
+    @GetMapping("/{id}")
     public Reminder findOne(@PathVariable Long id) {
         return reminderService.findOne(id);
-    }*/
+    }
 
     @GetMapping("/own/{userId}")
     public List<ReminderDTO> findByUserId(@PathVariable Long userId) { return reminderService.findByUserId(userId);}
