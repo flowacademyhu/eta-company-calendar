@@ -10,10 +10,10 @@ import timeGrigPlugin from '@fullcalendar/timegrid';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { EventReminderSelectorComponent } from '~/app/event-reminder-selector/event-reminder-selector.component';
 import { UserResponse } from '~/app/models/user-response.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
-import { MeetingCreateComponent } from '../modals/meeting-create.component';
 
 @Component({
   selector: 'app-calendar',
@@ -101,10 +101,10 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
   }
 
   protected handleDateClick(arg: EventInput) {
-    this.dialog.open(MeetingCreateComponent, {
-      width: '500px',
+    this.dialog.open(EventReminderSelectorComponent, {
+      width: '250px',
       data: {
-        startingTime: arg.dateStr,
+        event: arg,
         user: this.selectedUser,
         isEmployee: this.loggedInUser.id !== this.selectedUser.id
       }
