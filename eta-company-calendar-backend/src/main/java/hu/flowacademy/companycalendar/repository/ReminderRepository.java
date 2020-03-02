@@ -1,7 +1,6 @@
 package hu.flowacademy.companycalendar.repository;
 
 import hu.flowacademy.companycalendar.model.Reminder;
-import hu.flowacademy.companycalendar.model.dto.ReminderListItemDTO;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

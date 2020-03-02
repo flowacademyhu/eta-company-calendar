@@ -1,8 +1,6 @@
 package hu.flowacademy.companycalendar.controller;
 
-import hu.flowacademy.companycalendar.model.Reminder;
-import hu.flowacademy.companycalendar.model.dto.MeetingCreateDTO;
-import hu.flowacademy.companycalendar.model.dto.MeetingListItemDTO;
+
 import hu.flowacademy.companycalendar.model.dto.ReminderCreateDTO;
 import hu.flowacademy.companycalendar.model.dto.ReminderDTO;
 import hu.flowacademy.companycalendar.model.dto.ReminderListItemDTO;

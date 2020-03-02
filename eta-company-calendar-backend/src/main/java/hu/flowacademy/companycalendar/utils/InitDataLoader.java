@@ -2,16 +2,19 @@ package hu.flowacademy.companycalendar.utils;
 
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
+import hu.flowacademy.companycalendar.model.RRule;
 import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.model.Recurring;
 import hu.flowacademy.companycalendar.model.Reminder;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
+import hu.flowacademy.companycalendar.repository.ProfileRepository;
 import hu.flowacademy.companycalendar.repository.ReminderRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.AllArgsConstructor;
@@ -27,10 +30,11 @@ import java.util.List;
 @AllArgsConstructor
 public class InitDataLoader {
 
-  private final MeetingRepository meetingRepository;
-  private final UserRepository userRepository;
-  private final BCryptPasswordEncoder passwordEncoder;
-  private final ReminderRepository reminderRepository;
+    private final MeetingRepository meetingRepository;
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
+    private final ReminderRepository reminderRepository;
+    private final ProfileRepository profileRepository;
 
   @PostConstruct
   public void init() throws ParseException {
@@ -39,41 +43,71 @@ public class InitDataLoader {
     createReminder();
   }
 
-  private void createUsers() {
-    var testUsers = userRepository.saveAll(
-        IntStream.range(0, 10).mapToObj(i -> User.builder()
-            .email("user" + i + "@test.com")
-            .password(passwordEncoder.encode("user123"))
-            .role(i == 0 ? Roles.ADMIN : Roles.USER).build()
-        ).collect(Collectors.toList())
-    );
-    testUsers.forEach(user -> {
-      if (user.getId() == 2) {
-        user.setRole(Roles.LEADER);
-      } else {
-        user.setLeader(testUsers.get(1));
-      }
-    });
-    testUsers.forEach(u -> u.setProfile(Profile.builder().user(u).build()));
-    userRepository.saveAll(testUsers);
-  }
+    private void createUsers() {
+        var testUsers = userRepository.saveAll(
+            IntStream.range(0, 10).mapToObj( i -> User.builder()
+                .email("user" + i + "@test.com")
+                .password(passwordEncoder.encode("user123"))
+                .role(i == 0 ? Roles.ADMIN : Roles.USER).build()).collect(Collectors.toList())
+        );
+        User calendarCsiha = User.builder()
+            .email("calendarcsiha@gmail.com")
+            .password("csiha")
+            .role(Roles.ADMIN)
+            .build();
+        userRepository.save(calendarCsiha);
+        calendarCsiha.setProfile(new Profile(null, calendarCsiha, "Csiha", "Calendar", LocalDate.now(), LocalDate.now(), "mydepartment", "intern", "building"));
 
-  private void createMeetings() {
-    var testUsers = userRepository.findAll();
-    meetingRepository.saveAll(
-        IntStream.range(0, 10).mapToObj(i -> Meeting.builder()
-            .title("test meeting " + i)
-            .description("description of test meeting " + i)
-            .location(Location.MEETING_ROOM)
-            .startingTime(System.currentTimeMillis() + 86400000 * i)
-            .finishTime(System.currentTimeMillis() + 86400000 * i + 3600000)
+        User csalaoh = User.builder()
+            .email("csalaoh@gmail.com")
+            .password("csala")
+            .role(Roles.ADMIN)
+            .build();
+        userRepository.save(csalaoh);
+        csalaoh.setProfile(new Profile(null, csalaoh, "Laszlo", "Csanyi", LocalDate.now(), LocalDate.now(), "mydepartment", "intern", "building"));
+
+
+        testUsers.forEach(user -> {
+            if (user.getId() == 2) {
+                user.setRole(Roles.LEADER);
+            } else {
+                user.setLeader(testUsers.get(1));
+            }
+        });
+        userRepository.saveAll(testUsers);
+    }
+
+    private void createMeetings() {
+        var testUsers = userRepository.findAll();
+        meetingRepository.saveAll(
+            IntStream.range(0, 10).mapToObj(i -> Meeting.builder()
+                .title("test meeting " + i)
+                .description("description of test meeting " + i)
+                .location(Location.MEETING_ROOM)
+                .startingTime(System.currentTimeMillis() + 86400000 * i)
+                .finishTime(System.currentTimeMillis() + 86400000 * i + 3600000)
+                .createdAt(System.currentTimeMillis())
+                .createdBy(testUsers.get(i))
+                .requiredAttendants(testUsers.subList(i + 1, 10))
+                .optionalAttendants(List.of(testUsers.get(0)))
+                .build()).collect(Collectors.toList())
+        );
+        var rrule = "DTSTART:20200201T010000Z\n"
+            + "RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,FR;UNTIL=20210131T000000Z";
+        meetingRepository.save(Meeting.builder()
+            .title("recurring meeting")
+            .description("a meeting every Monday and Friday")
+            .location(Location.MARKS_OFFICE)
             .createdAt(System.currentTimeMillis())
-            .createdBy(testUsers.get(i))
-            .requiredAttendants(testUsers.subList(i + 1, 10))
-            .optionalAttendants(List.of(testUsers.get(0)))
-            .build()).collect(Collectors.toList())
-    );
-  }
+            .createdBy(testUsers.get(0))
+            .requiredAttendants(List.of(testUsers.get(1)))
+            .rrule(RRule.builder()
+                .rrule(rrule)
+                .dtstart(1580518800000L)
+                .until(1612051200000L)
+                .duration(7200000L).build())
+            .build());
+    }
 
     public void createReminder() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
