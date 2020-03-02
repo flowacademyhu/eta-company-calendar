@@ -40,9 +40,8 @@
             matInput
             type="datetime" autocomplete="off"
             formControlName="startingTime" 
-            [max]="formMaxStartTime"
             [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" >
-          <owl-date-time #dt1 [firstDayOfWeek]="1"></owl-date-time>
+          <owl-date-time #dt1 [firstDayOfWeek]="1" [stepMinute]="15"></owl-date-time>
         </mat-form-field>
         <mat-icon [owlDateTimeTrigger]="dt1">event</mat-icon>
 
@@ -53,7 +52,7 @@
             formControlName="finishTime"
             [min]="formMinFinishTime"
             [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2">
-          <owl-date-time #dt2 [firstDayOfWeek]="1"></owl-date-time>
+          <owl-date-time #dt2 [firstDayOfWeek]="1" [stepMinute]="15"></owl-date-time>
         </mat-form-field>
         <mat-icon [owlDateTimeTrigger]="dt2">event</mat-icon>
       </div>
