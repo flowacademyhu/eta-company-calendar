@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import { MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/models/user.model';
+import { UserResponse } from '~/app/models/user-response.model';
 import { UserService } from '../service/user-service';
 import { PasswordNotMatchingValidator } from './password-validator';
 
@@ -30,6 +31,12 @@ import { PasswordNotMatchingValidator } from './password-validator';
       </mat-form-field>
       <br>
       <mat-form-field appearance="fill">
+        <mat-label>{{'newuserform.name' | translate}}</mat-label>
+        <input matInput formControlName="name" type="text">
+        <mat-error> {{'newuserform.name_error' | translate}} </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
         <mat-label>{{'newuserform.password' | translate}}</mat-label>
         <input matInput formControlName="password" type="password">
         <mat-error> {{'newuserform.password_error' | translate}} </mat-error>
@@ -39,6 +46,15 @@ import { PasswordNotMatchingValidator } from './password-validator';
         <mat-label>{{'newuserform.confirm_password' | translate}}</mat-label>
         <input matInput formControlName="confirm_password" type="password">
         <mat-error> {{'newuserform.password_error' | translate}} </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+          <mat-label>{{'newuserform.leader' | translate}}</mat-label>
+        <mat-select formControlName="leaderId">
+        <mat-option>{{'newuserform.none' | translate}}</mat-option>
+          <mat-option *ngFor="let leader of leaders" value={{leader.id}}>{{leader.name}}</mat-option>
+        </mat-select>
+        <mat-error> {{'newuserform.leader_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
       <div class="d-flex justify-content-center">
@@ -54,14 +70,20 @@ import { PasswordNotMatchingValidator } from './password-validator';
   export class NewUserComponent implements OnInit {
     private newUserForm: FormGroup;
     private user: User = {} as User;
+    protected leaders: UserResponse[];
 
     public ngOnInit() {
       this.newUserForm = new FormGroup({
         confirm_password: new FormControl(undefined, [Validators.required]),
         email: new FormControl(undefined, [Validators.email, Validators.required]),
         password: new FormControl(undefined, [Validators.required]),
-        role: new FormControl(undefined, [Validators.required])
+        role: new FormControl(undefined, [Validators.required]),
+        name: new FormControl(undefined, [Validators.required]),
+        leaderId: new FormControl()
       }, {validators: PasswordNotMatchingValidator });
+
+      this.userService.getLeaders()
+      .subscribe((leader) => { this.leaders = leader; } );
     }
 
     constructor(
@@ -87,4 +109,4 @@ import { PasswordNotMatchingValidator } from './password-validator';
                                 this.userService.getAllUsers();
                                 this.dialogRef.close(); },
                () => this.openSnackBar(this.translate.instant('newuserform.fail'))); }
-    }
+  }

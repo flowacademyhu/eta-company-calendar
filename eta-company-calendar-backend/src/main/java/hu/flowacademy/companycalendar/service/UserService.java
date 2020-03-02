@@ -3,6 +3,7 @@ package hu.flowacademy.companycalendar.service;
 import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.exception.UserAlreadyExistException;
 import hu.flowacademy.companycalendar.exception.UserNotFoundException;
+import hu.flowacademy.companycalendar.model.Roles;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.UserRequestDTO;
 import hu.flowacademy.companycalendar.model.dto.UserResponseDTO;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 public class UserService {
 
   private final UserRepository userRepository;
-  
+
   public List<UserResponseDTO> getAllUsers() {
     return userRepository.findAll()
         .stream()
@@ -72,6 +73,13 @@ public class UserService {
   public List<UserResponseDTO> getEmployees(Long id) {
     return userRepository.findById(id).orElseThrow()
         .getEmployees()
+        .stream()
+        .map(UserResponseDTO::new)
+        .collect(Collectors.toList());
+  }
+
+  public List<UserResponseDTO> getLeaders() {
+    return userRepository.findByRole(Roles.LEADER)
         .stream()
         .map(UserResponseDTO::new)
         .collect(Collectors.toList());

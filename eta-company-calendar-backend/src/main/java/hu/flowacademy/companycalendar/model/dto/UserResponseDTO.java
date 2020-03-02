@@ -17,6 +17,7 @@ public class UserResponseDTO {
   private String email;
   private Roles role;
   private String name;
+  private Long leaderId;
   private String leaderName;
   private String leaderEmail;
 
@@ -26,6 +27,7 @@ public class UserResponseDTO {
     this.role = user.getRole();
     this.name = user.getName();
     if(user.getLeader() != null){
+      this.leaderId = user.getLeader().getId();
       this.leaderName = user.getLeader().getName();
       this.leaderEmail = user.getLeader().getEmail();
     }
