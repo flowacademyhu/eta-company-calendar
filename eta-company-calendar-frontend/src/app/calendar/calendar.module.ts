@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CalendarRoutingModule } from './calendar-routing.module';
 import { CalendarComponent } from './components/calendar.component';
 import { RecurrenceShowComponent } from './components/recurrence-show.component';
+import { EventReminderSelectorComponent } from './modals/event-reminder-selector.component';
 import { MeetingCreateComponent } from './modals/meeting-create.component';
 import { RecurrenceSelectComponent } from './modals/recurrence-select.component';
 
@@ -16,10 +17,12 @@ import { RecurrenceSelectComponent } from './modals/recurrence-select.component'
     MeetingCreateComponent,
     RecurrenceSelectComponent,
     RecurrenceShowComponent,
+    EventReminderSelectorComponent,
   ],
   entryComponents: [
     MeetingCreateComponent,
     RecurrenceSelectComponent,
+    EventReminderSelectorComponent,
   ],
   imports: [
     SharedModule,
