@@ -11,12 +11,12 @@ import timeGrigPlugin from '@fullcalendar/timegrid';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { EventReminderSelectorComponent } from '~/app/event-reminder-selector/event-reminder-selector.component';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { UserResponse } from '~/app/models/user-response.model';
 import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
+import { EventReminderSelectorComponent } from '../modals/event-reminder-selector.component';
 
 @Component({
   selector: 'app-calendar',
