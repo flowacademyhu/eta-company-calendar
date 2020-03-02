@@ -160,7 +160,4 @@ public class MeetingService {
         meetingRepository.deleteById(id);
     }
 
-    private String createMeetingEmailText(String... parameters) {
-        return String.format(mailingConfig.getMessageTemplate(), parameters);
-    }
 }
