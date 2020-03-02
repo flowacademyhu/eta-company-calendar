@@ -1,12 +1,12 @@
 <p>attendants</p>
 <mat-form-field class="example-chip-list">
-  <mat-chip-list #requiredAttendantsChipList>
+  <mat-chip-list #reqAttendantsChipList>
     <mat-chip
       *ngFor="let attendant of requiredAttendants"
       [selectable]="selectable"
       [removable]="removable"
-      (removed)="remove(attendant)">
-      {{ attendant.email }}
+      (removed)="removeFromRequired(attendant)">
+      {{ attendant }}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
     <input
@@ -14,9 +14,8 @@
       #reqAttendantInput
       [formControl]="reqAttendantCtrl"
       [matAutocomplete]="auto"
-      [matChipInputFor]="requiredAttendantsChipList"
-      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-      (matChipInputTokenEnd)="add($event)">
+      [matChipInputFor]="reqAttendantsChipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
   </mat-chip-list>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
     <mat-option *ngFor="let user of filteredUserTexts | async" [value]="user">

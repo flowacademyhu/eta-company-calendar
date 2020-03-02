@@ -28,15 +28,11 @@ export class AttendantsComponent implements OnInit {
   protected separatorKeysCodes: number[] = [ENTER, COMMA];
   protected fruitCtrl: FormControl = new FormControl();
 
-  protected reqAttendantCtrl: FormControl = new FormControl();
-  protected filteredUserTexts: Observable<string[]>;
-  protected requiredAttendants: UserResponse[] = [];
   protected allUsers: UserResponse[];
-  protected allUserTexts: string[];
-
-  protected filteredFruits: Observable<string[]>;
-  protected fruits: string[] = ['Lemon'];
-  protected allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  protected filteredUserTexts: Observable<string[]>;
+  protected reqAttendantCtrl: FormControl = new FormControl();
+  protected requiredAttendants: string[] = [];
+  protected selectableUserTexts: string[];
 
   @ViewChild('reqAttendantInput') protected reqAttendantInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') protected matAutocomplete: MatAutocomplete;
@@ -50,52 +46,36 @@ export class AttendantsComponent implements OnInit {
       .getAllUsers()
       .subscribe((res) => {
         this.allUsers = res;
-        this.allUserTexts = this.allUsers.map((user) => user.email);
+        this.selectableUserTexts = this.allUsers.map((user) => user.email);
         this.filteredUserTexts = this.reqAttendantCtrl.valueChanges.pipe(
           startWith(undefined),
-          map((userText: string | null) => userText ? this._filterUser(userText) : this.allUserTexts.slice()));
+          map((userText: string | null) => userText ? this._filterUser(userText) : this.selectableUserTexts.slice()));
       });
   }
 
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-    console.log(event);
-
-    // Add our fruit
-    if ((value || '').trim()) {
-      this.fruits.push(value.trim());
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-
-    this.fruitCtrl.setValue(null);
-  }
-
-  protected remove(fruit: string): void {
-    console.log(fruit);
-    const index = this.fruits.indexOf(fruit);
-
-    if (index >= 0) {
-      this.fruits.splice(index, 1);
-    }
+  protected removeFromRequired(attendant: string): void {
+    this.removeFromArr(attendant, this.requiredAttendants);
+    this.selectableUserTexts.push(attendant);
   }
 
   protected selected(event: MatAutocompleteSelectedEvent): void {
     const selected = event.option.viewValue;
-    const user = this.allUsers.find((u) => u.email === selected);
-    if (user) {
-      this.requiredAttendants.push(user);
-    }
+    this.requiredAttendants.push(selected);
+    this.removeFromArr(selected, this.selectableUserTexts);
     this.reqAttendantInput.nativeElement.value = '';
     this.reqAttendantCtrl.setValue(undefined);
   }
 
   private _filterUser(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.allUserTexts.filter((userText) => userText.indexOf(filterValue) === 0);
+    return this.selectableUserTexts.filter((userText) => userText.indexOf(filterValue) === 0);
   }
+
+  private removeFromArr(text: string, arr: string[]): void {
+    const index = arr.indexOf(text);
+    if (index >= 0) {
+      arr.splice(index, 1);
+    }
+  }
+
 }
