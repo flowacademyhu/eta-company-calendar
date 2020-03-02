@@ -15,7 +15,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 @Slf4j
-@Service
 @RequiredArgsConstructor
 public class MailGunEmailService implements EmailService {
     @NonNull private final MailingConfig mailingConfig;
@@ -24,7 +23,8 @@ public class MailGunEmailService implements EmailService {
 
     @Override
     public void send(String to, String subject, EmailType emailType, Object... bodyParams) {
-        asyncSend(emailFactory.buildEmail(mailingConfig.getMailFrom(), to, subject, emailType, bodyParams), createHeader());
+        asyncSend(emailFactory.buildEmail(mailingConfig.getMailFrom(), to, subject, emailType, bodyParams),
+            createHeader());
     }
 
     private HttpHeaders createHeader() {
