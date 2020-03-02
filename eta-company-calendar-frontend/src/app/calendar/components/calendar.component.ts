@@ -6,14 +6,17 @@ import enGbLocale from '@fullcalendar/core/locales/en-gb';
 import huLocale from '@fullcalendar/core/locales/hu';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import rrulePlugin from '@fullcalendar/rrule';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { UserResponse } from '~/app/models/user-response.model';
+import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
-import { MeetingCreateComponent } from '../modals/meeting-create.component';
+import { EventReminderSelectorComponent } from '../modals/event-reminder-selector.component';
 
 @Component({
   selector: 'app-calendar',
@@ -34,9 +37,20 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
     .selector {
       margin: 0 auto;
     }
+    .dropdown {
+      margin-top: 0.75%;
+    }
+    .background {
+      background: transparent;
+    }
+    .not-leader {
+      margin-top: 3%;
+    }
   `],
   template: `
   <div class='app-calendar white-background'>
+  <div *ngIf="!isUserLeader" class="not-leader">
+  </div>
     <div *ngIf="isUserLeader" class="dropdown">
       <mat-form-field appearance="none">
         <mat-select  class="selector" [(value)]="selectedUser" (selectionChange)="fetchMeetings()">
@@ -63,6 +77,8 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
       [aspectRatio]="0.96"
       (dateClick)="handleDateClick($event)"
       fxShow.lt-sm="true" fxShow.md="false" fxShow.lg="false"
+      (eventClick)="handleEventClick($event)"
+      (eventMouseover)="handleEventClick($event)"
       (datesRender)="onDatesRender($event)"
     ></full-calendar>
   </div>
@@ -93,7 +109,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('calendar') protected calendarComponent: FullCalendarComponent;
   protected calendarEvents: EventInput[] = [];
-  protected calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
+  protected calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin, rrulePlugin];
   protected currentView: View;
   protected locales: object[] = [enGbLocale, huLocale];
 
@@ -101,6 +117,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
   protected loggedInUser: UserResponse;
   protected selectedUser: UserResponse;
   protected userEmployees$: Observable<UserResponse[]>;
+  protected selectedMeeting: MeetingDetail = {} as MeetingDetail;
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly auth: AuthService,
@@ -127,14 +144,25 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
   }
 
   protected handleDateClick(arg: EventInput) {
-    this.dialog.open(MeetingCreateComponent, {
-      width: '500px',
+    this.dialog.open(EventReminderSelectorComponent, {
+      width: '250px',
       data: {
-        startingTime: arg.dateStr,
+        event: arg,
         user: this.selectedUser,
         isEmployee: this.loggedInUser.id !== this.selectedUser.id
       }
     });
+  }
+
+  protected handleEventClick(arg: EventClickInfo) {
+     this.api.meeting()
+    .getMeetingById(arg.event.id)
+    .subscribe((meeting) => {this.selectedMeeting = meeting;
+                             this.dialog.open(MeetingDetailsModal, {
+                              data: this.selectedMeeting,
+                              width: '400px' } ); }
+
+    );
   }
 
   protected onDatesRender(info: DatesRenderInfo) {
@@ -158,7 +186,14 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     .subscribe((data) => {
       this.calendarEvents = [];
       this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
-        return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title};
+        return {
+          id: meeting.id,
+          start: meeting.startingTime,
+          end: meeting.finishTime,
+          title: meeting.title,
+          rrule: meeting.rrule?.rrule,
+          duration: meeting.rrule?.duration,
+        };
       }));
     });
   }
@@ -189,4 +224,8 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 export interface DatesRenderInfo {
   view: View;
   el: HTMLElement;
+}
+
+export interface EventClickInfo {
+  event: {id: number};
 }
