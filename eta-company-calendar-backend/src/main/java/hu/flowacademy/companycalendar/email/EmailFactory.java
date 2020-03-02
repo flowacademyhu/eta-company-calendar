@@ -29,12 +29,12 @@ public class EmailFactory {
   public Entry<String, String> buildContent(EmailType emailType, Object... params) {
     if (EmailType.TEXT.equals(emailType)) {
       if (params == null) {
-        return new SimpleEntry<>(Constants.TYPE_TEXT, mailingConfig.getMessageTemplate());
+        return new SimpleEntry<>(Constants.TYPE_TEXT, mailingConfig.getNewMessageTemplate());
       }
       return new SimpleEntry<>(Constants.TYPE_TEXT,
-          String.format(mailingConfig.getMessageTemplate(), params));
+          String.format(mailingConfig.getNewMessageTemplate(), params));
     } else if (EmailType.HTML.equals(emailType)) {
-      return new SimpleEntry<>(Constants.TYPE_HTML, String.format(mailingConfig.getMessageTemplate(), params));
+      return new SimpleEntry<>(Constants.TYPE_HTML, String.format(mailingConfig.getNewMessageTemplate(), params));
     }
     throw new IllegalArgumentException(Objects.toString(emailType));
 

@@ -10,5 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class MailingConfig {
     private Mailgun mailgun;
     private String mailFrom;
-    private String messageTemplate;
+    private String newMessageTemplate;
+    private String updateMessageTemplate;
+    private String deleteMessageTemplate;
 }
