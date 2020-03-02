@@ -9,7 +9,7 @@ import { ProfilEditDialog } from './profile-edit-dialog.component';
   selector: 'app-profil-view-dialog',
   styleUrls: ['profil-view-dialog.component.scss'],
   template: `
-  <h1 style="text-align:center;">{{'profile.view' | translate}}</h1>
+  <h1 style="text-align:center;">{{'profile.view' | translate | uppercase}}</h1>
     <mat-dialog-content class="dialogview mb-5">
       <div class="personal">
           {{'profile.lastName' | translate }}

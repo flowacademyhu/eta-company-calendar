@@ -1,14 +1,18 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
+import { RRule } from 'rrule';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from '~/app/models/location.model';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
+import { Recurrence } from '~/app/models/recurrence.model';
 import { UserResponse } from '~/app/models/user-response.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
+import { RecurrenceDialogData } from '../models/recurrence-dialog-data.model';
+import { RecurrenceSelectComponent } from './recurrence-select.component';
 
 export interface DialogData {
   startingTime: string;
@@ -30,10 +34,12 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   protected optionalAttendantsList: string[] = [];
   protected formMaxStartTime: Date = new Date(Number.MAX_VALUE);
   protected formMinFinishTime: Date = new Date(Number.MIN_VALUE);
+  protected rruleStr: string;
 
   constructor(private readonly api: ApiCommunicationService,
               @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
               protected readonly dateTimeAdapter: DateTimeAdapter<object>,
+              private readonly dialog: MatDialog,
               private readonly dialogRef: MatDialogRef<MeetingCreateComponent>,
               private readonly translate: TranslateService) { }
 
@@ -108,6 +114,23 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     }
   }
 
+  protected onClickRecurrence() {
+    const dialogData: RecurrenceDialogData = {
+      startingDate: this.meetingForm.get('startingTime')?.value,
+      rrule: this.rruleStr
+    };
+    const dialogRef = this.dialog.open(RecurrenceSelectComponent, {
+      width: '500px',
+      data: dialogData,
+    });
+    dialogRef.afterClosed()
+    .subscribe((result) => {
+      if (result) {
+        this.rruleStr = result.rruleStr;
+      }
+    });
+  }
+
   protected onSubmit() {
     if (this.meetingForm.valid) {
       this.getMeetingDetailFromForm();
@@ -127,9 +150,40 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     meetingDetail.requiredAttendants = this.requiredAttendantsList;
     meetingDetail.optionalAttendants = this.optionalAttendantsList;
     meetingDetail.createdBy = this.data.user.email;
+    meetingDetail.rrule = this.addRecurrence();
     this.api.meeting()
       .create(meetingDetail)
       .subscribe();
+  }
+
+  private addRecurrence(): Recurrence | undefined {
+    if (!this.rruleStr) {
+      return undefined;
+    }
+    const startingTime = this.meetingForm.get('startingTime')?.value
+      .valueOf();
+    const finishTime = this.meetingForm.get('finishTime')?.value
+      .valueOf();
+    const duration = finishTime - startingTime;
+
+    let rrule = RRule.fromString(this.rruleStr);
+    if (startingTime !== rrule.options.dtstart.valueOf()) {
+      const rruleOptions = rrule.options;
+      rruleOptions.dtstart = new Date(startingTime);
+      rrule = new RRule(rruleOptions);
+    }
+
+    let until = rrule.options.until?.valueOf();
+    if (!until && rrule.options.count) {
+      until = rrule.all()
+        .pop()
+        ?.valueOf();
+    }
+    return {
+      dtstart: startingTime,
+      rrule: rrule.toString(),
+      duration,
+    };
   }
 
   public ngOnDestroy() {
