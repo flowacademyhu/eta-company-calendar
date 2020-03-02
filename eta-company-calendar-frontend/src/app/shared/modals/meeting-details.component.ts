@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { MeetingService } from '~/app/my-meetings/service/meeting.service';
+import { DeleteMeetingComponent } from './delete-meeting.component';
 
 @Component({
   selector: 'meeting-details-modal',
@@ -38,7 +38,7 @@ import { MeetingService } from '~/app/my-meetings/service/meeting.service';
 </div>
 <div mat-dialog-actions>
 <button mat-stroked-button (click)="onClose()">{{ 'meetinglist.modalClose' | translate }}</button>
-<button mat-stroked-button (click)="deleteMeeting()">{{ 'meetinglist.delete' | translate }}</button>
+<button mat-stroked-button (click)="openDialogDelete()">{{ 'meetinglist.delete' | translate }}</button>
 </div>
 	`
 })
@@ -52,7 +52,7 @@ export class MeetingDetailsModal {
     private readonly meetingData: MeetingData,
     public dialogRef: MatDialogRef<MeetingDetailsModal>,
     private readonly snackBar: MatSnackBar,
-    private readonly translate: TranslateService,
+    private readonly dialog: MatDialog,
     public readonly meetingService: MeetingService) {}
 
     public ngOnInit() {
@@ -63,13 +63,12 @@ export class MeetingDetailsModal {
     this.dialogRef.close();
   }
 
-  public deleteMeeting() {
-    return this.meetingService
-    .deleteMeeting(this.meetingData.meetingId)
-    .subscribe(() => {this.openSnackBar(this.translate.instant('meetinglist.snack_delete')),
-            this.dialogRef.close(); },
-    () => {this.openSnackBar(this.translate.instant('meetinglist.snack_delete_fail')); }
-    );
+  public openDialogDelete(): void {
+    this.dialog.closeAll();
+    this.dialog.open(DeleteMeetingComponent, {
+      data: this.meetingData.meetingId,
+      width: '400px',
+    });
   }
 
   public openSnackBar(message: string) {
