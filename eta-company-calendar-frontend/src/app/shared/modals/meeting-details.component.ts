@@ -31,7 +31,7 @@ import { MeetingService } from '~/app/my-meetings/service/meeting.service';
   <hr/>
 
   <mat-label>{{'meetinglist.createdBy' | translate}}</mat-label>
-  <p>{{ meeting.createdBy }}</p>
+  <p>{{ meeting.createdBy.email }}</p>
 
 </div>
 <div mat-dialog-actions>

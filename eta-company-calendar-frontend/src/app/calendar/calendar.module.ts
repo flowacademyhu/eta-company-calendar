@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
 import { TranslateModule } from '@ngx-translate/core';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { MeetingService } from '../my-meetings/service/meeting.service';
 import { SharedModule } from '../shared/shared.module';
 import { CalendarRoutingModule } from './calendar-routing.module';
 import { CalendarComponent } from './components/calendar.component';
@@ -27,6 +28,9 @@ import { RecurrenceSelectComponent } from './modals/recurrence-select.component'
     FullCalendarModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+  ],
+  providers: [
+    MeetingService,
   ]
 })
 export class CalendarModule { }

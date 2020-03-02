@@ -12,7 +12,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EventReminderSelectorComponent } from '~/app/event-reminder-selector/event-reminder-selector.component';
+import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { UserResponse } from '~/app/models/user-response.model';
+import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 
@@ -56,6 +58,8 @@ import { AuthService } from '~/app/shared/services/auth.service';
       [events]="calendarEvents"
       [aspectRatio]="1.35"
       (dateClick)="handleDateClick($event)"
+      (eventClick)="handleEventClick($event)"
+      (eventMouseover)="handleEventClick($event)"
       (datesRender)="onDatesRender($event)"
     ></full-calendar>
   </div>
@@ -76,6 +80,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
   protected loggedInUser: UserResponse;
   protected selectedUser: UserResponse;
   protected userEmployees$: Observable<UserResponse[]>;
+  protected selectedMeeting: MeetingDetail = {} as MeetingDetail;
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly auth: AuthService,
@@ -112,6 +117,17 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  protected handleEventClick(arg: EventClickInfo) {
+     this.api.meeting()
+    .getMeetingById(arg.event.id)
+    .subscribe((meeting) => {this.selectedMeeting = meeting;
+                             this.dialog.open(MeetingDetailsModal, {
+                              data: this.selectedMeeting,
+                              width: '400px' } ); }
+
+    );
+  }
+
   protected onDatesRender(info: DatesRenderInfo) {
     this.currentView = info.view;
     this.fetchMeetings();
@@ -134,6 +150,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
       this.calendarEvents = [];
       this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
         return {
+          id: meeting.id,
           start: meeting.startingTime,
           end: meeting.finishTime,
           title: meeting.title,
@@ -170,4 +187,8 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 export interface DatesRenderInfo {
   view: View;
   el: HTMLElement;
+}
+
+export interface EventClickInfo {
+  event: {id: number};
 }
