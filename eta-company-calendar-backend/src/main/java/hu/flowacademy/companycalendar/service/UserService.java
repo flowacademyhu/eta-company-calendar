@@ -63,6 +63,8 @@ public class UserService {
     if (userRequestDTO.getRole() != null) {
       user.setRole(userRequestDTO.getRole());
     }
+    if(userRequestDTO.getLeaderId() != null){
+      user.setLeader(userRepository.findById(userRequestDTO.getLeaderId()).orElseThrow());}
     return new UserResponseDTO(userRepository.save(user));
   }
 
