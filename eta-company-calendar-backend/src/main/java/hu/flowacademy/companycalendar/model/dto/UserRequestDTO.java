@@ -15,6 +15,8 @@ public class UserRequestDTO {
   private String email;
   private String password;
   private Roles role;
+  private String name;
+  private Long leaderId;
 
   public User toEntity() {
     User user = new User();

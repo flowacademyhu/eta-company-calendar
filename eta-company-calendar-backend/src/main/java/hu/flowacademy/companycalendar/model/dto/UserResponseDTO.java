@@ -14,10 +14,14 @@ public class UserResponseDTO {
   private Long id;
   private String email;
   private Roles role;
+  private String name;
+  private String leaderName;
+  private String leaderEmail;
 
   public UserResponseDTO(User user) {
     this.id = user.getId();
     this.email = user.getEmail();
     this.role = user.getRole();
+    this.name = user.getName();
   }
 }
