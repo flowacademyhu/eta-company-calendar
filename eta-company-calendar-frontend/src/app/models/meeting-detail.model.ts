@@ -12,6 +12,7 @@ export interface MeetingDetail {
   startingTime: number;
   finishTime: number;
   createdBy: string;
+  createdByUser: number;
   requiredAttendants: string[];
   optionalAttendants: string[];
 }

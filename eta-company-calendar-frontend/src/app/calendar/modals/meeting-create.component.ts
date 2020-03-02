@@ -32,7 +32,6 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   protected locations: string[] = Object.values(Location);
   protected requiredAttendantsList: string[] = [];
   protected optionalAttendantsList: string[] = [];
-  protected formMaxStartTime: Date = new Date(Number.MAX_VALUE);
   protected formMinFinishTime: Date = new Date(Number.MIN_VALUE);
   protected rruleStr: string;
 
@@ -58,7 +57,6 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     this.dateTimeAdapter.setLocale(this.translate.currentLang);
     this.dialogRef.disableClose = true;
     this.subscribeToStartingTimeChange();
-    this.subscribeToFinishTimeChange();
     this.setStartingTimeFromDialogData();
   }
 
@@ -101,16 +99,12 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     if (startingTime) {
       startingTime.valueChanges
       .pipe(takeUntil(this.destroy$))
-      .subscribe((newDate) => this.formMinFinishTime = newDate);
-    }
-  }
-
-  private subscribeToFinishTimeChange() {
-    const startingTime = this.meetingForm.get('finishTime');
-    if (startingTime) {
-      startingTime.valueChanges
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((newDate) => this.formMaxStartTime = newDate);
+      .subscribe((newDate) => {
+        if (!newDate) { return; }
+        this.formMinFinishTime = newDate;
+        this.meetingForm.get('finishTime')
+          ?.setValue(new Date(newDate.valueOf() + 3600000));
+      });
     }
   }
 
@@ -150,6 +144,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     meetingDetail.requiredAttendants = this.requiredAttendantsList;
     meetingDetail.optionalAttendants = this.optionalAttendantsList;
     meetingDetail.createdBy = this.data.user.email;
+    meetingDetail.createdByUser = this.data.user.id;
     meetingDetail.rrule = this.addRecurrence();
     this.api.meeting()
       .create(meetingDetail)
