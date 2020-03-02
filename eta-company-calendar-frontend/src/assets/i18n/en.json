@@ -139,6 +139,7 @@
     "admin": "Admin",
     "user": "User",
     "email": "Email address",
+    "leader": "Leader",
     "password": "Password",
     "confirm_password": "Confirm password",
     "create":"Create",

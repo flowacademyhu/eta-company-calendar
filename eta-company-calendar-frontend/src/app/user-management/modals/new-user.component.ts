@@ -19,6 +19,7 @@ import { PasswordNotMatchingValidator } from './password-validator';
           <mat-label>{{'newuserform.role' | translate}}</mat-label>
         <mat-select formControlName="role">
           <mat-option value="USER">{{'newuserform.user' | translate}}</mat-option>
+          <mat-option value="LEADER">{{'edituserform.leader' | translate}}</mat-option>
           <mat-option value="ADMIN">{{'newuserform.admin' | translate}}</mat-option>
         </mat-select>
         <mat-error> {{'newuserform.role_error' | translate}} </mat-error>

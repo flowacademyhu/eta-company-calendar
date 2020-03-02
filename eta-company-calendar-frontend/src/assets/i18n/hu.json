@@ -140,6 +140,7 @@
     "role": "Szerepkör",
     "admin": "Admin",
     "user": "Felhasználó",
+    "leader": "Vezető",
     "email": "Email cím",
     "password": "Jelszó",
     "confirm_password": "Jelszó megerősítés",
