@@ -1,7 +1,7 @@
 package hu.flowacademy.companycalendar.email;
 
 public enum EmailType {
-  CREATE("new-meeting.html"), UPDATE("update-meeting.html");
+  CREATE("new-meeting.html"), UPDATE("update-meeting.html"), DELETE("delete-meeting.html");
 
   private String templateName;
 

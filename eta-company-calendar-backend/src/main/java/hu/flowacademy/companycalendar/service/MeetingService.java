@@ -84,26 +84,33 @@ public class MeetingService {
         String start = FORMATTER_TO_HOUR.format(startingDate);
         String finish = FORMATTER_TO_HOUR.format(meeting.getFinishTime());
         String location = Location.OTHER.equals(dto.getLocation()) ? dto.getOtherLocation() : dto.getLocation().toString();
+        String subject = Constants.NEW_MEETING;
 
-        sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, true, EmailType.CREATE);
-        sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, false, EmailType.CREATE);
-
+        sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, true, EmailType.CREATE, subject);
+        sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, false, EmailType.CREATE, subject);
         return meeting.getId();
     }
 
     private void sendMeetingEmailForAttendants(Meeting meeting, String meetingDate, String start,
         String finish, String location, boolean obligatory,
-        EmailType emailType) {
+        EmailType emailType, String subject) {
         List<User> attendants = obligatory ? meeting.getRequiredAttendants() : meeting.getOptionalAttendants();
         for (User attendant : attendants) {
             String firstName = attendant.getName();
-            String text = getMeetingText(firstName, meetingDate, start, finish, location, obligatory ? Constants.OBLIGATORY : Constants.NOT_OBLIGATORY);
-            emailService.send(attendant.getEmail(), Constants.NEW_MEETING, emailType.getTemplateName(),
-                Map.of("firstName", firstName, "obligatory", obligatory, "meetingDate", meetingDate));
+            System.out.println(attendant.getName());
+            String isObligatory = obligatory ? Constants.OBLIGATORY : Constants.NOT_OBLIGATORY;
+            emailService.send(attendant.getEmail(), subject, emailType.getTemplateName(),
+                Map.of("firstName", firstName,
+                       "isObligatory", isObligatory,
+                       "meetingDate", meetingDate,
+                        "start", start,
+                        "finish", finish,
+                        "location", location))
+            ;
         }
     }
 
-    private String getMeetingText(String firstName, String meetingDate, String start, String finish, String location, String obligatory) {
+ /*   private String getMeetingText(String firstName, String meetingDate, String start, String finish, String location, String obligatory) {
         return String.format(mailingConfig.getMessageTemplate(),
             firstName,
             meetingDate,
@@ -111,7 +118,7 @@ public class MeetingService {
             finish,
             location,
             obligatory);
-    }
+    }*/
 
     public MeetingUpdateDTO updateMeeting(MeetingCreateDTO meetingCreateDTO) {
         Meeting existingMeeting = findOne(meetingCreateDTO.getId());
@@ -126,10 +133,30 @@ public class MeetingService {
         existingMeeting.setUpdatedBy(userRepository.findById(meetingCreateDTO.getCreatedByUser()).orElseThrow());
         existingMeeting.setRequiredAttendants(userRepository.findAllById(meetingCreateDTO.getRequiredAttendants()));
         existingMeeting.setOptionalAttendants(userRepository.findAllById(meetingCreateDTO.getOptionalAttendants()));
+
+        Date startingDate = new Date(existingMeeting.getStartingTime());
+        String meetingDate = FORMATTER_TO_DATE.format(startingDate);
+        String start = FORMATTER_TO_HOUR.format(startingDate);
+        String finish = FORMATTER_TO_HOUR.format(existingMeeting.getFinishTime());
+        String location = Location.OTHER.equals(existingMeeting.getLocation()) ? existingMeeting.getOtherLocation() : existingMeeting.getLocation().toString();
+        String subject = Constants.UPDATE_MEETING;
+        sendMeetingEmailForAttendants(existingMeeting, meetingDate, start, finish, location, true, EmailType.UPDATE, subject);
+        sendMeetingEmailForAttendants(existingMeeting, meetingDate, start, finish, location, false, EmailType.UPDATE, subject);
+
         return new MeetingUpdateDTO(meetingRepository.save(existingMeeting));
     }
 
     public void deleteById(Long id) {
+        Meeting meetingToDelete = meetingRepository.findById(id).orElseThrow(() -> new MeetingNotFoundException(id));
+        Date startingDate = new Date(meetingToDelete.getStartingTime());
+        String meetingDate = FORMATTER_TO_DATE.format(startingDate);
+        String start = FORMATTER_TO_HOUR.format(startingDate);
+        String finish = FORMATTER_TO_HOUR.format(meetingToDelete.getFinishTime());
+        String location = Location.OTHER.equals(meetingToDelete.getLocation()) ? meetingToDelete.getOtherLocation() : meetingToDelete.getLocation().toString();
+        String subject = Constants.DELETE_MEETING;
+        sendMeetingEmailForAttendants(meetingToDelete, meetingDate, start, finish, location, true, EmailType.DELETE, subject);
+        sendMeetingEmailForAttendants(meetingToDelete, meetingDate, start, finish, location, false, EmailType.DELETE, subject);
+
         meetingRepository.deleteById(id);
     }
 

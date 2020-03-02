@@ -5,12 +5,11 @@
 </head>
 <body>
 <p> Kedves <span th:text=${firstName}></span>!</p>
-<p >Ezt a levelet azért kaptad, mert egy értekezlet megváltozott, amelyre meghívót kaptál. Az aktuális adatok:</p>
+<p >Ezt a levelet azért kaptad, mert egy értekezlet, amelyre meghívót kaptál, törlésre került. A törölt értekezlet adatai:</p>
 <p >Az értekezlet ideje: <span th:text=${meetingDate}></span>.</p>
 <p >Kezdete: <span th:text=${start}></span>.</p>
 <p >Vége: <span th:text=${finish}></span>.</p>
 <p >Helyszín: <span th:text=${location}></span>.</p>
-<p >Részvételed az értekezleten <span th:text=${isObligatory}></span>.</p>
 <br>
 <p>(Ez egy automatikus üzenet, kérlek ne válaszolj rá.) </p>
 
