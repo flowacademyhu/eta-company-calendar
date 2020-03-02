@@ -58,6 +58,16 @@
         <mat-icon [owlDateTimeTrigger]="dt2">event</mat-icon>
       </div>
 
+      <div class="d-flex flex-row justify-content-between">
+        <app-recurrence-show [rruleStr]="rruleStr"></app-recurrence-show>
+        <div class="d-flex align-items-center">
+          <button
+            mat-stroked-button class="btn-block"
+            (click)="onClickRecurrence(); $event.preventDefault()"
+            >{{ (rruleStr ? 'meeting.modifyRecurrence' : 'meeting.addRecurrence') | translate }}</button>
+        </div>
+      </div>
+
       <h4 class="row-alignment">{{ 'meeting.attendantsTitle' | translate | uppercase }}</h4>
       <hr>
       
