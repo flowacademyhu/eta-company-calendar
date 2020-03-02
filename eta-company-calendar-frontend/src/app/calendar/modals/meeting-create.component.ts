@@ -32,6 +32,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   protected locations: string[] = Object.values(Location);
   protected requiredAttendantsList: string[] = [];
   protected optionalAttendantsList: string[] = [];
+  protected requiredAttendantIds: number[] = [];
   protected formMinFinishTime: Date = new Date(Number.MIN_VALUE);
   protected rruleStr: string;
 
@@ -141,7 +142,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     const meetingDetail: MeetingDetail = this.meetingForm.value;
     meetingDetail.startingTime = meetingDetail.startingTime.valueOf();
     meetingDetail.finishTime = meetingDetail.finishTime.valueOf();
-    meetingDetail.requiredAttendants = this.requiredAttendantsList;
+    meetingDetail.requiredAttendants = this.requiredAttendantIds;
     meetingDetail.optionalAttendants = this.optionalAttendantsList;
     meetingDetail.createdBy = this.data.user.email;
     meetingDetail.createdByUser = this.data.user.id;
@@ -179,6 +180,10 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
       rrule: rrule.toString(),
       duration,
     };
+  }
+
+  protected getRequiredAttendants(arg: number[]) {
+    this.requiredAttendantIds = arg;
   }
 
   public ngOnDestroy() {

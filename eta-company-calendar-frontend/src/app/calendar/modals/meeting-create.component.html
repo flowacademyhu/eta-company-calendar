@@ -2,7 +2,10 @@
   <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
     <div class="d-flex flex-column">
 
-      <app-attendants [canModify]="true" [currentUserId]="data.user.id"></app-attendants>
+      <app-attendants
+        [canModify]="true"
+        [currentUserId]="data.user.id"
+        (outputRequiredAttendantIds)="getRequiredAttendants($event)"></app-attendants>
 
       <div class="d-flex justify-content-center">
         <h4>{{ 'meeting.header' | translate | uppercase }}</h4>

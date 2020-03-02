@@ -1,7 +1,7 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent } from '@angular/material';
+import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { UserResponse } from '~/app/models/user-response.model';
@@ -18,10 +18,13 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 })
 
 export class AttendantsComponent implements OnInit {
-  @Input() public requiredAttendantIds: number[];
-  @Input() public optionalAttendantIds: number[];
+  @Input() public inputRequiredAttendantIds: number[];
+  @Input() public inputOptionalAttendantIds: number[];
   @Input() public currentUserId: number;
   @Input() public canModify: boolean;
+
+  @Output() public outputRequiredAttendantIds: EventEmitter<number[]> = new EventEmitter<number[]>();
+  @Input() public outputOptionalAttendantIds: EventEmitter<number[]> = new EventEmitter<number[]>();
 
   protected visible: boolean = true;
   protected selectable: boolean = true;
@@ -43,7 +46,6 @@ export class AttendantsComponent implements OnInit {
   constructor(private readonly api: ApiCommunicationService) { }
 
   public ngOnInit() {
-    console.log(this.currentUserId);
     this.api.user()
       .getAllUsers()
       .subscribe((res) => {
@@ -60,6 +62,7 @@ export class AttendantsComponent implements OnInit {
   protected removeFromRequired(attendant: string): void {
     this.removeFromArr(attendant, this.requiredAttendants);
     this.selectableUserTexts.push(attendant);
+    this.emitReqAttendantChanges();
   }
 
   protected selected(event: MatAutocompleteSelectedEvent): void {
@@ -68,6 +71,7 @@ export class AttendantsComponent implements OnInit {
     this.removeFromArr(selected, this.selectableUserTexts);
     this.reqAttendantInput.nativeElement.value = '';
     this.reqAttendantCtrl.setValue(undefined);
+    this.emitReqAttendantChanges();
   }
 
   private _filterUser(value: string): string[] {
@@ -80,6 +84,13 @@ export class AttendantsComponent implements OnInit {
     if (index >= 0) {
       arr.splice(index, 1);
     }
+  }
+
+  private emitReqAttendantChanges() {
+    this.outputRequiredAttendantIds.emit(
+      this.allUsers.filter((user) => this.requiredAttendants.indexOf(user.email) >= 0)
+        .map((user) => user.id)
+    );
   }
 
 }

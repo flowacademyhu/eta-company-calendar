@@ -13,6 +13,6 @@ export interface MeetingDetail {
   finishTime: number;
   createdBy: string;
   createdByUser: number;
-  requiredAttendants: string[];
+  requiredAttendants: number[];
   optionalAttendants: string[];
 }
