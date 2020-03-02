@@ -2,6 +2,8 @@
   <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
     <div class="d-flex flex-column">
 
+      <app-attendants [canModify]="true"></app-attendants>
+
       <div class="d-flex justify-content-center">
         <h4>{{ 'meeting.header' | translate | uppercase }}</h4>
       </div>

@@ -5,6 +5,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { MeetingService } from '../my-meetings/service/meeting.service';
 import { SharedModule } from '../shared/shared.module';
 import { CalendarRoutingModule } from './calendar-routing.module';
+import { AttendantsComponent } from './components/attendants.component';
 import { CalendarComponent } from './components/calendar.component';
 import { RecurrenceShowComponent } from './components/recurrence-show.component';
 import { EventReminderSelectorComponent } from './modals/event-reminder-selector.component';
@@ -18,6 +19,7 @@ import { RecurrenceSelectComponent } from './modals/recurrence-select.component'
     RecurrenceSelectComponent,
     RecurrenceShowComponent,
     EventReminderSelectorComponent,
+    AttendantsComponent,
   ],
   entryComponents: [
     MeetingCreateComponent,
