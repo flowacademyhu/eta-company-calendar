@@ -46,9 +46,11 @@ public class User implements UserDetails {
   @Enumerated(EnumType.STRING)
   private Roles role;
 
-  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+  private String name;
+
+  /*@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
   @JsonManagedReference
-  private Profile profile;
+  private Profile profile;*/
 
   @ManyToOne
   private User leader;

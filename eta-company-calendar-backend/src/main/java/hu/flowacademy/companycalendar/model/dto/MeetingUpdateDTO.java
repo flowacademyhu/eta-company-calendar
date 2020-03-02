@@ -5,7 +5,9 @@ import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.Recurring;
 import hu.flowacademy.companycalendar.model.User;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +21,7 @@ import org.springframework.beans.BeanUtils;
 public class MeetingUpdateDTO {
 
   private Long id;
-  private Long userId;
+  private Long createdByUser;
   private String title;
   private String description;
   private Location location;
@@ -29,12 +31,14 @@ public class MeetingUpdateDTO {
   private Long finishTime;
   private Long updatedAt;
   private String updatedBy;
-  private List<String> requiredAttendants = new ArrayList<>();
-  private List<String> optionalAttendants = new ArrayList<>();
+  private Set<Long> requiredAttendants = new HashSet<>();
+  private Set<Long> optionalAttendants = new HashSet<>();
+ // private List<String> requiredAttendants = new ArrayList<>();
+ // private List<String> optionalAttendants = new ArrayList<>();
 
   public MeetingUpdateDTO(Meeting meeting) {
     this.id = meeting.getId();
-    this.userId = meeting.getUpdatedBy().getId();
+    this.createdByUser = meeting.getUpdatedBy().getId();
     this.title = meeting.getTitle();
     this.description = meeting.getDescription();
     this.location = meeting.getLocation();

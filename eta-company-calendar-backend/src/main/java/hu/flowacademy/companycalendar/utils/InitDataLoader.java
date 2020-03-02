@@ -8,11 +8,13 @@ import hu.flowacademy.companycalendar.model.Recurring;
 import hu.flowacademy.companycalendar.model.Reminder;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
+import hu.flowacademy.companycalendar.repository.ProfileRepository;
 import hu.flowacademy.companycalendar.repository.ReminderRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.AllArgsConstructor;
@@ -28,10 +30,11 @@ import java.util.List;
 @AllArgsConstructor
 public class InitDataLoader {
 
-  private final MeetingRepository meetingRepository;
-  private final UserRepository userRepository;
-  private final BCryptPasswordEncoder passwordEncoder;
-  private final ReminderRepository reminderRepository;
+    private final MeetingRepository meetingRepository;
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
+    private final ReminderRepository reminderRepository;
+    private final ProfileRepository profileRepository;
 
   @PostConstruct
   public void init() throws ParseException {
@@ -40,24 +43,41 @@ public class InitDataLoader {
     createReminder();
   }
 
-  private void createUsers() {
-    var testUsers = userRepository.saveAll(
-        IntStream.range(0, 10).mapToObj(i -> User.builder()
-            .email("user" + i + "@test.com")
-            .password(passwordEncoder.encode("user123"))
-            .role(i == 0 ? Roles.ADMIN : Roles.USER).build()
-        ).collect(Collectors.toList())
-    );
-    testUsers.forEach(user -> {
-      if (user.getId() == 2) {
-        user.setRole(Roles.LEADER);
-      } else {
-        user.setLeader(testUsers.get(1));
-      }
-    });
-    testUsers.forEach(u -> u.setProfile(Profile.builder().user(u).build()));
-    userRepository.saveAll(testUsers);
-  }
+    private void createUsers() {
+        var testUsers = userRepository.saveAll(
+            IntStream.range(0, 10).mapToObj( i -> User.builder()
+                .email("user" + i + "@test.com")
+                .password(passwordEncoder.encode("user123"))
+                .role(i == 0 ? Roles.ADMIN : Roles.USER).build()).collect(Collectors.toList())
+        );
+        User calendarCsiha = User.builder()
+            .email("calendarcsiha@gmail.com")
+            .password("csiha")
+            .name("Béla")
+            .role(Roles.ADMIN)
+            .build();
+        userRepository.save(calendarCsiha);
+        //calendarCsiha.setProfile(new Profile(null, calendarCsiha, "Csiha", "Calendar", LocalDate.now(), LocalDate.now(), "mydepartment", "intern", "building"));
+
+        User csalaoh = User.builder()
+            .email("csalaoh@gmail.com")
+            .password("csala")
+            .name("Sanyi")
+            .role(Roles.ADMIN)
+            .build();
+        userRepository.save(csalaoh);
+        //csalaoh.setProfile(new Profile(null, csalaoh, "Laszlo", "Csanyi", LocalDate.now(), LocalDate.now(), "mydepartment", "intern", "building"));
+
+
+        testUsers.forEach(user -> {
+            if (user.getId() == 2) {
+                user.setRole(Roles.LEADER);
+            } else {
+                user.setLeader(testUsers.get(1));
+            }
+        });
+        userRepository.saveAll(testUsers);
+    }
 
     private void createMeetings() {
         var testUsers = userRepository.findAll();

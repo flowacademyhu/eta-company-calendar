@@ -160,6 +160,13 @@
     "confirm": "Confirm",
     "snack_delete": "User deleted",
     "snack_delete_error": "Unsuccessful"
+  },
+
+  "eventselector": {
+    "new_meeting": "Meeting",
+    "new_reminder": "Reminder",
+    "selector_title": "Please select:",
+    "dialog_title": "New entry"
   }
   
 }

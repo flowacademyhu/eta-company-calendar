@@ -49,14 +49,16 @@ public class MeetingResource {
         return meetingService.findOne(id);
     }
 
-    @PostMapping("/{userId}")
-    public MeetingDTO createMeeting(@PathVariable Long userId, @RequestBody MeetingDTO meetingDTO) {
-        return meetingService.create(userId, meetingDTO);
+    @PostMapping
+    public ResponseEntity<Object> createMeeting(@RequestBody MeetingCreateDTO dto) {
+        meetingService.create(dto);
+        return ResponseEntity.ok().build();
     }
 
-    @PostMapping
-    public Long createWithEmails(@RequestBody MeetingCreateDTO dto) {
-        return meetingService.createWithEmails(dto);
+    @PostMapping("/sendEmail")
+    public ResponseEntity<Object> createWithEmails(@RequestBody MeetingCreateDTO dto) {
+        meetingService.createWithEmails(dto);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping
