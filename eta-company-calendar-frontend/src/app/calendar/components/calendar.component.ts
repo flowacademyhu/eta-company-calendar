@@ -6,6 +6,7 @@ import enGbLocale from '@fullcalendar/core/locales/en-gb';
 import huLocale from '@fullcalendar/core/locales/hu';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import rrulePlugin from '@fullcalendar/rrule';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
@@ -71,7 +72,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('calendar') protected calendarComponent: FullCalendarComponent;
   protected calendarEvents: EventInput[] = [];
-  protected calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
+  protected calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin, rrulePlugin];
   protected currentView: View;
   protected locales: object[] = [enGbLocale, huLocale];
 
@@ -148,7 +149,14 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     .subscribe((data) => {
       this.calendarEvents = [];
       this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
-        return {start: meeting.startingTime, end: meeting.finishTime, title: meeting.title, id: meeting.id};
+        return {
+          id: meeting.id,
+          start: meeting.startingTime,
+          end: meeting.finishTime,
+          title: meeting.title,
+          rrule: meeting.rrule?.rrule,
+          duration: meeting.rrule?.duration,
+        };
       }));
     });
   }
