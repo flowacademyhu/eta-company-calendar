@@ -1,15 +1,16 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FullCalendarComponent } from '@fullcalendar/angular';
-import { EventInput } from '@fullcalendar/core';
+import { EventInput, View } from '@fullcalendar/core';
 import enGbLocale from '@fullcalendar/core/locales/en-gb';
 import huLocale from '@fullcalendar/core/locales/hu';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import { TranslateService } from '@ngx-translate/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { UserResponse } from '~/app/models/user-response.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { MeetingCreateComponent } from '../modals/meeting-create.component';
@@ -22,12 +23,27 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
     }
     .app-calendar {
       margin: 0 auto;
-      margin-top: 0.6%;
       max-width: 97%;
+    }
+    .dropdown {
+      max-height: 10%;
     }
   `],
   template: `
   <div class='app-calendar white-background'>
+    <mat-card *ngIf="isUserLeader" class="dropdown d-flex  justify-content-center">
+      <mat-form-field>
+        <mat-label>{{ 'calendar.selectEmployee' | translate}}</mat-label>
+        <mat-select [(value)]="selectedUser" (selectionChange)="fetchMeetings()">
+          <mat-option [value]="loggedInUser">{{ 'calendar.self' | translate }}</mat-option>
+          <mat-option
+            *ngFor="let employee of (userEmployees$ | async)"
+            [value]="employee"
+            >{{ employee.email }}</mat-option>
+        </mat-select>
+        </mat-form-field>
+    </mat-card>
+
     <full-calendar
       #calendar
       defaultView="dayGridMonth"
@@ -37,11 +53,13 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
       }"
       [locales]="locales"
-      [aspectRatio]="0.83"
+      [firstDay]="1"
       [plugins]="calendarPlugins"
       [events]="calendarEvents"
+      [aspectRatio]="0.96"
       (dateClick)="handleDateClick($event)"
       fxShow.lt-sm="true" fxShow.md="false" fxShow.lg="false"
+      (datesRender)="onDatesRender($event)"
     ></full-calendar>
   </div>
   <div class='app-calendar white-background'>
@@ -54,7 +72,8 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
       }"
       [locales]="locales"
-      [aspectRatio]="2.4"
+      [firstDay]="1"
+      [aspectRatio]="2.7"
       [plugins]="calendarPlugins"
       [events]="calendarEvents"
       (dateClick)="handleDateClick($event)"
@@ -68,18 +87,25 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
-  @ViewChild('calendar') public calendarComponent: FullCalendarComponent;
+  @ViewChild('calendar') protected calendarComponent: FullCalendarComponent;
+  protected calendarEvents: EventInput[] = [];
+  protected calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
+  protected currentView: View;
+  protected locales: object[] = [enGbLocale, huLocale];
 
-  public locales: object[] = [enGbLocale, huLocale];
-
-  public calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
-
-  private calendarEvents: EventInput[] = [];
+  protected isUserLeader: boolean;
+  protected loggedInUser: UserResponse;
+  protected selectedUser: UserResponse;
+  protected userEmployees$: Observable<UserResponse[]>;
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly auth: AuthService,
               private readonly dialog: MatDialog,
-              private readonly translate: TranslateService) { }
+              private readonly translate: TranslateService) {
+    this.setLoggedInUser();
+    this.selectedUser = this.loggedInUser;
+    this.fetchEmployeesIfLeader();
+  }
 
   public ngAfterViewInit() {
     this.setCalendarLang(this.translate.currentLang);
@@ -99,8 +125,17 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
   protected handleDateClick(arg: EventInput) {
     this.dialog.open(MeetingCreateComponent, {
       width: '500px',
-      data: {startingTime: arg.dateStr}
+      data: {
+        startingTime: arg.dateStr,
+        user: this.selectedUser,
+        isEmployee: this.loggedInUser.id !== this.selectedUser.id
+      }
     });
+  }
+
+  protected onDatesRender(info: DatesRenderInfo) {
+    this.currentView = info.view;
+    this.fetchMeetings();
   }
 
   private setCalendarLang(lang: string) {
@@ -111,9 +146,11 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
       .setOption('locale', lang);
   }
 
-  private fetchMeetings() {
+  protected fetchMeetings() {
     this.api.meeting()
-    .getMeetingsByIdAndTimeRange(this.auth.tokenDetails.getValue().id, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+    .getMeetingsByIdAndTimeRange(this.selectedUser.id,
+                                 this.currentView.activeStart.valueOf(),
+                                 this.currentView.activeEnd.valueOf())
     .subscribe((data) => {
       this.calendarEvents = [];
       this.calendarEvents = this.calendarEvents.concat(data.map((meeting) => {
@@ -122,8 +159,30 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  private setLoggedInUser() {
+    const tokenDetails = this.auth.tokenDetails.getValue();
+    this.loggedInUser = {
+      email: tokenDetails.user_name,
+      id: tokenDetails.id,
+      role: tokenDetails.authorities[0]
+    };
+  }
+
+  private fetchEmployeesIfLeader() {
+    this.isUserLeader = this.loggedInUser.role === 'LEADER';
+    if (this.isUserLeader) {
+      this.userEmployees$ = this.api.user()
+        .getEmployees(this.loggedInUser.id);
+    }
+  }
+
   public ngOnDestroy() {
     this.destroy$.next(true);
   }
 
+}
+
+export interface DatesRenderInfo {
+  view: View;
+  el: HTMLElement;
 }
