@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
-
 @Component
 @Data
 @NoArgsConstructor
@@ -19,7 +18,6 @@ public class ProfileDTO {
   private String department;
   private String position;
   private String team;
-
 
   public ProfileDTO(Profile profile) {
     if (profile.getUser() == null) {
