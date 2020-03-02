@@ -8,7 +8,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from '~/app/shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EventReminderSelectorComponent } from './event-reminder-selector/event-reminder-selector.component';
 import { AuthService } from './shared/services/auth.service';
 // http loader for translations file
 export function HttpLoaderFactory(http: HttpClient) {
@@ -19,7 +18,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
-    EventReminderSelectorComponent,
   ],
   imports: [
     BrowserModule,
