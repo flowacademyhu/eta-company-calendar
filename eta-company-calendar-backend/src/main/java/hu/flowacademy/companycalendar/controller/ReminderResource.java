@@ -27,10 +27,10 @@ public class ReminderResource {
         return reminderService.findAll();
     }
 
-    /*@GetMapping("/{id}")
+    @GetMapping("/{id}")
     public Reminder findOne(@PathVariable Long id) {
         return reminderService.findOne(id);
-    }*/
+    }
 
     @GetMapping("/own/{userId}")
     public List<ReminderDTO> findByUserId(@PathVariable Long userId) { return reminderService.findByUserId(userId);}
@@ -41,18 +41,6 @@ public class ReminderResource {
                                                   @RequestParam Long startingTimeTo) {
         return reminderService.findByUserIdAndTimeRange(userId, startingTimeFrom, startingTimeTo);
     }
-
-    /*@GetMapping("user/time/{userId}")
-    public List<ReminderDTO> findByUserIdAndAfterStartTime(@PathVariable Long userId) {
-        return reminderService.findByUserId(userId);
-    }*/
-
-
-    /*@PostMapping
-    public ResponseEntity<Void> createReminder(@RequestBody ReminderDTO reminderDTO) {
-        reminderService.createReminder(reminderDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }*/
 
     @PostMapping
     public Long createWithEmails(@RequestBody ReminderCreateDTO dto) {
