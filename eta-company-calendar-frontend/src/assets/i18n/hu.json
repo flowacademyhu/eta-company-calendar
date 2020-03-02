@@ -162,6 +162,13 @@
     "confirm": "Törlés",
     "snack_delete": "Felhasználó törölve",
     "snack_delete_error": "Sikertelen törlés"
+  },
+
+  "eventselector": {
+    "new_meeting": "Értekezlet",
+    "new_reminder": "Emlékeztető",
+    "selector_title": "Kérlek válassz:",
+    "dialog_title": "Új bejegyzés"
   }
 
 }
