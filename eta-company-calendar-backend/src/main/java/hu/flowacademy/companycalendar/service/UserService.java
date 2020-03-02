@@ -45,6 +45,8 @@ public class UserService {
     User user = userRequestDTO.toEntity();
     user.setPassword(psw);
     user.setProfile(Profile.builder().user(user).build());
+    if(userRequestDTO.getLeaderId() != null){
+      user.setLeader(userRepository.findById(userRequestDTO.getLeaderId()).orElseThrow());}
     emailService.send(userRequestDTO.getEmail(), "registration", EmailType.HTML);
     return new UserResponseDTO(userRepository.save(user));
   }
