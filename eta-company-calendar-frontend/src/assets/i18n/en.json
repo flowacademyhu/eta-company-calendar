@@ -95,6 +95,8 @@
     "role": "Role",
     "admin": "Admin",
     "user": "User",
+    "name": "Name",
+    "leader": "Leader",
     "email": "Email address",
     "password": "Password",
     "confirm_password": "Confirm password",
@@ -102,10 +104,12 @@
     "cancel":"Cancel",
     "email_error": "Invalid email address.",
     "password_error": "A password is required.",
+    "name_error": "Name is required",
     "role_error": "Role is required",
     "success":  "User has been created",
     "fail": "Error occured during create",
-    "match_failed": "Passwords must match"
+    "match_failed": "Passwords must match",
+    "none": "None"
   },
   "reminderlist": {
     "id": "Id",
@@ -151,6 +155,7 @@
     "admin": "Admin",
     "user": "User",
     "email": "Email address",
+    "leader": "Leader",
     "password": "Password",
     "confirm_password": "Confirm password",
     "create":"Create",

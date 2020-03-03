@@ -31,7 +31,6 @@ public class ReminderUpdateDTO {
     this.startingTime = reminder.getStartingTime();
     this.userId = reminder.getCreatedBy().getId();
     this.updatedAt = reminder.getUpdatedAt();
-
   }
 
   public Reminder toEntity(User userId) {
@@ -41,6 +40,4 @@ public class ReminderUpdateDTO {
     reminder.setCreatedAt(System.currentTimeMillis());
     return reminder;
   }
-
-
 }

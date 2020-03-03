@@ -82,8 +82,4 @@ public class ReminderService {
         return reminderRepository.findByUserId(userId).stream().map(ReminderDTO::new).collect(
             Collectors.toList());
     }
-
-    /*public List<Reminder> findByUserIdAndAfterStartTime(Long userid, Long startTime) {
-        return reminderRepository.findByUserIdAndAfterStartTime(userid, startTime);
-    }*/
 }

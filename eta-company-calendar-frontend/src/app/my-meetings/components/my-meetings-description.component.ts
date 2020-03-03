@@ -124,10 +124,10 @@ export class MyMeetingsDescriptionComponent implements OnInit, OnDestroy, AfterV
     this.dataSub.unsubscribe();
   }
 
-  public openDialog(meetingData: MeetingDetail): void {
+  public openDialog(meeting: MeetingDetail): void {
     this.dialog.open(MeetingDetailsModal, {
       width: '400px',
-      data: meetingData
+      data: { meetingData: meeting, meetingId: meeting.id }
     });
   }
 }
