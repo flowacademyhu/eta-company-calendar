@@ -61,12 +61,14 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
       {{ 'userlist.action' | translate }}</th>
     <td mat-cell *matCellDef="let meeting">
 
-    <button mat-icon-button (click)="openDialog(meeting)">
+    <button mat-icon-button matTooltip="{{ 'meetinglist.details' | translate }}"
+      (click)="openDialog(meeting)">
 		  <mat-icon>
          library_books
       </mat-icon>
     </button>
-    <button mat-icon-button color="warn" (click)="openDialogDelete(meeting.id)">
+    <button mat-icon-button matTooltip="{{ 'meetinglist.delete' | translate }}"
+      color="warn" (click)="openDialogDelete(meeting.id)">
 		  <mat-icon>
          delete
       </mat-icon>
