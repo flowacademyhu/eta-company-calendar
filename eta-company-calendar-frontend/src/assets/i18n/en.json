@@ -8,6 +8,7 @@
     "text": "Welcome Team Company Calendar! Read the dev-docs!",
     "button": "Switch to Hungarian"
   },
+
   "profile": {
     "name": "Name",
     "lastName": "LastName",
@@ -100,6 +101,7 @@
     "match_failed": "Passwords must match",
     "none": "None"
   },
+
   "reminderlist": {
     "id": "Id",
     "title": "Title",
@@ -108,8 +110,10 @@
     "endingTime": "Ending Time",
     "recurring": "Recurring",
     "date": "Date",
-    "myReminders": "My reminders"
+    "myReminders": "My reminders",
+    "snack_delete": "Reminder deleted"
   },
+
   "usermanagement": {
     "new_user": "Add new user",
     "list_users": "List users"
@@ -133,7 +137,7 @@
     "filter": "Filter",
     "delete": "Delete",
     "snack_delete": "Meeting deleted",
-    "snack_delete_fail": "Error occured during delete"
+    "snack_delete_fail": "Error occured during deletion"
   },
   
   "edituserform":{
@@ -219,6 +223,13 @@
   "deletemeeting": {
     "title": "Meeting delete",
     "question": "Do you want to delete this meeting?",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
+  },
+
+  "deleteReminder": {
+    "title": "Delete reminder",
+    "question": "Are you sure you want to delete this reminder?",
     "confirm": "Confirm",
     "cancel": "Cancel"
   }

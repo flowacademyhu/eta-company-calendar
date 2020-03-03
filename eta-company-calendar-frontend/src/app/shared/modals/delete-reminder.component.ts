@@ -42,7 +42,7 @@ import { AuthService } from '../services/auth.service';
     public deleteReminder() {
       return this.reminderService
       .deleteReminder(this.id)
-      .subscribe(() => {this.openSnackBar(this.translate.instant('meetinglist.snack_delete')),
+      .subscribe(() => {this.openSnackBar(this.translate.instant('reminderlist.snack_delete')),
                         this.reminderService.getRemindersByUserId(this.auth.tokenDetails.getValue().id);
                         this.dialogRef.close(); },
       () => {this.openSnackBar(this.translate.instant('meetinglist.snack_delete_fail')); }

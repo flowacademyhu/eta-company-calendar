@@ -23,10 +23,11 @@ import { DeleteReminderComponent } from './delete-reminder.component';
   <p>{{ reminder.startingTime | date: 'yyyy-MM-dd HH:mm' }}</p>
   <hr/>
   <mat-label>{{'reminderlist.createdBy' | translate}}</mat-label>
-  <p>{{ reminder.createdBy }}</p>
+  <p>{{ reminder.createdBy.email }}</p>
 </div>
 <div mat-dialog-actions>
 <button mat-stroked-button (click)="onClose()">{{ 'meetinglist.modalClose' | translate }}</button>
+<button mat-stroked-button (click)="openDialogDelete()">{{ 'meetinglist.delete' | translate }}</button>
 </div>
 	`
 })

@@ -110,8 +110,10 @@
     "endingTime": "Vége",
     "recurring": "Ismétlődés",
     "date": "Dátum",
-    "myReminders": "Emlékeztetőim"
+    "myReminders": "Emlékeztetőim",
+    "snack_delete": "Emlékeztető törölve"
   },
+  
   "usermanagement": {
     "new_user": "Új felhasználó létrehozása",
     "list_users": "Felhasználók listázása"
