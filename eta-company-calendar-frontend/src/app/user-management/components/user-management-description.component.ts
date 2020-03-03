@@ -84,7 +84,7 @@ import { UserService } from '../service/user-service';
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <mat-paginator class="mat-elevation-z8"
-  [pageSize]="5"
+  [pageSize]="10"
   [pageSizeOptions]="[5, 10, 20]"
   showFirstLastButtons
   >
