@@ -2,10 +2,10 @@ package hu.flowacademy.companycalendar.utils;
 
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
-import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.model.RRule;
 import hu.flowacademy.companycalendar.model.Recurring;
 import hu.flowacademy.companycalendar.model.Reminder;
+import hu.flowacademy.companycalendar.model.Roles;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
 import hu.flowacademy.companycalendar.repository.ProfileRepository;
@@ -14,17 +14,14 @@ import hu.flowacademy.companycalendar.repository.UserRepository;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
-import hu.flowacademy.companycalendar.model.Roles;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import java.util.List;
 
 @Component
 @Transactional
@@ -43,7 +40,6 @@ public class InitDataLoader {
     createMeetings();
     createReminder();
   }
-
     private void createUsers() {
         var testUsers = userRepository.saveAll(
             IntStream.range(0, 10).mapToObj( i -> User.builder()
@@ -55,19 +51,18 @@ public class InitDataLoader {
         User calendarCsiha = User.builder()
             .email("calendarcsiha@gmail.com")
             .password("csiha")
+            .name("Béla")
             .role(Roles.ADMIN)
             .build();
         userRepository.save(calendarCsiha);
-        calendarCsiha.setProfile(new Profile(null, calendarCsiha, "Csiha", "Calendar", LocalDate.now(), LocalDate.now(), "mydepartment", "intern", "building"));
 
         User csalaoh = User.builder()
             .email("csalaoh@gmail.com")
             .password("csala")
+            .name("Sanyi")
             .role(Roles.ADMIN)
             .build();
         userRepository.save(csalaoh);
-        csalaoh.setProfile(new Profile(null, csalaoh, "Laszlo", "Csanyi", LocalDate.now(), LocalDate.now(), "mydepartment", "intern", "building"));
-
 
         testUsers.forEach(user -> {
             if (user.getId() == 2) {

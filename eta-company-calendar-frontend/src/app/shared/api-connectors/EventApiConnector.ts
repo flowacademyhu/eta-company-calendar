@@ -11,11 +11,11 @@ export class EventApiConnector extends AbstractApiConnector {
                                    startingTimeTo: number
                                    ): Observable<EventListItem[]> {
 
-const params: HttpParams = new HttpParams()
-.append('startingTimeFrom', startingTimeFrom.toString())
-.append('startingTimeTo', startingTimeTo.toString());
+    const params: HttpParams = new HttpParams()
+    .append('startingTimeFrom', startingTimeFrom.toString())
+    .append('startingTimeTo', startingTimeTo.toString());
 
-return this.http.get<EventListItem[]>(`${this.apiRoute}/user/${userId}`, { params });
-}
+    return this.http.get<EventListItem[]>(`${this.apiRoute}/user/${userId}`, { params });
+  }
 
 }

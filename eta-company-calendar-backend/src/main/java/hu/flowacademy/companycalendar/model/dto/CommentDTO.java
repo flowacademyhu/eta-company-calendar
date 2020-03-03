@@ -4,7 +4,6 @@ import hu.flowacademy.companycalendar.model.Comment;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.User;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

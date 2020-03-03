@@ -30,8 +30,8 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
   private meetingForm: FormGroup;
   protected locations: string[] = Object.values(Location);
-  protected requiredAttendantsList: string[] = [];
-  protected optionalAttendantsList: string[] = [];
+  protected requiredAttendantIds: number[] = [];
+  protected optionalAttendantIds: number[] = [];
   protected formMinFinishTime: Date = new Date(Number.MIN_VALUE);
   protected rruleStr: string;
 
@@ -69,24 +69,6 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
 
   protected isOtherLocation(): boolean {
     return this.meetingForm.get('location')?.value === Location.OTHER;
-  }
-
-  protected addAttendant(arr: string[]): void {
-    const attendantType: string = arr === this.requiredAttendantsList ? 'requiredAttendant' : 'optionalAttendant';
-    const attendant = this.meetingForm.get(attendantType);
-    if (attendant?.valid) {
-      arr.push(attendant.value);
-      attendant.reset();
-    } else {
-      attendant?.markAsTouched();
-    }
-  }
-
-  protected removeAttendant(attendant: string, arr: string[]) {
-    const index = arr.indexOf(attendant);
-    if (index >= 0) {
-      arr.splice(index, 1);
-    }
   }
 
   protected checkTimeRangeError() {
@@ -141,8 +123,8 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     const meetingDetail: MeetingDetail = this.meetingForm.value;
     meetingDetail.startingTime = meetingDetail.startingTime.valueOf();
     meetingDetail.finishTime = meetingDetail.finishTime.valueOf();
-    meetingDetail.requiredAttendants = this.requiredAttendantsList;
-    meetingDetail.optionalAttendants = this.optionalAttendantsList;
+    meetingDetail.requiredAttendants = this.requiredAttendantIds;
+    meetingDetail.optionalAttendants = this.optionalAttendantIds;
     meetingDetail.createdBy = this.data.user.email;
     meetingDetail.createdByUser = this.data.user.id;
     meetingDetail.rrule = this.addRecurrence();
@@ -179,6 +161,14 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
       rrule: rrule.toString(),
       duration,
     };
+  }
+
+  protected getRequiredAttendants(arg: number[]) {
+    this.requiredAttendantIds = arg;
+  }
+
+  protected getOptionalAttendants(arg: number[]) {
+    this.optionalAttendantIds = arg;
   }
 
   public ngOnDestroy() {

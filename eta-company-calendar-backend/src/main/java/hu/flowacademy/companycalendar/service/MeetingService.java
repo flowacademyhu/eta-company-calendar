@@ -2,25 +2,27 @@ package hu.flowacademy.companycalendar.service;
 
 import hu.flowacademy.companycalendar.config.mailing.MailingConfig;
 import hu.flowacademy.companycalendar.constants.Constants;
+import hu.flowacademy.companycalendar.email.EmailType;
 import hu.flowacademy.companycalendar.email.GmailService;
-import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.exception.MeetingNotFoundException;
-import hu.flowacademy.companycalendar.exception.UserNotFoundException;
+import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.MeetingCreateDTO;
 import hu.flowacademy.companycalendar.model.dto.MeetingDTO;
 import hu.flowacademy.companycalendar.model.dto.MeetingListItemDTO;
+import hu.flowacademy.companycalendar.model.dto.MeetingUpdateDTO;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -35,28 +37,28 @@ public class MeetingService {
     private final MailingConfig mailingConfig;
 
     public List<MeetingDTO> findAll() {
-       return meetingRepository
-               .findAll()
-               .stream()
-               .map(MeetingDTO::new)
-               .collect(Collectors.toList());
+        return meetingRepository
+            .findAll()
+            .stream()
+            .map(MeetingDTO::new)
+            .collect(Collectors.toList());
     }
 
-    public MeetingDTO findOne(Long id) {
-        return new MeetingDTO(meetingRepository.findById(id)
-                .orElseThrow(() -> new MeetingNotFoundException(id)));
+    public Meeting findOne(Long id) {
+        return meetingRepository.findById(id)
+            .orElseThrow(() -> new MeetingNotFoundException(id));
     }
 
     public List<MeetingListItemDTO> findByUserIdAndTimeRange(Long userId,
-                                                             Long startingTimeFrom,
-                                                             Long startingTimeTo) {
+        Long startingTimeFrom,
+        Long startingTimeTo) {
         return meetingRepository.findByUserIdAndTimeRange(userId, startingTimeFrom, startingTimeTo)
             .stream().map(MeetingListItemDTO::new).collect(Collectors.toList());
     }
 
     public List<MeetingDTO> findByUserId(Long userId) {
         return meetingRepository.findByInvitedUserId(userId)
-                .stream().map(MeetingDTO::new).collect(Collectors.toList());
+            .stream().map(MeetingDTO::new).collect(Collectors.toList());
     }
 
     public Meeting create(MeetingCreateDTO dto) {
@@ -82,46 +84,70 @@ public class MeetingService {
         String start = FORMATTER_TO_HOUR.format(startingDate);
         String finish = FORMATTER_TO_HOUR.format(meeting.getFinishTime());
         String location = Location.OTHER.equals(dto.getLocation()) ? dto.getOtherLocation() : dto.getLocation().toString();
+        String subject = Constants.NEW_MEETING;
 
-        sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, true);
-        sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, false);
-
+        sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, true, EmailType.CREATE, subject);
+        sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, false, EmailType.CREATE, subject);
         return meeting.getId();
     }
 
-    private void sendMeetingEmailForAttendants(Meeting meeting, String meetingDate, String start, String finish, String location, boolean obligatory) {
+    private void sendMeetingEmailForAttendants(Meeting meeting, String meetingDate, String start,
+        String finish, String location, boolean obligatory,
+        EmailType emailType, String subject) {
         List<User> attendants = obligatory ? meeting.getRequiredAttendants() : meeting.getOptionalAttendants();
         for (User attendant : attendants) {
-            String firstName = attendant.getProfile().getFirstName();
-            String text = getMeetingText(firstName, meetingDate, start, finish, location, obligatory ? Constants.OBLIGATORY : Constants.NOT_OBLIGATORY);
-            emailService.send(attendant.getEmail(), Constants.NEW_MEETING, text);
+            String firstName = attendant.getName();
+            System.out.println(attendant.getName());
+            String isObligatory = obligatory ? Constants.OBLIGATORY : Constants.NOT_OBLIGATORY;
+            emailService.send(attendant.getEmail(), subject, emailType.getTemplateName(),
+                Map.of("firstName", firstName,
+                       "isObligatory", isObligatory,
+                       "meetingDate", meetingDate,
+                        "start", start,
+                        "finish", finish,
+                        "location", location))
+            ;
         }
     }
 
-    private String getMeetingText(String firstName, String meetingDate, String start, String finish, String location, String obligatory) {
-        return String.format(mailingConfig.getMessageTemplate(),
-            firstName,
-            meetingDate,
-            start,
-            finish,
-            location,
-            obligatory);
-    }
+    public MeetingUpdateDTO updateMeeting(MeetingCreateDTO meetingCreateDTO) {
+        Meeting existingMeeting = findOne(meetingCreateDTO.getId());
+        existingMeeting.setUpdatedAt(System.currentTimeMillis());
+        existingMeeting.setTitle(meetingCreateDTO.getTitle());
+        existingMeeting.setDescription(meetingCreateDTO.getDescription());
+        existingMeeting.setLocation(meetingCreateDTO.getLocation());
+        existingMeeting.setOtherLocation(meetingCreateDTO.getOtherLocation());
+        existingMeeting.setRecurring(meetingCreateDTO.getRecurring());
+        existingMeeting.setStartingTime(meetingCreateDTO.getStartingTime());
+        existingMeeting.setFinishTime(meetingCreateDTO.getFinishTime());
+        existingMeeting.setUpdatedBy(userRepository.findById(meetingCreateDTO.getCreatedByUser()).orElseThrow());
+        existingMeeting.setRequiredAttendants(userRepository.findAllById(meetingCreateDTO.getRequiredAttendants()));
+        existingMeeting.setOptionalAttendants(userRepository.findAllById(meetingCreateDTO.getOptionalAttendants()));
 
-    public MeetingDTO updateMeeting(Long userId, MeetingDTO meetingDTO) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException(userId));
-        Meeting meeting = meetingDTO.toEntity();
-        meeting.setUpdatedBy(user);
-        meeting.setUpdatedAt(System.currentTimeMillis());
-        return new MeetingDTO(meetingRepository.save(meeting));
+        Date startingDate = new Date(existingMeeting.getStartingTime());
+        String meetingDate = FORMATTER_TO_DATE.format(startingDate);
+        String start = FORMATTER_TO_HOUR.format(startingDate);
+        String finish = FORMATTER_TO_HOUR.format(existingMeeting.getFinishTime());
+        String location = Location.OTHER.equals(existingMeeting.getLocation()) ? existingMeeting.getOtherLocation() : existingMeeting.getLocation().toString();
+        String subject = Constants.UPDATE_MEETING;
+        sendMeetingEmailForAttendants(existingMeeting, meetingDate, start, finish, location, true, EmailType.UPDATE, subject);
+        sendMeetingEmailForAttendants(existingMeeting, meetingDate, start, finish, location, false, EmailType.UPDATE, subject);
+
+        return new MeetingUpdateDTO(meetingRepository.save(existingMeeting));
     }
 
     public void deleteById(Long id) {
+        Meeting meetingToDelete = meetingRepository.findById(id).orElseThrow(() -> new MeetingNotFoundException(id));
+        Date startingDate = new Date(meetingToDelete.getStartingTime());
+        String meetingDate = FORMATTER_TO_DATE.format(startingDate);
+        String start = FORMATTER_TO_HOUR.format(startingDate);
+        String finish = FORMATTER_TO_HOUR.format(meetingToDelete.getFinishTime());
+        String location = Location.OTHER.equals(meetingToDelete.getLocation()) ? meetingToDelete.getOtherLocation() : meetingToDelete.getLocation().toString();
+        String subject = Constants.DELETE_MEETING;
+        sendMeetingEmailForAttendants(meetingToDelete, meetingDate, start, finish, location, true, EmailType.DELETE, subject);
+        sendMeetingEmailForAttendants(meetingToDelete, meetingDate, start, finish, location, false, EmailType.DELETE, subject);
+
         meetingRepository.deleteById(id);
     }
 
-    private String createMeetingEmailText(String... parameters) {
-        return String.format(mailingConfig.getMessageTemplate(), parameters);
-    }
 }

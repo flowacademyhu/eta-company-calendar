@@ -2,11 +2,11 @@ package hu.flowacademy.companycalendar.model.dto;
 
 import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.model.User;
+import java.time.LocalDate;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
-import java.time.LocalDate;
 
 @Component
 @Data
