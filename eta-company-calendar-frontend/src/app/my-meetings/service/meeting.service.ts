@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
@@ -14,9 +14,12 @@ export class MeetingService {
     return this._meetingSub;
   }
 
-  public getMeetingsByInvitation(userId: number): Observable<MeetingDetail[]> {
-     return this.api.meeting()
-    .getMeetingsByInvitation(userId);
+  public getMeetingsByInvitation(userId: number) {
+     this.api.meeting()
+    .getMeetingsByInvitation(userId)
+    .subscribe((meetings: MeetingDetail[]) => {
+      this._meetingSub.next(meetings);
+    });
   }
 
   public deleteMeeting(id: number) {
