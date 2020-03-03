@@ -68,7 +68,6 @@ public class UserService {
     } else {
       user.setLeader(userRepository.findById(userRequestDTO.getLeaderId()).orElseThrow());
     }
-
     user.setName(userRequestDTO.getName());
     return new UserResponseDTO(userRepository.save(user));
   }
@@ -79,12 +78,14 @@ public class UserService {
         .stream()
         .peek(m -> {
           var optionalAttendants = m.getOptionalAttendants();
+          System.out.println(optionalAttendants.size());
           optionalAttendants.remove(user);
           m.setOptionalAttendants(optionalAttendants);
           var requiredAttendants = m.getRequiredAttendants();
           requiredAttendants.remove(user);
           m.setRequiredAttendants(requiredAttendants);
         }).collect(Collectors.toList()));
+    meetingRepository.deleteAll(meetingRepository.findMeetingCreatedBy(id));
     userRepository.deleteById(id);
   }
 
