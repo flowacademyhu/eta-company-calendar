@@ -55,6 +55,7 @@ export class AttendantsComponent implements OnInit {
 
         this.selectableUserTexts = this.allUsers
           .filter((user) => user.id !== this.currentUserId)
+          .filter(this.filterOutInputtedUsers.bind(this))
           .map((user) => user.email);
 
         this.filteredUserTexts = merge(this.reqAttendantCtrl.valueChanges,
@@ -123,6 +124,10 @@ export class AttendantsComponent implements OnInit {
     this.optionalAttendants = users
       .filter((user) => this.inputOptionalAttendantIds.indexOf(user.id) >= 0)
       .map((user) => user.email);
+  }
+
+  private filterOutInputtedUsers(user: UserResponse) {
+    return this.inputOptionalAttendantIds.indexOf(user.id) < 0 && this.inputRequiredAttendantIds.indexOf(user.id) < 0;
   }
 
 }
