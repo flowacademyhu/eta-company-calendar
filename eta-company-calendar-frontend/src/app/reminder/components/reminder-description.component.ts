@@ -5,9 +5,26 @@ import { ReminderService } from '~/app/reminder/service/reminder.service';
 
 @Component({
   selector: 'app-my-meetings-description',
-  styles: ['table { width: 85%; }', 'th.mat-header-cell {text-align: center;}', 'td.mat-cell {text-align: center;}' ],
-  template:   `
-  <div class="row justify-content-center mt-4">
+  styles: [
+    'table { width: 85%; }',
+    'mat-paginator { width: 85%; }',
+    'th.mat-header-cell {text-align: center;}',
+    'td.mat-cell {text-align: center;}',
+  ],
+  template: `
+  <div class="row justify-content-center mt-2">
+    <mat-card style="width:85%">
+      <div class="pl-4 d-flex justify-content-between">
+        <h3 class="ml-5" >{{'reminderlist.myReminders' | translate | uppercase}}</h3>
+          <mat-form-field>
+            <input matInput type="text"
+              placeholder="{{ 'meetinglist.filter' | translate}}">
+          </mat-form-field>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="pt-1 row justify-content-center">
   <table mat-table [dataSource]="reminders$ | async" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> {{'reminderlist.id' | translate}} </th>

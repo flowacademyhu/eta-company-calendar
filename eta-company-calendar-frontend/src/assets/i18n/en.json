@@ -1,7 +1,7 @@
 {
   "calendar": {
-    "selectEmployee": "select calendar",
-    "self": "own calendar"
+    "selectEmployee": "Select calendar",
+    "self": "Own calendar"
   },
 
   "welcome": {
@@ -84,6 +84,8 @@
     "role": "Role",
     "admin": "Admin",
     "user": "User",
+    "name": "Name",
+    "leader": "Leader",
     "email": "Email address",
     "password": "Password",
     "confirm_password": "Confirm password",
@@ -91,10 +93,12 @@
     "cancel":"Cancel",
     "email_error": "Invalid email address.",
     "password_error": "A password is required.",
+    "name_error": "Name is required",
     "role_error": "Role is required",
     "success":  "User has been created",
     "fail": "Error occured during create",
-    "match_failed": "Passwords must match"
+    "match_failed": "Passwords must match",
+    "none": "None"
   },
   "reminderlist": {
     "id": "Id",
@@ -103,7 +107,8 @@
     "startingTime": "Starting Time",
     "endingTime": "Ending Time",
     "recurring": "Recurring",
-    "date": "Date"
+    "date": "Date",
+    "myReminders": "My reminders"
   },
   "usermanagement": {
     "new_user": "Add new user",
@@ -123,7 +128,12 @@
     "createdBy": "Created by",
     "reqAttendants": "Attendants",
     "optAttendants": "Notification",
-    "modalClose": "Close"
+    "modalClose": "Close",
+    "myMeetings": "My meetings",
+    "filter": "Filter",
+    "delete": "Delete",
+    "snack_delete": "Meeting deleted",
+    "snack_delete_fail": "Error occured during delete"
   },
   
   "edituserform":{
@@ -132,6 +142,7 @@
     "admin": "Admin",
     "user": "User",
     "email": "Email address",
+    "leader": "Leader",
     "password": "Password",
     "confirm_password": "Confirm password",
     "create":"Create",
@@ -201,6 +212,12 @@
     "new_reminder": "Reminder",
     "selector_title": "Please select:",
     "dialog_title": "New entry"
+  },
+
+  "deletemeeting": {
+    "title": "Meeting delete",
+    "question": "Do you want to delete this meeting?",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   }
-  
 }

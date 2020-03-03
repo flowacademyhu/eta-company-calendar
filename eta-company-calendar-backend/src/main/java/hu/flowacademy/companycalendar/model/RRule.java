@@ -24,7 +24,7 @@ public class RRule {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @OneToOne(mappedBy = "rrule", cascade = CascadeType.ALL)
+  @OneToOne(mappedBy = "rrule")
   @JsonIgnore
   private Meeting meeting;
 
