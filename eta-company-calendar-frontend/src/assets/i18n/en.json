@@ -169,7 +169,9 @@
     "leader": "Leader",
     "action": "Action",
     "snack_delete": "User deleted",
-    "snack_delete_error": "Unsuccessful"
+    "snack_delete_error": "Unsuccessful",
+    "edit": "Edit",
+    "delete": "Delete"
   },
 
   "recurrenceSelect": {

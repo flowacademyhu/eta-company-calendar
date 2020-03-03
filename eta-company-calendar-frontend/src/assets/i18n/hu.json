@@ -169,7 +169,9 @@
     "leader": "Felettes",
     "action": "Műveletek",
     "snack_delete": "Felhasználó törölve",
-    "snack_delete_error": "Sikertelen törlés"
+    "snack_delete_error": "Sikertelen törlés",
+    "edit": "Módosítás",
+    "delete": "Törlés"
   },
 
   "recurrenceSelect": {
