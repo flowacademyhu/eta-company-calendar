@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserResponse } from '~/app/models/user-response.model';
 import { ProfilViewDialog } from '~/app/shared/modals/profil-view-dialog.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -96,7 +96,6 @@ export class UserManagementDescriptionComponent {
   protected users$: Observable<UserResponse[]>;
   public displayedColumns: string[] = ['id', 'email', 'role', 'action' ];
   public dataSource: MatTableDataSource<UserResponse> = new MatTableDataSource<UserResponse>();
-  public dataSub: Subscription;
 
   @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
@@ -124,10 +123,6 @@ export class UserManagementDescriptionComponent {
   public doFilter = (value: string) => {
     this.dataSource.filter = value.trim()
      .toLocaleLowerCase();
-  }
-
-  public ngOnDestroy(): void {
-    this.dataSub.unsubscribe();
   }
 
   public openSnackBar(message: string) {
