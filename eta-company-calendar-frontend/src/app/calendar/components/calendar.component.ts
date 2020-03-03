@@ -192,7 +192,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
       .subscribe((res) => {
         this.calendarEvents = [];
         this.calendarEvents = this.calendarEvents.concat(res.map((event) => {
-          const backgroundColor =  event.eventType === EventType.MEETING ? 'blue' : 'red';
+          const backgroundColor =  event.eventType === EventType.MEETING ? 'darkblue' : 'puprple';
           return {
             id: event.id,
             start: event.startingTime,
