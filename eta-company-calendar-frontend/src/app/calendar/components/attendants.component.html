@@ -1,26 +1,56 @@
-<p>attendants</p>
-<mat-form-field class="example-chip-list">
-  <mat-chip-list #reqAttendantsChipList>
-    <mat-chip
-      *ngFor="let attendant of requiredAttendants"
-      [selectable]="canModify"
-      [removable]="canModify"
-      (removed)="removeFromRequired(attendant)">
-      {{ attendant }}
-      <mat-icon matChipRemove *ngIf="canModify">cancel</mat-icon>
-    </mat-chip>
-    <input
-      *ngIf="canModify"
-      placeholder="New fruit..."
-      #reqAttendantInput
-      [formControl]="reqAttendantCtrl"
-      [matAutocomplete]="auto"
-      [matChipInputFor]="reqAttendantsChipList"
-      [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
-  </mat-chip-list>
-  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-    <mat-option *ngFor="let user of filteredUserTexts | async" [value]="user">
-      {{user}}
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
+<div>
+  <mat-form-field class="example-chip-list">
+    <mat-chip-list #reqAttendantsChipList>
+      <mat-chip
+        *ngFor="let attendant of requiredAttendants"
+        [selectable]="canModify"
+        [removable]="canModify"
+        (removed)="removeFromRequired(attendant)">
+        {{ attendant }}
+        <mat-icon matChipRemove *ngIf="canModify">cancel</mat-icon>
+      </mat-chip>
+      <input
+        *ngIf="canModify"
+        placeholder="New fruit..."
+        #reqAttendantInput
+        [formControl]="reqAttendantCtrl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="reqAttendantsChipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedForRequired($event)">
+      <mat-option *ngFor="let user of filteredUserTexts | async" [value]="user">
+        {{user}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <hr>
+  <hr>
+
+  <mat-form-field class="example-chip-list">
+    <mat-chip-list #optAttendantsChipList>
+      <mat-chip
+        *ngFor="let attendant of optionalAttendants"
+        [selectable]="canModify"
+        [removable]="canModify"
+        (removed)="removeFromOptional(attendant)">
+        {{ attendant }}
+        <mat-icon matChipRemove *ngIf="canModify">cancel</mat-icon>
+      </mat-chip>
+      <input
+        *ngIf="canModify"
+        placeholder="New fruit..."
+        #optAttendantInput
+        [formControl]="optAttendantCtrl"
+        [matAutocomplete]="auto2"
+        [matChipInputFor]="optAttendantsChipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+    </mat-chip-list>
+    <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selectedForOptional($event)">
+      <mat-option *ngFor="let user of filteredUserTexts | async" [value]="user">
+        {{user}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

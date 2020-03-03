@@ -28,13 +28,17 @@ export class AttendantsComponent implements OnInit {
 
   protected separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  protected allUsers: UserResponse[];
-  protected filteredUserTexts: Observable<string[]>;
   protected reqAttendantCtrl: FormControl = new FormControl();
   protected requiredAttendants: string[] = [];
+  protected optAttendantCtrl: FormControl = new FormControl();
+  protected optionalAttendants: string[] = [];
+
+  protected allUsers: UserResponse[];
+  protected filteredUserTexts: Observable<string[]>;
   protected selectableUserTexts: string[];
 
   @ViewChild('reqAttendantInput') protected reqAttendantInput: ElementRef<HTMLInputElement>;
+  @ViewChild('optAttendantInput') protected optAttendantInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') protected matAutocomplete: MatAutocomplete;
 
   protected users: UserResponse[];
@@ -55,19 +59,35 @@ export class AttendantsComponent implements OnInit {
       });
   }
 
-  protected removeFromRequired(attendant: string): void {
-    this.removeFromArr(attendant, this.requiredAttendants);
-    this.selectableUserTexts.push(attendant);
-    this.emitAttendantIds(this.requiredAttendants);
-  }
-
-  protected selected(event: MatAutocompleteSelectedEvent): void {
+  protected selectedForRequired(event: MatAutocompleteSelectedEvent): void {
     const selected = event.option.viewValue;
     this.requiredAttendants.push(selected);
     this.removeFromArr(selected, this.selectableUserTexts);
     this.reqAttendantInput.nativeElement.value = '';
     this.reqAttendantCtrl.setValue(undefined);
     this.emitAttendantIds(this.requiredAttendants);
+  }
+
+  protected removeFromRequired(attendant: string): void {
+    this.removeFromArr(attendant, this.requiredAttendants);
+    this.selectableUserTexts.push(attendant);
+    this.emitAttendantIds(this.requiredAttendants);
+  }
+  // kurva nagy duplikálódás
+  protected selectedForOptional(event: MatAutocompleteSelectedEvent): void {
+    console.log('optional', event);
+    const selected = event.option.viewValue;
+    this.optionalAttendants.push(selected);
+    this.removeFromArr(selected, this.selectableUserTexts);
+    this.optAttendantInput.nativeElement.value = '';
+    this.optAttendantCtrl.setValue(undefined);
+    this.emitAttendantIds(this.optionalAttendants);
+  }
+
+  protected removeFromOptional(attendant: string): void {
+    this.removeFromArr(attendant, this.optionalAttendants);
+    this.selectableUserTexts.push(attendant);
+    this.emitAttendantIds(this.optionalAttendants);
   }
 
   private _filterUser(value: string): string[] {
