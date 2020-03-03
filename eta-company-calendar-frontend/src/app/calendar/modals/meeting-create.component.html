@@ -70,6 +70,8 @@
       <app-attendants
         [canModify]="true"
         [currentUserId]="data.user.id"
+        [inputRequiredAttendantIds]="requiredAttendantIds"
+        [inputOptionalAttendantIds]="optionalAttendantIds"
         (outputRequiredAttendantIds)="getRequiredAttendants($event)"
         (outputOptionalAttendantIds)="getOptionalAttendants($event)"></app-attendants>
       

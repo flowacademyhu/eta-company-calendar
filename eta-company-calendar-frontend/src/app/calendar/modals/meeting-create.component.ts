@@ -18,6 +18,7 @@ export interface DialogData {
   startingTime: string;
   finishTime: string;
   user: UserResponse;
+  meetingDetail?: MeetingDetail;
 }
 
 @Component({
@@ -56,8 +57,13 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     });
     this.dateTimeAdapter.setLocale(this.translate.currentLang);
     this.dialogRef.disableClose = true;
+
+    if (this.data.meetingDetail) {
+      this.setFormsFromMeetingDetail(this.data.meetingDetail);
+    } else {
+      this.setStartingTimeFromDialogData();
+    }
     this.subscribeToStartingTimeChange();
-    this.setStartingTimeFromDialogData();
   }
 
   private setStartingTimeFromDialogData() {
@@ -161,6 +167,40 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
       rrule: rrule.toString(),
       duration,
     };
+  }
+
+  private setFormsFromMeetingDetail(meetingDetail: MeetingDetail) {
+    this.meetingForm.get('title')
+      ?.setValue(meetingDetail.title);
+    this.meetingForm.get('description')
+      ?.setValue(meetingDetail.description);
+    this.meetingForm.get('location')
+      ?.setValue(meetingDetail.location);
+    this.meetingForm.get('otherLocation')
+      ?.setValue(meetingDetail.otherLocation);
+
+    const recurrence = meetingDetail.rrule;
+    if (recurrence) {
+      this.rruleStr = recurrence.rrule;
+      this.setDatesFromRecurrence(recurrence);
+    } else {
+      this.meetingForm.get('startingTime')
+        ?.setValue(new Date(meetingDetail.startingTime));
+      this.meetingForm.get('finishTime')
+        ?.setValue(new Date(meetingDetail.finishTime));
+    }
+
+    this.requiredAttendantIds.push(...meetingDetail.requiredAttendants);
+    this.optionalAttendantIds.push(...meetingDetail.optionalAttendants);
+  }
+
+  private setDatesFromRecurrence(rrule: Recurrence) {
+    const startingTime = rrule.dtstart;
+    const finishTime = rrule.duration ? startingTime + rrule.duration : startingTime;
+    this.meetingForm.get('startingTime')
+      ?.setValue(new Date(startingTime));
+    this.meetingForm.get('startingTime')
+      ?.setValue(new Date(finishTime));
   }
 
   protected getRequiredAttendants(arg: number[]) {
