@@ -56,7 +56,7 @@ export class AttendantsComponent implements OnInit {
         this.selectableUserTexts = this.allUsers
           .filter((user) => user.id !== this.currentUserId)
           .filter(this.filterOutInputtedUsers.bind(this))
-          .map((user) => user.email);
+          .map(this.createUserTextFromUser);
 
         this.filteredUserTexts = merge(this.reqAttendantCtrl.valueChanges,
                                        this.optAttendantCtrl.valueChanges)
@@ -98,9 +98,17 @@ export class AttendantsComponent implements OnInit {
     this.emitAttendantIds(this.optionalAttendants, this.outputOptionalAttendantIds);
   }
 
+  private createUserTextFromUser(user: UserResponse) {
+    const username = user.name ? user.name : '';
+    const email = user.email;
+    return `${email} (${username})`;
+  }
+
   private _filterUser(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.selectableUserTexts.filter((userText) => userText.indexOf(filterValue) === 0);
+    return this.selectableUserTexts.filter((userText) => {
+      return userText.indexOf(filterValue) >= 0;
+    });
   }
 
   private removeFromArr(text: string, arr: string[]): void {
@@ -112,7 +120,7 @@ export class AttendantsComponent implements OnInit {
 
   private emitAttendantIds(attendantNames: string[], emitter: EventEmitter<number[]>) {
     emitter.emit(
-      this.allUsers.filter((user) => attendantNames.indexOf(user.email) >= 0)
+      this.allUsers.filter((user) => attendantNames.indexOf(this.createUserTextFromUser(user)) >= 0)
         .map((user) => user.id)
     );
   }
