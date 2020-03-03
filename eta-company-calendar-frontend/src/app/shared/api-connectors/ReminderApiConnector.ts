@@ -29,4 +29,8 @@ export class ReminderApiConnector extends AbstractApiConnector {
     return this.http.post<ReminderDetail>(`${this.apiRoute}/reminders/`, reminder);
   }
 
+  public deleteReminder(reminderId: number) {
+    return this.http.delete(`${this.apiRoute}/reminders/${reminderId}`);
+  }
+
 }

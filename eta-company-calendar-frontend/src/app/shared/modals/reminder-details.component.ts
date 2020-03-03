@@ -1,7 +1,9 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ReminderDetail } from '~/app/models/reminder-detail-model';
 import { ReminderService } from '~/app/reminder/service/reminder.service';
+import { DeleteReminderComponent } from './delete-reminder.component';
 
 @Component({
   selector: 'reminder-details-modal',
@@ -21,10 +23,10 @@ import { ReminderService } from '~/app/reminder/service/reminder.service';
   <p>{{ reminder.startingTime | date: 'yyyy-MM-dd HH:mm' }}</p>
   <hr/>
   <mat-label>{{'reminderlist.createdBy' | translate}}</mat-label>
-  <p>{{ reminder.createdBy.email }}</p>
+  <p>{{ reminder.createdBy }}</p>
 </div>
 <div mat-dialog-actions>
-<button mat-stroked-button (click)="onClose()">{{ 'reminderlist.modalClose' | translate }}</button>
+<button mat-stroked-button (click)="onClose()">{{ 'meetinglist.modalClose' | translate }}</button>
 </div>
 	`
 })
@@ -35,15 +37,37 @@ export class ReminderDetailsModal {
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    private readonly reminderData: ReminderDetail,
+    private readonly reminderData: ReminderData,
     public dialogRef: MatDialogRef<ReminderDetailsModal>,
+    private readonly snackBar: MatSnackBar,
+    private readonly dialog: MatDialog,
     public readonly reminderService: ReminderService) {}
 
     public ngOnInit() {
-      this.reminder = this.reminderData;
+      this.reminder = this.reminderData.reminderData;
     }
 
   public onClose(): void {
     this.dialogRef.close();
   }
+
+  public openDialogDelete(): void {
+    this.dialog.closeAll();
+    this.dialog.open(DeleteReminderComponent, {
+      data: this.reminderData.reminderId,
+      width: '400px',
+    });
+  }
+
+  public openSnackBar(message: string) {
+    this.snackBar.open(`${message}`, undefined, {
+    duration: 2000
+    });
+  }
+
+}
+
+export interface ReminderData {
+  reminderData: ReminderDetail;
+  reminderId: number;
 }

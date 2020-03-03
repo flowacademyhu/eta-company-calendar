@@ -220,7 +220,14 @@
 
   "deletemeeting": {
     "title": "Értekezlet törlése",
-    "question": "Biztos törölni szeretné az értekezletet?",
+    "question": "Biztos törölni szeretné ezt az értekezletet?",
+    "confirm": "Megerősít",
+    "cancel": "Mégse"
+  },
+
+  "deleteReminder": {
+    "title": "Emlékeztető törlése",
+    "question": "Biztos törölni szeretné ezt az emlékeztetőt?",
     "confirm": "Megerősít",
     "cancel": "Mégse"
   }

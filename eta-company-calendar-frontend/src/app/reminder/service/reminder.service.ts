@@ -21,4 +21,9 @@ export class ReminderService {
       this._reminderSub.next(reminders); });
   }
 
+  public deleteReminder(id: number) {
+    return this.api.reminder()
+    .deleteReminder(id);
+  }
+
 }
