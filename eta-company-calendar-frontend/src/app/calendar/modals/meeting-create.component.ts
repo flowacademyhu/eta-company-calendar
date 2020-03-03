@@ -30,8 +30,6 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
   private meetingForm: FormGroup;
   protected locations: string[] = Object.values(Location);
-  protected requiredAttendantsList: string[] = [];
-  protected optionalAttendantsList: string[] = [];
   protected requiredAttendantIds: number[] = [];
   protected optionalAttendantIds: number[] = [];
   protected formMinFinishTime: Date = new Date(Number.MIN_VALUE);

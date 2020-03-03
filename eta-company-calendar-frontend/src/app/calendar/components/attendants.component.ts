@@ -82,7 +82,7 @@ export class AttendantsComponent implements OnInit {
     this.selectableUserTexts.push(attendant);
     this.emitAttendantIds(this.requiredAttendants, this.outputRequiredAttendantIds);
   }
-  // kurva nagy duplikálódás
+
   protected selectedForOptional(event: MatAutocompleteSelectedEvent): void {
     const selected = event.option.viewValue;
     this.optionalAttendants.push(selected);
