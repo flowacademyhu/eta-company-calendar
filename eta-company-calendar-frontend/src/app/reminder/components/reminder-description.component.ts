@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs';
-import { Reminder } from '~/app/models/reminder.model';
+import { ReminderDetail } from '~/app/models/reminder-detail-model';
 import { ReminderService } from '~/app/reminder/service/reminder.service';
+import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
+import { AuthService } from '~/app/shared/services/auth.service';
+import { ReminderDetailsModal } from '~/app/shared/modals/reminder-details.component';
 
 @Component({
   selector: 'app-my-meetings-description',
@@ -17,7 +21,7 @@ import { ReminderService } from '~/app/reminder/service/reminder.service';
       <div class="pl-4 d-flex justify-content-between">
         <h3 class="ml-5" >{{'reminderlist.myReminders' | translate | uppercase}}</h3>
           <mat-form-field>
-            <input matInput type="text"
+            <input matInput type="text" (keyup)="doFilter($event.target.value)"
               placeholder="{{ 'meetinglist.filter' | translate}}">
           </mat-form-field>
       </div>
@@ -61,16 +65,45 @@ import { ReminderService } from '~/app/reminder/service/reminder.service';
   `,
 })
 
-export class ReminderDescriptionComponent implements OnInit {
+export class ReminderDescriptionComponent implements OnInit, AfterViewInit {
 
-  protected reminders$: Observable<Reminder[]>;
-  public displayedColumns: string[] = ['id', 'title', 'description', 'date', 'startingTime', 'endingTime', 'recurring'];
+  protected reminders$: Observable<ReminderDetail[]>;
+  public displayedColumns: string[] = ['date', 'startingTime', 'endingTime', 'title', 'action'];
+  public dataSource: MatTableDataSource<ReminderDetail> = new MatTableDataSource<ReminderDetail>();
 
-  constructor(private readonly reminderService: ReminderService) {}
+  @ViewChild(MatSort) public sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
+
+  constructor(private readonly api: ApiCommunicationService,
+              private readonly reminderService: ReminderService,
+              private readonly auth: AuthService,
+              private readonly dialog: MatDialog) {
+                this.reminders$ = this.api.reminder()
+                .getRemindersByUserId(this.auth.tokenDetails.getValue().id);
+              }
 
   public ngOnInit() {
-    this.reminderService.getRemindersByUserId(2);
-    this.reminders$ = this.reminderService
-    .reminderSub;
+    this.reminderService.getRemindersByUserId(this.auth.tokenDetails.getValue().id);
+    this.dataSource.paginator = this.paginator;
+    this.reminderService.reminderSub
+    .subscribe((reminders) => this.dataSource.data = reminders);
   }
+
+  public ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim()
+     .toLocaleLowerCase();
+    }
+
+  public openDialog(reminder: ReminderDetail): void {
+    this.dialog.open(ReminderDetailsModal, {
+      width: '400px',
+      data: { reminderData: reminder, meetingId: reminder.id }
+    });
+  }
+
 }
