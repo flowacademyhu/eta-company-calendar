@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { MeetingService } from '~/app/my-meetings/service/meeting.service';
+import { DeleteMeetingComponent } from '~/app/shared/modals/delete-meeting.component';
 import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.component.ts';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { ApiCommunicationService } from './../../shared/services/api-communication.service';
@@ -65,7 +66,7 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
          library_books
       </mat-icon>
     </button>
-    <button mat-icon-button color="warn" (click)="openDialog(meeting)">
+    <button mat-icon-button color="warn" (click)="openDialogDelete(meeting.id)">
 		  <mat-icon>
          delete
       </mat-icon>
@@ -77,19 +78,18 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   <mat-paginator class="mat-elevation-z8"
-        [pageSize]="5"
+        [pageSize]="10"
         [pageSizeOptions]="[5, 10, 20, 50]"
         showFirstLastButtons>
   </mat-paginator>
   </div>
   `,
 })
-export class MyMeetingsDescriptionComponent implements OnInit, OnDestroy, AfterViewInit  {
+export class MyMeetingsDescriptionComponent implements OnInit, AfterViewInit  {
 
   protected meetings$: Observable<MeetingDetail[]>;
   public displayedColumns: string[] = ['date', 'startingTime', 'finishTime', 'title', 'action'];
   public dataSource: MatTableDataSource<MeetingDetail> = new MatTableDataSource<MeetingDetail>();
-  public dataSub: Subscription;
 
   @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
@@ -103,11 +103,10 @@ export class MyMeetingsDescriptionComponent implements OnInit, OnDestroy, AfterV
               }
 
   public ngOnInit() {
+    this.meetingService.getMeetingsByInvitation(this.auth.tokenDetails.getValue().id);
     this.dataSource.paginator = this.paginator;
-    this.dataSub = this.meetingService.getMeetingsByInvitation(this.auth.tokenDetails.getValue().id)
-      .subscribe((res) => {
-        this.dataSource.data = (res as unknown as MeetingDetail[]);
-      });
+    this.meetingService.meetingSub
+    .subscribe((meetings) => this.dataSource.data = meetings);
   }
 
   public ngAfterViewInit(): void {
@@ -120,14 +119,17 @@ export class MyMeetingsDescriptionComponent implements OnInit, OnDestroy, AfterV
    .toLocaleLowerCase();
   }
 
-  public ngOnDestroy(): void {
-    this.dataSub.unsubscribe();
-  }
-
   public openDialog(meeting: MeetingDetail): void {
     this.dialog.open(MeetingDetailsModal, {
       width: '400px',
       data: { meetingData: meeting, meetingId: meeting.id }
+    });
+  }
+
+  public openDialogDelete(id: number): void {
+    this.dialog.open(DeleteMeetingComponent, {
+      data: id,
+      width: '400px',
     });
   }
 }
