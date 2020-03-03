@@ -28,7 +28,7 @@ export class MeetingApiConnector extends AbstractApiConnector {
   }
 
   public create(dto: MeetingDetail): Observable<number> {
-    return this.http.post<number>(`${this.apiRoute}`, dto);
+    return this.http.post<number>(`${this.apiRoute}/sendEmail`, dto);
   }
 
   public deleteMeeting(meetingId: number) {

@@ -2,10 +2,10 @@ package hu.flowacademy.companycalendar.controller;
 
 import hu.flowacademy.companycalendar.model.dto.CommentDTO;
 import hu.flowacademy.companycalendar.service.CommentService;
-import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

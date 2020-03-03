@@ -3,7 +3,6 @@ import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/m
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { UserResponse } from '~/app/models/user-response.model';
-import { ProfilViewDialog } from '~/app/shared/modals/profil-view-dialog.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { DeleteUserComponent } from '../modals/delete-user.component';
 import { EditUserComponent } from '../modals/edit-user.component';
@@ -41,9 +40,9 @@ import { UserService } from '../service/user-service';
   <div class="pt-1 row justify-content-center">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> {{'userlist.id' | translate}} </th>
-    <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> {{'userlist.name' | translate}} </th>
+    <td mat-cell *matCellDef="let user"> {{user.name}} </td>
   </ng-container>
 
   <ng-container matColumnDef="email">
@@ -56,15 +55,15 @@ import { UserService } from '../service/user-service';
     <td mat-cell *matCellDef="let user"> {{user.role}} </td>
   </ng-container>
 
+  <ng-container matColumnDef="leader">
+  <th mat-header-cell *matHeaderCellDef> {{'userlist.leader' | translate}} </th>
+  <td mat-cell *matCellDef="let user"> {{user.leaderName}} </td>
+</ng-container>
+
   <ng-container matColumnDef="action" >
     <th mat-header-cell *matHeaderCellDef class="text-center">{{'userlist.action' | translate}}</th>
     <td mat-cell *matCellDef="let user">
-    <button mat-icon-button (click)="openDialogProfile(user.id)">
-    <mat-icon aria-label="User">
-      perm_identity
-    </mat-icon>
 
-    </button>
      <button mat-icon-button (click)="openDialogUpdate(user)">
     <mat-icon aria-label="Update">
       create
@@ -94,7 +93,7 @@ import { UserService } from '../service/user-service';
 })
 export class UserManagementDescriptionComponent {
   protected users$: Observable<UserResponse[]>;
-  public displayedColumns: string[] = ['id', 'email', 'role', 'action' ];
+  public displayedColumns: string[] = ['name', 'email', 'role', 'leader', 'action' ];
   public dataSource: MatTableDataSource<UserResponse> = new MatTableDataSource<UserResponse>();
 
   @ViewChild(MatSort) public sort: MatSort;
@@ -138,10 +137,10 @@ export class UserManagementDescriptionComponent {
     });
   }
 
-  public openDialogProfile(id: number) {
+  /* public openDialogProfile(id: number) {
     this.dialog.open(ProfilViewDialog, {
       data: id, });
-    }
+    } */
 
   public openDialogDelete(id: number): void {
     this.dialog.open(DeleteUserComponent, {

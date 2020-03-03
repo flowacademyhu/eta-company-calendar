@@ -28,7 +28,7 @@ mailing:
     apiKey: ${MAILGUN_API_KEY:}
     mailSenderUrl: "https://api.mailgun.net/v3/sandbox1ec338183b504836a481e02cbee72d6e.mailgun.org"
   mailFrom: "Mailgun Sandbox <postmaster@sandbox1ec338183b504836a481e02cbee72d6e.mailgun.org>"
-  messageTemplate: "Helló %s!
+  newMessageTemplate: "Helló %s!
                     \n\nEzt az értesítést azért kaptad, mert meghívót kaptál egy értekezletre.
                     \n Az értekezlet dátuma: %s
                     \nKezdés: %s
@@ -76,7 +76,7 @@ mailing:
     apiKey: ${MAILGUN_API_KEY:}
     mailSenderUrl: "https://api.mailgun.net/v3/sandbox1ec338183b504836a481e02cbee72d6e.mailgun.org"
   mailFrom: "Mailgun Sandbox <postmaster@sandbox1ec338183b504836a481e02cbee72d6e.mailgun.org>"
-  messageTemplate: "Helló %s!
+  newMessageTemplate: "Helló %s!!!
                    \n\nEzt az értesítést azért kaptad, mert meghívót kaptál egy értekezletre.
                    \n Az értekezlet dátuma: %s
                    \nKezdés: %s

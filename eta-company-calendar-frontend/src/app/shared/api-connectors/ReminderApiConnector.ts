@@ -1,8 +1,8 @@
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ReminderDetail } from '~/app/models/reminder-detail-model';
 import { ReminderListItem } from '~/app/models/reminder-list-item.model';
 import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiConnector';
-import { ReminderDetail } from '../../models/reminder-detail.model';
 
 export class ReminderApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}/api/reminders`;
@@ -31,8 +31,9 @@ export class ReminderApiConnector extends AbstractApiConnector {
     return this.http.get<ReminderListItem[]>(`${this.apiRoute}/user/${userId}`, { params });
   }
 
+
   public getAllReminder(): Observable<ReminderDetail[]> {
-    return this.http.get<ReminderDetail[]>(`${this.apiRoute}`);
+    return this.http.get<ReminderDetail[]>(`${this.apiRoute}/reminders/`);
   }
   public getRemindersByUserId(userid: number): Observable<ReminderDetail[]> {
     const params = new HttpParams().set('startTime'

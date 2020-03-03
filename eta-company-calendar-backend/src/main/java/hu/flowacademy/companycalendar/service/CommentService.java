@@ -10,11 +10,11 @@ import hu.flowacademy.companycalendar.model.dto.CommentDTO;
 import hu.flowacademy.companycalendar.repository.CommentRepository;
 import hu.flowacademy.companycalendar.repository.MeetingRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @Transactional

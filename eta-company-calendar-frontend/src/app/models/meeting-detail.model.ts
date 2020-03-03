@@ -14,6 +14,6 @@ export interface MeetingDetail {
   finishTime: number;
   createdBy: string;
   createdByUser: number;
-  requiredAttendants: string[];
-  optionalAttendants: string[];
+  requiredAttendants: number[];
+  optionalAttendants: number[];
 }

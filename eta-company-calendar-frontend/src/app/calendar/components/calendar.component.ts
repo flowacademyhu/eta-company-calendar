@@ -12,10 +12,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
-import { ReminderDetail } from '~/app/models/reminder-detail.model';
+// import { ReminderDetail } from '~/app/models/reminder-detail.model';
 import { UserResponse } from '~/app/models/user-response.model';
-//import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.component';
-import { ReminderDetailsModal } from '~/app/shared/modals/reminder-details.component';
+import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.component';
+// import { ReminderDetailsModal } from '~/app/shared/modals/reminder-details.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { EventReminderSelectorComponent } from '../modals/event-reminder-selector.component';
@@ -122,7 +122,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
   protected selectedUser: UserResponse;
   protected userEmployees$: Observable<UserResponse[]>;
   protected selectedMeeting: MeetingDetail = {} as MeetingDetail;
-  protected selectedReminder: ReminderDetail = {} as ReminderDetail;
+  // protected selectedReminder: ReminderDetail = {} as ReminderDetail;
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly auth: AuthService,
@@ -144,7 +144,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
     this.dialog.afterAllClosed
       .pipe(takeUntil(this.destroy$))
-      .subscribe((_) => this.fetchReminders())
+      .subscribe((_) => this.fetchMeetings())
       ;
   }
 
@@ -159,8 +159,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-/*    protected handleEventClick(arg: EventClickInfo) {
-    console.log(arg.event.id);
+   protected handleEventClick(arg: EventClickInfo) {
      this.api.meeting()
     .getMeetingById(arg.event.id)
     .subscribe((meeting) => {this.selectedMeeting = meeting;
@@ -169,8 +168,8 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
                               width: '400px' } ); }
 
     );
-  } */
-
+  }
+/*
    protected handleEventClick(arg: EventClickInfo) {
      this.api.reminder()
    .getReminderById(arg.event.id)
@@ -181,8 +180,8 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
                               }
 
    );
- } 
-
+ }
+ */
   protected onDatesRender(info: DatesRenderInfo) {
     this.currentView = info.view;
     this.fetchMeetings();
