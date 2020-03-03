@@ -41,9 +41,9 @@ import { UserService } from '../service/user-service';
   <div class="pt-1 row justify-content-center">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <ng-container matColumnDef="id">
+  <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef> {{'userlist.id' | translate}} </th>
-    <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+    <td mat-cell *matCellDef="let user"> {{user.name}} </td>
   </ng-container>
 
   <ng-container matColumnDef="email">
@@ -59,12 +59,7 @@ import { UserService } from '../service/user-service';
   <ng-container matColumnDef="action" >
     <th mat-header-cell *matHeaderCellDef class="text-center">{{'userlist.action' | translate}}</th>
     <td mat-cell *matCellDef="let user">
-    <button mat-icon-button (click)="openDialogProfile(user.id)">
-    <mat-icon aria-label="User">
-      perm_identity
-    </mat-icon>
 
-    </button>
      <button mat-icon-button (click)="openDialogUpdate(user)">
     <mat-icon aria-label="Update">
       create
@@ -94,7 +89,7 @@ import { UserService } from '../service/user-service';
 })
 export class UserManagementDescriptionComponent {
   protected users$: Observable<UserResponse[]>;
-  public displayedColumns: string[] = ['id', 'email', 'role', 'action' ];
+  public displayedColumns: string[] = ['name', 'email', 'role', 'action' ];
   public dataSource: MatTableDataSource<UserResponse> = new MatTableDataSource<UserResponse>();
 
   @ViewChild(MatSort) public sort: MatSort;
@@ -138,10 +133,10 @@ export class UserManagementDescriptionComponent {
     });
   }
 
-  public openDialogProfile(id: number) {
+  /* public openDialogProfile(id: number) {
     this.dialog.open(ProfilViewDialog, {
       data: id, });
-    }
+    } */
 
   public openDialogDelete(id: number): void {
     this.dialog.open(DeleteUserComponent, {
