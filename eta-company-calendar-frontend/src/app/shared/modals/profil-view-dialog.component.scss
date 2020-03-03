@@ -35,9 +35,21 @@ mat-dialog-content {
    display: flex;
  }
 
- button {border: 2px solid; border-color: black !important}
+ button {
+    border: 2px solid;
+    border-color: black !important;
+    margin-top: 5%;
+  }
 
  .form-control {
   color: grey !important;
+}
+
+.close-button {
+  margin-left: 25%;
+}
+
+.delete-button {
+  margin-left: 1%;
 }
 
