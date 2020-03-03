@@ -9,37 +9,33 @@ import { DeleteMeetingComponent } from './delete-meeting.component';
   selector: 'meeting-details-modal',
   styleUrls: ['profil-view-dialog.component.scss'],
   template: `
-  <h1 mat-dialog-title>{{ meeting.title | translate | uppercase }}</h1>
+  <h1 mat-dialog-title align="center">{{ meeting.title | translate | uppercase }}</h1>
 <div mat-dialog-content>
 
-  <mat-label>{{ 'meetinglist.location' | translate }}</mat-label>
-  <p>{{ meeting.location }}</p>
-  <hr/>
+  <h3>{{ 'meetinglist.location' | translate }}</h3>
+  <p>{{ 'location.' + meeting.location | translate }}</p>
 
-  <mat-label>{{'meetinglist.description' | translate}}</mat-label>
+  <h3>{{'meetinglist.description' | translate}}</h3>
   <p>{{ meeting.description }}</p>
-  <hr/>
 
-  <mat-label>{{'meetinglist.recurring' | translate}}</mat-label>
+  <h3>{{'meetinglist.recurring' | translate}}</h3>
   <p>{{ meeting.recurring }}</p>
-  <hr/>
 
-  <mat-label>{{'meetinglist.startingTime' | translate}}</mat-label>
+  <h3>{{'meetinglist.startingTime' | translate}}</h3>
   <p>{{ meeting.startingTime | date: 'yyyy-MM-dd HH:mm' }}</p>
-  <hr/>
 
-  <mat-label>{{'meetinglist.finishTime' | translate}}</mat-label>
+  <h3>{{'meetinglist.finishTime' | translate}}</h3>
   <p>{{ meeting.finishTime | date: 'yyyy-MM-dd HH:mm' }}</p>
-  <hr/>
 
-  <mat-label>{{'meetinglist.createdBy' | translate}}</mat-label>
+  <h3>{{'meetinglist.createdBy' | translate}}</h3>
   <p>{{ meeting.createdBy.email }}</p>
 
 </div>
-<div mat-dialog-actions>
-<button mat-stroked-button (click)="onClose()">{{ 'meetinglist.modalClose' | translate }}</button>
-<button mat-stroked-button (click)="openDialogDelete()">{{ 'meetinglist.delete' | translate }}</button>
-</div>
+<button mat-stroked-button (click)="openDialogDelete()">{{ 'meetinglist.modify' | translate }}</button>
+<button mat-stroked-button (click)="openDialogDelete()" class="delete-button"
+>{{ 'meetinglist.delete' | translate }}</button>
+<button mat-stroked-button (click)="onClose()" class="close-button">{{ 'meetinglist.modalClose' | translate }}</button>
+
 	`
 })
 

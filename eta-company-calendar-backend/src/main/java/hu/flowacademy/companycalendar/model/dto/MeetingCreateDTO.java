@@ -2,6 +2,7 @@ package hu.flowacademy.companycalendar.model.dto;
 
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
+import hu.flowacademy.companycalendar.model.RRule;
 import hu.flowacademy.companycalendar.model.Recurring;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class MeetingCreateDTO {
   private String title;
   private String description;
   private Location location; // TODO: validate
+  private RRule rrule;
   private String otherLocation;
   private Recurring recurring;
   private Long startingTime;

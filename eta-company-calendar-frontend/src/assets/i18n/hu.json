@@ -137,7 +137,8 @@
     "filter": "Szűrés",
     "delete": "Törlés",
     "snack_delete": "Értekezlet törölve",
-    "snack_delete_fail": "Sikertelen törlés"
+    "snack_delete_fail": "Sikertelen törlés",
+    "modify": "Módosítás"
   },
 
   "edituserform":{
