@@ -85,7 +85,7 @@ import { UserService } from '../service/user-service';
 </table>
 <mat-paginator class="mat-elevation-z8"
   [pageSize]="5"
-  [pageSizeOptions]="[5, 10, 20]"
+  [pageSizeOptions]="[5, 10, 20, 50]"
   showFirstLastButtons
   >
 </mat-paginator>
@@ -146,7 +146,7 @@ export class UserManagementDescriptionComponent {
   public openDialogProfile(id: number) {
     this.dialog.open(ProfilViewDialog, {
       data: id, });
-    }
+  }
 
   public openDialogDelete(id: number): void {
     this.dialog.open(DeleteUserComponent, {

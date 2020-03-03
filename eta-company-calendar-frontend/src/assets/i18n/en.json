@@ -104,7 +104,9 @@
     "endingTime": "Ending Time",
     "recurring": "Recurring",
     "date": "Date",
-    "myReminders": "My reminders"
+    "myReminders": "My reminders",
+    "snack_delete": "Reminder deleted",
+    "question": "Are you sure you want to delete this reminder?"
   },
   "usermanagement": {
     "new_user": "Add new user",

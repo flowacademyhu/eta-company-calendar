@@ -106,7 +106,10 @@
     "endingTime": "Vége",
     "recurring": "Ismétlődés",
     "date": "Dátum",
-    "myReminders": "Emlékeztetőim"
+    "myReminders": "Emlékeztetőim",
+    "snack_delete": "Emlékeztető törölve",
+    "delete": "Emlékeztető törlése",
+    "question": "Biztosan törölni szeretné ezt az emlékeztetőt?"
   },
   "usermanagement": {
     "new_user": "Új felhasználó létrehozása",
@@ -197,7 +200,7 @@
 
   "deleteuser": {
     "title": "Felhasználó törlése",
-    "question": "Biztos benne, hogy törölni szeretné ezt a felhasználót?",
+    "question": "Biztosan törölni szeretné ezt a felhasználót?",
     "cancel": "Mégsem",
     "confirm": "Törlés",
     "snack_delete": "Felhasználó törölve",
@@ -213,7 +216,7 @@
 
   "deletemeeting": {
     "title": "Értekezlet törlése",
-    "question": "Biztos törölni szeretné az értekezletet?",
+    "question": "Biztosan törölni szeretné ezt az értekezletet?",
     "confirm": "Megerősít",
     "cancel": "Mégse"
   }

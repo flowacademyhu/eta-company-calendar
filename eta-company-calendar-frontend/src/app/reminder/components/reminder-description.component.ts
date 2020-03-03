@@ -1,11 +1,12 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
+import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Observable, Subscription } from 'rxjs';
 import { Reminder } from '~/app/models/reminder.model';
 import { ReminderService } from '~/app/reminder/service/reminder.service';
+import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
-import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.component';
+import { DeleteReminderComponent } from '../modals/delete-reminder.component';
 
 @Component({
   selector: 'app-my-meetings-description',
@@ -62,7 +63,7 @@ import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.compone
          library_books
       </mat-icon>
     </button>
-    <button mat-icon-button color="warn" (click)="openDialog(reminder)">
+    <button mat-icon-button color="warn" (click)="openDialogDelete(reminder.id)">
 		  <mat-icon>
          delete
       </mat-icon>
@@ -126,6 +127,13 @@ export class ReminderDescriptionComponent implements OnInit, OnDestroy, AfterVie
     this.dialog.open(MeetingDetailsModal, {
       width: '400px',
       data: reminderData
+    });
+  }
+
+  public openDialogDelete(id: number): void {
+    this.dialog.open(DeleteReminderComponent, {
+      data: id,
+      width: '400px',
     });
   }
 }
