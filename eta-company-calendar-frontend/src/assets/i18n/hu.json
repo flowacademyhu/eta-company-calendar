@@ -163,6 +163,8 @@
     "id": "ID",
     "email": "E-mail cím",
     "role": "Szerepkör",
+    "name": "Név",
+    "leader": "Felettes",
     "action": "Műveletek",
     "snack_delete": "Felhasználó törölve",
     "snack_delete_error": "Sikertelen törlés"

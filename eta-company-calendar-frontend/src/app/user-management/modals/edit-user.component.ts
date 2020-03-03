@@ -81,7 +81,7 @@ import { PasswordNotMatchingValidator } from './password-validator';
         email: new FormControl(undefined, [Validators.email, Validators.required]),
         password: new FormControl(),
         role: new FormControl(),
-        name: new FormControl(undefined, [Validators.required]),
+        name: new FormControl(),
         leaderId: new FormControl(),
       }, {validators: PasswordNotMatchingValidator });
 
@@ -118,6 +118,7 @@ import { PasswordNotMatchingValidator } from './password-validator';
 
     protected onSubmit() {
       this.user = this.editUserForm.getRawValue();
+      console.log(this.user);
       this.userService.updateUser(this.userdata.id, this.user)
               .subscribe(() => {this.openSnackBar(this.translate.instant('edituserform.success'));
                                 this.dialogRef.close();
