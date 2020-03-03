@@ -1,7 +1,9 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { MeetingService } from '~/app/my-meetings/service/meeting.service';
+import { DeleteMeetingComponent } from './delete-meeting.component';
 
 @Component({
   selector: 'meeting-details-modal',
@@ -36,6 +38,7 @@ import { MeetingService } from '~/app/my-meetings/service/meeting.service';
 </div>
 <div mat-dialog-actions>
 <button mat-stroked-button (click)="onClose()">{{ 'meetinglist.modalClose' | translate }}</button>
+<button mat-stroked-button (click)="openDialogDelete()">{{ 'meetinglist.delete' | translate }}</button>
 </div>
 	`
 })
@@ -46,15 +49,36 @@ export class MeetingDetailsModal {
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    private readonly meetingData: MeetingDetail,
+    private readonly meetingData: MeetingData,
     public dialogRef: MatDialogRef<MeetingDetailsModal>,
+    private readonly snackBar: MatSnackBar,
+    private readonly dialog: MatDialog,
     public readonly meetingService: MeetingService) {}
 
     public ngOnInit() {
-      this.meeting = this.meetingData;
+      this.meeting = this.meetingData.meetingData;
     }
 
   public onClose(): void {
     this.dialogRef.close();
   }
+
+  public openDialogDelete(): void {
+    this.dialog.closeAll();
+    this.dialog.open(DeleteMeetingComponent, {
+      data: this.meetingData.meetingId,
+      width: '400px',
+    });
+  }
+
+  public openSnackBar(message: string) {
+    this.snackBar.open(`${message}`, undefined, {
+    duration: 2000
+    });
+  }
+}
+
+export interface MeetingData {
+  meetingData: MeetingDetail;
+  meetingId: number;
 }

@@ -12,6 +12,7 @@ import { FooterComponent } from '../footer/components/footer.component';
 import { HeaderComponent } from '../header/components/header.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptorService } from './interceptors/auth-interceptor.service';
+import { DeleteMeetingComponent } from './modals/delete-meeting.component';
 import { MeetingDetailsModal } from './modals/meeting-details.component';
 import { ProfilViewDialog } from './modals/profil-view-dialog.component';
 import { ProfilEditDialog } from './modals/profile-edit-dialog.component';
@@ -26,11 +27,13 @@ import { ReminderDetailsModal } from './modals/reminder-details.component';
     ProfilEditDialog,
     MeetingDetailsModal,
     ReminderDetailsModal,
+    DeleteMeetingComponent,
   ],
   entryComponents: [
     ProfilViewDialog,
     MeetingDetailsModal,
     ReminderDetailsModal,
+    DeleteMeetingComponent,
   ],
 
   exports: [

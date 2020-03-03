@@ -14,7 +14,7 @@ import { takeUntil } from 'rxjs/operators';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { ReminderDetail } from '~/app/models/reminder-detail.model';
 import { UserResponse } from '~/app/models/user-response.model';
-// import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.component';
+//import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.component';
 import { ReminderDetailsModal } from '~/app/shared/modals/reminder-details.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
@@ -28,11 +28,42 @@ import { EventReminderSelectorComponent } from '../modals/event-reminder-selecto
     }
     .app-calendar {
       margin: 0 auto;
-      max-width: 1000px;
+      max-width: 97%;
+    }
+    mat-form-field {
+      width: 130px;
+      height: 1%;
+      margin-top: 5px;
+      margin-left: 13px;
+    }
+    .selector {
+      margin: 0 auto;
+    }
+    .dropdown {
+      margin-top: 0.75%;
+    }
+    .background {
+      background: transparent;
+    }
+    .not-leader {
+      margin-top: 3%;
     }
   `],
   template: `
   <div class='app-calendar white-background'>
+  <div *ngIf="!isUserLeader" class="not-leader">
+  </div>
+    <div *ngIf="isUserLeader" class="dropdown">
+      <mat-form-field appearance="none">
+        <mat-select  class="selector" [(value)]="selectedUser" (selectionChange)="fetchMeetings()">
+        <mat-option class="self" [value]="loggedInUser">{{ 'calendar.self' | translate }}</mat-option>
+          <mat-option
+            *ngFor="let employee of (userEmployees$ | async)"
+            [value]="employee"
+            >{{ employee.email }}</mat-option>
+        </mat-select>
+        </mat-form-field>
+    </div>
     <full-calendar
       #calendar
       defaultView="dayGridMonth"
@@ -44,12 +75,32 @@ import { EventReminderSelectorComponent } from '../modals/event-reminder-selecto
       [locales]="locales"
       [plugins]="calendarPlugins"
       [events]="calendarEvents"
+      [aspectRatio]="0.96"
       (dateClick)="handleDateClick($event)"
+      fxShow.lt-sm="true" fxShow.md="false" fxShow.lg="false"
       (eventClick)="handleEventClick($event)"
       (eventMouseover)="handleMouseover($event)"
       (datesRender)="onDatesRender($event)"
     ></full-calendar>
   </div>
+  <div class='app-calendar white-background'>
+      <full-calendar
+      #calendar
+      defaultView="dayGridMonth"
+      [header]="{
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      }"
+      [locales]="locales"
+      [firstDay]="1"
+      [aspectRatio]="2.7"
+      [plugins]="calendarPlugins"
+      [events]="calendarEvents"
+      (dateClick)="handleDateClick($event)"
+      fxShow="true" fxHide.lt-md fxHide.lt-sm
+      ></full-calendar>
+    </div>
   `
 })
 
@@ -111,13 +162,13 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     .getMeetingById(arg.event.id)
     .subscribe((meeting) => {this.selectedMeeting = meeting;
                              this.dialog.open(MeetingDetailsModal, {
-                              data: this.selectedMeeting,
+                              data: { meetingData: this.selectedMeeting, meetingId: arg.event.id},
                               width: '400px' } ); }
 
     );
-  }
- */
-  protected handleEventClick(arg: EventClickInfo) {
+  } */
+
+   protected handleEventClick(arg: EventClickInfo) {
      this.api.reminder()
    .getReminderById(arg.event.id)
    .subscribe((reminder) => {this.selectedReminder = reminder;
@@ -127,7 +178,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
                               }
 
    );
- }
+ } 
 
   protected onDatesRender(info: DatesRenderInfo) {
     this.currentView = info.view;

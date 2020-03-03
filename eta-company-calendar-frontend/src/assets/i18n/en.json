@@ -1,7 +1,7 @@
 {
   "calendar": {
-    "selectEmployee": "select calendar",
-    "self": "own calendar"
+    "selectEmployee": "Select calendar",
+    "self": "Own calendar"
   },
 
   "welcome": {
@@ -116,7 +116,8 @@
     "recurring": "Recurring",
     "date": "Date",
     "modalClose": "Close",
-    "createdBy": "Created by"
+    "createdBy": "Created by",
+    "myReminders": "My reminders"
   },
   "usermanagement": {
     "new_user": "Add new user",
@@ -136,7 +137,12 @@
     "createdBy": "Created by",
     "reqAttendants": "Attendants",
     "optAttendants": "Notification",
-    "modalClose": "Close"
+    "modalClose": "Close",
+    "myMeetings": "My meetings",
+    "filter": "Filter",
+    "delete": "Delete",
+    "snack_delete": "Meeting deleted",
+    "snack_delete_fail": "Error occured during delete"
   },
 
   "edituserform":{
@@ -214,6 +220,13 @@
     "new_reminder": "Reminder",
     "selector_title": "Please select:",
     "dialog_title": "New entry"
+  },
+
+  "deletemeeting": {
+    "title": "Meeting delete",
+    "question": "Do you want to delete this meeting?",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   }
 
 }
