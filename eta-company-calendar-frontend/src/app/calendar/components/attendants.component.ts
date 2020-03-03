@@ -26,11 +26,7 @@ export class AttendantsComponent implements OnInit {
   @Output() public outputRequiredAttendantIds: EventEmitter<number[]> = new EventEmitter<number[]>();
   @Input() public outputOptionalAttendantIds: EventEmitter<number[]> = new EventEmitter<number[]>();
 
-  protected visible: boolean = true;
-  protected selectable: boolean = true;
-  protected removable: boolean = true;
   protected separatorKeysCodes: number[] = [ENTER, COMMA];
-  protected fruitCtrl: FormControl = new FormControl();
 
   protected allUsers: UserResponse[];
   protected filteredUserTexts: Observable<string[]>;
@@ -62,7 +58,7 @@ export class AttendantsComponent implements OnInit {
   protected removeFromRequired(attendant: string): void {
     this.removeFromArr(attendant, this.requiredAttendants);
     this.selectableUserTexts.push(attendant);
-    this.emitReqAttendantChanges(this.requiredAttendants);
+    this.emitAttendantIds(this.requiredAttendants);
   }
 
   protected selected(event: MatAutocompleteSelectedEvent): void {
@@ -71,7 +67,7 @@ export class AttendantsComponent implements OnInit {
     this.removeFromArr(selected, this.selectableUserTexts);
     this.reqAttendantInput.nativeElement.value = '';
     this.reqAttendantCtrl.setValue(undefined);
-    this.emitReqAttendantChanges(this.requiredAttendants);
+    this.emitAttendantIds(this.requiredAttendants);
   }
 
   private _filterUser(value: string): string[] {
@@ -86,12 +82,11 @@ export class AttendantsComponent implements OnInit {
     }
   }
 
-  private emitReqAttendantChanges(attendantNames: string[]) {
+  private emitAttendantIds(attendantNames: string[]) {
     this.outputRequiredAttendantIds.emit(
       this.allUsers.filter((user) => attendantNames.indexOf(user.email) >= 0)
         .map((user) => user.id)
     );
   }
-
 
 }

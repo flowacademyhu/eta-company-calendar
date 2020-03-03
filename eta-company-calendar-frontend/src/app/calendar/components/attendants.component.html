@@ -3,13 +3,14 @@
   <mat-chip-list #reqAttendantsChipList>
     <mat-chip
       *ngFor="let attendant of requiredAttendants"
-      [selectable]="selectable"
-      [removable]="removable"
+      [selectable]="canModify"
+      [removable]="canModify"
       (removed)="removeFromRequired(attendant)">
       {{ attendant }}
-      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      <mat-icon matChipRemove *ngIf="canModify">cancel</mat-icon>
     </mat-chip>
     <input
+      *ngIf="canModify"
       placeholder="New fruit..."
       #reqAttendantInput
       [formControl]="reqAttendantCtrl"
