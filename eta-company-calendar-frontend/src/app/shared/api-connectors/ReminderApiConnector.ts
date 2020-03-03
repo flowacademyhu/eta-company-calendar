@@ -31,7 +31,6 @@ export class ReminderApiConnector extends AbstractApiConnector {
     return this.http.get<ReminderListItem[]>(`${this.apiRoute}/user/${userId}`, { params });
   }
 
-
   public getAllReminder(): Observable<ReminderDetail[]> {
     return this.http.get<ReminderDetail[]>(`${this.apiRoute}/reminders/`);
   }
