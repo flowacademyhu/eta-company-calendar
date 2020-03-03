@@ -14,19 +14,19 @@
         placeholder="New fruit..."
         #reqAttendantInput
         [formControl]="reqAttendantCtrl"
-        [matAutocomplete]="auto"
+        [matAutocomplete]="autoForReq"
         [matChipInputFor]="reqAttendantsChipList"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
     </mat-chip-list>
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedForRequired($event)">
+    <mat-autocomplete #autoForReq="matAutocomplete" (optionSelected)="selectedForRequired($event)">
       <mat-option *ngFor="let user of filteredUserTexts | async" [value]="user">
         {{user}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
 
-  <hr>
-  <hr>
+  <br>
+  <br>
 
   <mat-form-field class="example-chip-list">
     <mat-chip-list #optAttendantsChipList>
@@ -43,11 +43,11 @@
         placeholder="New fruit..."
         #optAttendantInput
         [formControl]="optAttendantCtrl"
-        [matAutocomplete]="auto2"
+        [matAutocomplete]="autoForOpt"
         [matChipInputFor]="optAttendantsChipList"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
     </mat-chip-list>
-    <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selectedForOptional($event)">
+    <mat-autocomplete #autoForOpt="matAutocomplete" (optionSelected)="selectedForOptional($event)">
       <mat-option *ngFor="let user of filteredUserTexts | async" [value]="user">
         {{user}}
       </mat-option>

@@ -1,8 +1,8 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
-import { Observable } from 'rxjs';
+import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { merge, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { UserResponse } from '~/app/models/user-response.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -24,7 +24,7 @@ export class AttendantsComponent implements OnInit {
   @Input() public canModify: boolean;
 
   @Output() public outputRequiredAttendantIds: EventEmitter<number[]> = new EventEmitter<number[]>();
-  @Input() public outputOptionalAttendantIds: EventEmitter<number[]> = new EventEmitter<number[]>();
+  @Output() public outputOptionalAttendantIds: EventEmitter<number[]> = new EventEmitter<number[]>();
 
   protected separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -39,7 +39,6 @@ export class AttendantsComponent implements OnInit {
 
   @ViewChild('reqAttendantInput') protected reqAttendantInput: ElementRef<HTMLInputElement>;
   @ViewChild('optAttendantInput') protected optAttendantInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') protected matAutocomplete: MatAutocomplete;
 
   protected users: UserResponse[];
 
@@ -49,13 +48,20 @@ export class AttendantsComponent implements OnInit {
     this.api.user()
       .getAllUsers()
       .subscribe((res) => {
+
         this.allUsers = res;
+
         this.selectableUserTexts = this.allUsers
           .filter((user) => user.id !== this.currentUserId)
           .map((user) => user.email);
-        this.filteredUserTexts = this.reqAttendantCtrl.valueChanges.pipe(
-          startWith(undefined),
-          map((userText: string | null) => userText ? this._filterUser(userText) : this.selectableUserTexts.slice()));
+
+        this.filteredUserTexts = merge(this.reqAttendantCtrl.valueChanges,
+                                       this.optAttendantCtrl.valueChanges)
+          .pipe(
+            startWith(undefined),
+            map((userText: string | null) => userText ? this._filterUser(userText) : this.selectableUserTexts.slice())
+          );
+
       });
   }
 
@@ -65,29 +71,28 @@ export class AttendantsComponent implements OnInit {
     this.removeFromArr(selected, this.selectableUserTexts);
     this.reqAttendantInput.nativeElement.value = '';
     this.reqAttendantCtrl.setValue(undefined);
-    this.emitAttendantIds(this.requiredAttendants);
+    this.emitAttendantIds(this.requiredAttendants, this.outputRequiredAttendantIds);
   }
 
   protected removeFromRequired(attendant: string): void {
     this.removeFromArr(attendant, this.requiredAttendants);
     this.selectableUserTexts.push(attendant);
-    this.emitAttendantIds(this.requiredAttendants);
+    this.emitAttendantIds(this.requiredAttendants, this.outputRequiredAttendantIds);
   }
   // kurva nagy duplikálódás
   protected selectedForOptional(event: MatAutocompleteSelectedEvent): void {
-    console.log('optional', event);
     const selected = event.option.viewValue;
     this.optionalAttendants.push(selected);
     this.removeFromArr(selected, this.selectableUserTexts);
     this.optAttendantInput.nativeElement.value = '';
     this.optAttendantCtrl.setValue(undefined);
-    this.emitAttendantIds(this.optionalAttendants);
+    this.emitAttendantIds(this.optionalAttendants, this.outputOptionalAttendantIds);
   }
 
   protected removeFromOptional(attendant: string): void {
     this.removeFromArr(attendant, this.optionalAttendants);
     this.selectableUserTexts.push(attendant);
-    this.emitAttendantIds(this.optionalAttendants);
+    this.emitAttendantIds(this.optionalAttendants, this.outputOptionalAttendantIds);
   }
 
   private _filterUser(value: string): string[] {
@@ -102,8 +107,8 @@ export class AttendantsComponent implements OnInit {
     }
   }
 
-  private emitAttendantIds(attendantNames: string[]) {
-    this.outputRequiredAttendantIds.emit(
+  private emitAttendantIds(attendantNames: string[], emitter: EventEmitter<number[]>) {
+    emitter.emit(
       this.allUsers.filter((user) => attendantNames.indexOf(user.email) >= 0)
         .map((user) => user.id)
     );

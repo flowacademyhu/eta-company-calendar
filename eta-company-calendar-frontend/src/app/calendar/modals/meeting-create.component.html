@@ -5,7 +5,8 @@
       <app-attendants
         [canModify]="true"
         [currentUserId]="data.user.id"
-        (outputRequiredAttendantIds)="getRequiredAttendants($event)"></app-attendants>
+        (outputRequiredAttendantIds)="getRequiredAttendants($event)"
+        (outputOptionalAttendantIds)="getOptionalAttendants($event)"></app-attendants>
 
       <div class="d-flex justify-content-center">
         <h4>{{ 'meeting.header' | translate | uppercase }}</h4>
