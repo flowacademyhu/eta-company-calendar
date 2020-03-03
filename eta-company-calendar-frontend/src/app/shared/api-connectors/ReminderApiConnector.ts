@@ -33,4 +33,8 @@ export class ReminderApiConnector extends AbstractApiConnector {
     return this.http.delete(`${this.apiRoute}/reminders/${reminderId}`);
   }
 
+  public updateReminder(reminder: ReminderDetail): Observable<ReminderDetail> {
+    return this.http.put<ReminderDetail>(`${this.apiRoute}/reminders/`, reminder);
+  }
+
 }
