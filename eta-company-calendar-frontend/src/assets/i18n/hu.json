@@ -110,8 +110,10 @@
     "endingTime": "Vége",
     "recurring": "Ismétlődés",
     "date": "Dátum",
-    "myReminders": "Emlékeztetőim"
+    "myReminders": "Emlékeztetőim",
+    "snack_delete": "Emlékeztető törölve"
   },
+  
   "usermanagement": {
     "new_user": "Új felhasználó létrehozása",
     "list_users": "Felhasználók listázása"
@@ -168,7 +170,9 @@
     "leader": "Felettes",
     "action": "Műveletek",
     "snack_delete": "Felhasználó törölve",
-    "snack_delete_error": "Sikertelen törlés"
+    "snack_delete_error": "Sikertelen törlés",
+    "edit": "Módosítás",
+    "delete": "Törlés"
   },
 
   "recurrenceSelect": {
@@ -221,7 +225,14 @@
 
   "deletemeeting": {
     "title": "Értekezlet törlése",
-    "question": "Biztos törölni szeretné az értekezletet?",
+    "question": "Biztos törölni szeretné ezt az értekezletet?",
+    "confirm": "Megerősít",
+    "cancel": "Mégse"
+  },
+
+  "deleteReminder": {
+    "title": "Emlékeztető törlése",
+    "question": "Biztos törölni szeretné ezt az emlékeztetőt?",
     "confirm": "Megerősít",
     "cancel": "Mégse"
   }
