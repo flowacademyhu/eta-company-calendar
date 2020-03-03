@@ -73,24 +73,6 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     return this.meetingForm.get('location')?.value === Location.OTHER;
   }
 
-  protected addAttendant(arr: string[]): void {
-    const attendantType: string = arr === this.requiredAttendantsList ? 'requiredAttendant' : 'optionalAttendant';
-    const attendant = this.meetingForm.get(attendantType);
-    if (attendant?.valid) {
-      arr.push(attendant.value);
-      attendant.reset();
-    } else {
-      attendant?.markAsTouched();
-    }
-  }
-
-  protected removeAttendant(attendant: string, arr: string[]) {
-    const index = arr.indexOf(attendant);
-    if (index >= 0) {
-      arr.splice(index, 1);
-    }
-  }
-
   protected checkTimeRangeError() {
     const timeRange = this.meetingForm.get('timeRange');
     return timeRange && timeRange.hasError('invalidRange');
@@ -184,12 +166,10 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   }
 
   protected getRequiredAttendants(arg: number[]) {
-    console.log(arg);
     this.requiredAttendantIds = arg;
   }
 
   protected getOptionalAttendants(arg: number[]) {
-    console.log(arg);
     this.optionalAttendantIds = arg;
   }
 
