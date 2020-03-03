@@ -35,6 +35,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   protected optionalAttendantIds: number[] = [];
   protected formMinFinishTime: Date = new Date(Number.MIN_VALUE);
   protected rruleStr: string;
+  protected modifyMeetingDetail: MeetingDetail;
 
   constructor(private readonly api: ApiCommunicationService,
               @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
@@ -59,11 +60,13 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     this.dialogRef.disableClose = true;
 
     if (this.data.meetingDetail) {
+      this.modifyMeetingDetail = this.data.meetingDetail;
       this.setFormsFromMeetingDetail(this.data.meetingDetail);
+      this.subscribeToStartingTimeChange();
     } else {
+      this.subscribeToStartingTimeChange();
       this.setStartingTimeFromDialogData();
     }
-    this.subscribeToStartingTimeChange();
   }
 
   private setStartingTimeFromDialogData() {
@@ -115,7 +118,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
 
   protected onSubmit() {
     if (this.meetingForm.valid) {
-      this.getMeetingDetailFromForm();
+      this.postMeetingDetail();
     }
     this.dialogRef.close();
   }
@@ -125,7 +128,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
-  private getMeetingDetailFromForm() {
+  private postMeetingDetail() {
     const meetingDetail: MeetingDetail = this.meetingForm.value;
     meetingDetail.startingTime = meetingDetail.startingTime.valueOf();
     meetingDetail.finishTime = meetingDetail.finishTime.valueOf();
@@ -134,6 +137,12 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     meetingDetail.createdBy = this.data.user.email;
     meetingDetail.createdByUser = this.data.user.id;
     meetingDetail.rrule = this.addRecurrence();
+    if (this.modifyMeetingDetail) {
+      meetingDetail.id = this.modifyMeetingDetail.id;
+      this.api.meeting()
+        .update(meetingDetail)
+        .subscribe();
+    }
     this.api.meeting()
       .create(meetingDetail)
       .subscribe();
@@ -199,7 +208,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     const finishTime = rrule.duration ? startingTime + rrule.duration : startingTime;
     this.meetingForm.get('startingTime')
       ?.setValue(new Date(startingTime));
-    this.meetingForm.get('startingTime')
+    this.meetingForm.get('finishTime')
       ?.setValue(new Date(finishTime));
   }
 
