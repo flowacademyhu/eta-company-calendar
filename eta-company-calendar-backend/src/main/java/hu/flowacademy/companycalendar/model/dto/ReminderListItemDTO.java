@@ -1,8 +1,7 @@
 package hu.flowacademy.companycalendar.model.dto;
 
 import hu.flowacademy.companycalendar.model.EventType;
-import hu.flowacademy.companycalendar.model.Meeting;
-import hu.flowacademy.companycalendar.model.RRule;
+import hu.flowacademy.companycalendar.model.Reminder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,15 +14,13 @@ import org.springframework.beans.BeanUtils;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MeetingListItemDTO extends AbstractListItemDTO {
+public class ReminderListItemDTO extends AbstractListItemDTO {
+
   private Long id;
   private String title;
   private Long startingTime;
-  private Long finishTime;
-  private EventType eventType = EventType.MEETING;
-  private RRule rrule;
+  private String description;
+  private EventType eventType = EventType.REMINDER;
 
-  public MeetingListItemDTO(Meeting meeting) {
-    BeanUtils.copyProperties(meeting, this);
-  }
+  public ReminderListItemDTO(Reminder reminder) { BeanUtils.copyProperties(reminder, this); }
 }

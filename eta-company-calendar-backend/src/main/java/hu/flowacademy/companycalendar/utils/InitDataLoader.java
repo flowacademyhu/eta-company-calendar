@@ -109,39 +109,39 @@ public class InitDataLoader {
             .build());
     }
 
-  public void createReminder() throws ParseException {
-    DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    reminderRepository.save(Reminder.builder()
-        .title("Fist testReminder")
-        .description("Dont' forget!")
-        .startingTime(formatter.parse("2020-02-12 10:00").getTime())
-        .endingTime(formatter.parse("2020-02-22 12:00").getTime())
-        .recurring(Recurring.DAILY)
-        .user(userRepository.getOne(1L))
-        .build());
-    reminderRepository.save(Reminder.builder()
-        .title("second testReminder")
-        .description("Bee happy!")
-        .startingTime(System.currentTimeMillis())
-        .endingTime(formatter.parse("2020-02-12 12:00").getTime())
-        .recurring(Recurring.DAILY)
-        .user(userRepository.getOne(2L))
-        .build());
-    reminderRepository.save(Reminder.builder()
-        .title("3nd testReminder")
-        .description("Meeting always")
-        .startingTime(formatter.parse("2020-01-12 12:00").getTime())
-        .endingTime(formatter.parse("2020-01-12 03:00").getTime())
-        .recurring(Recurring.DAILY)
-        .user(userRepository.getOne(2L))
-        .build());
-    reminderRepository.save(Reminder.builder()
-        .title("4nd testReminder")
-        .description("OMG")
-        .startingTime(formatter.parse("2020-03-12 10:00").getTime())
-        .endingTime(formatter.parse("2020-03-12 11:00").getTime())
-        .recurring(Recurring.DAILY)
-        .user(userRepository.getOne(2L))
-        .build());
-  }
+    public void createReminder() throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        reminderRepository.save(Reminder.builder()
+            .title("Fist testReminder")
+            .description("Dont' forget!")
+            .startingTime(formatter.parse("2020-02-12 10:00").getTime())
+            .createdAt(System.currentTimeMillis())
+            .recurring(Recurring.DAILY)
+            .createdBy(userRepository.getOne(1L))
+            .build());
+        reminderRepository.save(Reminder.builder()
+            .title("second testReminder")
+            .description("Bee happy!")
+            .startingTime(System.currentTimeMillis())
+            .createdAt(System.currentTimeMillis())
+            .recurring(Recurring.DAILY)
+            .createdBy(userRepository.getOne(2L))
+            .build());
+        reminderRepository.save(Reminder.builder()
+            .title("3nd testReminder")
+            .description("Meeting always")
+            .startingTime(formatter.parse("2020-01-12 12:00").getTime())
+            .createdAt(System.currentTimeMillis())
+            .recurring(Recurring.DAILY)
+            .createdBy(userRepository.getOne(2L))
+            .build());
+        reminderRepository.save(Reminder.builder()
+            .title("4nd testReminder")
+            .description("OMG")
+            .startingTime(formatter.parse("2020-03-12 10:00").getTime())
+            .createdAt(System.currentTimeMillis())
+            .recurring(Recurring.DAILY)
+            .createdBy(userRepository.getOne(2L))
+            .build());
+    }
 }
