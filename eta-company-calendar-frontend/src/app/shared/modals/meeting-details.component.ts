@@ -1,4 +1,3 @@
-import { Location } from '~/app/models/location.model';
 import { Component, Inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
