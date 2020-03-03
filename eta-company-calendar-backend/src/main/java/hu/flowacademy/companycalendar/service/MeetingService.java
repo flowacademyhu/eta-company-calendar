@@ -110,16 +110,6 @@ public class MeetingService {
         }
     }
 
- /*   private String getMeetingText(String firstName, String meetingDate, String start, String finish, String location, String obligatory) {
-        return String.format(mailingConfig.getMessageTemplate(),
-            firstName,
-            meetingDate,
-            start,
-            finish,
-            location,
-            obligatory);
-    }*/
-
     public MeetingUpdateDTO updateMeeting(MeetingCreateDTO meetingCreateDTO) {
         Meeting existingMeeting = findOne(meetingCreateDTO.getId());
         existingMeeting.setUpdatedAt(System.currentTimeMillis());
