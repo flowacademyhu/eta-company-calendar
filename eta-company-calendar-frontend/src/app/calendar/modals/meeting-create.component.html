@@ -66,9 +66,6 @@
             >{{ (rruleStr ? 'meeting.modifyRecurrence' : 'meeting.addRecurrence') | translate }}</button>
         </div>
       </div>
-
-      <h4 class="row-alignment">{{ 'meeting.attendantsTitle' | translate | uppercase }}</h4>
-      <hr>
       
       <app-attendants
         [canModify]="true"
