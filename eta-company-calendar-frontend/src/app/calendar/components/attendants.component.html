@@ -11,7 +11,7 @@
       </mat-chip>
       <input
         *ngIf="canModify"
-        placeholder="New fruit..."
+        placeholder="{{ 'meeting.requiredAttendants' | translate }}"
         #reqAttendantInput
         [formControl]="reqAttendantCtrl"
         [matAutocomplete]="autoForReq"
@@ -26,7 +26,6 @@
   </mat-form-field>
 
   <br>
-  <br>
 
   <mat-form-field class="example-chip-list">
     <mat-chip-list #optAttendantsChipList>
@@ -40,7 +39,7 @@
       </mat-chip>
       <input
         *ngIf="canModify"
-        placeholder="New fruit..."
+        placeholder="{{ 'meeting.optionalAttendants' | translate }}"
         #optAttendantInput
         [formControl]="optAttendantCtrl"
         [matAutocomplete]="autoForOpt"
