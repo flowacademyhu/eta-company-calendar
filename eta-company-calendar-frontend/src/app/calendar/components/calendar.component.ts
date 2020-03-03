@@ -93,10 +93,13 @@ import { EventReminderSelectorComponent } from '../modals/event-reminder-selecto
       }"
       [locales]="locales"
       [firstDay]="1"
-      [aspectRatio]="2.7"
       [plugins]="calendarPlugins"
       [events]="calendarEvents"
+      [aspectRatio]="2.7"
       (dateClick)="handleDateClick($event)"
+      (eventClick)="handleEventClick($event)"
+      (eventMouseover)="handleEventClick($event)"
+      (datesRender)="onDatesRender($event)"
       fxShow="true" fxHide.lt-md fxHide.lt-sm
       ></full-calendar>
     </div>
