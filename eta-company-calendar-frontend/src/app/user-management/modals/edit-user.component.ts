@@ -16,12 +16,6 @@ import { PasswordNotMatchingValidator } from './password-validator';
     <h1 align="center" mat-dialog-title>{{'edituserform.edit_user' | translate}}</h1>
     <form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill">
-          <mat-label>{{'edituserform.email' | translate}}</mat-label>
-          <input matInput formControlName="email" type="email">
-          <mat-error> {{'edituserform.email_error' | translate}} </mat-error>
-        </mat-form-field>
-        <br>
-        <mat-form-field appearance="fill">
           <mat-label>{{'edituserform.role' | translate}}</mat-label>
         <mat-select formControlName="role">
           <mat-option value="USER">{{'edituserform.user' | translate}}</mat-option>
@@ -29,6 +23,18 @@ import { PasswordNotMatchingValidator } from './password-validator';
           <mat-option value="ADMIN">{{'edituserform.admin' | translate}}</mat-option>
         </mat-select>
         <mat-error> {{'edituserform.role_error' | translate}} </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+      <mat-label>{{'edituserform.email' | translate}}</mat-label>
+      <input matInput formControlName="email" type="email">
+      <mat-error> {{'edituserform.email_error' | translate}} </mat-error>
+    </mat-form-field>
+    <br>
+      <mat-form-field appearance="fill">
+        <mat-label>{{'newuserform.name' | translate}}</mat-label>
+        <input matInput formControlName="name" type="text">
+        <mat-error> {{'newuserform.name_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
       <mat-form-field appearance="fill">
@@ -41,6 +47,16 @@ import { PasswordNotMatchingValidator } from './password-validator';
         <mat-label>{{'edituserform.confirm_password' | translate}}</mat-label>
         <input matInput formControlName="confirm_password" type="password">
         <mat-error> {{'edituserform.password_error' | translate}} </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+          <mat-label>{{'newuserform.leader' | translate}}</mat-label>
+        <mat-select formControlName="leaderId">
+        <mat-option>{{'newuserform.none' | translate}}</mat-option>
+          <mat-option *ngFor="let leader of leaders" value={{leader.id}}
+          >{{leader.name}}</mat-option>
+        </mat-select>
+        <mat-error> {{'newuserform.leader_error' | translate}} </mat-error>
       </mat-form-field>
       <br>
       <div class="d-flex justify-content-center">
@@ -57,21 +73,30 @@ import { PasswordNotMatchingValidator } from './password-validator';
     private editUserForm: FormGroup;
     private user: User = {} as User;
     private userValues: UserResponse = this.userdata;
+    protected leaders: UserResponse[];
 
     public ngOnInit() {
       this.editUserForm = new FormGroup({
         confirm_password: new FormControl(),
-        email: new FormControl(undefined, [Validators.email]),
+        email: new FormControl(undefined, [Validators.email, Validators.required]),
         password: new FormControl(),
         role: new FormControl(),
+        name: new FormControl(undefined, [Validators.required]),
+        leaderId: new FormControl(),
       }, {validators: PasswordNotMatchingValidator });
+
+      this.userService.getLeaders()
+      .subscribe((leader) => { this.leaders = leader; } );
 
       this.editUserForm.setValue({
         email: this.userValues.email,
         role: this.userValues.role,
+        name: this.userValues.name,
+        leaderId: this.userValues.leaderId,
         password: '',
         confirm_password: '',
       });
+
     }
 
     constructor(@Inject(MAT_DIALOG_DATA)
