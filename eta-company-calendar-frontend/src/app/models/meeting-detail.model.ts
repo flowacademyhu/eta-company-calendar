@@ -3,6 +3,7 @@ import { Recurrence } from './recurrence.model';
 import { Recurring } from './recurring.model';
 
 export interface MeetingDetail {
+  id: number;
   title: string;
   description: string;
   location: Location;

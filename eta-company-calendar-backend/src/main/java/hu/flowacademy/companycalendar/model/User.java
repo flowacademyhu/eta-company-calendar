@@ -43,6 +43,8 @@ public class User implements UserDetails {
 
   private String password;
 
+  private String name;
+
   @Enumerated(EnumType.STRING)
   private Roles role;
 
@@ -51,9 +53,11 @@ public class User implements UserDetails {
   private Profile profile;
 
   @ManyToOne
+  @JsonIgnore
   private User leader;
 
   @OneToMany(mappedBy = "leader", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+  @JsonIgnore
   private List<User> employees;
 
   @JsonIgnore
