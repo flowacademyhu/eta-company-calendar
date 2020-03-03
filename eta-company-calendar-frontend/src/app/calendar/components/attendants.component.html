@@ -4,6 +4,7 @@
     <h4 class="row-alignment">{{ 'meeting.attendantsTitle' | translate | uppercase }}</h4>
   </div>
 
+  <mat-label>{{ 'meeting.requiredAttendants' | translate }}</mat-label>
   <mat-form-field class="example-chip-list">
     <mat-chip-list #reqAttendantsChipList>
       <mat-chip
@@ -16,7 +17,6 @@
       </mat-chip>
       <input
         *ngIf="canModify"
-        placeholder="{{ 'meeting.requiredAttendants' | translate }}"
         #reqAttendantInput
         [formControl]="reqAttendantCtrl"
         [matAutocomplete]="autoForReq"
@@ -32,6 +32,7 @@
 
   <br>
 
+  <mat-label>{{ 'meeting.optionalAttendants' | translate }}</mat-label>
   <mat-form-field class="example-chip-list">
     <mat-chip-list #optAttendantsChipList>
       <mat-chip
@@ -44,7 +45,6 @@
       </mat-chip>
       <input
         *ngIf="canModify"
-        placeholder="{{ 'meeting.optionalAttendants' | translate }}"
         #optAttendantInput
         [formControl]="optAttendantCtrl"
         [matAutocomplete]="autoForOpt"
