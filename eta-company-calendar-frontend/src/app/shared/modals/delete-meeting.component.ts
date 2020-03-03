@@ -2,6 +2,7 @@ import { Component, Inject} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { MeetingService } from '~/app/my-meetings/service/meeting.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'delete-meeting-dialog',
@@ -25,6 +26,7 @@ import { MeetingService } from '~/app/my-meetings/service/meeting.service';
                 private readonly snackBar: MatSnackBar,
                 public readonly meetingService: MeetingService,
                 private readonly translate: TranslateService,
+                private readonly auth: AuthService
                 ) {}
 
     public onNoClick(): void {
@@ -41,7 +43,8 @@ import { MeetingService } from '~/app/my-meetings/service/meeting.service';
       return this.meetingService
       .deleteMeeting(this.id)
       .subscribe(() => {this.openSnackBar(this.translate.instant('meetinglist.snack_delete')),
-              this.dialogRef.close(); },
+                        this.meetingService.getMeetingsByInvitation(this.auth.tokenDetails.getValue().id);
+                        this.dialogRef.close(); },
       () => {this.openSnackBar(this.translate.instant('meetinglist.snack_delete_fail')); }
       );
     }
