@@ -133,7 +133,8 @@
     "filter": "Filter",
     "delete": "Delete",
     "snack_delete": "Meeting deleted",
-    "snack_delete_fail": "Error occured during delete"
+    "snack_delete_fail": "Error occured during delete",
+    "modify": "Edit"
   },
   
   "edituserform":{
