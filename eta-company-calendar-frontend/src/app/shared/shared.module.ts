@@ -16,6 +16,7 @@ import { DeleteMeetingComponent } from './modals/delete-meeting.component';
 import { MeetingDetailsModal } from './modals/meeting-details.component';
 import { ProfilViewDialog } from './modals/profil-view-dialog.component';
 import { ProfilEditDialog } from './modals/profile-edit-dialog.component';
+import { UserService } from '../user-management/service/user-service';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ProfilEditDialog } from './modals/profile-edit-dialog.component';
     RouterModule,
   ],
   providers: [
+    UserService,
     ApiCommunicationService,
     ConfigurationService,
     AuthGuard,
