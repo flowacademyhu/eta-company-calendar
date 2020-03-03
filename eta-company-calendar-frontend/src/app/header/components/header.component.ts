@@ -53,7 +53,6 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
         <mat-icon>menu</mat-icon>
       </button>
       <mat-menu #menu = "matMenu">
-        <button mat-menu-item (click) = "openProfilDialog()">{{'header.profile' | translate}}</button>
         <button mat-menu-item routerLink="">{{'header.calendar' | translate}}</button>
         <button mat-menu-item routerLink="/my-meetings">{{'header.meetings' | translate}}</button>
         <button mat-menu-item routerLink="/reminders">{{'header.reminders' | translate}}</button>
@@ -63,8 +62,6 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
           >{{'header.userManagement' | translate}}</button>
         <button mat-menu-item (click)="onLogout()">{{'header.logout' | translate}}</button>
       </mat-menu>
-        <a mat-stroked-button (click) = "openProfilDialog()"
-        fxShow="true" fxHide.lt-md>{{'header.profile' | translate}}</a>
         <a mat-stroked-button routerLink="/" fxShow="true" fxHide.lt-md>{{'header.calendar' | translate}}</a>
         <a mat-stroked-button routerLink="/my-meetings" fxShow="true" fxHide.lt-md>{{'header.meetings' | translate}}</a>
         <a mat-stroked-button routerLink="/reminders" fxShow="true" fxHide.lt-md>{{'header.reminders' | translate}}</a>

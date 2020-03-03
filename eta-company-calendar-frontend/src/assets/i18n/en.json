@@ -1,7 +1,7 @@
 {
   "calendar": {
-    "selectEmployee": "select calendar",
-    "self": "own calendar"
+    "selectEmployee": "Select calendar",
+    "self": "Own calendar"
   },
 
   "welcome": {
@@ -107,7 +107,8 @@
     "startingTime": "Starting Time",
     "endingTime": "Ending Time",
     "recurring": "Recurring",
-    "date": "Date"
+    "date": "Date",
+    "myReminders": "My reminders"
   },
   "usermanagement": {
     "new_user": "Add new user",
@@ -128,6 +129,8 @@
     "reqAttendants": "Attendants",
     "optAttendants": "Notification",
     "modalClose": "Close",
+    "myMeetings": "My meetings",
+    "filter": "Filter",
     "delete": "Delete",
     "snack_delete": "Meeting deleted",
     "snack_delete_fail": "Error occured during delete"

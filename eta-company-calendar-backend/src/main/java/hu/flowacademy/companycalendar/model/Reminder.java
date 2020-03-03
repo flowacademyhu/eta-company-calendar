@@ -35,12 +35,15 @@ public class Reminder {
     private Long startingTime;
 
     @Column
-    private Long endingTime;
+    private Long createdAt;
+
+    @Column
+    private Long updatedAt;
 
     @Enumerated(value = EnumType.STRING)
     private Recurring recurring;
 
     @ManyToOne
     @JoinColumn
-    private User user;
+    private User createdBy;
 }
