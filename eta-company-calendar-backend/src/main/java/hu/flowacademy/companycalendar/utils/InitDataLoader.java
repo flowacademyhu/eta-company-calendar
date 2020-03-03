@@ -47,6 +47,7 @@ public class InitDataLoader {
         var testUsers = userRepository.saveAll(
             IntStream.range(0, 10).mapToObj( i -> User.builder()
                 .email("user" + i + "@test.com")
+                .name("user" + i)
                 .password(passwordEncoder.encode("user123"))
                 .role(i == 0 ? Roles.ADMIN : Roles.USER).build()).collect(Collectors.toList())
         );

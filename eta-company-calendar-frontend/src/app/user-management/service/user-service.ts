@@ -49,4 +49,11 @@ export class UserService {
     return this.api.user()
    .getAllUsers();
  }
+
+  public getLeaders(): Observable<UserResponse[]> {
+    return this.api
+    .user()
+    .getAllLeaders();
+  }
+
 }

@@ -1,16 +1,14 @@
 package hu.flowacademy.companycalendar.service;
 
-import hu.flowacademy.companycalendar.email.EmailService;
-import hu.flowacademy.companycalendar.email.EmailType;
 import hu.flowacademy.companycalendar.model.Profile;
 import hu.flowacademy.companycalendar.exception.UserAlreadyExistException;
 import hu.flowacademy.companycalendar.exception.UserNotFoundException;
+import hu.flowacademy.companycalendar.model.Roles;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.UserRequestDTO;
 import hu.flowacademy.companycalendar.model.dto.UserResponseDTO;
 import hu.flowacademy.companycalendar.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -23,7 +21,6 @@ import java.util.stream.Collectors;
 public class UserService {
 
   private final UserRepository userRepository;
-
 
   public List<UserResponseDTO> getAllUsers() {
     return userRepository.findAll()
@@ -44,7 +41,9 @@ public class UserService {
     String psw = BCrypt.hashpw(userRequestDTO.getPassword(), BCrypt.gensalt());
     User user = userRequestDTO.toEntity();
     user.setPassword(psw);
-
+    user.setProfile(Profile.builder().user(user).build());
+    if(userRequestDTO.getLeaderId() != null){
+      user.setLeader(userRepository.findById(userRequestDTO.getLeaderId()).orElseThrow());}
     return new UserResponseDTO(userRepository.save(user));
   }
 
@@ -62,6 +61,8 @@ public class UserService {
     if (userRequestDTO.getRole() != null) {
       user.setRole(userRequestDTO.getRole());
     }
+    if(userRequestDTO.getLeaderId() != null){
+      user.setLeader(userRepository.findById(userRequestDTO.getLeaderId()).orElseThrow());}
     return new UserResponseDTO(userRepository.save(user));
   }
 
@@ -72,6 +73,13 @@ public class UserService {
   public List<UserResponseDTO> getEmployees(Long id) {
     return userRepository.findById(id).orElseThrow()
         .getEmployees()
+        .stream()
+        .map(UserResponseDTO::new)
+        .collect(Collectors.toList());
+  }
+
+  public List<UserResponseDTO> getLeaders() {
+    return userRepository.findByRole(Roles.LEADER)
         .stream()
         .map(UserResponseDTO::new)
         .collect(Collectors.toList());

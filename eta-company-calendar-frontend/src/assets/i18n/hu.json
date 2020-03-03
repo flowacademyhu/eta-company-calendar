@@ -85,17 +85,21 @@
     "role": "Szerepkör",
     "admin": "Admin",
     "user": "Felhasználó",
+    "name": "Név",
     "email": "Email cím",
+    "leader": "Felettes",
     "password": "Jelszó",
     "confirm_password": "Jelszó megerősítés",
     "create":"Létrehoz",
     "cancel":"Mégse",
     "email_error": "Az e-mail cím formátuma hibás.",
     "password_error": "A jelszó kitöltése kötelező.",
+    "name_error": "A név kitöltése kötelező",
     "role_error": "A szerepkör megadása kötelező",
     "success":  "Felhasználó létrehozva",
     "fail": "Sikertelen létrehozás",
-    "match_failed": "A két jelszó nem egyezik"
+    "match_failed": "A két jelszó nem egyezik",
+    "none": "Nincs"
   },
 
   "reminderlist": {
@@ -139,6 +143,7 @@
     "role": "Szerepkör",
     "admin": "Admin",
     "user": "Felhasználó",
+    "leader": "Vezető",
     "email": "Email cím",
     "password": "Jelszó",
     "confirm_password": "Jelszó megerősítés",

@@ -30,4 +30,8 @@ export class UserApiConnector extends AbstractApiConnector {
     return this.http.delete(`${this.apiRoute}/users/` + userId);
   }
 
+  public getAllLeaders(): Observable<UserResponse[]> {
+    return this.http.get<UserResponse[]>(`${this.apiRoute}/users/leaders`);
+  }
+
 }
