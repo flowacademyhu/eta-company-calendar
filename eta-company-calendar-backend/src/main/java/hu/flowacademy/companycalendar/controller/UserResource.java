@@ -38,6 +38,11 @@ public class UserResource {
     return userService.getEmployees(id);
   }
 
+  @GetMapping("/leaders")
+  public List<UserResponseDTO> getLeaders(){
+    return userService.getLeaders();
+  }
+
   @PostMapping
   public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequestDTO) {
     return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(userRequestDTO));
