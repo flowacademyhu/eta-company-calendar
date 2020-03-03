@@ -3,7 +3,7 @@ spring:
     - default
     - dev
   datasource:
-    url: jdbc:mysql://localhost:3306/companycalendar
+    url: jdbc:mysql://localhost:3306/companycalendar?useUnicode=yes&characterEncoding=UTF-8
     username: companycalendar
     password: KkN7{/uvw}?CKi).hDY8YSM0}YMC3QT
 

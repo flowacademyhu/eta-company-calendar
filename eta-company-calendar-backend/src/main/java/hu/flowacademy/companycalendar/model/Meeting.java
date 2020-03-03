@@ -39,7 +39,7 @@ public class Meeting {
   @Enumerated(value = EnumType.STRING)
   private Recurring recurring;
 
-  @OneToOne(cascade = CascadeType.PERSIST)
+  @OneToOne(cascade = CascadeType.ALL)
   private RRule rrule;
 
   private Long startingTime;
