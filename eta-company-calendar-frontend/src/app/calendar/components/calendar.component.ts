@@ -26,24 +26,42 @@ import { EventReminderSelectorComponent } from '../modals/event-reminder-selecto
     }
     .app-calendar {
       margin: 0 auto;
-      max-width: 1000px;
+      max-width: 97%;
+    }
+    mat-form-field {
+      width: 130px;
+      height: 1%;
+      margin-top: 5px;
+      margin-left: 13px;
+    }
+    .selector {
+      margin: 0 auto;
+    }
+    .dropdown {
+      margin-top: 0.75%;
+    }
+    .background {
+      background: transparent;
+    }
+    .not-leader {
+      margin-top: 3%;
     }
   `],
   template: `
   <div class='app-calendar white-background'>
-    <mat-card *ngIf="isUserLeader" class="d-flex justify-content-center">
-      <mat-form-field>
-        <mat-label>{{ 'calendar.selectEmployee' | translate}}</mat-label>
-        <mat-select [(value)]="selectedUser" (selectionChange)="fetchMeetings()">
-          <mat-option [value]="loggedInUser">{{ 'calendar.self' | translate }}</mat-option>
+  <div *ngIf="!isUserLeader" class="not-leader">
+  </div>
+    <div *ngIf="isUserLeader" class="dropdown">
+      <mat-form-field appearance="none">
+        <mat-select  class="selector" [(value)]="selectedUser" (selectionChange)="fetchMeetings()">
+        <mat-option class="self" [value]="loggedInUser">{{ 'calendar.self' | translate }}</mat-option>
           <mat-option
             *ngFor="let employee of (userEmployees$ | async)"
             [value]="employee"
             >{{ employee.email }}</mat-option>
         </mat-select>
         </mat-form-field>
-    </mat-card>
-
+    </div>
     <full-calendar
       #calendar
       defaultView="dayGridMonth"
@@ -56,13 +74,32 @@ import { EventReminderSelectorComponent } from '../modals/event-reminder-selecto
       [firstDay]="1"
       [plugins]="calendarPlugins"
       [events]="calendarEvents"
-      [aspectRatio]="1.35"
+      [aspectRatio]="0.96"
       (dateClick)="handleDateClick($event)"
+      fxShow.lt-sm="true" fxShow.md="false" fxShow.lg="false"
       (eventClick)="handleEventClick($event)"
       (eventMouseover)="handleEventClick($event)"
       (datesRender)="onDatesRender($event)"
     ></full-calendar>
   </div>
+  <div class='app-calendar white-background'>
+      <full-calendar
+      #calendar
+      defaultView="dayGridMonth"
+      [header]="{
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      }"
+      [locales]="locales"
+      [firstDay]="1"
+      [aspectRatio]="2.7"
+      [plugins]="calendarPlugins"
+      [events]="calendarEvents"
+      (dateClick)="handleDateClick($event)"
+      fxShow="true" fxHide.lt-md fxHide.lt-sm
+      ></full-calendar>
+    </div>
   `
 })
 
