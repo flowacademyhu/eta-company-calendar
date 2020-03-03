@@ -58,12 +58,14 @@ import { AuthService } from '~/app/shared/services/auth.service';
       {{ 'userlist.action' | translate }}</th>
     <td mat-cell *matCellDef="let reminder">
 
-    <button mat-icon-button (click)="openDialog(reminder)">
+    <button mat-icon-button matTooltip="{{ 'meetinglist.details' | translate }}"
+      (click)="openDialog(reminder)">
 		  <mat-icon>
          library_books
       </mat-icon>
     </button>
-    <button mat-icon-button color="warn" (click)="openDialogDelete(reminder.id)">
+    <button mat-icon-button matTooltip="{{ 'meetinglist.delete' | translate }}"
+      color="warn" (click)="openDialogDelete(reminder.id)">
 		  <mat-icon>
          delete
       </mat-icon>
