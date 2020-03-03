@@ -3,6 +3,7 @@ import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/m
 import { Observable } from 'rxjs';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { MeetingService } from '~/app/my-meetings/service/meeting.service';
+import { DeleteMeetingComponent } from '~/app/shared/modals/delete-meeting.component';
 import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.component.ts';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { ApiCommunicationService } from './../../shared/services/api-communication.service';
@@ -65,7 +66,7 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
          library_books
       </mat-icon>
     </button>
-    <button mat-icon-button color="warn" (click)="openDialog(meeting)">
+    <button mat-icon-button color="warn" (click)="openDialogDelete(meeting.id)">
 		  <mat-icon>
          delete
       </mat-icon>
@@ -122,6 +123,13 @@ export class MyMeetingsDescriptionComponent implements OnInit, AfterViewInit  {
     this.dialog.open(MeetingDetailsModal, {
       width: '400px',
       data: { meetingData: meeting, meetingId: meeting.id }
+    });
+  }
+
+  public openDialogDelete(id: number): void {
+    this.dialog.open(DeleteMeetingComponent, {
+      data: id,
+      width: '400px',
     });
   }
 }
