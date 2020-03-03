@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p> Kedves <span th:text=${firstName}></span>!</p>
+<p >Ezt a levelet azért kaptad, mert meghívtak egy értekezletre.</p>
+<p >Az értekezlet ideje: <span th:text=${meetingDate}></span>.</p>
+<p >Kezdete: <span th:text=${start}></span>.</p>
+<p >Vége: <span th:text=${finish}></span>.</p>
+<p >Helyszín: <span th:text=${location}></span>.</p>
+<p >Részvételed az értekezleten <span th:text=${isObligatory}></span>.</p>
+<br>
+<p>(Ez egy automatikus üzenet, kérlek ne válaszolj rá.) </p>
+</body>
+</html>

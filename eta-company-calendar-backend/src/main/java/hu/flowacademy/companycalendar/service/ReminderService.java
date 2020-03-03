@@ -13,7 +13,6 @@ import hu.flowacademy.companycalendar.repository.UserRepository;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;

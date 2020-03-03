@@ -8,12 +8,12 @@ import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.UserRequestDTO;
 import hu.flowacademy.companycalendar.model.dto.UserResponseDTO;
 import hu.flowacademy.companycalendar.repository.UserRepository;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional

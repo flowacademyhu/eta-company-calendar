@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ReminderDetail } from '~/app/models/reminder-detail-model';
 import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiConnector';
 import { Reminder } from '../../models/reminder.model';
 
@@ -8,6 +9,10 @@ export class ReminderApiConnector extends AbstractApiConnector {
 
   public getReminder(id: number): Observable<Reminder> {
     return this.http.get<Reminder>(`${this.apiRoute}/reminders/${id}`);
+  }
+
+  public create(reminder: ReminderDetail): Observable<ReminderDetail> {
+    return this.http.post<ReminderDetail>(`${this.apiRoute}`, reminder);
   }
 
   public getAllReminder(): Observable<Reminder[]> {

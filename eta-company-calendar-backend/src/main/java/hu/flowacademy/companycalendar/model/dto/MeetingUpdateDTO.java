@@ -3,22 +3,24 @@ package hu.flowacademy.companycalendar.model.dto;
 import hu.flowacademy.companycalendar.model.Location;
 import hu.flowacademy.companycalendar.model.Meeting;
 import hu.flowacademy.companycalendar.model.Recurring;
+import hu.flowacademy.companycalendar.model.User;
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MeetingDTO {
+public class MeetingUpdateDTO {
 
   private Long id;
+  private Long createdByUser;
   private String title;
   private String description;
   private Location location;
@@ -26,15 +28,16 @@ public class MeetingDTO {
   private Recurring recurring;
   private Long startingTime;
   private Long finishTime;
-  private UserResponseDTO createdBy;
-  private UserResponseDTO updatedBy;
-  private Long createdAt;
   private Long updatedAt;
-  private List<UserResponseDTO> requiredAttendants;
-  private List<UserResponseDTO> optionalAttendants;
+  private String updatedBy;
+  private Set<Long> requiredAttendants = new HashSet<>();
+  private Set<Long> optionalAttendants = new HashSet<>();
+ // private List<String> requiredAttendants = new ArrayList<>();
+ // private List<String> optionalAttendants = new ArrayList<>();
 
-  public MeetingDTO(Meeting meeting) {
+  public MeetingUpdateDTO(Meeting meeting) {
     this.id = meeting.getId();
+    this.createdByUser = meeting.getUpdatedBy().getId();
     this.title = meeting.getTitle();
     this.description = meeting.getDescription();
     this.location = meeting.getLocation();
@@ -42,23 +45,18 @@ public class MeetingDTO {
     this.recurring = meeting.getRecurring();
     this.startingTime = meeting.getStartingTime();
     this.finishTime = meeting.getFinishTime();
-    this.createdBy = new UserResponseDTO(meeting.getCreatedBy());
-    if (meeting.getUpdatedBy() != null) {
-      this.updatedBy = new UserResponseDTO(meeting.getUpdatedBy());
-    }
-    this.createdAt = meeting.getCreatedAt();
     this.updatedAt = meeting.getUpdatedAt();
-    this.requiredAttendants = meeting.getRequiredAttendants().stream().map(UserResponseDTO::new)
-        .collect(
-            Collectors.toList());
-    this.optionalAttendants = meeting.getOptionalAttendants().stream().map(UserResponseDTO::new)
-        .collect(
-            Collectors.toList());
+    this.updatedBy = meeting.getUpdatedBy().getEmail();
   }
 
-  public Meeting toEntity() {
+  public Meeting toEntity(User updatedBy,
+                          List<User> requiredAttendants,
+                          List<User> optionalAttendants) {
     Meeting meeting = new Meeting();
     BeanUtils.copyProperties(this, meeting);
+    meeting.setUpdatedBy(updatedBy);
+    meeting.setRequiredAttendants(requiredAttendants);
+    meeting.setOptionalAttendants(optionalAttendants);
     return meeting;
   }
 }
