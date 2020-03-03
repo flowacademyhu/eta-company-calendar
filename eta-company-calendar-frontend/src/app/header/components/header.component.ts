@@ -42,6 +42,15 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
         outline: none;
         background:none;
       }`,
+      `.username {
+        margin-left: 35%;
+        margin-right: 10px;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        outline: none;
+        background:none;
+      }`,
     `.logout-button {
         border: 2px solid;
         border-color: black !important;
@@ -71,9 +80,9 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
           routerLink="/user-management"
           fxShow="true" fxHide.lt-md
           >{{'header.userManagement' | translate}}</a>
+          <a class="username">{{userName}}</a>
     </span>
       <div class="header2">
-      <div>{{userName}}</div>
         <button class="translate-button" (click)="onLanguageChange()">{{'header.button' | translate}}</button>
           <button class="logout-button" mat-stroked-button (click)="onLogout()" fxShow="true" fxHide.lt-md>
             {{'header.logout' | translate}}
