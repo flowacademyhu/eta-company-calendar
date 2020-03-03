@@ -128,7 +128,6 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     meetingDetail.createdBy = this.data.user.email;
     meetingDetail.createdByUser = this.data.user.id;
     meetingDetail.rrule = this.addRecurrence();
-    console.log(meetingDetail.rrule);
     this.api.meeting()
       .create(meetingDetail)
       .subscribe();
