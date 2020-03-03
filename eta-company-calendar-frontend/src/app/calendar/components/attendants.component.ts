@@ -62,7 +62,7 @@ export class AttendantsComponent implements OnInit {
   protected removeFromRequired(attendant: string): void {
     this.removeFromArr(attendant, this.requiredAttendants);
     this.selectableUserTexts.push(attendant);
-    this.emitReqAttendantChanges();
+    this.emitReqAttendantChanges(this.requiredAttendants);
   }
 
   protected selected(event: MatAutocompleteSelectedEvent): void {
@@ -71,7 +71,7 @@ export class AttendantsComponent implements OnInit {
     this.removeFromArr(selected, this.selectableUserTexts);
     this.reqAttendantInput.nativeElement.value = '';
     this.reqAttendantCtrl.setValue(undefined);
-    this.emitReqAttendantChanges();
+    this.emitReqAttendantChanges(this.requiredAttendants);
   }
 
   private _filterUser(value: string): string[] {
@@ -86,11 +86,12 @@ export class AttendantsComponent implements OnInit {
     }
   }
 
-  private emitReqAttendantChanges() {
+  private emitReqAttendantChanges(attendantNames: string[]) {
     this.outputRequiredAttendantIds.emit(
-      this.allUsers.filter((user) => this.requiredAttendants.indexOf(user.email) >= 0)
+      this.allUsers.filter((user) => attendantNames.indexOf(user.email) >= 0)
         .map((user) => user.id)
     );
   }
+
 
 }

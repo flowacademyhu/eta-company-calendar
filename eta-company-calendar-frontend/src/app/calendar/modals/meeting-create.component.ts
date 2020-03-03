@@ -183,6 +183,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   }
 
   protected getRequiredAttendants(arg: number[]) {
+    console.log(arg);
     this.requiredAttendantIds = arg;
   }
 
