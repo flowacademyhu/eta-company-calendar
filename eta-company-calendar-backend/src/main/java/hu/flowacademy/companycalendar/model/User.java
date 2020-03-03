@@ -1,6 +1,7 @@
 package hu.flowacademy.companycalendar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -46,11 +48,9 @@ public class User implements UserDetails {
   @Enumerated(EnumType.STRING)
   private Roles role;
 
-  private String name;
-
-  /*@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
   @JsonManagedReference
-  private Profile profile;*/
+  private Profile profile;
 
   @ManyToOne
   @JsonIgnore

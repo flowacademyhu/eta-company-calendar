@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Subject } from 'rxjs';
-import { ReminderDetail } from '~/app/models/reminder-detail.model';
+import { ReminderDetail } from '~/app/models/reminder-detail-model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
 export interface DialogData {
