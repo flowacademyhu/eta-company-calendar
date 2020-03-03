@@ -84,7 +84,7 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
   </div>
   `,
 })
-export class MyMeetingsDescriptionComponent implements OnInit, OnDestroy, AfterViewInit {
+export class MyMeetingsDescriptionComponent implements OnInit, OnDestroy, AfterViewInit  {
 
   protected meetings$: Observable<MeetingDetail[]>;
   public displayedColumns: string[] = ['date', 'startingTime', 'finishTime', 'title', 'action'];
