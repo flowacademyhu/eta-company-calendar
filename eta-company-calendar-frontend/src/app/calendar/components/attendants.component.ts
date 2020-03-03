@@ -18,8 +18,8 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 })
 
 export class AttendantsComponent implements OnInit {
-  @Input() public inputRequiredAttendantIds: number[];
-  @Input() public inputOptionalAttendantIds: number[];
+  @Input() public inputRequiredAttendantIds: number[] = [];
+  @Input() public inputOptionalAttendantIds: number[] = [];
   @Input() public currentUserId: number;
   @Input() public canModify: boolean;
 
@@ -50,6 +50,8 @@ export class AttendantsComponent implements OnInit {
       .subscribe((res) => {
 
         this.allUsers = res;
+
+        this.fillMatChipFromInputIds(res);
 
         this.selectableUserTexts = this.allUsers
           .filter((user) => user.id !== this.currentUserId)
@@ -112,6 +114,15 @@ export class AttendantsComponent implements OnInit {
       this.allUsers.filter((user) => attendantNames.indexOf(user.email) >= 0)
         .map((user) => user.id)
     );
+  }
+
+  private fillMatChipFromInputIds(users: UserResponse[]) {
+    this.requiredAttendants = users
+      .filter((user) => this.inputRequiredAttendantIds.indexOf(user.id) >= 0)
+      .map((user) => user.email);
+    this.optionalAttendants = users
+      .filter((user) => this.inputOptionalAttendantIds.indexOf(user.id) >= 0)
+      .map((user) => user.email);
   }
 
 }
