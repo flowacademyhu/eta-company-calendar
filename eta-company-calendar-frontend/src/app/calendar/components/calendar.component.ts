@@ -17,7 +17,6 @@ import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.compone
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { EventReminderSelectorComponent } from '../modals/event-reminder-selector.component';
-import { MeetingCreateComponent } from '../modals/meeting-create.component';
 
 @Component({
   selector: 'app-calendar',
@@ -78,7 +77,7 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
       [aspectRatio]="0.96"
       (dateClick)="handleDateClick($event)"
       fxShow.lt-sm="true" fxShow.md="false" fxShow.lg="false"
-      (eventClick)="testHandleEventClick($event)"
+      (eventClick)="handleEventClick($event)"
       (eventMouseover)="handleEventClick($event)"
       (datesRender)="onDatesRender($event)"
     ></full-calendar>
@@ -98,7 +97,7 @@ import { MeetingCreateComponent } from '../modals/meeting-create.component';
       [events]="calendarEvents"
       [aspectRatio]="2.7"
       (dateClick)="handleDateClick($event)"
-      (eventClick)="testHandleEventClick($event)"
+      (eventClick)="handleEventClick($event)"
       (eventMouseover)="handleEventClick($event)"
       (datesRender)="onDatesRender($event)"
       fxShow="true" fxHide.lt-md fxHide.lt-sm
@@ -149,7 +148,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   protected handleDateClick(arg: EventInput) {
     this.dialog.open(EventReminderSelectorComponent, {
-      width: '500px',
+      width: '250px',
       data: {
         event: arg,
         user: this.selectedUser,
@@ -165,23 +164,8 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
                              this.dialog.open(MeetingDetailsModal, {
                               data: { meetingData: this.selectedMeeting, meetingId: arg.event.id},
                               width: '400px' } ); }
-    );
-  }
 
-  protected testHandleEventClick(arg: EventClickInfo) {
-    this.api.meeting()
-    .getMeetingById(arg.event.id)
-    .subscribe((meeting) => {
-      this.selectedMeeting = meeting;
-      this.dialog.open(MeetingCreateComponent, {
-        width: '500px',
-        data: {
-          meetingDetail: this.selectedMeeting,
-          user: this.selectedUser,
-          isEmployee: this.loggedInUser.id !== this.selectedUser.id
-        }
-      });
-    });
+    );
   }
 
   protected onDatesRender(info: DatesRenderInfo) {
