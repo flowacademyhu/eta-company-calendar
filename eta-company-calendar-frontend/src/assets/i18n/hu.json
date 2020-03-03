@@ -105,7 +105,8 @@
     "startingTime": "Kezdés",
     "endingTime": "Vége",
     "recurring": "Ismétlődés",
-    "date": "Dátum"
+    "date": "Dátum",
+    "myReminders": "Emlékeztetőim"
   },
   "usermanagement": {
     "new_user": "Új felhasználó létrehozása",
@@ -126,6 +127,8 @@
     "reqAttendants": "Résztvevők",
     "optAttendants": "Értesítések",
     "modalClose": "Bezárás",
+    "myMeetings": "Értekezleteim",
+    "filter": "Szűrés",
     "delete": "Törlés",
     "snack_delete": "Értekezlet törölve",
     "snack_delete_fail": "Sikertelen törlés"
