@@ -5,15 +5,24 @@ import { UserService } from '../service/user-service';
 
 @Component({
     selector: 'delete-user-dialog',
+    styles: [`
+    button {
+      border: 2px solid;
+      border-color: black !important;
+    }
+    .cancel-button {
+      margin-left: 53%;
+    }
+  `],
     template: `
     <div>
-    <h1 align="center" mat-dialog-title>{{'deleteuser.title' | translate}}</h1>
-    <mat-dialog-content>{{'deleteuser.question' | translate}}</mat-dialog-content>
+    <h1 align="center" mat-dialog-title>{{'deleteuser.title' | translate | uppercase}}</h1>
+    <mat-dialog-content align="center">{{'deleteuser.question' | translate}}</mat-dialog-content>
     <br>
       <button mat-raised-button type="button" (click)="onSubmit()">
       {{'deleteuser.confirm' | translate}}</button>
       <button mat-raised-button type="button" name="cancel" (click)="onNoClick()"
-        class="ml-3">{{'deleteuser.cancel' | translate}}</button>
+        class="cancel-button">{{'deleteuser.cancel' | translate}}</button>
     </div>`,
   })
 

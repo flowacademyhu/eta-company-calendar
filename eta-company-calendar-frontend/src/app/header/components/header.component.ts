@@ -81,7 +81,7 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
           >{{'header.userManagement' | translate}}</a>
     </span>
       <div class="header2">
-      <a class="username">{{userName}}</a>
+      <a class="username">{{userName | uppercase}}</a>
         <button class="translate-button" (click)="onLanguageChange()">{{'header.button' | translate}}</button>
           <button class="logout-button" mat-stroked-button (click)="onLogout()" fxShow="true" fxHide.lt-md>
             {{'header.logout' | translate}}

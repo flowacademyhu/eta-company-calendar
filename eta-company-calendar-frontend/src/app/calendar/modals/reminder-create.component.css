@@ -1,3 +1,23 @@
 .mat-icon {
   cursor: pointer;
   }
+  .icon {
+    margin-bottom: 2.5%;
+    margin-right: 50%;
+  }
+  .reminder-header-title {
+    font-weight: 450;
+  }
+
+  button {
+    border: 2px solid;
+    border-color: black !important;
+  }
+
+  .close-button {
+    margin-left: 57%;
+  }
+  .starting-field {
+    margin-left: 36%;
+    width: 28%;
+  }
