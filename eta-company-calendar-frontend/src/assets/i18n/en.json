@@ -52,7 +52,7 @@
   },
 
   "meeting": {
-    "header": "create meeting",
+    "header": "Create meeting",
     "headerCreate": "create meeting",
     "headerModify": "edit meeting",
     "title": "Title",
@@ -73,6 +73,17 @@
     "cancelButton": "Cancel",
     "addRecurrence": "add",
     "modifyRecurrence": "modify"
+  },
+
+  "reminder": {
+    "header": "create reminder",
+    "title": "title",
+    "titleError": "title is required",
+    "description": "description",
+    "startingTime": "from",
+    "createdBy": "organizer",
+    "submitButton": "submit",
+    "cancelButton": "cancel"
   },
 
   "location": {
@@ -114,6 +125,8 @@
     "endingTime": "Ending Time",
     "recurring": "Recurring",
     "date": "Date",
+    "modalClose": "Close",
+    "createdBy": "Created by",
     "myReminders": "My reminders",
     "snack_delete": "Reminder deleted"
   },
@@ -144,7 +157,7 @@
     "snack_delete_fail": "Error occured during delete",
     "modify": "Edit"
   },
-  
+
   "edituserform":{
     "edit_user": "Edit user",
     "role": "Role",
@@ -224,7 +237,8 @@
     "new_meeting": "Meeting",
     "new_reminder": "Reminder",
     "selector_title": "Please select:",
-    "dialog_title": "New entry"
+    "dialog_title": "New entry",
+    "close": "Close"
   },
 
   "deletemeeting": {
@@ -240,4 +254,5 @@
     "confirm": "Confirm",
     "cancel": "Cancel"
   }
+
 }
