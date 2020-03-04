@@ -97,7 +97,7 @@ public class MeetingService {
                 location = "Áron irodája";
                 break;
             case "OTHER":
-                location = "Eegyéb helyszín";
+                location = "Egyéb helyszín";
                 break;
         }
         sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, true, EmailType.CREATE, subject);
