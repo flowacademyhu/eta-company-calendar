@@ -39,11 +39,11 @@ import { UserService } from '../service/user-service';
   </div>
 
   <div class="pt-1 row justify-content-center">
-  <table mat-table [dataSource]="dataSource" matSort matSortActive="name"
+  <table mat-table [dataSource]="dataSource" matSort
     matSortDirection="desc" class="mat-elevation-z8">
 
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef  class="column" mat-sort-header> {{'userlist.name' | translate}} </th>
+    <th mat-header-cell *matHeaderCellDef  class="column" mat-sort-header > {{'userlist.name' | translate}} </th>
     <td mat-cell *matCellDef="let user"> {{user.name}} </td>
   </ng-container>
 
