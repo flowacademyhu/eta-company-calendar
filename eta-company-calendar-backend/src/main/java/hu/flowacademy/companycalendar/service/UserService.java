@@ -85,7 +85,7 @@ public class UserService {
           requiredAttendants.remove(user);
           m.setRequiredAttendants(requiredAttendants);
         }).collect(Collectors.toList()));
-    meetingRepository.deleteAll(meetingRepository.findMeetingCreatedBy(id));
+    meetingRepository.deleteAll(meetingRepository.findByCreatedBy_Id(id));
     userRepository.deleteById(id);
   }
 

@@ -25,8 +25,7 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long> {
           + "WHERE m.createdBy.id = ?1 OR r.id = ?1 OR o.id = ?1")
   List<Meeting> findByInvitedUserId(Long userId);
 
-  @Query("SELECT m FROM Meeting m where m.createdBy.id = ?1")
-  List<Meeting> findMeetingCreatedBy(Long userId);
+  List<Meeting> findByCreatedBy_Id(Long userId);
 }
 
 
