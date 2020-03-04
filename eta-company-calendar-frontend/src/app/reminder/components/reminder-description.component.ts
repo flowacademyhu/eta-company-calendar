@@ -7,6 +7,8 @@ import { DeleteReminderComponent } from '~/app/shared/modals/delete-reminder.com
 import { ReminderDetailsModal } from '~/app/shared/modals/reminder-details.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
+import { ReminderUpdateComponent } from '../../shared/modals/reminder-update.component';
+
 
 @Component({
   selector: 'app-my-reminders-description',
@@ -57,6 +59,13 @@ import { AuthService } from '~/app/shared/services/auth.service';
     <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header>
       {{ 'userlist.action' | translate }}</th>
     <td mat-cell *matCellDef="let reminder">
+
+    <button mat-icon-button matTooltip="{{ 'meetinglist.modify' | translate }}"
+      (click)="openUpdateDialog(reminder)">
+		  <mat-icon>
+         create
+      </mat-icon>
+    </button>
 
     <button mat-icon-button matTooltip="{{ 'meetinglist.details' | translate }}"
       (click)="openDialog(reminder)">
@@ -130,6 +139,13 @@ export class ReminderDescriptionComponent implements OnInit, AfterViewInit {
     this.dialog.open(DeleteReminderComponent, {
       data: id,
       width: '400px',
+    });
+  }
+
+  public openUpdateDialog(reminder: ReminderDetail): void {
+    this.dialog.open(ReminderUpdateComponent, {
+      width: '400px',
+      data: reminder,
     });
   }
 

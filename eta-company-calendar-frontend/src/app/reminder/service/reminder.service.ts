@@ -26,4 +26,9 @@ export class ReminderService {
     .deleteReminder(id);
   }
 
+  public updateReminder(reminder: ReminderDetail) {
+    this.api.reminder()
+    .updateReminder(reminder);
+  }
+
 }
