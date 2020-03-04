@@ -4,6 +4,7 @@ import { EventInput } from '@fullcalendar/core';
 import { Observable } from 'rxjs';
 import { UserResponse } from '~/app/models/user-response.model';
 import { MeetingCreateComponent } from './meeting-create.component';
+import { ReminderCreateComponent } from './reminder-create.component';
 
 @Component({
   selector: 'app-event-reminder-selector',
@@ -15,7 +16,8 @@ import { MeetingCreateComponent } from './meeting-create.component';
     <button mat-stroked-button (click)="newMeeting()" mat-dialog-close>
     {{'eventselector.new_meeting' | translate}}</button>
     <br>
-    <button mat-stroked-button >{{'eventselector.new_reminder' | translate}}</button>
+    <button mat-stroked-button (click)=newReminder() mat-dialog-close>
+    {{'eventselector.new_reminder' | translate}}</button>
     <br>
     <button mat-stroked-button (click)="onNoClick()">{{'eventselector.close' | translate}}</button>
   `,
@@ -41,6 +43,17 @@ export class EventReminderSelectorComponent {
 
   protected newMeeting() {
     this.dialog.open(MeetingCreateComponent, {
+      width: '500px',
+      data: {
+        startingTime: this.data.event.dateStr,
+        user: this.data.user,
+        isEmployee: this.data.isEmployee,
+      }
+    });
+  }
+
+  protected newReminder() {
+    this.dialog.open(ReminderCreateComponent, {
       width: '500px',
       data: {
         startingTime: this.data.event.dateStr,

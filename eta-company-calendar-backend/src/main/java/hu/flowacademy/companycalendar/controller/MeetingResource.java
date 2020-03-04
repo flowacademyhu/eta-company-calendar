@@ -44,8 +44,8 @@ public class MeetingResource {
     }
 
     @GetMapping("/{id}")
-    public Meeting getOne(@PathVariable Long id) {
-        return meetingService.findOne(id);
+    public MeetingCreateDTO getOne(@PathVariable Long id) {
+        return meetingService.findAndGetDTO(id);
     }
 
     @PostMapping
