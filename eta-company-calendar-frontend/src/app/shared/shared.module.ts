@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { OwlDateTimeIntl, OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { MaterialModule } from '~/app/shared/material.module';
 import { MainLayoutComponent } from '~/app/shared/pages/main-layout.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -25,6 +25,7 @@ import { ProfilEditDialog } from './modals/profile-edit-dialog.component';
 import { RecurrenceSelectComponent } from './modals/recurrence-select.component';
 import { ReminderCreateComponent } from './modals/reminder-create.component';
 import { ReminderDetailsModal } from './modals/reminder-details.component';
+import { DatetimeButtonText } from './ng-pick-datetime/datetime-button-text';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { ReminderDetailsModal } from './modals/reminder-details.component';
     ConfigurationService,
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true, },
+    { provide: OwlDateTimeIntl, useClass: DatetimeButtonText },
   ],
 })
 export class SharedModule { }
