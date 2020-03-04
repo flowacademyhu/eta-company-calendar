@@ -35,6 +35,7 @@ import { ReminderDetailsModal } from './modals/reminder-details.component';
   entryComponents: [
     ProfilViewDialog,
     MeetingDetailsModal,
+    ReminderDetailsModal,
     DeleteMeetingComponent,
   ],
 

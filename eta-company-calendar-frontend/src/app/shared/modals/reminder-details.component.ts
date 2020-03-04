@@ -16,9 +16,6 @@ import { DeleteReminderComponent } from './delete-reminder.component';
   <mat-label>{{'meeting.description' | translate}}</mat-label>
   <p>{{ reminder.description }}</p>
   <hr/>
-  <mat-label>{{'reminderlist.recurring' | translate}}</mat-label>
-  <p>{{ reminder.recurring }}</p>
-  <hr/>
   <mat-label>{{'reminderlist.startingTime' | translate}}</mat-label>
   <p>{{ reminder.startingTime | date: 'yyyy-MM-dd HH:mm' }}</p>
   <hr/>
@@ -36,14 +33,14 @@ export class ReminderDetailsModal {
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    private readonly reminderData: ReminderData,
+    private readonly reminderData: ReminderDetail,
     public dialogRef: MatDialogRef<ReminderDetailsModal>,
     private readonly snackBar: MatSnackBar,
     private readonly dialog: MatDialog,
     public readonly reminderService: ReminderService) {}
 
     public ngOnInit() {
-      this.reminder = this.reminderData.reminderData;
+      this.reminder = this.reminderData;
     }
 
   public onClose(): void {
@@ -53,7 +50,7 @@ export class ReminderDetailsModal {
   public openDialogDelete(): void {
     this.dialog.closeAll();
     this.dialog.open(DeleteReminderComponent, {
-      data: this.reminderData.reminderId,
+      data: this.reminderData.id,
       width: '400px',
     });
   }
@@ -64,9 +61,4 @@ export class ReminderDetailsModal {
     });
   }
 
-}
-
-export interface ReminderData {
-  reminderData: ReminderDetail;
-  reminderId: number;
 }

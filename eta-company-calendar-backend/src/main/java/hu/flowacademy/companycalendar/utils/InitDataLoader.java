@@ -17,11 +17,11 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
 
 @Component
 @Transactional
@@ -40,7 +40,6 @@ public class InitDataLoader {
     createMeetings();
     createReminder();
   }
-
     private void createUsers() {
         var testUsers = userRepository.saveAll(
             IntStream.range(0, 10).mapToObj( i -> User.builder()
@@ -56,7 +55,6 @@ public class InitDataLoader {
             .role(Roles.ADMIN)
             .build();
         userRepository.save(calendarCsiha);
-        //calendarCsiha.setProfile(new Profile(null, calendarCsiha, "Csiha", "Calendar", LocalDate.now(), LocalDate.now(), "mydepartment", "intern", "building"));
 
         User csalaoh = User.builder()
             .email("csalaoh@gmail.com")
@@ -65,8 +63,6 @@ public class InitDataLoader {
             .role(Roles.ADMIN)
             .build();
         userRepository.save(csalaoh);
-        //csalaoh.setProfile(new Profile(null, csalaoh, "Laszlo", "Csanyi", LocalDate.now(), LocalDate.now(), "mydepartment", "intern", "building"));
-
 
         testUsers.forEach(user -> {
             if (user.getId() == 2) {

@@ -5,7 +5,6 @@ import hu.flowacademy.companycalendar.model.Reminder;
 import hu.flowacademy.companycalendar.model.dto.ReminderCreateDTO;
 import hu.flowacademy.companycalendar.model.dto.ReminderDTO;
 import hu.flowacademy.companycalendar.model.dto.ReminderListItemDTO;
-import hu.flowacademy.companycalendar.model.dto.ReminderUpdateDTO;
 import hu.flowacademy.companycalendar.service.ReminderService;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -64,5 +63,4 @@ public class ReminderResource {
         reminderService.deleteById(id);
         return ResponseEntity.ok().build();
     }
-
 }

@@ -49,6 +49,11 @@ public class MeetingService {
             .orElseThrow(() -> new MeetingNotFoundException(id));
     }
 
+    public MeetingCreateDTO findAndGetDTO(Long id) {
+        return new MeetingCreateDTO(meetingRepository.findById(id)
+            .orElseThrow(() -> new MeetingNotFoundException(id)));
+    }
+
     public List<MeetingListItemDTO> findByUserIdAndTimeRange(Long userId,
         Long startingTimeFrom,
         Long startingTimeTo) {
@@ -118,6 +123,7 @@ public class MeetingService {
         existingMeeting.setLocation(meetingCreateDTO.getLocation());
         existingMeeting.setOtherLocation(meetingCreateDTO.getOtherLocation());
         existingMeeting.setRecurring(meetingCreateDTO.getRecurring());
+        existingMeeting.setRrule(meetingCreateDTO.getRrule());
         existingMeeting.setStartingTime(meetingCreateDTO.getStartingTime());
         existingMeeting.setFinishTime(meetingCreateDTO.getFinishTime());
         existingMeeting.setUpdatedBy(userRepository.findById(meetingCreateDTO.getCreatedByUser()).orElseThrow());

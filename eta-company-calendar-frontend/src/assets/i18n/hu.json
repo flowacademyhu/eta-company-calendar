@@ -54,7 +54,7 @@
   },
 
   "meeting": {
-    "header": "esemény létrehozása",
+    "header": "Esemény létrehozása",
     "headerCreate": "esemény létrehozása",
     "headerModify": "esemény módosítása",
     "title": "Tárgy",
@@ -77,6 +77,17 @@
     "addRecurrence": "hozzáadás",
     "modifyRecurrence": "módosítás",
     "noData": "- nincs megadva -"
+  },
+
+  "reminder": {
+    "header": "Emlékeztető létrehozása",
+    "title": "Cím",
+    "titleError": "a cím megadása kötelező",
+    "description": "Leírás",
+    "startingTime": "Kezdés",
+    "createdBy": "Szervező",
+    "submitButton": "Létrehozás",
+    "cancelButton": "Mégse"
   },
 
   "location": {
@@ -117,6 +128,8 @@
     "endingTime": "Vége",
     "recurring": "Ismétlődés",
     "date": "Dátum",
+    "modalClose": "Bezárás",
+    "createdBy": "Létrehozta",
     "myReminders": "Emlékeztetőim",
     "snack_delete": "Emlékeztető törölve"
   },
