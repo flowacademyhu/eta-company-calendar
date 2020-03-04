@@ -1,5 +1,5 @@
-import { Recurring } from './recurring.model';
 import { Recurrence } from './recurrence.model';
+import { Recurring } from './recurring.model';
 
 export interface ReminderDetail {
   id: number;
