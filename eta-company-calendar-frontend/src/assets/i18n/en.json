@@ -224,7 +224,8 @@
     "new_meeting": "Meeting",
     "new_reminder": "Reminder",
     "selector_title": "Please select:",
-    "dialog_title": "New entry"
+    "dialog_title": "New entry",
+    "close": "Close"
   },
 
   "deletemeeting": {

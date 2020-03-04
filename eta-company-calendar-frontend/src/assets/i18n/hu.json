@@ -224,7 +224,8 @@
     "new_meeting": "Értekezlet",
     "new_reminder": "Emlékeztető",
     "selector_title": "Kérlek válassz:",
-    "dialog_title": "Új bejegyzés"
+    "dialog_title": "Új bejegyzés",
+    "close": "Bezárás"
   },
 
   "deletemeeting": {
