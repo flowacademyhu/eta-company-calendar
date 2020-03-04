@@ -24,6 +24,8 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long> {
           + "Meeting m LEFT OUTER JOIN m.requiredAttendants r LEFT OUTER JOIN m.optionalAttendants o "
           + "WHERE m.createdBy.id = ?1 OR r.id = ?1 OR o.id = ?1")
   List<Meeting> findByInvitedUserId(Long userId);
+
+  List<Meeting> findByCreatedBy_Id(Long userId);
 }
 
 

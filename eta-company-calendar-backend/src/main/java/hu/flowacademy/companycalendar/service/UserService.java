@@ -7,6 +7,7 @@ import hu.flowacademy.companycalendar.model.Roles;
 import hu.flowacademy.companycalendar.model.User;
 import hu.flowacademy.companycalendar.model.dto.UserRequestDTO;
 import hu.flowacademy.companycalendar.model.dto.UserResponseDTO;
+import hu.flowacademy.companycalendar.repository.MeetingRepository;
 import hu.flowacademy.companycalendar.repository.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
   private final UserRepository userRepository;
+  private final MeetingRepository meetingRepository;
 
   public List<UserResponseDTO> getAllUsers() {
     return userRepository.findAll()
@@ -66,12 +68,24 @@ public class UserService {
     } else {
       user.setLeader(userRepository.findById(userRequestDTO.getLeaderId()).orElseThrow());
     }
-
     user.setName(userRequestDTO.getName());
     return new UserResponseDTO(userRepository.save(user));
   }
 
   public void deleteUser(Long id) {
+    User user = userRepository.findById(id).orElseThrow();
+    meetingRepository.saveAll(meetingRepository.findByInvitedUserId(id)
+        .stream()
+        .peek(m -> {
+          var optionalAttendants = m.getOptionalAttendants();
+          System.out.println(optionalAttendants.size());
+          optionalAttendants.remove(user);
+          m.setOptionalAttendants(optionalAttendants);
+          var requiredAttendants = m.getRequiredAttendants();
+          requiredAttendants.remove(user);
+          m.setRequiredAttendants(requiredAttendants);
+        }).collect(Collectors.toList()));
+    meetingRepository.deleteAll(meetingRepository.findByCreatedBy_Id(id));
     userRepository.deleteById(id);
   }
 
