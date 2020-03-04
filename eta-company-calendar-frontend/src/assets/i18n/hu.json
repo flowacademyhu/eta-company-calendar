@@ -61,6 +61,7 @@
     "titleError": "A tárgy megadása kötelező",
     "description": "Leírás / megjegyzés",
     "location": "Helyszín",
+    "location_error": "Helyszín megadása kötelező",
     "otherLocation": "Egyéb helyszín",
     "startingTime": "Kezdés",
     "finishTime": "Vége",

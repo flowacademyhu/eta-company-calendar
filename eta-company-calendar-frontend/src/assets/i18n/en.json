@@ -61,6 +61,7 @@
     "titleError": "Subject is required",
     "description": "Description / comment",
     "location": "Location",
+    "location_error": "Location is required",
     "otherLocation": "Other location",
     "startingTime": "From",
     "finishTime": "To",
