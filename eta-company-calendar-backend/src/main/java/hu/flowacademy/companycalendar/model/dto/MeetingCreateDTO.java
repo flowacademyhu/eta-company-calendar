@@ -19,6 +19,7 @@ public class MeetingCreateDTO {
 
   private Long id;
   private Long createdByUser;
+  private UserResponseDTO createdBy;
   private Set<Long> requiredAttendants;
   private Set<Long> optionalAttendants;
   private String title;
@@ -43,5 +44,6 @@ public class MeetingCreateDTO {
     this.optionalAttendants = meeting.getOptionalAttendants()
         .stream().map(User::getId).collect(Collectors.toSet());
     this.createdByUser = meeting.getCreatedBy().getId();
+    this.createdBy = new UserResponseDTO(meeting.getCreatedBy());
   }
 }

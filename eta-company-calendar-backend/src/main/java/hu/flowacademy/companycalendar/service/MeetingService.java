@@ -61,9 +61,9 @@ public class MeetingService {
             .stream().map(MeetingListItemDTO::new).collect(Collectors.toList());
     }
 
-    public List<MeetingDTO> findByUserId(Long userId) {
+    public List<MeetingCreateDTO> findByUserId(Long userId) {
         return meetingRepository.findByInvitedUserId(userId)
-            .stream().map(MeetingDTO::new).collect(Collectors.toList());
+            .stream().map(MeetingCreateDTO::new).collect(Collectors.toList());
     }
 
     public Meeting create(MeetingCreateDTO dto) {

@@ -28,6 +28,14 @@ import { DeleteMeetingComponent } from './delete-meeting.component';
   <h3>{{'meetinglist.finishTime' | translate}}</h3>
   <p>{{ meeting.finishTime | date: 'yyyy-MM-dd --- HH:mm' }}</p>
 
+  <app-attendants
+  *ngIf="meeting.requiredAttendants.length > 0 || meeting.optionalAttendants.length > 0"
+  [canModify]="false"
+  [currentUserId]="meeting.createdByUser"
+  [inputRequiredAttendantIds]="meeting.requiredAttendants"
+  [inputOptionalAttendantIds]="meeting.optionalAttendants"
+  ></app-attendants>
+
   <h3>{{'meetinglist.createdBy' | translate}}</h3>
   <p *ngIf="meeting.createdBy; else noDescription">{{ meeting.createdBy.name }} - ({{ meeting.createdBy.email }})</p>
 

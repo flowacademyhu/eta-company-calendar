@@ -39,7 +39,7 @@ public class MeetingResource {
     }
 
     @GetMapping("/invited/{userId}")
-    public List<MeetingDTO> getByInvitedFromQuery(@PathVariable Long userId) {
+    public List<MeetingCreateDTO> getByInvitedFromQuery(@PathVariable Long userId) {
         return meetingService.findByUserId(userId);
     }
 
