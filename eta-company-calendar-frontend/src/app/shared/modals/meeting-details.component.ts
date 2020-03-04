@@ -28,11 +28,6 @@ import { DeleteMeetingComponent } from './delete-meeting.component';
   <h3>{{'meetinglist.finishTime' | translate}}</h3>
   <p>{{ meeting.finishTime | date: 'yyyy-MM-dd --- HH:mm' }}</p>
 
-  <h3>{{'meetinglist.createdBy' | translate}}</h3>
-  <p *ngIf="meeting.createdBy; else noDescription">{{ meeting.createdBy.name }} - ({{ meeting.createdBy.email }})</p>
-
-  <ng-template #noDescription>{{ 'meeting.noData' | translate }}</ng-template>
-
 </div>
 <button mat-stroked-button (click)="openDialogDelete()">
   {{ 'meetinglist.modify' | translate }}</button>
