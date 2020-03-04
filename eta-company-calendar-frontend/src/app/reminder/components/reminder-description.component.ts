@@ -43,11 +43,6 @@ import { AuthService } from '~/app/shared/services/auth.service';
       <td mat-cell *matCellDef="let reminder"> {{reminder.startingTime | date: ' HH:mm' }} </td>
     </ng-container>
 
-    <ng-container matColumnDef="endingTime">
-      <th mat-header-cell *matHeaderCellDef> {{'reminderlist.endingTime' | translate}} </th>
-      <td mat-cell *matCellDef="let reminder"> {{reminder.endingTime | date: ' HH:mm'}} </td>
-    </ng-container>
-
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef> {{'reminderlist.title' | translate}} </th>
       <td mat-cell *matCellDef="let reminder"> {{reminder.title}} </td>
@@ -88,7 +83,7 @@ import { AuthService } from '~/app/shared/services/auth.service';
 export class ReminderDescriptionComponent implements OnInit, AfterViewInit {
 
   protected reminders$: Observable<ReminderDetail[]>;
-  public displayedColumns: string[] = ['date', 'startingTime', 'endingTime', 'title', 'action'];
+  public displayedColumns: string[] = ['date', 'startingTime', 'title', 'action'];
   public dataSource: MatTableDataSource<ReminderDetail> = new MatTableDataSource<ReminderDetail>();
 
   @ViewChild(MatSort) public sort: MatSort;

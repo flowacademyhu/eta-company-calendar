@@ -27,9 +27,6 @@ import { DeleteMeetingComponent } from './delete-meeting.component';
   <h3>{{'meetinglist.finishTime' | translate}}</h3>
   <p>{{ meeting.finishTime | date: 'yyyy-MM-dd HH:mm' }}</p>
 
-  <h3>{{'meetinglist.createdBy' | translate}}</h3>
-  <p>{{ meeting.createdBy.email }}</p>
-
 </div>
 <button mat-stroked-button (click)="openDialogDelete()">{{ 'meetinglist.modify' | translate }}</button>
 <button mat-stroked-button (click)="openDialogDelete()" class="delete-button"
