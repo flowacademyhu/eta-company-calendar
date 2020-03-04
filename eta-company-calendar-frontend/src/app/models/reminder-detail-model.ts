@@ -1,6 +1,8 @@
 import { Recurring } from './recurring.model';
+import { Recurrence } from './recurrence.model';
 
 export interface ReminderDetail {
+  id: number;
   title: string;
   description: string;
   startingTime: number;
@@ -9,4 +11,5 @@ export interface ReminderDetail {
   recurring: Recurring;
   createdBy: string;
   createdByUser: number;
+  rrule?: Recurrence;
 }

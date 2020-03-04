@@ -64,13 +64,15 @@ import { UserService } from '../service/user-service';
     <th mat-header-cell *matHeaderCellDef class="text-center">{{'userlist.action' | translate}}</th>
     <td mat-cell *matCellDef="let user">
 
-     <button mat-icon-button (click)="openDialogUpdate(user)">
+     <button mat-icon-button matTooltip="{{ 'userlist.edit' | translate }}"
+      (click)="openDialogUpdate(user)">
     <mat-icon aria-label="Update">
       create
     </mat-icon>
     </button>
 
-    <button mat-icon-button color="warn" (click)="openDialogDelete(user.id)">
+    <button mat-icon-button matTooltip="{{ 'userlist.delete' | translate }}"
+      color="warn" (click)="openDialogDelete(user.id)">
     <mat-icon aria-label="Delete Icon">
       delete
     </mat-icon>

@@ -66,7 +66,7 @@ import { EventReminderSelectorComponent } from '../modals/event-reminder-selecto
         </mat-form-field>
     </div>
     <full-calendar
-      #calendar
+      #calendar1
       defaultView="dayGridMonth"
       [header]="{
         left: 'prev,next today',
@@ -78,7 +78,7 @@ import { EventReminderSelectorComponent } from '../modals/event-reminder-selecto
       [events]="calendarEvents"
       [aspectRatio]="0.96"
       (dateClick)="handleDateClick($event)"
-      fxShow.lt-sm="true" fxShow.md="false" fxShow.lg="false"
+      fxShow.lt-sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false"
       (eventClick)="handleEventClick($event)"
       (eventMouseover)="handleMouseover($event)"
       (datesRender)="onDatesRender($event)"
@@ -86,7 +86,7 @@ import { EventReminderSelectorComponent } from '../modals/event-reminder-selecto
   </div>
   <div class='app-calendar white-background'>
       <full-calendar
-      #calendar
+      #calendar2
       defaultView="dayGridMonth"
       [header]="{
         left: 'prev,next today',
@@ -112,7 +112,8 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
-  @ViewChild('calendar') protected calendarComponent: FullCalendarComponent;
+  @ViewChild('calendar1') protected calendarComponent1: FullCalendarComponent;
+  @ViewChild('calendar2') protected calendarComponent2: FullCalendarComponent;
   protected calendarEvents: EventInput[] = [];
   protected calendarPlugins: object[] = [dayGridPlugin, timeGrigPlugin, interactionPlugin, rrulePlugin];
   protected currentView: View;
@@ -182,7 +183,9 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     if (lang === 'en') {
       lang = 'en-gb';
     }
-    this.calendarComponent.getApi()
+    this.calendarComponent1.getApi()
+      .setOption('locale', lang);
+    this.calendarComponent2.getApi()
       .setOption('locale', lang);
   }
 

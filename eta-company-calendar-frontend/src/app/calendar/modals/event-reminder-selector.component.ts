@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EventInput } from '@fullcalendar/core';
 import { Observable } from 'rxjs';
 import { UserResponse } from '~/app/models/user-response.model';
@@ -9,16 +9,19 @@ import { ReminderCreateComponent } from './reminder-create.component';
 @Component({
   selector: 'app-event-reminder-selector',
   template: `
-    <div align=center>
+    <div align="center">
       <h2>{{'eventselector.dialog_title' | translate | uppercase}}</h2>
       <h4>{{'eventselector.selector_title' | translate | uppercase}}</h4>
     </div>
-    <a mat-stroked-button (click)=newMeeting() mat-dialog-close>{{'eventselector.new_meeting' | translate}}</a>
+    <button mat-stroked-button (click)="newMeeting()" mat-dialog-close>
+    {{'eventselector.new_meeting' | translate}}</button>
     <br>
-    <a mat-stroked-button (click)=newReminder()>{{'eventselector.new_reminder' | translate}}</a>
+    <button mat-stroked-button (click)=newReminder()>{{'eventselector.new_reminder' | translate}}</button>
+    <br>
+    <button mat-stroked-button (click)="onNoClick()">{{'eventselector.close' | translate}}</button>
   `,
   styles: [`
-    a {
+    button {
       border: 2px solid;
       border-color: black !important;
       width: 200px;
@@ -33,7 +36,9 @@ export class EventReminderSelectorComponent {
   protected userEmployees$: Observable<UserResponse[]>;
 
   constructor(private readonly dialog: MatDialog,
-              @Inject(MAT_DIALOG_DATA) private readonly data: DialogData) { }
+              @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
+              public readonly dialogRef: MatDialogRef<EventReminderSelectorComponent>,
+              ) { }
 
   protected newMeeting() {
     this.dialog.open(MeetingCreateComponent, {
@@ -55,6 +60,10 @@ export class EventReminderSelectorComponent {
         isEmployee: this.data.isEmployee,
       }
     });
+  }
+
+  public onNoClick(): void {
+    this.dialogRef.close();
   }
 }
 

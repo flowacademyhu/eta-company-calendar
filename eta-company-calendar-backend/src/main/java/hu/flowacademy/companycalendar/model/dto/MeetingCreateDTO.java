@@ -22,9 +22,9 @@ public class MeetingCreateDTO {
   private String title;
   private String description;
   private Location location; // TODO: validate
+  private RRule rrule;
   private String otherLocation;
   private Recurring recurring;
-  private RRule rrule;
   private Long startingTime;
   private Long finishTime;
 

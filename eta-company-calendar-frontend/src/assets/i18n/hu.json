@@ -53,6 +53,8 @@
 
   "meeting": {
     "header": "Esemény létrehozása",
+    "headerCreate": "esemény létrehozása",
+    "headerModify": "esemény módosítása",
     "title": "Cím",
     "titleError": "A cím megadása kötelező",
     "description": "Leírás",
@@ -66,6 +68,8 @@
     "attendantsTitle": "meghívottak",
     "attendantError": "E-mail cím nem létezik",
     "submitButton": "Létrehozás",
+    "submitButtonCreate": "Létrehozás",
+    "submitButtonModify": "Módosítás",
     "cancelButton": "Mégse",
     "addRecurrence": "hozzáadás",
     "modifyRecurrence": "módosítás"
@@ -123,8 +127,10 @@
     "date": "Dátum",
     "modalClose": "Bezárás",
     "createdBy": "Létrehozta",
-    "myReminders": "Emlékeztetőim"
+    "myReminders": "Emlékeztetőim",
+    "snack_delete": "Emlékeztető törölve"
   },
+  
   "usermanagement": {
     "new_user": "Új felhasználó létrehozása",
     "list_users": "Felhasználók listázása"
@@ -148,7 +154,8 @@
     "filter": "Szűrés",
     "delete": "Törlés",
     "snack_delete": "Értekezlet törölve",
-    "snack_delete_fail": "Sikertelen törlés"
+    "snack_delete_fail": "Sikertelen törlés",
+    "modify": "Módosítás"
   },
 
   "edituserform":{
@@ -180,7 +187,9 @@
     "leader": "Felettes",
     "action": "Műveletek",
     "snack_delete": "Felhasználó törölve",
-    "snack_delete_error": "Sikertelen törlés"
+    "snack_delete_error": "Sikertelen törlés",
+    "edit": "Módosítás",
+    "delete": "Törlés"
   },
 
   "recurrenceSelect": {
@@ -228,12 +237,20 @@
     "new_meeting": "Értekezlet",
     "new_reminder": "Emlékeztető",
     "selector_title": "Kérlek válassz:",
-    "dialog_title": "Új bejegyzés"
+    "dialog_title": "Új bejegyzés",
+    "close": "Bezárás"
   },
 
   "deletemeeting": {
     "title": "Értekezlet törlése",
-    "question": "Biztos törölni szeretné az értekezletet?",
+    "question": "Biztos törölni szeretné ezt az értekezletet?",
+    "confirm": "Megerősít",
+    "cancel": "Mégse"
+  },
+
+  "deleteReminder": {
+    "title": "Emlékeztető törlése",
+    "question": "Biztos törölni szeretné ezt az emlékeztetőt?",
     "confirm": "Megerősít",
     "cancel": "Mégse"
   }

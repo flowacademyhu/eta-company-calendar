@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ReminderDetail } from '~/app/models/reminder-detail.model';
+import { ReminderDetail } from '~/app/models/reminder-detail-model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
 @Injectable()
@@ -16,9 +16,14 @@ export class ReminderService {
 
   public getRemindersByUserId(userId: number) {
      this.api.reminder()
-    .findByUserId(userId)
-    .subscribe((reminder: ReminderDetail[]) => {
-      this._reminderSub.next(reminder); });
+    .getRemindersByUserId(userId)
+    .subscribe((reminders: ReminderDetail[]) => {
+      this._reminderSub.next(reminders); });
+  }
+
+  public deleteReminder(id: number) {
+    return this.api.reminder()
+    .deleteReminder(id);
   }
 
 }

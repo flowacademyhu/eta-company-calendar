@@ -18,6 +18,7 @@ export interface DialogData {
   startingTime: string;
   finishTime: string;
   user: UserResponse;
+  meetingDetail?: MeetingDetail;
 }
 
 @Component({
@@ -34,6 +35,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
   protected optionalAttendantIds: number[] = [];
   protected formMinFinishTime: Date = new Date(Number.MIN_VALUE);
   protected rruleStr: string;
+  protected modifyMeetingDetail: MeetingDetail;
 
   constructor(private readonly api: ApiCommunicationService,
               @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
@@ -56,8 +58,15 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     });
     this.dateTimeAdapter.setLocale(this.translate.currentLang);
     this.dialogRef.disableClose = true;
-    this.subscribeToStartingTimeChange();
-    this.setStartingTimeFromDialogData();
+
+    if (this.data.meetingDetail) {
+      this.modifyMeetingDetail = this.data.meetingDetail;
+      this.setFormsFromMeetingDetail(this.data.meetingDetail);
+      this.subscribeToStartingTimeChange();
+    } else {
+      this.subscribeToStartingTimeChange();
+      this.setStartingTimeFromDialogData();
+    }
   }
 
   private setStartingTimeFromDialogData() {
@@ -109,7 +118,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
 
   protected onSubmit() {
     if (this.meetingForm.valid) {
-      this.getMeetingDetailFromForm();
+      this.postMeetingDetail();
     }
     this.dialogRef.close();
   }
@@ -119,7 +128,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
-  private getMeetingDetailFromForm() {
+  private postMeetingDetail() {
     const meetingDetail: MeetingDetail = this.meetingForm.value;
     meetingDetail.startingTime = meetingDetail.startingTime.valueOf();
     meetingDetail.finishTime = meetingDetail.finishTime.valueOf();
@@ -128,6 +137,12 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     meetingDetail.createdBy = this.data.user.email;
     meetingDetail.createdByUser = this.data.user.id;
     meetingDetail.rrule = this.addRecurrence();
+    if (this.modifyMeetingDetail) {
+      meetingDetail.id = this.modifyMeetingDetail.id;
+      this.api.meeting()
+        .update(meetingDetail)
+        .subscribe();
+    }
     this.api.meeting()
       .create(meetingDetail)
       .subscribe();
@@ -161,6 +176,40 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
       rrule: rrule.toString(),
       duration,
     };
+  }
+
+  private setFormsFromMeetingDetail(meetingDetail: MeetingDetail) {
+    this.meetingForm.get('title')
+      ?.setValue(meetingDetail.title);
+    this.meetingForm.get('description')
+      ?.setValue(meetingDetail.description);
+    this.meetingForm.get('location')
+      ?.setValue(meetingDetail.location);
+    this.meetingForm.get('otherLocation')
+      ?.setValue(meetingDetail.otherLocation);
+
+    const recurrence = meetingDetail.rrule;
+    if (recurrence) {
+      this.rruleStr = recurrence.rrule;
+      this.setDatesFromRecurrence(recurrence);
+    } else {
+      this.meetingForm.get('startingTime')
+        ?.setValue(new Date(meetingDetail.startingTime));
+      this.meetingForm.get('finishTime')
+        ?.setValue(new Date(meetingDetail.finishTime));
+    }
+
+    this.requiredAttendantIds.push(...meetingDetail.requiredAttendants);
+    this.optionalAttendantIds.push(...meetingDetail.optionalAttendants);
+  }
+
+  private setDatesFromRecurrence(rrule: Recurrence) {
+    const startingTime = rrule.dtstart;
+    const finishTime = rrule.duration ? startingTime + rrule.duration : startingTime;
+    this.meetingForm.get('startingTime')
+      ?.setValue(new Date(startingTime));
+    this.meetingForm.get('finishTime')
+      ?.setValue(new Date(finishTime));
   }
 
   protected getRequiredAttendants(arg: number[]) {

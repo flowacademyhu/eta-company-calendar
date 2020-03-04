@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Subject } from 'rxjs';
-import { ReminderDetail } from '~/app/models/reminder-detail.model';
+import { ReminderCreate } from '~/app/models/reminder-create.model';
 import { UserResponse } from '~/app/models/user-response.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
@@ -71,12 +71,11 @@ export class ReminderCreateComponent implements OnInit, OnDestroy {
   }
 
   private getreminderDetailFromForm() {
-    const reminderDetail: ReminderDetail = this.reminderForm.value;
-    reminderDetail.startingTime = reminderDetail.startingTime.valueOf();
-    reminderDetail.createdBy = this.auth.tokenDetails.getValue().user_name;
-    reminderDetail.createdByUser = this.data.user.id;
+    const reminderCreateModel: ReminderCreate = this.reminderForm.value;
+    reminderCreateModel.startingTime = reminderCreateModel.startingTime.valueOf();
+    reminderCreateModel.createdBy = this.auth.tokenDetails.getValue().user_name;
     this.api.reminder()
-      .create(reminderDetail)
+      .postReminder(reminderCreateModel)
       .subscribe();
   }
 

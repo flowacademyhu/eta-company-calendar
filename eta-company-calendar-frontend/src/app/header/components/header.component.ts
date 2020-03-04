@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { TokenDetails } from '~/app/shared/models/token-details.model';
 import { AuthService } from '~/app/shared/services/auth.service';
+import { UserService } from '~/app/user-management/service/user-service';
 import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.component';
 
 @Component({
@@ -34,6 +35,14 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
     `.translate-button {
         cursor: pointer;
         margin-left: auto;
+        margin-right: 10px;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        outline: none;
+        background:none;
+      }`,
+      `.username {
         margin-right: 10px;
         border: none;
         font-size: 16px;
@@ -72,6 +81,7 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
           >{{'header.userManagement' | translate}}</a>
     </span>
       <div class="header2">
+      <a class="username">{{userName}}</a>
         <button class="translate-button" (click)="onLanguageChange()">{{'header.button' | translate}}</button>
           <button class="logout-button" mat-stroked-button (click)="onLogout()" fxShow="true" fxHide.lt-md>
             {{'header.logout' | translate}}
@@ -84,11 +94,19 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
 export class HeaderComponent {
   protected tokenDetails$: Observable<TokenDetails>;
   public language: string;
+  public userName: string;
 
   constructor(private readonly auth: AuthService,
               private readonly translate: TranslateService,
+              private readonly userService: UserService,
               private dialog: MatDialog) {
     this.tokenDetails$ = this.auth.tokenDetails;
+    this.userService.getUser(this.auth.tokenDetails
+                            .getValue()
+                            .id
+                            .valueOf())
+                    .subscribe( (data) => {this.userName = data.name; }
+                    );
   }
 
   public onLanguageChange() {
