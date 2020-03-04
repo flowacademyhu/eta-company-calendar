@@ -2,8 +2,11 @@
   <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
     <div class="d-flex flex-column">
 
-      <div class="d-flex justify-content-center">
-        <h4>{{ 'meeting.header' | translate | uppercase }}</h4>
+      <div class="d-flex justify-content-center" *ngIf="!modifyMeetingDetail">
+        <h4>{{ 'meeting.headerCreate' | translate | uppercase }}</h4>
+      </div>
+      <div class="d-flex justify-content-center" *ngIf="modifyMeetingDetail">
+        <h4>{{ 'meeting.headerModify' | translate | uppercase }}</h4>
       </div>
 
       <div class="d-flex justify-content-center" *ngIf="data.isEmployee">
@@ -70,12 +73,24 @@
       <app-attendants
         [canModify]="true"
         [currentUserId]="data.user.id"
+        [inputRequiredAttendantIds]="requiredAttendantIds"
+        [inputOptionalAttendantIds]="optionalAttendantIds"
         (outputRequiredAttendantIds)="getRequiredAttendants($event)"
         (outputOptionalAttendantIds)="getOptionalAttendants($event)"></app-attendants>
       
       <div class="d-flex justify-content-between">
-        <button mat-stroked-button color="primary" class="btn-block" type="submit" [disabled]="meetingForm.invalid"
-        >{{ 'meeting.submitButton' | translate }}</button>
+
+        <button mat-stroked-button
+          color="primary" class="btn-block" type="submit"
+          [disabled]="meetingForm.invalid"
+          *ngIf="!modifyMeetingDetail"
+        >{{ 'meeting.submitButtonCreate' | translate }}</button>
+        <button mat-stroked-button
+          color="primary" class="btn-block" type="submit"
+          [disabled]="meetingForm.invalid"
+          *ngIf="modifyMeetingDetail"
+        >{{ 'meeting.submitButtonModify' | translate }}</button>
+
         <button mat-stroked-button class="btn-block" (click)="closeDialog()"
         >{{ 'meeting.cancelButton' | translate }}</button>
       </div>
