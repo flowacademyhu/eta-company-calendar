@@ -105,13 +105,13 @@ export class ReminderDescriptionComponent implements OnInit, AfterViewInit {
 
   public ngOnInit() {
     this.reminderService.getRemindersByUserId(this.auth.tokenDetails.getValue().id);
+    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.reminderService.reminderSub
     .subscribe((reminders) => this.dataSource.data = reminders);
   }
 
   public ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
 

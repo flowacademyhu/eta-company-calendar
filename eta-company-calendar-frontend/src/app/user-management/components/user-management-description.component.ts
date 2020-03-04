@@ -39,25 +39,26 @@ import { UserService } from '../service/user-service';
   </div>
 
   <div class="pt-1 row justify-content-center">
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort matSortActive="name"
+    matSortDirection="desc" class="mat-elevation-z8">
 
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'userlist.name' | translate}} </th>
+    <th mat-header-cell *matHeaderCellDef  class="column" mat-sort-header> {{'userlist.name' | translate}} </th>
     <td mat-cell *matCellDef="let user"> {{user.name}} </td>
   </ng-container>
 
   <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'userlist.email' | translate}} </th>
+    <th mat-header-cell *matHeaderCellDef  class="column" mat-sort-header> {{'userlist.email' | translate}} </th>
     <td mat-cell *matCellDef="let user"> {{user.email}} </td>
   </ng-container>
 
   <ng-container matColumnDef="role">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'userlist.role' | translate}} </th>
+    <th mat-header-cell *matHeaderCellDef  class="column" mat-sort-header> {{'userlist.role' | translate}} </th>
     <td mat-cell *matCellDef="let user"> {{user.role}} </td>
   </ng-container>
 
   <ng-container matColumnDef="leader">
-  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'userlist.leader' | translate}} </th>
+  <th mat-header-cell *matHeaderCellDef  class="column" mat-sort-header> {{'userlist.leader' | translate}} </th>
   <td mat-cell *matCellDef="let user"> {{user.leaderName}} </td>
 </ng-container>
 
@@ -99,7 +100,7 @@ export class UserManagementDescriptionComponent {
   public displayedColumns: string[] = ['name', 'email', 'role', 'leader', 'action' ];
   public dataSource: MatTableDataSource<UserResponse> = new MatTableDataSource<UserResponse>();
 
-  @ViewChild(MatSort, {static: true}) public sort: MatSort;
+  @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
 
   constructor(private readonly api: ApiCommunicationService,
@@ -115,7 +116,6 @@ export class UserManagementDescriptionComponent {
     this.dataSource.paginator = this.paginator;
     this.userService.userSub
     .subscribe((users) => this.dataSource.data = users);
-    this.dataSource.sort = this.sort;
   }
 
   public ngAfterViewInit(): void {
