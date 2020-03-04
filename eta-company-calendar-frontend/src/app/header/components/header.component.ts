@@ -54,6 +54,8 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
         border: 2px solid;
         border-color: black !important;
         width: 160px;}`,
+    `.mat-icon {
+        vertical-align: middle;}`,
   ],
   template: `
   <mat-toolbar class="tool-container mat-elevation-z6">
@@ -81,14 +83,14 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
           >{{'header.userManagement' | translate}}</a>
     </span>
       <div class="header2">
-      <mat-icon style="vertical-align: middle !important;" color="primary"
+      <mat-icon color="primary"
         matTooltip="{{ 'header.activeUserIcon' | translate }}" matTooltipPosition="before">
          account_circle
       </mat-icon>
       <a class="username">  {{userName}}</a>
         <button matTooltip="{{ 'header.languageChange' | translate }}{{'header.button' | translate }}"
         matTooltipPosition="before" class="translate-button" (click)="onLanguageChange()">
-          <mat-icon style="vertical-align: middle !important;" color="primary">
+          <mat-icon color="primary">
             language
           </mat-icon>
         </button>
