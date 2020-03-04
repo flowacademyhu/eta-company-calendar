@@ -16,6 +16,53 @@ import { RecurrenceDialogData } from '../models/recurrence-dialog-data.model';
     .number-input {
       width: 30px;
     }
+    .btn-block-first {
+      margin-left: 4.5%;
+      border: 2px solid;
+      color: black;
+    }
+    .btn-block-second {
+      margin-right: 3.8%;
+      border: 2px solid;
+      color: black;
+    }
+    .chip-list {
+      display: flex;
+      flex-flow: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .chip {
+      border: 2px solid;
+      margin-top: 5%;
+    }
+    .radio {
+      display: flex;
+      flex-flow: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .date-input {
+      margin-left: 30%;
+    }
+    .margin-align {
+      margin-bottom: -5%;
+    }
+    .radio-hr-align {
+      margin-top: 5%;
+    }
+    .select-length {
+      width: 40%;
+    }
+    .number-input {
+      margin-left: 2%;
+    }
+    .number-input-first {
+      margin-left: 25%;
+    }
+    .date-line {
+      margin-top: 22px;
+    }
   `],
   templateUrl: 'recurrence-select.component.html'
 })

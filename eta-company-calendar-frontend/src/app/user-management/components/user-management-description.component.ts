@@ -12,8 +12,9 @@ import { UserService } from '../service/user-service';
 @Component({
   selector: 'app-user-management-description',
   styles: [
+    'mat-card { width: 85%; background-color: rgb(230, 230, 240); }',
     'table { width: 85%; }',
-    'mat-paginator { width: 85%; }',
+    'mat-paginator { width: 85%; background-color: rgb(230, 230, 240); }',
     'th.mat-header-cell {text-align: center;}',
     'td.mat-cell {text-align: center;}',
   ],
@@ -23,40 +24,41 @@ import { UserService } from '../service/user-service';
       <div class="pl-4 d-flex justify-content-between">
         <h3 class="ml-5">{{'userlist.title' | translate | uppercase }}</h3>
         <div>
+        <button matTooltip="{{ 'newuserform.new_user' | translate }}" mat-icon-button (click)="openDialog()">
+          <mat-icon color="primary">
+            person_add
+          </mat-icon>
+          </button>
           <mat-form-field>
             <input matInput type="text" (keyup)="doFilter($event.target.value)"
               placeholder="{{ 'meetinglist.filter' | translate}}">
           </mat-form-field>
-          <button matTooltip="{{ 'newuserform.new_user' | translate }}" mat-icon-button (click)="openDialog()">
-            <mat-icon>
-              person_add
-            </mat-icon>
-          </button>
         </div>
         </div>
     </mat-card>
   </div>
 
   <div class="pt-1 row justify-content-center">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort matSortActive="name"
+    matSortDirection="desc" class="mat-elevation-z8">
 
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> {{'userlist.name' | translate}} </th>
+    <th mat-header-cell *matHeaderCellDef  class="column" mat-sort-header> {{'userlist.name' | translate}} </th>
     <td mat-cell *matCellDef="let user"> {{user.name}} </td>
   </ng-container>
 
   <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef> {{'userlist.email' | translate}} </th>
+    <th mat-header-cell *matHeaderCellDef  class="column" mat-sort-header> {{'userlist.email' | translate}} </th>
     <td mat-cell *matCellDef="let user"> {{user.email}} </td>
   </ng-container>
 
   <ng-container matColumnDef="role">
-    <th mat-header-cell *matHeaderCellDef> {{'userlist.role' | translate}} </th>
+    <th mat-header-cell *matHeaderCellDef  class="column" mat-sort-header> {{'userlist.role' | translate}} </th>
     <td mat-cell *matCellDef="let user"> {{user.role}} </td>
   </ng-container>
 
   <ng-container matColumnDef="leader">
-  <th mat-header-cell *matHeaderCellDef> {{'userlist.leader' | translate}} </th>
+  <th mat-header-cell *matHeaderCellDef  class="column" mat-sort-header> {{'userlist.leader' | translate}} </th>
   <td mat-cell *matCellDef="let user"> {{user.leaderName}} </td>
 </ng-container>
 
@@ -66,7 +68,7 @@ import { UserService } from '../service/user-service';
 
      <button mat-icon-button matTooltip="{{ 'userlist.edit' | translate }}"
       (click)="openDialogUpdate(user)">
-    <mat-icon aria-label="Update">
+    <mat-icon color="primary">
       create
     </mat-icon>
     </button>
