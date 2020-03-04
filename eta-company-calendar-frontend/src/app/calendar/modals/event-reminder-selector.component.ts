@@ -16,7 +16,8 @@ import { ReminderCreateComponent } from './reminder-create.component';
     <button mat-stroked-button (click)="newMeeting()" mat-dialog-close>
     {{'eventselector.new_meeting' | translate}}</button>
     <br>
-    <button mat-stroked-button (click)=newReminder()>{{'eventselector.new_reminder' | translate}}</button>
+    <button mat-stroked-button (click)=newReminder() mat-dialog-close>
+    {{'eventselector.new_reminder' | translate}}</button>
     <br>
     <button mat-stroked-button (click)="onNoClick()">{{'eventselector.close' | translate}}</button>
   `,

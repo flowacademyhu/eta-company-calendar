@@ -16,9 +16,6 @@ import { DeleteReminderComponent } from './delete-reminder.component';
   <mat-label>{{'reminderlist.description' | translate}}</mat-label>
   <p>{{ reminder.description }}</p>
   <hr/>
-  <mat-label>{{'reminderlist.recurring' | translate}}</mat-label>
-  <p>{{ reminder.recurring }}</p>
-  <hr/>
   <mat-label>{{'reminderlist.startingTime' | translate}}</mat-label>
   <p>{{ reminder.startingTime | date: 'yyyy-MM-dd HH:mm' }}</p>
   <hr/>
