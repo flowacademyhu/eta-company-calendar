@@ -55,6 +55,8 @@
 
   "meeting": {
     "header": "esemény létrehozása",
+    "headerCreate": "esemény létrehozása",
+    "headerModify": "esemény módosítása",
     "title": "Tárgy",
     "titleError": "A tárgy megadása kötelező",
     "description": "Leírás / megjegyzés",
@@ -68,6 +70,8 @@
     "attendantsTitle": "meghívottak",
     "attendantError": "E-mail cím nem létezik",
     "submitButton": "Létrehozás",
+    "submitButtonCreate": "Létrehozás",
+    "submitButtonModify": "Módosítás",
     "cancelButton": "Mégse",
     "addRecurrence": "hozzáadás",
     "modifyRecurrence": "módosítás",

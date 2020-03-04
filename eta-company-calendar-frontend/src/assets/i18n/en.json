@@ -55,6 +55,8 @@
 
   "meeting": {
     "header": "create a meeting",
+    "headerCreate": "create meeting",
+    "headerModify": "edit meeting",
     "title": "Subject",
     "titleError": "Subject is required",
     "description": "Description / comment",
@@ -68,6 +70,8 @@
     "attendantsTitle": "attendants",
     "attendantError": "E-mail not valid",
     "submitButton": "Submit",
+    "submitButtonCreate": "Submit",
+    "submitButtonModify": "Submit",
     "cancelButton": "Cancel",
     "addRecurrence": "add",
     "modifyRecurrence": "modify",
