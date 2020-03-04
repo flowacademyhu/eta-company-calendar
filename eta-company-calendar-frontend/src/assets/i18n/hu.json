@@ -70,7 +70,8 @@
     "submitButton": "Létrehozás",
     "cancelButton": "Mégse",
     "addRecurrence": "hozzáadás",
-    "modifyRecurrence": "módosítás"
+    "modifyRecurrence": "módosítás",
+    "noData": "- nincs megadva -"
   },
 
   "location": {

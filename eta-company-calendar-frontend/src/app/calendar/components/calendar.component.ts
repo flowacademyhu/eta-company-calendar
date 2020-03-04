@@ -58,7 +58,7 @@ import { EventReminderSelectorComponent } from '../modals/event-reminder-selecto
           <mat-option
             *ngFor="let employee of (userEmployees$ | async)"
             [value]="employee"
-            >{{ employee.email }}</mat-option>
+            ><p>{{employee.name}} - ({{ employee.email }})</p></mat-option>
         </mat-select>
         </mat-form-field>
     </div>

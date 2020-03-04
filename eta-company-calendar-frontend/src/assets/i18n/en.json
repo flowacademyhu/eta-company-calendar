@@ -70,7 +70,8 @@
     "submitButton": "Submit",
     "cancelButton": "Cancel",
     "addRecurrence": "add",
-    "modifyRecurrence": "modify"
+    "modifyRecurrence": "modify",
+    "noData": "- no entry -"
   },
 
   "location": {
