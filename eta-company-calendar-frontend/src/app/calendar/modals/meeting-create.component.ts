@@ -48,7 +48,7 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     this.meetingForm = new FormGroup({
       title: new FormControl(undefined, [Validators.required]),
       description: new FormControl(undefined),
-      location: new FormControl(undefined),
+      location: new FormControl(undefined, [Validators.required]),
       otherLocation: new FormControl(undefined),
       recurring: new FormControl(undefined),
       startingTime: new FormControl(undefined, [Validators.required]),

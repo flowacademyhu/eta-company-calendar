@@ -31,13 +31,15 @@
   },
 
   "header": {
-    "button": "HU",
+    "button": "HUN",
     "profile": "Profile",
     "calendar": "Calendar",
-    "meetings": "Meetings",
-    "reminders": "Reminders",
+    "meetings": "My meetings",
+    "reminders": "My reminders",
     "userManagement": "User management",
-    "logout": "Logout"
+    "logout": "Logout",
+    "activeUserIcon": "Logged in as:",
+    "languageChange": "Change language -> "
   },
 
   "login": {
@@ -55,11 +57,12 @@
     "header": "Create meeting",
     "headerCreate": "create meeting",
     "headerModify": "edit meeting",
-    "title": "Title",
-    "titleError": "Title is required",
-    "description": "Description",
+    "title": "Subject",
+    "titleError": "Subject is required",
+    "description": "Description / comment",
     "location": "Location",
-    "otherLocation": "Other",
+    "location_error": "Location is required",
+    "otherLocation": "Other location",
     "startingTime": "From",
     "finishTime": "To",
     "createdBy": "Organizer",
@@ -72,7 +75,8 @@
     "submitButtonModify": "Submit",
     "cancelButton": "Cancel",
     "addRecurrence": "add",
-    "modifyRecurrence": "modify"
+    "modifyRecurrence": "modify",
+    "noData": "- no entry -"
   },
 
   "reminder": {
@@ -90,7 +94,7 @@
     "MEETING_ROOM": "Meeting room",
     "MARKS_OFFICE": "Mark's office",
     "ARONS_OFFICE": "Aron's office",
-    "OTHER": "other"
+    "OTHER": "- other -"
   },
 
   "newuserform": {
@@ -179,7 +183,7 @@
 
   "userlist": {
     "button": "List Users",
-    "title": "List of users",
+    "title": "Users",
     "id": "ID",
     "email": "E-mail",
     "role": "Role",
@@ -193,12 +197,12 @@
   },
 
   "recurrenceSelect": {
-    "repeatInvervalHeader": "select repetition",
-    "intervalDay": "day",
-    "invervalWeek": "week",
-    "intervalMonth": "month",
-    "intervalYear": "year",
-    "repeatDaysHeader": "select days",
+    "repeatInvervalHeader": "Frequency",
+    "intervalDay": "Day",
+    "invervalWeek": "Week",
+    "intervalMonth": "Month",
+    "intervalYear": "Year",
+    "repeatDaysHeader": "Select days",
     "monday": "Mo",
     "tuesday": "Tu",
     "wednesday": "We",
@@ -206,22 +210,22 @@
     "friday": "Fr",
     "saturday": "Sa",
     "sunday": "Su",
-    "endSelectHeader": "select ending",
-    "endTypeOccurrences": "after occurrences",
-    "endTypeDate": "end date",
-    "endTypeNever": "never",
-    "occurrenceEndText": "number of occurrences: ",
-    "dateEndText": "end date",
+    "endSelectHeader": "Select ending",
+    "endTypeOccurrences": "After occurrences",
+    "endTypeDate": "End date",
+    "endTypeNever": "Never",
+    "occurrenceEndText": "Number of occurrences: ",
+    "dateEndText": "End date",
     "submitButtonText": "Ok",
-    "removeButtonText": "remove",
+    "removeButtonText": "Remove",
     "errNoWeekDaySelected": "No weekday selected",
     "errNoOccurrenceSelected": "No occurrence selected",
     "errNoEndDateSelected": "No end date selected",
-    "showRepetition": "repetition",
-    "showWeekDays": "on days",
-    "showOccurrences": "occurrences",
-    "showEndDate": "end date",
-    "showNoRecurrence": "does not repeat"
+    "showRepetition": "Repetition",
+    "showWeekDays": "On days",
+    "showOccurrences": "Occurrences",
+    "showEndDate": "End date",
+    "showNoRecurrence": "Does not repeat"
   },
 
   "deleteuser": {
