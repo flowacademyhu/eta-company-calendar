@@ -15,7 +15,7 @@ import { DeleteMeetingComponent } from './delete-meeting.component';
   <h3>{{ 'meetinglist.location' | translate }}</h3>
   <p>{{ 'location.' + meeting.location | translate }}</p>
 
-  <h3>{{'meetinglist.description' | translate}}</h3>
+  <h3>{{'meeting.description' | translate}}</h3>
   <p>{{ meeting.description }}</p>
 
   <h3>{{'meetinglist.recurring' | translate}}</h3>

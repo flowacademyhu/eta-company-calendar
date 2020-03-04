@@ -55,11 +55,11 @@
 
   "meeting": {
     "header": "esemény létrehozása",
-    "title": "Cím",
-    "titleError": "A cím megadása kötelező",
-    "description": "Leírás",
+    "title": "Tárgy",
+    "titleError": "A tárgy megadása kötelező",
+    "description": "Leírás / megjegyzés",
     "location": "Helyszín",
-    "otherLocation": "Egyéb",
+    "otherLocation": "Egyéb helyszín",
     "startingTime": "Kezdés",
     "finishTime": "Vége",
     "createdBy": "Szervező",
@@ -77,7 +77,7 @@
     "MEETING_ROOM": "Tárgyaló",
     "MARKS_OFFICE": "Márk irodája",
     "ARONS_OFFICE": "Áron irodája",
-    "OTHER": "Egyéb"
+    "OTHER": "- egyéb -"
   },
 
   "newuserform": {
@@ -107,7 +107,6 @@
   "reminderlist": {
     "id": "Id",
     "title": "Tárgy",
-    "description": "Leírás",
     "startingTime": "Kezdés",
     "endingTime": "Vége",
     "recurring": "Ismétlődés",
@@ -128,7 +127,6 @@
     "startingTime": "Kezdés",
     "finishTime": "Vége",
     "details": "Részletek",
-    "description": "Leírás",
     "location" : "Helyszín",
     "recurring": "Ismétlődés",
     "createdBy": "Létrehozta",

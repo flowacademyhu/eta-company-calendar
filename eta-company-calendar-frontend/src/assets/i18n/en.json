@@ -54,12 +54,12 @@
   },
 
   "meeting": {
-    "header": "create meeting",
-    "title": "Title",
-    "titleError": "Title is required",
-    "description": "Description",
+    "header": "create a meeting",
+    "title": "Subject",
+    "titleError": "Subject is required",
+    "description": "Description / comment",
     "location": "Location",
-    "otherLocation": "Other",
+    "otherLocation": "Other location",
     "startingTime": "From",
     "finishTime": "To",
     "createdBy": "Organizer",
@@ -77,7 +77,7 @@
     "MEETING_ROOM": "Meeting room",
     "MARKS_OFFICE": "Mark's office",
     "ARONS_OFFICE": "Aron's office",
-    "OTHER": "other"
+    "OTHER": "- other -"
   },
 
   "newuserform": {

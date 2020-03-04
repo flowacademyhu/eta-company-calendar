@@ -13,7 +13,7 @@ import { DeleteReminderComponent } from './delete-reminder.component';
     <p>{{reminder.title}} </p>
 </h1>
 <div mat-dialog-content>
-  <mat-label>{{'reminderlist.description' | translate}}</mat-label>
+  <mat-label>{{'meeting.description' | translate}}</mat-label>
   <p>{{ reminder.description }}</p>
   <hr/>
   <mat-label>{{'reminderlist.recurring' | translate}}</mat-label>
