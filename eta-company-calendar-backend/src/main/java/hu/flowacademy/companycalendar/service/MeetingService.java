@@ -88,7 +88,7 @@ public class MeetingService {
         String meetingDate = FORMATTER_TO_DATE.format(startingDate);
         String start = FORMATTER_TO_HOUR.format(startingDate);
         String finish = FORMATTER_TO_HOUR.format(meeting.getFinishTime());
-        String location = Location.OTHER.equals(dto.getLocation()) ? dto.getOtherLocation() : dto.getLocation().toString();
+        String location = Location.OTHER.equals(dto.getLocation().getRealName()) ? dto.getOtherLocation() : dto.getLocation().getRealName();
         String subject = Constants.NEW_MEETING;
 
         sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, true, EmailType.CREATE, subject);

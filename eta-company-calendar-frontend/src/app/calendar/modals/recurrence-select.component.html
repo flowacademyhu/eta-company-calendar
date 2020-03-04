@@ -1,14 +1,14 @@
 <form [formGroup]="recurrenceForm" (ngSubmit)="onSubmit()">
   <div class="d-flex flex-column">
     
-    <div class="m-1">
-      <mat-label>{{ 'recurrenceSelect.repeatInvervalHeader' | translate }}</mat-label>
-      <table class="example-full-width" cellspacing="0"><tr>
-        <td><mat-form-field class="number-input">
+    <div class="m-1" align="center" appearance="none">
+      <h4 align="center">{{ 'recurrenceSelect.repeatInvervalHeader' | translate | uppercase }}</h4>
+      <table class="number-input-first" cellspacing="0"><tr>
+        <td><mat-form-field class="number-input" appearance="none" align="center">
           <input matInput formControlName="interval" type="number" min="1">
         </mat-form-field></td>
-        <td><mat-form-field>
-          <mat-select formControlName="frequency">
+        <td><mat-form-field appearance="none" class="select-length" align="center">
+          <mat-select formControlName="frequency" align="center">
             <mat-option
               *ngFor="let freq of frequencyTypes; let i = index"
               [value]="freq.value"
@@ -16,22 +16,24 @@
           </mat-select>
         </mat-form-field></td>
       </tr></table>
+      <hr class="margin-align">
     </div>
-
+    <hr>
     <div class="m-1" *ngIf="recurrenceForm.get('frequency').value === 2">
-      <p>{{ 'recurrenceSelect.repeatDaysHeader' | translate }}</p>
-      <mat-chip-list multiple>
-        <mat-chip *ngFor="let day of weekDays" selectable="true"
+      <h4 align="center">{{ 'recurrenceSelect.repeatDaysHeader' | translate | uppercase }}</h4>
+      <mat-chip-list multiple class="chip-list">
+        <mat-chip class="chip" *ngFor="let day of weekDays" selectable="true"
                  [selected]="day.isSelected"
                  (click)="toggleWeekDay(day)">
           {{'recurrenceSelect.' + day.name | translate }}
         </mat-chip>
       </mat-chip-list>
+      <hr class="radio-hr-align">
     </div>
 
     <div class="m-1 mt-3">
-      <p>{{ 'recurrenceSelect.endSelectHeader' | translate }}</p>
-      <mat-radio-group  class="d-flex flex-row m-1" formControlName="endType">
+      <h4 align="center">{{ 'recurrenceSelect.endSelectHeader' | translate | uppercase}}</h4>
+      <mat-radio-group  class="radio d-flex flex-row m-1" formControlName="endType" align="center">
         <mat-radio-button class="m-1" *ngFor="let type of endTypes" [value]="type">
           {{'recurrenceSelect.' + type | translate }}
         </mat-radio-button>
@@ -40,16 +42,16 @@
 
     <div class="m-1" [ngSwitch]="recurrenceForm.get('endType').value">
 
-      <div *ngSwitchCase="'endTypeOccurrences'">
-        {{ 'recurrenceSelect.occurrenceEndText' | translate }}
-        <mat-form-field class="number-input" >
+      <div class="mb-3" align="center" *ngSwitchCase="'endTypeOccurrences'">
+        <mat-form-field class="number-input" appearance="none">
           <input matInput formControlName="occurrences" type="number" min="1">
         </mat-form-field>
+        {{ 'recurrenceSelect.occurrenceEndText' | translate }}
       </div>
 
-      <div *ngSwitchCase="'endTypeDate'" class="d-flex align-items-center">
+      <div *ngSwitchCase="'endTypeDate'" class="date-input d-flex align-items-center">
         <mat-form-field>
-          <mat-label >{{ 'recurrenceSelect.dateEndText' | translate }}</mat-label>
+          <mat-label >{{ 'recurrenceSelect.dateEndText' | translate | uppercase }}</mat-label>
           <input matInput
             formControlName="endDate"
             type="datetime" autocomplete="off"
@@ -59,7 +61,7 @@
         </mat-form-field>
         <mat-icon [owlDateTimeTrigger]="dt1">event</mat-icon> 
       </div>
-
+      <hr class="date-line">
     </div>
 
     <div class="m-1">
@@ -71,10 +73,10 @@
         >{{ 'recurrenceSelect.errNoEndDateSelected' | translate }}</mat-error>
     </div>
 
-    <div class="m-1 d-flex flex-row justify-content-between">
-      <button mat-button type="submit" [disabled]="recurrenceForm.invalid"
+    <div class="d-flex justify-content-between">
+      <button mat-stroked-button class="btn-block-first" type="submit" [disabled]="recurrenceForm.invalid"
         >{{ 'recurrenceSelect.submitButtonText' | translate }}</button>
-      <button mat-button (click)="onRemove(); $event.preventDefault()"
+      <button mat-stroked-button class="btn-block-second" (click)="onRemove(); $event.preventDefault()"
         >{{ 'recurrenceSelect.removeButtonText' | translate }}</button>
     </div>
 

@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { ReminderDetail } from '~/app/models/reminder-detail-model';
 import { ReminderService } from '~/app/reminder/service/reminder.service';
 import { DeleteReminderComponent } from './delete-reminder.component';
-
+// 44 62 80
 @Component({
   selector: 'reminder-details-modal',
   styleUrls: ['profil-view-dialog.component.scss'],

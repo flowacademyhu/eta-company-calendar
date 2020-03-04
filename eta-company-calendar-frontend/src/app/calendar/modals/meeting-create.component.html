@@ -25,10 +25,11 @@
       </mat-form-field>
   
       <mat-form-field class="alignment">
-        <mat-label>{{ 'meeting.location' | translate }}</mat-label>
+        <mat-label>{{ 'meeting.location' | translate }} *</mat-label>
         <mat-select formControlName="location">
           <mat-option *ngFor="let loc of locations" [value]="loc">{{ 'location.' + loc | translate }}</mat-option>
         </mat-select>
+        <mat-error>{{ 'meeting.location_error' | translate }}</mat-error>
       </mat-form-field>
   
       <mat-form-field *ngIf="isOtherLocation()">
