@@ -2,13 +2,9 @@ package hu.flowacademy.companycalendar.controller;
 
 
 import hu.flowacademy.companycalendar.model.Reminder;
-import hu.flowacademy.companycalendar.model.dto.MeetingCreateDTO;
-import hu.flowacademy.companycalendar.model.dto.MeetingListItemDTO;
-import hu.flowacademy.companycalendar.model.dto.ReminderCreateDTO;
 import hu.flowacademy.companycalendar.model.dto.ReminderCreateDTO;
 import hu.flowacademy.companycalendar.model.dto.ReminderDTO;
 import hu.flowacademy.companycalendar.model.dto.ReminderListItemDTO;
-import hu.flowacademy.companycalendar.model.dto.ReminderUpdateDTO;
 import hu.flowacademy.companycalendar.service.ReminderService;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -51,7 +47,6 @@ public class ReminderResource {
         return reminderService.findByUserIdAndTimeRange(userId, startingTimeFrom, startingTimeTo);
     }
 
-
     @PostMapping
     public Long createWithEmails(@RequestBody ReminderCreateDTO dto) {
         return reminderService.createWithEmails(dto);
@@ -68,5 +63,4 @@ public class ReminderResource {
         reminderService.deleteById(id);
         return ResponseEntity.ok().build();
     }
-
 }
