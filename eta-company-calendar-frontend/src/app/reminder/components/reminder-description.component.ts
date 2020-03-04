@@ -11,8 +11,9 @@ import { AuthService } from '~/app/shared/services/auth.service';
 @Component({
   selector: 'app-my-reminders-description',
   styles: [
+    'mat-card { width: 85%; background-color: rgb(230, 230, 240); }',
     'table { width: 85%; }',
-    'mat-paginator { width: 85%; }',
+    'mat-paginator { width: 85%; background-color: rgb(230, 230, 240); }',
     'th.mat-header-cell {text-align: center;}',
     'td.mat-cell {text-align: center;}',
   ],
@@ -60,12 +61,12 @@ import { AuthService } from '~/app/shared/services/auth.service';
 
     <button mat-icon-button matTooltip="{{ 'meetinglist.details' | translate }}"
       (click)="openDialog(reminder)">
-		  <mat-icon>
+		  <mat-icon color="primary">
          library_books
       </mat-icon>
     </button>
     <button mat-icon-button matTooltip="{{ 'meetinglist.delete' | translate }}"
-      color="warn" (click)="openDialogDelete(reminder.id)">
+      (click)="openDialogDelete(reminder.id)">
 		  <mat-icon>
          delete
       </mat-icon>

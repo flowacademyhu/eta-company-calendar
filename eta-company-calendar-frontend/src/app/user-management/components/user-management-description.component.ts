@@ -12,8 +12,9 @@ import { UserService } from '../service/user-service';
 @Component({
   selector: 'app-user-management-description',
   styles: [
+    'mat-card { width: 85%; background-color: rgb(230, 230, 240); }',
     'table { width: 85%; }',
-    'mat-paginator { width: 85%; }',
+    'mat-paginator { width: 85%; background-color: rgb(230, 230, 240); }',
     'th.mat-header-cell {text-align: center;}',
     'td.mat-cell {text-align: center;}',
   ],
@@ -23,15 +24,15 @@ import { UserService } from '../service/user-service';
       <div class="pl-4 d-flex justify-content-between">
         <h3 class="ml-5">{{'userlist.title' | translate | uppercase }}</h3>
         <div>
+        <button matTooltip="{{ 'newuserform.new_user' | translate }}" mat-icon-button (click)="openDialog()">
+          <mat-icon color="primary">
+            person_add
+          </mat-icon>
+          </button>
           <mat-form-field>
             <input matInput type="text" (keyup)="doFilter($event.target.value)"
               placeholder="{{ 'meetinglist.filter' | translate}}">
           </mat-form-field>
-          <button matTooltip="{{ 'newuserform.new_user' | translate }}" mat-icon-button (click)="openDialog()">
-            <mat-icon>
-              person_add
-            </mat-icon>
-          </button>
         </div>
         </div>
     </mat-card>
@@ -66,7 +67,7 @@ import { UserService } from '../service/user-service';
 
      <button mat-icon-button matTooltip="{{ 'userlist.edit' | translate }}"
       (click)="openDialogUpdate(user)">
-    <mat-icon aria-label="Update">
+    <mat-icon color="primary">
       create
     </mat-icon>
     </button>
