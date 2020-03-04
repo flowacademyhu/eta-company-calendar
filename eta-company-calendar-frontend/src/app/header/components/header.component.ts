@@ -55,8 +55,8 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
         border-color: black !important;
         width: 160px;}`,
   ],
-  template:
-  `<mat-toolbar class="tool-container mat-elevation-z6">
+  template: `
+  <mat-toolbar class="tool-container mat-elevation-z6">
     <span class="header1">
       <button mat-icon-button [matMenuTriggerFor] = "menu" fxShow="true" fxHide.gt-sm>
         <mat-icon>menu</mat-icon>
@@ -81,8 +81,16 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
           >{{'header.userManagement' | translate}}</a>
     </span>
       <div class="header2">
-      <a class="username">{{userName}}</a>
-        <button class="translate-button" (click)="onLanguageChange()">{{'header.button' | translate}}</button>
+      <mat-icon style="vertical-align: middle !important;" color="primary">
+         account_circle
+      </mat-icon>
+      <a class="username" matTooltip="{{ 'header.activeUserIcon' | translate }}">{{userName}}</a>
+        <button matTooltip="{{ 'header.languageChange' | translate }}{{'header.button' | translate }}"
+          class="translate-button" (click)="onLanguageChange()">
+          <mat-icon style="vertical-align: middle !important;" color="primary">
+            language
+          </mat-icon>
+        </button>
           <button class="logout-button" mat-stroked-button (click)="onLogout()" fxShow="true" fxHide.lt-md>
             {{'header.logout' | translate}}
           </button>

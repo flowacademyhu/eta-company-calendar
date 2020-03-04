@@ -34,10 +34,12 @@
     "button": "EN",
     "profile": "Profil",
     "calendar": "Naptár",
-    "meetings": "Értekezletek",
-    "reminders": "Emlékeztetők",
-    "userManagement": "Felhasználó kezelés",
-    "logout": "Kijelentkezés"
+    "meetings": "Értekezleteim",
+    "reminders": "Emlékeztetőim",
+    "userManagement": "Felhasználó-kezelés",
+    "logout": "Kijelentkezés",
+    "activeUserIcon": "Bejelentkezve mint:",
+    "languageChange": "Nyelv váltása -> "
   },
 
   "login": {
@@ -162,7 +164,7 @@
 
   "userlist": {
     "button": "Felhasználó lista",
-    "title": "Felhasználók listája",
+    "title": "Felhasználók",
     "id": "ID",
     "email": "E-mail cím",
     "role": "Szerepkör",
