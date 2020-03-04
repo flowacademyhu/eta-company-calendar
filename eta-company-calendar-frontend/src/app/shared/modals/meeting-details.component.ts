@@ -14,27 +14,32 @@ import { DeleteMeetingComponent } from './delete-meeting.component';
 
   <h3>{{ 'meetinglist.location' | translate }}</h3>
   <p>{{ 'location.' + meeting.location | translate }}</p>
+  <p *ngIf="meeting.otherLocation">{{ meeting.otherLocation }}</p>
 
-  <h3>{{'meetinglist.description' | translate}}</h3>
-  <p>{{ meeting.description }}</p>
+  <h3>{{'meeting.description' | translate}}</h3>
+  <p *ngIf="meeting.description; else noDescription">{{ meeting.description }}</p>
 
   <h3>{{'meetinglist.recurring' | translate}}</h3>
-  <p>{{ meeting.recurring }}</p>
+  <p *ngIf="meeting.recurring; else noDescription">{{ meeting.recurring }}</p>
 
   <h3>{{'meetinglist.startingTime' | translate}}</h3>
-  <p>{{ meeting.startingTime | date: 'yyyy-MM-dd HH:mm' }}</p>
+  <p>{{ meeting.startingTime | date: 'yyyy-MM-dd --- HH:mm' }}</p>
 
   <h3>{{'meetinglist.finishTime' | translate}}</h3>
-  <p>{{ meeting.finishTime | date: 'yyyy-MM-dd HH:mm' }}</p>
+  <p>{{ meeting.finishTime | date: 'yyyy-MM-dd --- HH:mm' }}</p>
 
   <h3>{{'meetinglist.createdBy' | translate}}</h3>
-  <p>{{ meeting.createdBy.email }}</p>
+  <p *ngIf="meeting.createdBy; else noDescription">{{ meeting.createdBy.name }} - ({{ meeting.createdBy.email }})</p>
+
+  <ng-template #noDescription>{{ 'meeting.noData' | translate }}</ng-template>
 
 </div>
-<button mat-stroked-button (click)="openDialogDelete()">{{ 'meetinglist.modify' | translate }}</button>
-<button mat-stroked-button (click)="openDialogDelete()" class="delete-button"
->{{ 'meetinglist.delete' | translate }}</button>
-<button mat-stroked-button (click)="onClose()" class="close-button">{{ 'meetinglist.modalClose' | translate }}</button>
+<button mat-stroked-button (click)="openDialogDelete()">
+  {{ 'meetinglist.modify' | translate }}</button>
+<button mat-stroked-button (click)="openDialogDelete()" class="delete-button">
+  {{ 'meetinglist.delete' | translate }}</button>
+<button mat-stroked-button (click)="onClose()" class="close-button">
+  {{ 'meetinglist.modalClose' | translate }}</button>
 
 	`
 })

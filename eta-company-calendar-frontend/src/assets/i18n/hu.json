@@ -34,10 +34,12 @@
     "button": "EN",
     "profile": "Profil",
     "calendar": "Naptár",
-    "meetings": "Értekezletek",
-    "reminders": "Emlékeztetők",
-    "userManagement": "Felhasználó kezelés",
-    "logout": "Kijelentkezés"
+    "meetings": "Értekezleteim",
+    "reminders": "Emlékeztetőim",
+    "userManagement": "Felhasználó-kezelés",
+    "logout": "Kijelentkezés",
+    "activeUserIcon": "Bejelentkezve mint:",
+    "languageChange": "Nyelv váltása -> "
   },
 
   "login": {
@@ -55,11 +57,12 @@
     "header": "Esemény létrehozása",
     "headerCreate": "esemény létrehozása",
     "headerModify": "esemény módosítása",
-    "title": "Cím",
-    "titleError": "A cím megadása kötelező",
-    "description": "Leírás",
+    "title": "Tárgy",
+    "titleError": "A tárgy megadása kötelező",
+    "description": "Leírás / megjegyzés",
     "location": "Helyszín",
-    "otherLocation": "Egyéb",
+    "location_error": "Helyszín megadása kötelező",
+    "otherLocation": "Egyéb helyszín",
     "startingTime": "Kezdés",
     "finishTime": "Vége",
     "createdBy": "Szervező",
@@ -72,7 +75,8 @@
     "submitButtonModify": "Módosítás",
     "cancelButton": "Mégse",
     "addRecurrence": "hozzáadás",
-    "modifyRecurrence": "módosítás"
+    "modifyRecurrence": "módosítás",
+    "noData": "- nincs megadva -"
   },
 
   "reminder": {
@@ -90,7 +94,7 @@
     "MEETING_ROOM": "Tárgyaló",
     "MARKS_OFFICE": "Márk irodája",
     "ARONS_OFFICE": "Áron irodája",
-    "OTHER": "Egyéb"
+    "OTHER": "- egyéb -"
   },
 
   "newuserform": {
@@ -120,7 +124,6 @@
   "reminderlist": {
     "id": "Id",
     "title": "Tárgy",
-    "description": "Leírás",
     "startingTime": "Kezdés",
     "endingTime": "Vége",
     "recurring": "Ismétlődés",
@@ -143,7 +146,6 @@
     "startingTime": "Kezdés",
     "finishTime": "Vége",
     "details": "Részletek",
-    "description": "Leírás",
     "location" : "Helyszín",
     "recurring": "Ismétlődés",
     "createdBy": "Létrehozta",
@@ -179,7 +181,7 @@
 
   "userlist": {
     "button": "Felhasználó lista",
-    "title": "Felhasználók listája",
+    "title": "Felhasználók",
     "id": "ID",
     "email": "E-mail cím",
     "role": "Szerepkör",
