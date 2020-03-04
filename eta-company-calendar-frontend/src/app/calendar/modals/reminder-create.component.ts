@@ -4,12 +4,14 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { Subject } from 'rxjs';
-import { ReminderDetail } from '~/app/models/reminder-detail-model';
+import { ReminderCreate } from '~/app/models/reminder-create.model';
+import { UserResponse } from '~/app/models/user-response.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
 export interface DialogData {
   startingTime: string;
   finishTime: string;
+  user: UserResponse;
 }
 
 @Component({
@@ -22,6 +24,7 @@ export class ReminderCreateComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
   private reminderForm: FormGroup;
   protected formMaxStartTime: Date = new Date(Number.MAX_VALUE);
+  protected rruleStr: string;
 
   constructor(private readonly api: ApiCommunicationService,
               @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
@@ -66,10 +69,11 @@ export class ReminderCreateComponent implements OnInit, OnDestroy {
   }
 
   private getreminderDetailFromForm() {
-    const reminderDetail: ReminderDetail = this.reminderForm.value;
-    reminderDetail.startingTime = reminderDetail.startingTime.valueOf();
+    const reminderCreateModel: ReminderCreate = this.reminderForm.value;
+    reminderCreateModel.startingTime = reminderCreateModel.startingTime.valueOf();
+    reminderCreateModel.createdBy = this.data.user.email;
     this.api.reminder()
-      .create(reminderDetail)
+      .postReminder(reminderCreateModel)
       .subscribe();
   }
 

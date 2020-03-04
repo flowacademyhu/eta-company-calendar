@@ -14,9 +14,9 @@ export class ReminderService {
     return this._reminderSub;
   }
 
-  public getRemindersByUserId(userid: number) {
+  public getRemindersByUserId(userId: number) {
      this.api.reminder()
-    .getRemindersByUserId(userid)
+    .getRemindersByUserId(userId)
     .subscribe((reminders: ReminderDetail[]) => {
       this._reminderSub.next(reminders); });
   }

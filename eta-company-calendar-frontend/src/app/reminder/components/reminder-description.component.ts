@@ -122,7 +122,7 @@ export class ReminderDescriptionComponent implements OnInit, AfterViewInit {
   public openDialog(reminder: ReminderDetail): void {
     this.dialog.open(ReminderDetailsModal, {
       width: '400px',
-      data: { reminderData: reminder, reminderId: reminder.id }
+      data: reminder
     });
   }
 
