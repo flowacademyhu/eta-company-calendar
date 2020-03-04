@@ -13,7 +13,7 @@ import { DeleteMeetingComponent } from './delete-meeting.component';
 <div mat-dialog-content>
 
   <h3>{{ 'meetinglist.location' | translate }}</h3>
-  <p *ngIf="meeting.location; else noDescription">{{ 'location.' + meeting.location | translate }}</p>
+  <p>{{ 'location.' + meeting.location | translate }}</p>
   <p *ngIf="meeting.otherLocation">{{ meeting.otherLocation }}</p>
 
   <h3>{{'meeting.description' | translate}}</h3>
