@@ -33,15 +33,12 @@ import { MeetingCreateComponent } from './meeting-create.component';
   </div>
 
   <app-attendants
-  *ngIf="meeting.requiredAttendants.length > 0 || meeting.optionalAttendants.length > 0"
-  [canModify]="false"
-  [currentUserId]="meeting.createdByUser"
-  [inputRequiredAttendantIds]="meeting.requiredAttendants"
-  [inputOptionalAttendantIds]="meeting.optionalAttendants"
-  ></app-attendants>
-
-  <h3>{{'meetinglist.createdBy' | translate}}</h3>
-  <p *ngIf="meeting.createdBy; else noDescription">{{ meeting.createdBy.name }} - ({{ meeting.createdBy.email }})</p>
+    *ngIf="meeting.requiredAttendants.length > 0 || meeting.optionalAttendants.length > 0"
+    [canModify]="false"
+    [currentUserId]="meeting.createdByUser"
+    [inputRequiredAttendantIds]="meeting.requiredAttendants"
+    [inputOptionalAttendantIds]="meeting.optionalAttendants"
+    ></app-attendants>
 
   <ng-template #noDescription>{{ 'meeting.noData' | translate }}</ng-template>
 
@@ -67,7 +64,7 @@ import { MeetingCreateComponent } from './meeting-create.component';
 
 	`
 })
-// *ngIf="loggedInUser.id === meeting.createdByUser"
+
 export class MeetingDetailsModal {
 
   public meeting: MeetingDetail;
