@@ -10,10 +10,21 @@ import { PasswordNotMatchingValidator } from './password-validator';
 
 @Component({
     selector: 'new-user-dialog',
-    styles: ['mat-form-field {width: 100%;}' ],
+    styles: [`
+    button {
+      border: 2px solid;
+      border-color: black !important;
+    }
+    mat-form-field {
+      width: 100%;
+    }
+    .create-button {
+      margin-right: 52%;
+    }
+  `],
     template: `
     <div>
-    <h1 align="center" mat-dialog-title>{{'newuserform.create_new_user' | translate}}</h1>
+    <h1 align="center" mat-dialog-title>{{'newuserform.create_new_user' | translate | uppercase}}</h1>
     <form [formGroup]="newUserForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill">
           <mat-label>{{'newuserform.role' | translate}}</mat-label>
@@ -59,10 +70,10 @@ import { PasswordNotMatchingValidator } from './password-validator';
       </mat-form-field>
       <br>
       <div class="d-flex justify-content-center">
-      <button mat-raised-button type="submit" name="submit"
+      <button class="create-button" mat-raised-button type="submit" name="submit"
       [disabled]="newUserForm.invalid">{{'newuserform.create' | translate}}</button>
       <button mat-raised-button type="button" name="cancel" (click)="onNoClick()"
-      class="ml-3">{{'newuserform.cancel' | translate}}</button>
+      >{{'newuserform.cancel' | translate}}</button>
       </div>
     </form>
     </div>`,

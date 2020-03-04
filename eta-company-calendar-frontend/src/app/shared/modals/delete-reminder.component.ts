@@ -6,15 +6,24 @@ import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'delete-reminder-dialog',
+    styles: [`
+    button {
+      border: 2px solid;
+      border-color: black !important;
+    }
+    .reminder-delete-button {
+      margin-left: 49%;
+    }
+  `],
     template: `
     <div>
-    <h1 align="center" mat-dialog-title>{{'deleteReminder.title' | translate}}</h1>
-    <mat-dialog-content>{{'deleteReminder.question' | translate}}</mat-dialog-content>
+    <h1 align="center" mat-dialog-title>{{'deleteReminder.title' | translate | uppercase}}</h1>
+    <mat-dialog-content align="center">{{'deleteReminder.question' | translate}}</mat-dialog-content>
     <br>
       <button mat-raised-button type="button" (click)="deleteReminder()">
       {{'deleteReminder.confirm' | translate}}</button>
-      <button mat-raised-button type="button" name="cancel" (click)="onNoClick()"
-        class="ml-3">{{'deleteReminder.cancel' | translate}}</button>
+      <button class="reminder-delete-button" mat-raised-button type="button" name="cancel" (click)="onNoClick()"
+      >{{'deleteReminder.cancel' | translate}}</button>
     </div>`,
   })
 

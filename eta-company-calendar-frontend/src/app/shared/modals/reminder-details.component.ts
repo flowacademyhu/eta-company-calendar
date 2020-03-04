@@ -9,21 +9,18 @@ import { DeleteReminderComponent } from './delete-reminder.component';
   selector: 'reminder-details-modal',
   styleUrls: ['profil-view-dialog.component.scss'],
   template: `
-  <h1>
-    <p>{{reminder.title}} </p>
-</h1>
+    <h2 class="reminder-title" align="center">{{reminder.title | uppercase}} </h2>
 <div mat-dialog-content>
-  <mat-label>{{'meeting.description' | translate}}</mat-label>
+  <h3 align="center">{{'reminderlist.description' | translate}}</h3>
   <p>{{ reminder.description }}</p>
   <hr/>
   <mat-label>{{'reminderlist.startingTime' | translate}}</mat-label>
   <p>{{ reminder.startingTime | date: 'yyyy-MM-dd HH:mm' }}</p>
   <hr/>
 </div>
-<div mat-dialog-actions>
 <button mat-stroked-button (click)="onClose()">{{ 'meetinglist.modalClose' | translate }}</button>
-<button mat-stroked-button (click)="openDialogDelete()">{{ 'meetinglist.delete' | translate }}</button>
-</div>
+<button class="reminder-close-button" mat-stroked-button (click)="openDialogDelete()"
+>{{ 'meetinglist.delete' | translate }}</button>
 	`
 })
 

@@ -6,15 +6,27 @@ import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'delete-meeting-dialog',
+    styles: [`
+    button {
+      border: 2px solid;
+      border-color: black !important;
+    }
+    .cancel-button {
+      margin-left: 49%;
+    }
+    .meeting-title {
+      font-weight: 450;
+    }
+  `],
     template: `
     <div>
-    <h1 align="center" mat-dialog-title>{{'deletemeeting.title' | translate}}</h1>
-    <mat-dialog-content>{{'deletemeeting.question' | translate}}</mat-dialog-content>
+    <h1 class="meeting-title" align="center" mat-dialog-title>{{'deletemeeting.title' | translate | uppercase}}</h1>
+    <mat-dialog-content align="center">{{'deletemeeting.question' | translate }}</mat-dialog-content>
     <br>
       <button mat-raised-button type="button" (click)="deleteMeeting()">
       {{'deletemeeting.confirm' | translate}}</button>
-      <button mat-raised-button type="button" name="cancel" (click)="onNoClick()"
-        class="ml-3">{{'deletemeeting.cancel' | translate}}</button>
+      <button class="cancel-button" mat-raised-button type="button" name="cancel" (click)="onNoClick()"
+      >{{'deletemeeting.cancel' | translate}}</button>
     </div>`,
   })
 
