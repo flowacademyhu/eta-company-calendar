@@ -19,14 +19,15 @@ import { DeleteMeetingComponent } from './delete-meeting.component';
   <h3>{{'meeting.description' | translate}}</h3>
   <p *ngIf="meeting.description; else noDescription">{{ meeting.description }}</p>
 
-  <h3>{{'meetinglist.recurring' | translate}}</h3>
-  <p *ngIf="meeting.recurring; else noDescription">{{ meeting.recurring }}</p>
-
   <h3>{{'meetinglist.startingTime' | translate}}</h3>
   <p>{{ meeting.startingTime | date: 'yyyy-MM-dd --- HH:mm' }}</p>
 
   <h3>{{'meetinglist.finishTime' | translate}}</h3>
   <p>{{ meeting.finishTime | date: 'yyyy-MM-dd --- HH:mm' }}</p>
+
+  <div *ngIf="meeting.rrule">
+    <app-recurrence-show [rruleStr]="meeting.rrule.rrule"></app-recurrence-show>
+  </div>
 
   <app-attendants
   *ngIf="meeting.requiredAttendants.length > 0 || meeting.optionalAttendants.length > 0"
