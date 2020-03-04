@@ -88,23 +88,9 @@ public class MeetingService {
         String meetingDate = FORMATTER_TO_DATE.format(startingDate);
         String start = FORMATTER_TO_HOUR.format(startingDate);
         String finish = FORMATTER_TO_HOUR.format(meeting.getFinishTime());
-        String loc = Location.OTHER.equals(dto.getLocation()) ? dto.getOtherLocation() : dto.getLocation().toString();
+        String location = Location.OTHER.equals(dto.getLocation().getRealName()) ? dto.getOtherLocation() : dto.getLocation().getRealName();
         String subject = Constants.NEW_MEETING;
-        String location = new String();
-        switch (loc) {
-            case "MEETING_ROOM":
-                location = "Tárgyaló";
-                break;
-            case "MARKS_OFFICE":
-                location = "Márk irodája";
-                break;
-            case "ARONS_OFFICE":
-                location = "Áron irodája";
-                break;
-            case "OTHER":
-                location = "Egyéb helyszín";
-                break;
-        }
+
         sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, true, EmailType.CREATE, subject);
         sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, false, EmailType.CREATE, subject);
         return meeting.getId();
