@@ -7,7 +7,6 @@ import { Subject } from 'rxjs';
 import { ReminderCreate } from '~/app/models/reminder-create.model';
 import { UserResponse } from '~/app/models/user-response.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
-import { AuthService } from '~/app/shared/services/auth.service';
 
 export interface DialogData {
   startingTime: string;
@@ -28,7 +27,6 @@ export class ReminderCreateComponent implements OnInit, OnDestroy {
   protected rruleStr: string;
 
   constructor(private readonly api: ApiCommunicationService,
-              private readonly auth: AuthService,
               @Inject(MAT_DIALOG_DATA) private readonly data: DialogData,
               protected readonly dateTimeAdapter: DateTimeAdapter<object>,
               private readonly dialogRef: MatDialogRef<ReminderCreateComponent>,
@@ -73,7 +71,7 @@ export class ReminderCreateComponent implements OnInit, OnDestroy {
   private getreminderDetailFromForm() {
     const reminderCreateModel: ReminderCreate = this.reminderForm.value;
     reminderCreateModel.startingTime = reminderCreateModel.startingTime.valueOf();
-    reminderCreateModel.createdBy = this.auth.tokenDetails.getValue().user_name;
+    reminderCreateModel.createdBy = this.data.user.email;
     this.api.reminder()
       .postReminder(reminderCreateModel)
       .subscribe();

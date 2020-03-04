@@ -56,7 +56,7 @@ import { EventReminderSelectorComponent } from '../modals/event-reminder-selecto
   </div>
     <div *ngIf="isUserLeader" class="dropdown">
       <mat-form-field appearance="none">
-        <mat-select  class="selector" [(value)]="selectedUser" (selectionChange)="fetchMeetings()">
+        <mat-select  class="selector" [(value)]="selectedUser" (selectionChange)="fetchEvents()">
         <mat-option class="self" [value]="loggedInUser">{{ 'calendar.self' | translate }}</mat-option>
           <mat-option
             *ngFor="let employee of (userEmployees$ | async)"
@@ -191,7 +191,9 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
 
   private fetchEvents() {
     this.api.event()
-      .getEventsByIdAndTimeRange(1, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+      .getEventsByIdAndTimeRange(this.selectedUser.id,
+                                 this.currentView.activeStart.valueOf(),
+                                 this.currentView.activeEnd.valueOf())
       .subscribe((res) => {
         this.calendarEvents = [];
         this.calendarEvents = this.calendarEvents.concat(res.map((event) => {
