@@ -32,7 +32,6 @@ import { DeleteMeetingComponent } from './delete-meeting.component';
 <button mat-stroked-button (click)="openDialogDelete()" class="delete-button"
 >{{ 'meetinglist.delete' | translate }}</button>
 <button mat-stroked-button (click)="onClose()" class="close-button">{{ 'meetinglist.modalClose' | translate }}</button>
-
 	`
 })
 
