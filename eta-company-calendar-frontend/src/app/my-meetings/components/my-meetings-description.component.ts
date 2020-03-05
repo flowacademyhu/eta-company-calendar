@@ -69,7 +69,7 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
          library_books
       </mat-icon>
     </button>
-    <button mat-icon-button [disabled]="loggedInUser.id === meeting.createdByUser"
+    <button mat-icon-button [disabled]="loggedInUser.id !== meeting.createdByUser"
       matTooltip="{{ 'meetinglist.delete' | translate }}" (click)="openDialogDelete(meeting.id)">
 		  <mat-icon>
          delete
