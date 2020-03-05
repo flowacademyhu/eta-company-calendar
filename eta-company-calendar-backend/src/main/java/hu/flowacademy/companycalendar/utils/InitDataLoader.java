@@ -41,13 +41,21 @@ public class InitDataLoader {
     createReminder();
   }
     private void createUsers() {
+      List<String> userNames = List.of("Csiha Admin", "Kószó Tamás", "Fábián Ferenc", "Csányi László",
+          "Mező János", "Molnár Dóra", "Kocsis Tamás", "Szűcs Nóra", "Plesa Tamás", "Urbán József");
+      List<String> userEmails = List.of("calendarcsiha@gmail.com", "ccalendar30@gmail.com",
+          "teszt_e@yahoo.com", "laszlojunior40@gmail.com", "bmcalendar00@gmail.com",
+          "molnaardora@gmail.com","csihakft1@gmail.com", "nori.szucs92@gmail.com",
+          "sandornagyflow95@gmail.com", "jozsef.urbn.88@gmail.com");
+
         var testUsers = userRepository.saveAll(
             IntStream.range(0, 10).mapToObj( i -> User.builder()
-                .email("user" + i + "@test.com")
-                .name("user" + i)
+                .email(userEmails.get(i))
+                .name(userNames.get(i))
                 .password(passwordEncoder.encode("user123"))
                 .role(i == 0 ? Roles.ADMIN : Roles.USER).build()).collect(Collectors.toList())
         );
+/*
         User calendarCsiha = User.builder()
             .email("calendarcsiha@gmail.com")
             .password("csiha")
@@ -63,12 +71,18 @@ public class InitDataLoader {
             .role(Roles.ADMIN)
             .build();
         userRepository.save(csalaoh);
+*/
 
         testUsers.forEach(user -> {
-            if (user.getId() == 2) {
+            if (user.getId() == 2 || user.getId() == 3) {
                 user.setRole(Roles.LEADER);
-            } else {
+            } else if (user.getId() % 2 == 0){
                 user.setLeader(testUsers.get(1));
+            } else {
+              user.setLeader(testUsers.get(2));
+            }
+            if(user.getRole() == Roles.ADMIN){
+              user.setLeader(null);
             }
         });
         userRepository.saveAll(testUsers);
