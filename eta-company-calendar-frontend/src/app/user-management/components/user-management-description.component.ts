@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { UserResponse } from '~/app/models/user-response.model';
@@ -103,7 +103,6 @@ export class UserManagementDescriptionComponent {
   public displayedColumns: string[] = ['name', 'email', 'role', 'leader', 'action' ];
   public dataSource: MatTableDataSource<UserResponse> = new MatTableDataSource<UserResponse>();
 
-  @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
 
   constructor(private readonly api: ApiCommunicationService,
@@ -124,7 +123,6 @@ export class UserManagementDescriptionComponent {
   }
 
   public ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
 

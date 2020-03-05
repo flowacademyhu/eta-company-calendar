@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
 import { UserResponse } from '~/app/models/user-response.model';
@@ -15,8 +15,8 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
     'mat-card { width: 85%; background-color: rgb(230, 230, 240); }',
     'table { width: 85%; table-layout: auto;}',
     'mat-paginator { width: 85%; background-color: rgb(230, 230, 240); }',
-    'th.mat-header-cell {text-align: left;}',
-    'td.mat-cell {text-align: left;}',
+    'th.mat-header-cell {text-align: center;}',
+    'td.mat-cell {text-align: center;}',
   ],
   template: `
   <div class="row justify-content-center mt-2">
@@ -96,7 +96,6 @@ export class MyMeetingsDescriptionComponent implements OnInit, AfterViewInit  {
   public displayedColumns: string[] = ['date', 'startingTime', 'finishTime', 'title', 'action'];
   public dataSource: MatTableDataSource<MeetingDetail> = new MatTableDataSource<MeetingDetail>();
 
-  @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
 
   constructor(private readonly api: ApiCommunicationService,
@@ -116,7 +115,6 @@ export class MyMeetingsDescriptionComponent implements OnInit, AfterViewInit  {
   }
 
   public ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
 
