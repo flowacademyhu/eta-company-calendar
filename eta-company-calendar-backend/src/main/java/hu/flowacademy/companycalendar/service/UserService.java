@@ -86,6 +86,9 @@ public class UserService {
           m.setRequiredAttendants(requiredAttendants);
         }).collect(Collectors.toList()));
     meetingRepository.deleteAll(meetingRepository.findByCreatedBy_Id(id));
+    if(user.getRole() == Roles.LEADER) {
+      removeLeaderFromUsers(user.getId());
+    }
     userRepository.deleteById(id);
   }
 
@@ -102,5 +105,13 @@ public class UserService {
         .stream()
         .map(UserResponseDTO::new)
         .collect(Collectors.toList());
+  }
+
+  private void removeLeaderFromUsers(Long leaderId) {
+    userRepository.saveAll(userRepository
+        .findByLeaderId(leaderId)
+        .stream()
+        .peek((user) -> user.setLeader(null))
+        .collect(Collectors.toList()));
   }
 }
