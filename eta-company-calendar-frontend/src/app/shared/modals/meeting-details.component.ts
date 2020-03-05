@@ -2,8 +2,11 @@ import { Component, Inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
+import { UserResponse } from '~/app/models/user-response.model';
 import { MeetingService } from '~/app/my-meetings/service/meeting.service';
+import { AuthService } from '../services/auth.service';
 import { DeleteMeetingComponent } from './delete-meeting.component';
+import { MeetingCreateComponent } from './meeting-create.component';
 
 @Component({
   selector: 'meeting-details-modal',
@@ -19,22 +22,45 @@ import { DeleteMeetingComponent } from './delete-meeting.component';
   <h3>{{'meeting.description' | translate}}</h3>
   <p *ngIf="meeting.description; else noDescription">{{ meeting.description }}</p>
 
-  <h3>{{'meetinglist.recurring' | translate}}</h3>
-  <p *ngIf="meeting.recurring; else noDescription">{{ meeting.recurring }}</p>
-
   <h3>{{'meetinglist.startingTime' | translate}}</h3>
   <p>{{ meeting.startingTime | date: 'yyyy-MM-dd --- HH:mm' }}</p>
 
   <h3>{{'meetinglist.finishTime' | translate}}</h3>
   <p>{{ meeting.finishTime | date: 'yyyy-MM-dd --- HH:mm' }}</p>
 
+  <div *ngIf="meeting.rrule">
+    <app-recurrence-show [rruleStr]="meeting.rrule.rrule"></app-recurrence-show>
+  </div>
+
+  <app-attendants
+    *ngIf="meeting.requiredAttendants.length > 0 || meeting.optionalAttendants.length > 0"
+    [canModify]="false"
+    [currentUserId]="meeting.createdByUser"
+    [inputRequiredAttendantIds]="meeting.requiredAttendants"
+    [inputOptionalAttendantIds]="meeting.optionalAttendants"
+    ></app-attendants>
+
+  <ng-template #noDescription>{{ 'meeting.noData' | translate }}</ng-template>
+
 </div>
-<button mat-stroked-button (click)="openDialogDelete()">
-  {{ 'meetinglist.modify' | translate }}</button>
-<button mat-stroked-button (click)="openDialogDelete()" class="delete-button">
-  {{ 'meetinglist.delete' | translate }}</button>
-<button mat-stroked-button (click)="onClose()" class="close-button">
-  {{ 'meetinglist.modalClose' | translate }}</button>
+
+<div class="d-flex justify-content-between">
+  <button mat-stroked-button
+  *ngIf="loggedInUser.id === meeting.createdByUser"
+  (click)="openDialogModify()"
+  >{{ 'meetinglist.modify' | translate }}</button>
+
+  <button mat-stroked-button
+  *ngIf="loggedInUser.id === meeting.createdByUser"
+  (click)="openDialogDelete()"
+  class="delete-button"
+  >{{ 'meetinglist.delete' | translate }}</button>
+
+  <div class="flex-grow-1"></div>
+
+  <button mat-stroked-button (click)="onClose()">
+    {{ 'meetinglist.modalClose' | translate }}</button>
+</div>
 
 	`
 })
@@ -42,6 +68,7 @@ import { DeleteMeetingComponent } from './delete-meeting.component';
 export class MeetingDetailsModal {
 
   public meeting: MeetingDetail;
+  private loggedInUser: UserResponse;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -49,14 +76,24 @@ export class MeetingDetailsModal {
     public dialogRef: MatDialogRef<MeetingDetailsModal>,
     private readonly snackBar: MatSnackBar,
     private readonly dialog: MatDialog,
-    public readonly meetingService: MeetingService) {}
+    public readonly meetingService: MeetingService,
+    private readonly auth: AuthService) {}
 
     public ngOnInit() {
+      this.setLoggedInUser();
       this.meeting = this.meetingData.meetingData;
     }
 
   public onClose(): void {
     this.dialogRef.close();
+  }
+
+  public openDialogModify(): void {
+    this.dialog.closeAll();
+    this.dialog.open(MeetingCreateComponent, {
+      data: { user: this.loggedInUser, meetingDetail: this.meeting },
+      width: '500px',
+    });
   }
 
   public openDialogDelete(): void {
@@ -71,6 +108,15 @@ export class MeetingDetailsModal {
     this.snackBar.open(`${message}`, undefined, {
     duration: 2000
     });
+  }
+
+  private setLoggedInUser() {
+    const tokenDetails = this.auth.tokenDetails.getValue();
+    this.loggedInUser = {
+      email: tokenDetails.user_name,
+      id: tokenDetails.id,
+      role: tokenDetails.authorities[0]
+    };
   }
 }
 

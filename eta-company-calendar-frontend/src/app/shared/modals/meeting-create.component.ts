@@ -134,7 +134,6 @@ export class MeetingCreateComponent implements OnInit, OnDestroy {
     meetingDetail.finishTime = meetingDetail.finishTime.valueOf();
     meetingDetail.requiredAttendants = this.requiredAttendantIds;
     meetingDetail.optionalAttendants = this.optionalAttendantIds;
-    meetingDetail.createdBy = this.data.user.email;
     meetingDetail.createdByUser = this.data.user.id;
     meetingDetail.rrule = this.addRecurrence();
     if (this.modifyMeetingDetail) {

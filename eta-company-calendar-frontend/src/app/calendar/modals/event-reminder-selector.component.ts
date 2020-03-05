@@ -3,8 +3,8 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { EventInput } from '@fullcalendar/core';
 import { Observable } from 'rxjs';
 import { UserResponse } from '~/app/models/user-response.model';
-import { MeetingCreateComponent } from './meeting-create.component';
-import { ReminderCreateComponent } from './reminder-create.component';
+import { MeetingCreateComponent } from '~/app/shared/modals/meeting-create.component';
+import { ReminderCreateComponent } from '~/app/shared/modals/reminder-create.component';
 
 @Component({
   selector: 'app-event-reminder-selector',

@@ -161,7 +161,7 @@ export class AttendantsComponent implements OnInit {
   private createUserTextFromUser(user: UserResponse) {
     const username = user.name ? user.name : '';
     const email = user.email;
-    return `${email} (${username})`;
+    return `${username} (${email})`;
   }
 
   private _filterUser(value: string): string[] {
@@ -188,10 +188,10 @@ export class AttendantsComponent implements OnInit {
   private fillMatChipFromInputIds(users: UserResponse[]) {
     this.requiredAttendants = users
       .filter((user) => this.inputRequiredAttendantIds.indexOf(user.id) >= 0)
-      .map((user) => user.email);
+      .map(this.createUserTextFromUser);
     this.optionalAttendants = users
       .filter((user) => this.inputOptionalAttendantIds.indexOf(user.id) >= 0)
-      .map((user) => user.email);
+      .map(this.createUserTextFromUser);
   }
 
   private filterOutInputtedUsers(user: UserResponse) {
