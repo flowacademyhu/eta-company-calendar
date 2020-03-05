@@ -8,6 +8,7 @@ import { DeleteUserComponent } from '../modals/delete-user.component';
 import { EditUserComponent } from '../modals/edit-user.component';
 import { NewUserComponent } from '../modals/new-user.component';
 import { UserService } from '../service/user-service';
+import { AuthService } from './../../shared/services/auth.service';
 
 @Component({
   selector: 'app-user-management-description',
@@ -39,7 +40,7 @@ import { UserService } from '../service/user-service';
   </div>
 
   <div class="pt-1 row justify-content-center">
-  <table mat-table [dataSource]="dataSource" matSort matSortActive="name"
+  <table mat-table [dataSource]="dataSource" matSort matSortActive="role"
     matSortDirection="desc" class="mat-elevation-z8">
 
   <ng-container matColumnDef="name">
@@ -73,8 +74,8 @@ import { UserService } from '../service/user-service';
     </mat-icon>
     </button>
 
-    <button mat-icon-button matTooltip="{{ 'userlist.delete' | translate }}"
-      color="warn" (click)="openDialogDelete(user.id)">
+    <button mat-icon-button #tooltip="matTooltip" matTooltip="{{ 'userlist.delete' | translate }}"
+      [disabled]="loggedInUser.id === user.id" color="warn" (click)="openDialogDelete(user.id)">
     <mat-icon aria-label="Delete Icon">
       delete
     </mat-icon>
@@ -88,7 +89,7 @@ import { UserService } from '../service/user-service';
 </table>
 <mat-paginator class="mat-elevation-z8"
   [pageSize]="10"
-  [pageSizeOptions]="[5, 10, 20]"
+  [pageSizeOptions]="[5, 10, 20, 50]"
   showFirstLastButtons
   >
 </mat-paginator>
@@ -96,6 +97,8 @@ import { UserService } from '../service/user-service';
   `,
 })
 export class UserManagementDescriptionComponent {
+
+  protected loggedInUser: UserResponse;
   protected users$: Observable<UserResponse[]>;
   public displayedColumns: string[] = ['name', 'email', 'role', 'leader', 'action' ];
   public dataSource: MatTableDataSource<UserResponse> = new MatTableDataSource<UserResponse>();
@@ -104,6 +107,7 @@ export class UserManagementDescriptionComponent {
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator;
 
   constructor(private readonly api: ApiCommunicationService,
+              private readonly auth: AuthService,
               private readonly userService: UserService,
               private readonly snackBar: MatSnackBar,
               private readonly dialog: MatDialog) {
@@ -112,6 +116,7 @@ export class UserManagementDescriptionComponent {
               }
 
   public ngOnInit() {
+    this.setLoggedInUser();
     this.userService.getAllUsers();
     this.dataSource.paginator = this.paginator;
     this.userService.userSub
@@ -141,11 +146,6 @@ export class UserManagementDescriptionComponent {
     });
   }
 
-  /* public openDialogProfile(id: number) {
-    this.dialog.open(ProfilViewDialog, {
-      data: id, });
-    } */
-
   public openDialogDelete(id: number): void {
     this.dialog.open(DeleteUserComponent, {
       data: id,
@@ -157,6 +157,15 @@ export class UserManagementDescriptionComponent {
     this.dialog.open(NewUserComponent, {
       width: '400px',
     });
+  }
+
+  private setLoggedInUser() {
+    const tokenDetails = this.auth.tokenDetails.getValue();
+    this.loggedInUser = {
+      email: tokenDetails.user_name,
+      id: tokenDetails.id,
+      role: tokenDetails.authorities[0]
+    };
   }
 
 }
