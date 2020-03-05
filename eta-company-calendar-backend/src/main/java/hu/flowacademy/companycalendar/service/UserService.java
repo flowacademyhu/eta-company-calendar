@@ -61,6 +61,9 @@ public class UserService {
       user.setEmail(userRequestDTO.getEmail());
     }
     if (userRequestDTO.getRole() != null) {
+      if (user.getRole() == Roles.LEADER && user.getRole() != userRequestDTO.getRole()) {
+        removeLeaderFromUsers(user.getId());
+      }
       user.setRole(userRequestDTO.getRole());
     }
     if(userRequestDTO.getLeaderId() == null){
