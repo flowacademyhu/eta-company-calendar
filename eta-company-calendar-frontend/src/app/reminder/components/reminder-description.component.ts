@@ -14,6 +14,9 @@ import { AuthService } from '~/app/shared/services/auth.service';
     'mat-card { width: 85%; background-color: rgb(230, 230, 240); }',
     'table { width: 85%; }',
     'mat-paginator { width: 85%; background-color: rgb(230, 230, 240); }',
+    'th.mat-header-cell:first-child, mat-cell:first-child {width:25%;}',
+    'th.mat-header-cell:nth-child(2), mat-cell:nth-child(2) {width:25%;}',
+    'th.mat-header-cell:last-child, mat-cell:last-child {width:10%;}',
   ],
   template: `
   <div class="row justify-content-center mt-2">
