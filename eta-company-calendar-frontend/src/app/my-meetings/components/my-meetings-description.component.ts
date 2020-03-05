@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs';
 import { MeetingDetail } from '~/app/models/meeting-detail.model';
+import { UserResponse } from '~/app/models/user-response.model';
 import { MeetingService } from '~/app/my-meetings/service/meeting.service';
 import { DeleteMeetingComponent } from '~/app/shared/modals/delete-meeting.component';
 import { MeetingDetailsModal } from '~/app/shared/modals/meeting-details.component.ts';
@@ -72,8 +73,8 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
          library_books
       </mat-icon>
     </button>
-    <button mat-icon-button matTooltip="{{ 'meetinglist.delete' | translate }}"
-      (click)="openDialogDelete(meeting.id)">
+    <button mat-icon-button [disabled]="loggedInUser.id !== meeting.createdByUser"
+      matTooltip="{{ 'meetinglist.delete' | translate }}" (click)="openDialogDelete(meeting.id)">
 		  <mat-icon>
          delete
       </mat-icon>
@@ -94,6 +95,7 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
 })
 export class MyMeetingsDescriptionComponent implements OnInit, AfterViewInit  {
 
+  protected loggedInUser: UserResponse;
   protected meetings$: Observable<MeetingDetail[]>;
   public displayedColumns: string[] = ['date', 'startingTime', 'finishTime', 'title', 'action'];
   public dataSource: MatTableDataSource<MeetingDetail> = new MatTableDataSource<MeetingDetail>();
@@ -110,6 +112,7 @@ export class MyMeetingsDescriptionComponent implements OnInit, AfterViewInit  {
               }
 
   public ngOnInit() {
+    this.setLoggedInUser();
     this.meetingService.getMeetingsByInvitation(this.auth.tokenDetails.getValue().id);
     this.dataSource.paginator = this.paginator;
     this.meetingService.meetingSub
@@ -144,5 +147,14 @@ export class MyMeetingsDescriptionComponent implements OnInit, AfterViewInit  {
       data: id,
       width: '400px',
     });
+  }
+
+  private setLoggedInUser() {
+    const tokenDetails = this.auth.tokenDetails.getValue();
+    this.loggedInUser = {
+      email: tokenDetails.user_name,
+      id: tokenDetails.id,
+      role: tokenDetails.authorities[0]
+    };
   }
 }

@@ -56,7 +56,7 @@ public class User implements UserDetails {
   @JsonIgnore
   private User leader;
 
-  @OneToMany(mappedBy = "leader", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+  @OneToMany(mappedBy = "leader")
   @JsonIgnore
   private List<User> employees;
 

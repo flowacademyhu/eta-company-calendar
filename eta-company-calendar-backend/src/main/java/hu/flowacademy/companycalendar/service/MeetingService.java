@@ -134,7 +134,7 @@ public class MeetingService {
         String meetingDate = FORMATTER_TO_DATE.format(startingDate);
         String start = FORMATTER_TO_HOUR.format(startingDate);
         String finish = FORMATTER_TO_HOUR.format(existingMeeting.getFinishTime());
-        String location = Location.OTHER.equals(existingMeeting.getLocation()) ? existingMeeting.getOtherLocation() : existingMeeting.getLocation().toString();
+        String location = Location.OTHER.equals(existingMeeting.getLocation().getRealName()) ? existingMeeting.getOtherLocation() : existingMeeting.getLocation().getRealName();
         String subject = Constants.UPDATE_MEETING;
         sendMeetingEmailForAttendants(existingMeeting, meetingDate, start, finish, location, true, EmailType.UPDATE, subject);
         sendMeetingEmailForAttendants(existingMeeting, meetingDate, start, finish, location, false, EmailType.UPDATE, subject);
@@ -148,7 +148,7 @@ public class MeetingService {
         String meetingDate = FORMATTER_TO_DATE.format(startingDate);
         String start = FORMATTER_TO_HOUR.format(startingDate);
         String finish = FORMATTER_TO_HOUR.format(meetingToDelete.getFinishTime());
-        String location = Location.OTHER.equals(meetingToDelete.getLocation()) ? meetingToDelete.getOtherLocation() : meetingToDelete.getLocation().toString();
+        String location = Location.OTHER.equals(meetingToDelete.getLocation().getRealName()) ? meetingToDelete.getOtherLocation() : meetingToDelete.getLocation().getRealName();
         String subject = Constants.DELETE_MEETING;
         sendMeetingEmailForAttendants(meetingToDelete, meetingDate, start, finish, location, true, EmailType.DELETE, subject);
         sendMeetingEmailForAttendants(meetingToDelete, meetingDate, start, finish, location, false, EmailType.DELETE, subject);
