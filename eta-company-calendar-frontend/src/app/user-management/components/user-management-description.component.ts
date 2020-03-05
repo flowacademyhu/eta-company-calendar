@@ -14,7 +14,10 @@ import { UserService } from '../service/user-service';
   styles: [
     'mat-card { width: 85%; background-color: rgb(230, 230, 240); }',
     'table { width: 85%; }',
-    'mat-paginator { width: 85%; background-color: rgb(230, 230, 240); }',  ],
+    'mat-paginator { width: 85%; background-color: rgb(230, 230, 240); }',
+    'th.mat-header-cell:last-child, mat-cell:last-child {width:10%;}',
+    'td.mat-cell {text-align: left;}',
+  ],
   template: `
   <div class="row justify-content-center mt-2">
     <mat-card style="width:85%">
@@ -55,9 +58,9 @@ import { UserService } from '../service/user-service';
   </ng-container>
 
   <ng-container matColumnDef="leader">
-  <th mat-header-cell *matHeaderCellDef  class="column" mat-sort-header> {{'userlist.leader' | translate}} </th>
-  <td mat-cell *matCellDef="let user"> {{user.leaderName}} </td>
-</ng-container>
+    <th mat-header-cell *matHeaderCellDef  class="column" mat-sort-header> {{'userlist.leader' | translate}} </th>
+    <td mat-cell *matCellDef="let user"> {{user.leaderName}} </td>
+  </ng-container>
 
   <ng-container matColumnDef="action" >
     <th mat-header-cell *matHeaderCellDef class="text-center">{{'userlist.action' | translate}}</th>
