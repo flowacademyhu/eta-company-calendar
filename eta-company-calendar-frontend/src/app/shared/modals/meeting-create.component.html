@@ -2,7 +2,7 @@
   <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
     <div class="d-flex flex-column">
 
-      <div class="d-flex justify-content-center" *ngIf="!modifyMeetingDetail">
+      <div class="meeting-header-title d-flex justify-content-center" *ngIf="!modifyMeetingDetail">
         <h4>{{ 'meeting.headerCreate' | translate | uppercase }}</h4>
       </div>
       <div class="d-flex justify-content-center" *ngIf="modifyMeetingDetail">

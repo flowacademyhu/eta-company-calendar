@@ -136,6 +136,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit() {
+    this.setCalendarLang(this.translate.currentLang);
     this.translate.onLangChange
       .pipe(takeUntil(this.destroy$))
       .subscribe((params) => {

@@ -87,7 +87,7 @@ import { ProfilViewDialog } from '../../shared/modals/profil-view-dialog.compone
         matTooltip="{{ 'header.activeUserIcon' | translate }}" matTooltipPosition="before">
          account_circle
       </mat-icon>
-      <a class="username">  {{userName}}</a>
+      <a class="username">  {{userName | uppercase}}</a>
         <button matTooltip="{{ 'header.languageChange' | translate }}{{'header.button' | translate }}"
         matTooltipPosition="before" class="translate-button" (click)="onLanguageChange()">
           <mat-icon color="primary">

@@ -13,16 +13,13 @@ import { UserService } from '../service/user-service';
   selector: 'app-user-management-description',
   styles: [
     'mat-card { width: 85%; background-color: rgb(230, 230, 240); }',
-    'table { width: 85%; }',
-    'mat-paginator { width: 85%; background-color: rgb(230, 230, 240); }',
-    'th.mat-header-cell {text-align: center;}',
-    'td.mat-cell {text-align: center;}',
-  ],
+    'table { width: 85%; table-layout: auto;}',
+    'mat-paginator { width: 85%; background-color: rgb(230, 230, 240); }',  ],
   template: `
   <div class="row justify-content-center mt-2">
     <mat-card style="width:85%">
-      <div class="pl-4 d-flex justify-content-between">
-        <h3 class="ml-5">{{'userlist.title' | translate | uppercase }}</h3>
+      <div class="pl-2 d-flex justify-content-between">
+        <h3>{{'userlist.title' | translate | uppercase }}</h3>
         <div>
         <button matTooltip="{{ 'newuserform.new_user' | translate }}" mat-icon-button (click)="openDialog()">
           <mat-icon color="primary">
@@ -39,11 +36,11 @@ import { UserService } from '../service/user-service';
   </div>
 
   <div class="pt-1 row justify-content-center">
-  <table mat-table [dataSource]="dataSource" matSort
+  <table mat-table [dataSource]="dataSource" matSort matSortActive="name"
     matSortDirection="desc" class="mat-elevation-z8">
 
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef  class="column" mat-sort-header > {{'userlist.name' | translate}} </th>
+    <th mat-header-cell *matHeaderCellDef  class="column" mat-sort-header> {{'userlist.name' | translate}} </th>
     <td mat-cell *matCellDef="let user"> {{user.name}} </td>
   </ng-container>
 

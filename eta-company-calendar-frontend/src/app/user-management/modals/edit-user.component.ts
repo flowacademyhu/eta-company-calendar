@@ -10,10 +10,21 @@ import { PasswordNotMatchingValidator } from './password-validator';
 
 @Component({
     selector: 'edit-user-dialog',
-    styles: ['mat-form-field {width: 100%;}' ],
+    styles: [`
+    button {
+      border: 2px solid;
+      border-color: black !important;
+    }
+    .modify-button {
+      margin-right: 33%;
+    }
+    mat-form-field {
+      width: 100%;
+    }
+  `],
     template: `
     <div>
-    <h1 align="center" mat-dialog-title>{{'edituserform.edit_user' | translate}}</h1>
+    <h1 align="center" mat-dialog-title>{{'edituserform.edit_user' | translate | uppercase}}</h1>
     <form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill">
           <mat-label>{{'edituserform.role' | translate}}</mat-label>
@@ -60,10 +71,10 @@ import { PasswordNotMatchingValidator } from './password-validator';
       </mat-form-field>
       <br>
       <div class="d-flex justify-content-center">
-      <button mat-raised-button type="submit" name="submit"
+      <button class="modify-button" mat-raised-button type="submit" name="submit"
       [disabled]="editUserForm.invalid">{{'edituserform.edit_user' | translate}}</button>
-      <button mat-raised-button type="button" name="cancel" (click)="onNoClick()"
-      class="ml-3">{{'edituserform.cancel' | translate}}</button>
+      <button class="cancel-button" mat-raised-button type="button" name="cancel" (click)="onNoClick()"
+      >{{'edituserform.cancel' | translate}}</button>
       </div>
     </form>
     </div>`,

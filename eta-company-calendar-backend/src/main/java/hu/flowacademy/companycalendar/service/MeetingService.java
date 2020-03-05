@@ -61,9 +61,9 @@ public class MeetingService {
             .stream().map(MeetingListItemDTO::new).collect(Collectors.toList());
     }
 
-    public List<MeetingDTO> findByUserId(Long userId) {
+    public List<MeetingCreateDTO> findByUserId(Long userId) {
         return meetingRepository.findByInvitedUserId(userId)
-            .stream().map(MeetingDTO::new).collect(Collectors.toList());
+            .stream().map(MeetingCreateDTO::new).collect(Collectors.toList());
     }
 
     public Meeting create(MeetingCreateDTO dto) {
@@ -88,7 +88,7 @@ public class MeetingService {
         String meetingDate = FORMATTER_TO_DATE.format(startingDate);
         String start = FORMATTER_TO_HOUR.format(startingDate);
         String finish = FORMATTER_TO_HOUR.format(meeting.getFinishTime());
-        String location = Location.OTHER.equals(dto.getLocation()) ? dto.getOtherLocation() : dto.getLocation().toString();
+        String location = Location.OTHER.equals(dto.getLocation().getRealName()) ? dto.getOtherLocation() : dto.getLocation().getRealName();
         String subject = Constants.NEW_MEETING;
 
         sendMeetingEmailForAttendants(meeting, meetingDate, start, finish, location, true, EmailType.CREATE, subject);
