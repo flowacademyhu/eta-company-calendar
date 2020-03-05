@@ -13,7 +13,7 @@ import { UserService } from '../service/user-service';
   selector: 'app-user-management-description',
   styles: [
     'mat-card { width: 85%; background-color: rgb(230, 230, 240); }',
-    'table { width: 85%; table-layout: auto;}',
+    'table { width: 85%; }',
     'mat-paginator { width: 85%; background-color: rgb(230, 230, 240); }',  ],
   template: `
   <div class="row justify-content-center mt-2">

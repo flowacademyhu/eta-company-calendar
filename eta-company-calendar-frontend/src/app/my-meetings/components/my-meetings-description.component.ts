@@ -14,14 +14,12 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
     'mat-card { width: 85%; background-color: rgb(230, 230, 240); }',
     'table { width: 85%; }',
     'mat-paginator { width: 85%; background-color: rgb(230, 230, 240); }',
-    'th.mat-header-cell {text-align: center;}',
-    'td.mat-cell {text-align: center;}',
   ],
   template: `
   <div class="row justify-content-center mt-2">
     <mat-card>
-      <div class="pl-4 d-flex justify-content-between">
-        <h3 class="ml-5" >{{'meetinglist.myMeetings' | translate | uppercase }}</h3>
+      <div class="pl-2 d-flex justify-content-between">
+        <h3>{{'meetinglist.myMeetings' | translate | uppercase }}</h3>
           <mat-form-field>
             <input matInput type="text" (keyup)="doFilter($event.target.value)"
               placeholder="{{ 'meetinglist.filter' | translate}}">
@@ -32,7 +30,9 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
 
 <div class="pt-1 row justify-content-center">
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort matSortActive="date"
+  matSortDirection="asc"
+   class="mat-elevation-z8">
 
   <ng-container matColumnDef="date">
     <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header>{{ 'meetinglist.date' | translate }}</th>
@@ -40,25 +40,25 @@ import { ApiCommunicationService } from './../../shared/services/api-communicati
   </ng-container>
 
   <ng-container matColumnDef="startingTime">
-    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header>
+    <th mat-header-cell *matHeaderCellDef class="text-center">
       {{ 'meetinglist.startingTime' | translate }}</th>
     <td mat-cell *matCellDef="let meeting">{{meeting.startingTime | date: 'HH:mm'}}</td>
   </ng-container>
 
   <ng-container matColumnDef="finishTime">
-    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header>
+    <th mat-header-cell *matHeaderCellDef class="text-center">
       {{ 'meetinglist.finishTime' | translate }}</th>
     <td mat-cell *matCellDef="let meeting">{{meeting.finishTime | date: 'HH:mm'}}</td>
   </ng-container>
 
   <ng-container matColumnDef="title">
-    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header>
+    <th mat-header-cell *matHeaderCellDef class="text-center">
       {{ 'meetinglist.title' | translate }}</th>
     <td mat-cell *matCellDef="let meeting">{{meeting.title}}</td>
   </ng-container>
 
   <ng-container matColumnDef="action">
-    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header>
+    <th mat-header-cell *matHeaderCellDef class="text-center">
       {{ 'userlist.action' | translate }}</th>
     <td mat-cell *matCellDef="let meeting">
 
@@ -115,6 +115,12 @@ export class MyMeetingsDescriptionComponent implements OnInit, AfterViewInit  {
   public ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'date': return new Date(item.startingTime);
+        default: return item[property];
+      }
+    };
   }
 
   public doFilter = (value: string) => {

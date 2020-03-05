@@ -14,14 +14,12 @@ import { AuthService } from '~/app/shared/services/auth.service';
     'mat-card { width: 85%; background-color: rgb(230, 230, 240); }',
     'table { width: 85%; }',
     'mat-paginator { width: 85%; background-color: rgb(230, 230, 240); }',
-    'th.mat-header-cell {text-align: center;}',
-    'td.mat-cell {text-align: center;}',
   ],
   template: `
   <div class="row justify-content-center mt-2">
     <mat-card style="width:85%">
-      <div class="pl-4 d-flex justify-content-between">
-        <h3 class="ml-5" >{{'reminderlist.myReminders' | translate | uppercase}}</h3>
+      <div class="pl-2 d-flex justify-content-between">
+        <h3>{{'reminderlist.myReminders' | translate | uppercase}}</h3>
           <mat-form-field>
             <input matInput type="text" (keyup)="doFilter($event.target.value)"
               placeholder="{{ 'meetinglist.filter' | translate}}">
@@ -32,10 +30,12 @@ import { AuthService } from '~/app/shared/services/auth.service';
 
   <div class="pt-1 row justify-content-center">
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort matSortActive="date"
+  matSortDirection="asc"
+   class="mat-elevation-z8">
 
     <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef> {{'reminderlist.date' | translate}} </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'reminderlist.date' | translate}} </th>
       <td mat-cell *matCellDef="let reminder"> {{reminder.startingTime | date: ' yyyy-MM-dd' }} </td>
     </ng-container>
 
@@ -50,7 +50,7 @@ import { AuthService } from '~/app/shared/services/auth.service';
     </ng-container>
 
     <ng-container matColumnDef="action">
-    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header>
+    <th mat-header-cell *matHeaderCellDef class="text-center">
       {{ 'userlist.action' | translate }}</th>
     <td mat-cell *matCellDef="let reminder">
 
@@ -100,14 +100,20 @@ export class ReminderDescriptionComponent implements OnInit, AfterViewInit {
 
   public ngOnInit() {
     this.reminderService.getRemindersByUserId(this.auth.tokenDetails.getValue().id);
-    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.reminderService.reminderSub
     .subscribe((reminders) => this.dataSource.data = reminders);
   }
 
   public ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'date': return new Date(item.startingTime);
+        default: return item[property];
+      }
+    };
   }
 
   public doFilter = (value: string) => {
