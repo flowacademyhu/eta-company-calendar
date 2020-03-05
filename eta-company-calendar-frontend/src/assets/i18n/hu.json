@@ -211,7 +211,7 @@
     "endSelectHeader": "Ismétlődés végének típusa",
     "endTypeOccurrences": "Alkalmak",
     "endTypeDate": "Dátum",
-    "endTypeNever": "Soha",
+    "endTypeNever": "Állandó",
     "occurrenceEndText": "Alkalom után ér véget ",
     "dateEndText": "Végdátum",
     "submitButtonText": "Rendben",
