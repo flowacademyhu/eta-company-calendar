@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material';
+import { MatSortModule } from '@angular/material';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -51,6 +52,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatRadioModule,
     MatPaginatorModule,
     MatAutocompleteModule,
+    MatSortModule,
   ],
   imports: [
     MatToolbarModule,
@@ -73,6 +75,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule,
     MatPaginatorModule,
     MatAutocompleteModule,
+    MatSortModule,
   ],
   providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS,
