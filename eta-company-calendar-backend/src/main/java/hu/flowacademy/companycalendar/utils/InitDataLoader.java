@@ -41,63 +41,66 @@ public class InitDataLoader {
     createReminder();
   }
     private void createUsers() {
+      List<String> userNames = List.of("Csiha Admin", "Kószó Tamás", "Fábián Ferenc", "Csányi László",
+          "Mező János", "Molnár Dóra", "Kocsis Tamás", "Szűcs Nóra", "Plesa Tamás", "Urbán József");
+      List<String> userEmails = List.of("calendarcsiha@gmail.com", "ccalendar30@gmail.com",
+          "teszt_e@yahoo.com", "laszlojunior40@gmail.com", "bmcalendar00@gmail.com",
+          "molnaardora@gmail.com","csihakft1@gmail.com", "nori.szucs92@gmail.com",
+          "sandornagyflow95@gmail.com", "jozsef.urbn.88@gmail.com");
+
         var testUsers = userRepository.saveAll(
             IntStream.range(0, 10).mapToObj( i -> User.builder()
-                .email("user" + i + "@test.com")
-                .name("user" + i)
+                .email(userEmails.get(i))
+                .name(userNames.get(i))
                 .password(passwordEncoder.encode("user123"))
                 .role(i == 0 ? Roles.ADMIN : Roles.USER).build()).collect(Collectors.toList())
         );
-        User calendarCsiha = User.builder()
-            .email("calendarcsiha@gmail.com")
-            .password("csiha")
-            .name("Béla")
-            .role(Roles.ADMIN)
-            .build();
-        userRepository.save(calendarCsiha);
-
-        User csalaoh = User.builder()
-            .email("csalaoh@gmail.com")
-            .password("csala")
-            .name("Sanyi")
-            .role(Roles.ADMIN)
-            .build();
-        userRepository.save(csalaoh);
 
         testUsers.forEach(user -> {
-            if (user.getId() == 2) {
+            if (user.getId() == 2 || user.getId() == 3) {
                 user.setRole(Roles.LEADER);
-            } else {
+            } else if (user.getId() % 2 == 0){
                 user.setLeader(testUsers.get(1));
+            } else {
+              user.setLeader(testUsers.get(2));
+            }
+            if(user.getRole() == Roles.ADMIN){
+              user.setLeader(null);
             }
         });
         userRepository.saveAll(testUsers);
     }
 
-    private void createMeetings() {
+    private void createMeetings() throws ParseException {
         var testUsers = userRepository.findAll();
-        meetingRepository.saveAll(
-            IntStream.range(0, 10).mapToObj(i -> Meeting.builder()
-                .title("test meeting " + i)
-                .description("description of test meeting " + i)
-                .location(Location.MEETING_ROOM)
+      System.out.println(testUsers.size());
+      List<String> meetingTitles = List.of("Vezetői tájékoztató", "Új projekt előkészítése", "Calendar projekt bemutató",
+          "Munkavédelmi előadás", "Tűzvédelmi tájékoztatás", "Céges születésnapi rendezvény előkészítése",
+          "Félév értékelése", "Új munkatársak bemutatása", "Cég bemutatása partnernek", "Projektfejlesztés brainstorming");
+
+      meetingRepository.saveAll(
+            IntStream.range(0, 8).mapToObj(i -> Meeting.builder()
+                .title(meetingTitles.get(i))
+                .description("description of meeting: " + meetingTitles.get(i))
+                .location(i % 2 == 0? Location.MEETING_ROOM : Location.MARKS_OFFICE)
                 .startingTime(System.currentTimeMillis() + 86400000 * i)
                 .finishTime(System.currentTimeMillis() + 86400000 * i + 3600000)
                 .createdAt(System.currentTimeMillis())
                 .createdBy(testUsers.get(i))
-                .requiredAttendants(testUsers.subList(i + 1, 10))
-                .optionalAttendants(List.of(testUsers.get(0)))
+                .requiredAttendants(testUsers.subList(i + 3, 10))
+                .optionalAttendants(i % 2 == 0? List.of(testUsers.get(1)) : List.of(testUsers.get(2)))
                 .build()).collect(Collectors.toList())
         );
-        var rrule = "DTSTART:20200201T010000Z\n"
-            + "RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,FR;UNTIL=20210131T000000Z";
+        var rrule = "DTSTART:20200101T010000Z\n"
+            + "RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO;UNTIL=20201231T000000Z";
+      DateFormat formatter = new SimpleDateFormat("HH:mm");
         meetingRepository.save(Meeting.builder()
-            .title("recurring meeting")
-            .description("a meeting every Monday and Friday")
+            .title("Weekly KickOff")
+            .description("heti megbeszélés")
             .location(Location.MARKS_OFFICE)
             .createdAt(System.currentTimeMillis())
             .createdBy(testUsers.get(0))
-            .requiredAttendants(List.of(testUsers.get(1)))
+            .requiredAttendants(testUsers)
             .rrule(RRule.builder()
                 .rrule(rrule)
                 .dtstart(1580518800000L)
@@ -109,36 +112,36 @@ public class InitDataLoader {
     public void createReminder() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         reminderRepository.save(Reminder.builder()
-            .title("Fist testReminder")
-            .description("Dont' forget!")
-            .startingTime(formatter.parse("2020-02-12 10:00").getTime())
+            .title("Calendar Projekt Demo")
+            .description("A Flow Academy ETA csapatának demója a Company Calendar-ról")
+            .startingTime(formatter.parse("2020-03-06 17:00").getTime())
             .createdAt(System.currentTimeMillis())
             .recurring(Recurring.DAILY)
-            .createdBy(userRepository.getOne(1L))
+            .createdBy(userRepository.getOne(2L))
             .build());
         reminderRepository.save(Reminder.builder()
-            .title("second testReminder")
-            .description("Bee happy!")
-            .startingTime(System.currentTimeMillis())
+            .title("Időpont egyeztetés")
+            .description("Megbeszélni egy időpontot a Flow-val !")
+            .startingTime(formatter.parse("2020-03-12 17:00").getTime())
             .createdAt(System.currentTimeMillis())
             .recurring(Recurring.DAILY)
-            .createdBy(userRepository.getOne(1L))
+            .createdBy(userRepository.getOne(2L))
             .build());
         reminderRepository.save(Reminder.builder()
-            .title("3nd testReminder")
-            .description("Meeting always")
-            .startingTime(formatter.parse("2020-01-12 12:00").getTime())
+            .title("Statisztika")
+            .description("A márciusi statisztika leadási határideje")
+            .startingTime(formatter.parse("2020-03-24 12:00").getTime())
             .createdAt(System.currentTimeMillis())
             .recurring(Recurring.DAILY)
-            .createdBy(userRepository.getOne(1L))
+            .createdBy(userRepository.getOne(2L))
             .build());
         reminderRepository.save(Reminder.builder()
-            .title("4nd testReminder")
-            .description("OMG")
+            .title("Eszközrendelés")
+            .description("Eszközigények alapján a szükséges eszközök megrendelése")
             .startingTime(formatter.parse("2020-03-12 10:00").getTime())
             .createdAt(System.currentTimeMillis())
             .recurring(Recurring.DAILY)
-            .createdBy(userRepository.getOne(1L))
+            .createdBy(userRepository.getOne(2L))
             .build());
     }
 }
