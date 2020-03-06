@@ -73,12 +73,13 @@ public class InitDataLoader {
 
     private void createMeetings() throws ParseException {
         var testUsers = userRepository.findAll();
+      System.out.println(testUsers.size());
       List<String> meetingTitles = List.of("Vezetői tájékoztató", "Új projekt előkészítése", "Calendar projekt bemutató",
           "Munkavédelmi előadás", "Tűzvédelmi tájékoztatás", "Céges születésnapi rendezvény előkészítése",
           "Félév értékelése", "Új munkatársak bemutatása", "Cég bemutatása partnernek", "Projektfejlesztés brainstorming");
 
       meetingRepository.saveAll(
-            IntStream.range(0, 10).mapToObj(i -> Meeting.builder()
+            IntStream.range(0, 8).mapToObj(i -> Meeting.builder()
                 .title(meetingTitles.get(i))
                 .description("description of meeting: " + meetingTitles.get(i))
                 .location(i % 2 == 0? Location.MEETING_ROOM : Location.MARKS_OFFICE)
@@ -86,8 +87,8 @@ public class InitDataLoader {
                 .finishTime(System.currentTimeMillis() + 86400000 * i + 3600000)
                 .createdAt(System.currentTimeMillis())
                 .createdBy(testUsers.get(i))
-                .requiredAttendants(testUsers.subList(i + 1, 10))
-                .optionalAttendants(List.of(testUsers.get(1)))
+                .requiredAttendants(testUsers.subList(i + 3, 10))
+                .optionalAttendants(i % 2 == 0? List.of(testUsers.get(1)) : List.of(testUsers.get(2)))
                 .build()).collect(Collectors.toList())
         );
         var rrule = "DTSTART:20200101T010000Z\n"
