@@ -167,7 +167,8 @@ export class AttendantsComponent implements OnInit {
   private _filterUser(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.selectableUserTexts.filter((userText) => {
-      return userText.indexOf(filterValue) >= 0;
+      return userText.toLowerCase()
+              .indexOf(filterValue) >= 0;
     });
   }
 
