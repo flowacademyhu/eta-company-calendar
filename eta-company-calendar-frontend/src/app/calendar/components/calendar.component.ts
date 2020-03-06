@@ -221,7 +221,7 @@ export class CalendarComponent implements AfterViewInit, OnDestroy {
     .subscribe((meeting) => {this.selectedMeeting = meeting;
                              this.dialog.open(MeetingDetailsModal, {
                              data: { meetingData: this.selectedMeeting, meetingId: id},
-                             width: '400px' } ); }
+                             width: '500px' } ); }
     );
   }
 
