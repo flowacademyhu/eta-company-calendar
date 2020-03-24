@@ -127,7 +127,7 @@ export class MyMeetingsDescriptionComponent implements OnInit, AfterViewInit  {
 
   public openDialog(meeting: MeetingDetail): void {
     this.dialog.open(MeetingDetailsModal, {
-      width: '400px',
+      width: '500px',
       data: { meetingData: meeting, meetingId: meeting.id }
     });
   }
